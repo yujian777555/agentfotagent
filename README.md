@@ -28,7 +28,10 @@
 ## 维护入口
 
 - [项目章程](docs/PROJECT_CHARTER.md)：研究目标、假设、边界与成功标准。
+- [P0-R1 证据对账](docs/RECONCILIATION.md)：当前远端、历史证据及相关代码仓库的只读审计。
+- [机制级文献矩阵](docs/LITERATURE_MATRIX.md)：MetaBox、LLM4EO、EoH、LLaMEA 与 Agent RSI 的重叠审查。
 - [研究决策记录](docs/RESEARCH_DECISIONS.md)：记录已做出的决定及其依据。
+- [H1/H2/H3 假设审计与参数调优方案](plans/phase0_hypothesis_audit.md)：可否证定义、基线、调参分层和阶段门。
 - [当前执行计划](planner/latest_plan.md)：下一阶段的具体任务与验收门。
 - [机器可读状态](status.json)：阶段、证据状态、约束与下一步。
 
