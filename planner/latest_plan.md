@@ -3,27 +3,11 @@
 - Date: 2026-10-23
 - Repository baseline: `main @ f7ff93d00c95a89e0232058c7cfd761b726fc75e`
 - Mode: planning / evidence audit
-- Status: IN_PROGRESS; no implementation or real API experiment authorized by this plan
-- Audit working checkpoint before this plan update: read-only baseline was `main @ e36c79edf31712ff68c7569354a682f5f7f56da8`.
+- Status: READY; no implementation or real API experiment authorized by this plan
 
 ## Goal
 
 把当前新建的 GitHub 远端与先前对话中报告的本地研究状态对账，并明确第一篇论文最关键的可否证假设。不得把历史描述直接当作当前远端代码或复现实验结果。
-
-## Audit progress (2026-10-23)
-
-Completed in the current planning-only pass:
-- Verified initial commit `f7ff93d00c95a89e0232058c7cfd761b726fc75e` and governance HEAD `e36c79edf31712ff68c7569354a682f5f7f56da8`.
-- Confirmed the current `agentfotagent` remote has no source tree, tests, Phase 0 simulator, or experiment outputs.
-- Reviewed related repositories read-only: EvoController (prior action-attribution negative evidence), EvoPareto-Agent (code substrate but latest report says real HTTP=0), and llm-agent-rsi-r12-audit (offline/synthetic only).
-- Added `docs/RECONCILIATION.md`, `docs/LITERATURE_MATRIX.md`, and `plans/phase0_hypothesis_audit.md`.
-- Identified LLM4EO, LAOS, LMCOEA, and AwesomeDE as direct prior art for LLM-based operator selection, online operator evolution, and MetaBBO-assisted update-rule generation. H1 alone is not a sufficient novelty claim. H2 cross-domain transfer remains the main discriminative hypothesis.
-- Inspected MetaBox-v2 official `v2.0.0` README/API docs read-only; not installed or executed.
-
-Still unresolved:
-- The reported local `d46a76d` Phase 0 source and 46/46 raw test output have not been located in the checked remote/Library sources. This is not a claim that they do not exist on the user's local disk.
-- Full method/code audits of LAOS, LMCOEA, AwesomeDE, ARTEMIS, EvoAgent, AIDE², MASS, GEPA, DGM, HGM, and Hyperagents remain pending; abstracts/selected method sections are not a completed novelty audit.
-- No MetaBox benchmark, simulator efficacy experiment, or real LLM API experiment has been run in this pass.
 
 ## Task 1 — Reconcile prior artifacts
 
@@ -77,21 +61,3 @@ Still unresolved:
 ## Exit gate
 
 只有当当前远端来源明确、Phase 0 可以复现、相关工作对照已完成、假设有可执行且可否证的实验协议后，才进入 MetaBox 算法发现的实现阶段。若 H2 的迁移假设在最小实验中不成立，应先调整研究问题，而不是自动增加双向闭环复杂度。
-
-
-## Follow-up full-text audit — 2026-10-23
-
-### Newly established evidence
-
-- Full paper reviewed: EoH, LLM4EO, AwesomeDE, ARTEMIS, EvoAgent, GEPA, DGM, HGM, Hyperagents, AIDE², MASS, Harmony Harness, RSI-Router and CoCoEvolve.
-- Official source code inspected: EoH and LLaMEA; LLaMEA supports algorithm-level generation/evolution, mutation/crossover prompts, adaptive mutation, feature guidance, parent-selection options, multi-objective Pareto archives, novelty/niching and optional HPO. LLaMEA-HPO separately offloads numeric parameter tuning to SMAC.
-- LAOS full text/code and the LMCOEA publisher PDF/official code remain blocked in this pass. The official GECCO abstract provides LAOS state/credit/replay details; ScienceDirect indexed excerpts expose LMCOEA's bi-level MetaBBO-EL, RTO²H and 18-problem setup, but neither is a complete paper/code audit.
-- The broad H1 and H3 narratives are directly covered by prior art. H2 remains the only current candidate, but its novelty risk is high because Harmony Harness and Hyperagents already report transferable mechanisms across benchmarks/domains.
-
-### Next actions
-
-1. Continue seeking author manuscripts or official implementations for LAOS and LMCOEA; do not invent details beyond the available abstract.
-2. Write an explicit mechanism-level contrast between the proposed transfer object and Harmony Harness, Hyperagents, LMCOEA/AwesomeDE, GEPA and CoCoEvolve.
-3. Decide whether the transferable object is a policy, executable control rules or a learned representation. Define a nontrivial state/action alignment method rather than a thin adapter.
-4. Verify the downstream Agent phenotype and evaluator, preferably using a real random-search arm and strong target-domain controller.
-5. If no mechanism-level difference survives this audit, revise the idea before coding. Do not proceed merely because the two-stage narrative sounds attractive.
