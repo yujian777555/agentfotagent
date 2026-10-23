@@ -8,19 +8,22 @@
     "remote_observation": "Initial commit; only README.md existed before project governance initialization"
   },
   "research_direction": "Agent-assisted evolutionary computation improvement, followed by cross-domain transfer of evolutionary control to Agent RSI; bidirectional feedback is conditional on transfer evidence",
-  "current_phase": "P0-R1: remote reconciliation and hypothesis audit",
-  "phase_status": "READY",
+  "current_phase": "P0-R1: remote reconciliation, mechanism-level literature audit, and H1/H2/H3 operationalization",
+  "phase_status": "IN_PROGRESS",
   "evidence_status": {
-    "remote_source_code": "NOT_PRESENT_AT_BASELINE",
-    "prior_local_phase0_report": "HISTORICAL_UNVERIFIED",
+    "remote_source_code": "NOT_PRESENT_IN_AGENTFOTAGENT_REMOTE",
+    "prior_local_phase0_report": "HISTORICAL_UNVERIFIED; exact source/artifact not found in checked remote or connected Library",
     "prior_reported_tests": "46/46 passed in prior conversation; NOT_REPRODUCED in this remote repository",
     "prior_reported_modules": "NSGA-III, PEEM, PPEC mentioned in prior context; NOT_VERIFIED in current remote",
-    "prior_reported_evolution_statistics": "155 rounds, 39 upgrades, 100 downgrades, 18 duplicate modifications; historical context only, definitions and artifacts not verified"
+    "prior_reported_evolution_statistics": "155 rounds, 39 upgrades, 100 downgrades, 18 duplicate modifications; historical context only, definitions and artifacts not verified",
+    "related_repositories": "READ_ONLY_REVIEWED: EvoController (negative action-attribution evidence), EvoPareto-Agent (real HTTP=0 in latest report), llm-agent-rsi-r12-audit (offline/synthetic only)",
+    "metabox_v2": "SOURCE_REVIEWED_AT_TAG_v2.0.0; NOT_INSTALLED_OR_EXECUTED",
+    "llm4eo": "FULL_TEXT_METHOD_PASS_REVIEWED; direct overlap with generic LLM-assisted online operator evolution"
   },
   "hypotheses": {
-    "H1_agent_assisted_ec_improvement": "PENDING_AUDIT",
-    "H2_cross_domain_transfer_to_agent_rsi": "PENDING_AUDIT",
-    "H3_agent_feedback_improves_evolution_control": "PENDING_AUDIT"
+    "H1_agent_assisted_ec_improvement": "PENDING_EXPERIMENT; generic LLM-assisted operator evolution has direct prior art",
+    "H2_cross_domain_transfer_to_agent_rsi": "PENDING_AUDIT; identified as the main discriminative hypothesis, not validated",
+    "H3_agent_feedback_improves_evolution_control": "CONDITIONAL_PENDING_H2"
   },
   "constraints": {
     "evolutionary_computation_is_method_core": true,
@@ -32,14 +35,18 @@
     "holdout_tasks_must_remain_independent": true
   },
   "next_actions": [
-    "Reconcile previously reported local Phase 0 artifacts with the current remote repository",
-    "Audit H1/H2/H3 with operational definitions and falsification criteria",
-    "Build a mechanism-level literature overlap matrix",
-    "Specify the smallest discriminative experiment before implementing new methods"
+    "Complete method-level review of LAOS and LMCOEA, including source code if available",
+    "Finish exact overlap audit for ARTEMIS, EvoAgent, AIDE2, MASS, GEPA, DGM, HGM, and Hyperagents",
+    "Freeze the shared abstract controller state/action interface and select a MetaBox-v2 base optimizer",
+    "Verify benchmark splits and metric contracts; do not tune on held-out tasks",
+    "Only after P0-R1 exit gate, request explicit authorization for a small MetaBox CPU feasibility run; real LLM API remains disabled"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
     "decision_log": "docs/RESEARCH_DECISIONS.md",
-    "latest_plan": "planner/latest_plan.md"
+    "latest_plan": "planner/latest_plan.md",
+    "reconciliation": "docs/RECONCILIATION.md",
+    "literature_matrix": "docs/LITERATURE_MATRIX.md",
+    "hypothesis_audit": "plans/phase0_hypothesis_audit.md"
   }
 }
