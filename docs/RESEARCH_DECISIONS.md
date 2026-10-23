@@ -74,3 +74,12 @@
 - 理由：这些项目的任务、评估对象和实验边界不同；EvoController 的 action-credit 负结果尤其不能直接否定 LLM 规则发现或跨域迁移。
 - 影响：任何复用都需记录来源 commit、接口改动、验证命令和新实验；没有真实 LLM 结果的 Agent-genome 代码不得被表述为真实 RSI 证据。
 - 证据：见 [P0-R1 证据对账](RECONCILIATION.md)。
+
+
+## D-011：MetaBox 上的 Agent 辅助演化计算必须先通过更强近邻方法审查
+
+- 日期：2026-10-23
+- 决定：将 LAOS、LMCOEA 和 AwesomeDE 作为 H1 的直接近邻工作，不再把“LLM/Agent 观察搜索状态并改进算子/更新规则”视为潜在独立创新。
+- 理由：LAOS 的摘要明确将优化状态放入 meta-prompt 来选择算子；LMCOEA 使用 LLM 元演化生成/更新受约束多目标 EA 的规则；AwesomeDE 也用 MetaBBO 元训练 LLM meta-optimizer 生成约束 EA 更新规则。
+- 影响：H1 仍需在 MetaBox 上通过强基线证明来源域控制有效，但论文的主要差异候选转向 H2：经明确适配器把同一高层控制策略迁移到 Agent RSI，并用随机/打乱迁移、目标域调优和固定控制器做对照。H2 的新颖性仍未确认。
+- 证据：见 [机制级文献矩阵](LITERATURE_MATRIX.md)；来源包括 [LAOS](https://doi.org/10.1145/3712256.3726450)、[LMCOEA](https://doi.org/10.1016/j.eswa.2026.131756) 和 [AwesomeDE](https://arxiv.org/abs/2509.13251)。
