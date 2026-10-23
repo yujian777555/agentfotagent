@@ -17,12 +17,12 @@ Completed in the current planning-only pass:
 - Confirmed the current `agentfotagent` remote has no source tree, tests, Phase 0 simulator, or experiment outputs.
 - Reviewed related repositories read-only: EvoController (prior action-attribution negative evidence), EvoPareto-Agent (code substrate but latest report says real HTTP=0), and llm-agent-rsi-r12-audit (offline/synthetic only).
 - Added `docs/RECONCILIATION.md`, `docs/LITERATURE_MATRIX.md`, and `plans/phase0_hypothesis_audit.md`.
-- Identified LLM4EO as direct prior art for generic online LLM operator evolution; H1 alone is not a sufficient novelty claim. H2 cross-domain transfer is the main discriminative hypothesis.
+- Identified LLM4EO, LAOS, LMCOEA, and AwesomeDE as direct prior art for LLM-based operator selection, online operator evolution, and MetaBBO-assisted update-rule generation. H1 alone is not a sufficient novelty claim. H2 cross-domain transfer remains the main discriminative hypothesis.
 - Inspected MetaBox-v2 official `v2.0.0` README/API docs read-only; not installed or executed.
 
 Still unresolved:
 - The reported local `d46a76d` Phase 0 source and 46/46 raw test output have not been located in the checked remote/Library sources. This is not a claim that they do not exist on the user's local disk.
-- Full method-level audits of LAOS, LMCOEA, ARTEMIS, EvoAgent, AIDE², MASS, GEPA, DGM, HGM, and Hyperagents remain pending.
+- Full method/code audits of LAOS, LMCOEA, AwesomeDE, ARTEMIS, EvoAgent, AIDE², MASS, GEPA, DGM, HGM, and Hyperagents remain pending; abstracts/selected method sections are not a completed novelty audit.
 - No MetaBox benchmark, simulator efficacy experiment, or real LLM API experiment has been run in this pass.
 
 ## Task 1 — Reconcile prior artifacts
