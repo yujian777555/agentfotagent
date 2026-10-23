@@ -73,3 +73,25 @@ A Library search surfaced a file named `PHASE0_PROTOCOL.md`, but its content ide
 ## 4. Reconciliation decision
 
 The current remote is a governance/planning repository, not a code-bearing experimental baseline. The next safe action is to complete the mechanism-level literature matrix and operationalize H1/H2/H3. Do not import the separate repos wholesale, do not claim the old 46/46 result as reproduced, and do not start real API experiments without explicit scope and budget approval.
+
+
+## 5. Additional repositories and chronology notes
+
+### NeuroEvoScientist
+
+- Remote: <https://github.com/yujian777555/NeuroEvoScientist>
+- Observed main HEAD: 4ea11810fc187e81a0d30c8576e706625c34db77
+- Its phase-21 final audit and claim audit report task- and backbone-dependent effects from evolving cognitive-architecture components, with holdout analysis on GSM8K, PubMedQA and QASPER.
+- Its claim audit explicitly marks “equal-budget evolutionary search beats random search” as unsupported/closed. It is a candidate downstream environment only after checking executable phenotype, evaluator and random-search baseline.
+
+### VETM
+
+- Remote: <https://github.com/yujian777555/VETM>
+- Observed main HEAD: 8c154ce5069c7de37b3ad4989459e21c0ace1079
+- Studies transfer and validity prediction of evolutionary experience across optimization problems. It is adjacent to transfer research, not direct evidence that a MetaBox-derived policy transfers to Agent RSI.
+
+### Clarification on EvoPareto-Agent evaluation chronology
+
+- The latest report on its Stage-3 workflow/failure-feedback line says that the specific run had real HTTP calls disabled and calibration not executed.
+- Separately, a Phase-5 R4-R2 report documents a two-episode native-environment pilot (one success, one episode ending at the 30-step limit). These are different experiments/lines and must not be conflated.
+- The two-episode pilot is feasibility evidence only; it does not establish that NSGA-III, PEEM or PPEC outperforms random search or strong Agent-evolution baselines.

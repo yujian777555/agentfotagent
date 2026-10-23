@@ -37,7 +37,11 @@ H1 cannot simply be “an Agent observes trajectories and improves evolutionary 
 | **Darwin Gödel Machine (DGM)** — [ICLR 2026 paper](https://openreview.net/forum?id=pUpzQZTvGY), [code](https://github.com/jennyzhang0215/dgm) | Iterative self-modification with empirical validation and a diverse archive of agents. | Strong RSI baseline; a final score increase does not alone prove that the *improver* has improved. | Separate task-Agent quality from improver/controller quality; test future descendants under equal budgets. |
 | **Huxley-Gödel Machine (HGM)** — [paper](https://openreview.net/forum?id=T0EiEuhOOL), [code](https://github.com/metauto-ai/HGM) | Uses clade meta-productivity / future-descendant value to guide self-modification search. | Direct competition for lineage-value or future-productivity claims. | Do not add lineage credit as a new contribution without an explicit estimator-level difference and matched future-descendant opportunities. |
 | **Hyperagents** — [paper](https://arxiv.org/abs/2603.19461), [code](https://github.com/facebookresearch/Hyperagents) | Task agent and editable meta-agent can co-evolve in one program. | Direct overlap with recursive modification of the improvement process. | A bidirectional loop alone is not novel; test whether the MetaBox-derived control knowledge adds independent value. |
-| **AIDE² / MASS and other 2025–2026 agent-optimization methods** | Exact mechanism-level comparison remains pending. | Potential direct overlap depending on whether they optimize agent structure, prompts, meta-optimizers, or experience. | Verify title, version, official code, evolved object, selection rule, evaluation protocol, and held-out transfer before final claims. |
+| **AIDE²** — [paper](https://arxiv.org/abs/2609.26457) | Outer-loop agent rewrites the research agent's code; candidates are retained only after a private/held-out grade improves, with evaluation on external held-out benchmarks. | Direct RSI and improver-quality overlap. | Separate improvement of the task agent from improvement of the improver; use held-out grading and reward-hacking checks. |
+| **MASS** — [paper](https://arxiv.org/abs/2610.12176), [code](https://github.com/SakanaAI/mass) | Evolves multi-agent workflows under structural guardrails and self-evaluation, alternating evolutionary workflow optimization with trajectory-based SFT. | High overlap with recursive workflow improvement. | Alternating self-improvement alone is not novel; compare the exact optimization object and training loop. |
+| **Harmony Harness** — [paper](https://arxiv.org/abs/2610.15150) | Decomposition-based multi-objective evolution of agent harnesses; factorizes general-purpose mechanisms and benchmark-specific adaptation, then composes them dynamically. Reports cross-benchmark transfer. | **Very high** overlap with transferable agent-evolution mechanisms. | Generic factorization and cross-benchmark transfer are already covered; our candidate must specifically transfer a controller learned on numerical MetaBox problems into a different Agent-genotype space. |
+| **RSI-Router** — [paper](https://arxiv.org/abs/2609.34712) | Recursively evolves subtask routing and model-specific skills, maintaining a performance-cost Pareto population and retaining dominated routers as negative experience. | **Very high** overlap with Agent RSI, history reuse and Pareto selection. | Do not claim recursive feedback, skill reuse, Pareto selection, or routing evolution as novel in isolation. |
+| **CoCoEvolve** — [paper](https://arxiv.org/abs/2610.12794) | Meta-reflective mutator queries the full evolution history, probes the live target system, and verifies candidate edits before accepting them. | High overlap with trajectory-based diagnosis and history-driven improvement. | History retrieval, probing and verification must be treated as existing components; a distinct transfer mechanism is required. |
 
 ## 3. Prior project artifacts (not current-project evidence)
 
@@ -58,10 +62,21 @@ A potentially discriminative design is a **domain-abstract control policy** with
 
 This is only a research candidate. “Explore/exploit” abstractions, adaptive operator selection, online LLM operator evolution, and recursive meta-agents already have prior art. The testable distinction is whether a policy discovered on MetaBox transfers to unseen Agent-RSI tasks better than (a) a fixed generic controller, (b) a statically tuned target-domain controller, and (c) shuffled/random transfer.
 
-## 5. Open audit queue
+## 5. Updated audit status and remaining queue
 
-1. Full mechanism audit of LAOS and LMCOEA, including source code if available.
-2. Exact comparison with LLM4EO's state features, stagnation trigger, operator fitness, and ablations.
-3. Verify MetaBox-v2 data splits and adapter contracts at tag `v2.0.0`; no benchmark has been run in this project yet.
-4. Complete mechanism-level audit of ARTEMIS, EvoAgent, AIDE², MASS, GEPA, DGM, HGM and Hyperagents.
-5. Only then finalize the smallest H1/H2/H3 discriminative experiment.
+The first full-text/primary-source pass is recorded in [FULLTEXT_AUDIT_2026-10-23.md](FULLTEXT_AUDIT_2026-10-23.md). Important statuses:
+
+1. **Full paper reviewed:** EoH, LLM4EO, AwesomeDE, ARTEMIS, EvoAgent, GEPA, DGM, HGM, Hyperagents, AIDE², MASS, Harmony Harness, RSI-Router and CoCoEvolve.
+2. **Official source code inspected:** EoH and LLaMEA. The LLaMEA PDF could not be retrieved by the current reader because the PDF exceeded its content limit; its official implementation and the LLaMEA-HPO full paper were inspected instead.
+3. **Publisher record/abstract only:** LAOS and the 2026 LMCOEA journal paper. The ACM/ScienceDirect full-text route returned access errors and no official code repository was found in this pass. Their detailed method claims remain partially unverified.
+4. **MetaBox-v2:** README/API and tag v2.0.0 reviewed, but not installed or run in this project. Pin the code version and do not mix baseline counts reported by the paper and current README.
+5. **Target-domain comparison:** H2 is still a candidate hypothesis, not a confirmed gap. Harmony Harness and Hyperagents already demonstrate transfer of general mechanisms/meta-level improvements across tasks/domains.
+
+## 6. Follow-up assessment after full-text review
+
+- The broad H1 claim “Agent/LLM diagnoses optimization traces and improves operators online” is **not a defensible novelty claim by itself**. LLM4EO explicitly analyzes state/operator fitness and triggers operator-level meta-evolution; LAOS uses state-aware LLM operator selection; EoH/LLaMEA/AwesomeDE cover LLM-assisted heuristic/algorithm generation; LMCOEA is a close journal-level neighbor.
+- The broad H3 claim “the agent and the improvement mechanism recursively improve each other” is **not novel by itself**. Hyperagents makes the meta-level modification procedure editable and reports cross-domain transfer; HGM studies descendant/clade productivity; CoCoEvolve and RSI-Router use historical evidence to drive subsequent evolution.
+- The remaining candidate is narrower: **a controller/policy discovered on numerical MetaBox optimization is transferred as the same learned object into a structurally different Agent-genotype search space**, with explicit mapping, target-specific adaptation controls, shuffled-transfer negative controls, and held-out task families.
+- Even this candidate has high novelty risk. Harmony Harness already factorizes general mechanisms from benchmark-specific adaptations and reports cross-benchmark transfer; Hyperagents transfers meta-level improvements across domains; LMCOEA/AwesomeDE cover MetaBBO-based cross-problem rule generation. An adapter alone is not a contribution.
+- Before implementation, specify what is transferred (policy parameters, executable rules, or learned representation), what remains invariant, how action semantics are aligned, and how the method differs from a target-domain controller trained directly on the Agent tasks.
+- If the mechanism-level difference cannot be made precise, revise or abandon the cross-domain-transfer claim instead of adding more modules.

@@ -9,7 +9,7 @@
   },
   "research_direction": "Agent-assisted evolutionary computation improvement, followed by cross-domain transfer of evolutionary control to Agent RSI; bidirectional feedback is conditional on transfer evidence",
   "current_phase": "P0-R1: remote reconciliation, mechanism-level literature audit, and H1/H2/H3 operationalization",
-  "phase_status": "IN_PROGRESS",
+  "phase_status": "FULLTEXT_AUDIT_PARTIAL",
   "evidence_status": {
     "remote_source_code": "NOT_PRESENT_IN_AGENTFOTAGENT_REMOTE",
     "prior_local_phase0_report": "HISTORICAL_UNVERIFIED; exact source/artifact not found in checked remote or connected Library",
@@ -18,15 +18,34 @@
     "prior_reported_evolution_statistics": "155 rounds, 39 upgrades, 100 downgrades, 18 duplicate modifications; historical context only, definitions and artifacts not verified",
     "related_repositories": "READ_ONLY_REVIEWED: EvoController (negative action-attribution evidence), EvoPareto-Agent (real HTTP=0 in latest report), llm-agent-rsi-r12-audit (offline/synthetic only)",
     "metabox_v2": "SOURCE_REVIEWED_AT_TAG_v2.0.0; NOT_INSTALLED_OR_EXECUTED",
-    "llm4eo": "FULL_TEXT_METHOD_PASS_REVIEWED; direct overlap with generic LLM-assisted online operator evolution",
-    "laos": "PUBLISHER_ABSTRACT_REVIEWED; direct overlap with LLM-driven state-conditioned operator selection; full mechanism audit pending",
-    "lmcoea": "PUBLISHER_RECORD_REVIEWED; direct overlap with LLM-assisted meta-evolution of constrained multi-objective EA; full mechanism/code audit pending",
-    "awesomede": "ARXIV_METHOD_SECTION_FOUND; MetaBBO-trained LLM meta-optimizer generates constrained-EA update rules; code audit pending"
+    "llm4eo": "FULL_TEXT_METHOD_REVIEWED; direct overlap with state-aware online operator meta-evolution",
+    "laos": "OFFICIAL_PUBLISHER_ABSTRACT_ONLY; full text and official code not found in this pass",
+    "lmcoea": "PUBLISHER_RECORD_AND_ABSTRACT_ONLY; full text and official code not accessible in this pass; close overlap with AwesomeDE method family",
+    "awesomede": "FULL_PAPER_METHOD_REVIEWED; MetaBBO meta-training of an LLM meta-optimizer to generate constrained-EA update rules; code audit pending",
+    "eoh": "FULL_PAPER_REVIEWED; thought-and-code coevolution for heuristic design; not a MetaBox-to-Agent transfer study",
+    "llamea": "OFFICIAL_CODE_REVIEWED; full paper PDF could not be fetched due content limit; LLaMEA-HPO full paper reviewed",
+    "llamea_hpo": "FULL_PAPER_REVIEWED; separates LLM structural algorithm design from SMAC numeric hyperparameter tuning",
+    "artemis": "FULL_PAPER_REVIEWED; semantic mutation/crossover over mixed-type Agent configuration",
+    "evoagent": "FULL_PAPER_REVIEWED; evolutionary generation of multi-agent systems from a seed Agent",
+    "gepa": "FULL_PAPER_REVIEWED; reflective prompt mutation, system-aware merge, Pareto-based candidate illumination",
+    "dgm": "FULL_PAPER_REVIEWED; archive-based open-ended self-modification of coding agents",
+    "hgm": "FULL_PAPER_REVIEWED; clade meta-productivity and Thompson-sampling parent selection",
+    "hyperagents": "FULL_PAPER_REVIEWED; editable meta-level improvement procedure and cross-domain transfer; very close conceptual overlap with generic H3",
+    "aide2": "FULL_PAPER_REVIEWED; self-modifying research agent with hidden-grade acceptance and held-out benchmark evaluation",
+    "mass": "FULL_PAPER_REVIEWED; evolutionary multi-agent workflow optimization alternating with SFT",
+    "harmony_harness": "FULL_PAPER_REVIEWED; decomposition-based multiobjective harness evolution, factorized general/task-specific mechanisms, cross-benchmark transfer",
+    "rsi_router": "FULL_PAPER_REVIEWED; recursive subtask routing/skill evolution with Pareto selection and historical feedback",
+    "coco_evolve": "FULL_PAPER_REVIEWED; history retrieval, live environment probing and verified agentic mutation",
+    "metaBox_v2": "OFFICIAL_README_AND_API_REVIEWED_AT_TAG_v2.0.0; NOT_INSTALLED_OR_EXECUTED",
+    "downstream_target": "NeuroEvoScientist and EvoPareto-Agent are candidates only; phenotype/evaluator audit and true random-search comparison pending"
   },
   "hypotheses": {
     "H1_agent_assisted_ec_improvement": "PENDING_EXPERIMENT; generic formulation strongly overlaps with LLM4EO, LAOS, LMCOEA, and AwesomeDE",
     "H2_cross_domain_transfer_to_agent_rsi": "PENDING_AUDIT; main discriminative hypothesis, novelty not established",
-    "H3_agent_feedback_improves_evolution_control": "CONDITIONAL_PENDING_H2"
+    "H3_agent_feedback_improves_evolution_control": "CONDITIONAL_PENDING_H2",
+    "H1": "SOURCE_DOMAIN_VALIDATION_GATE; GENERIC_NOVELTY_CLAIM_NOT_DEFENSIBLE",
+    "H2": "MAIN_CANDIDATE_HYPOTHESIS; HIGH_NOVELTY_RISK; TRANSFER_OBJECT_AND_MECHANISM_NOT_YET_DEFINED",
+    "H3": "CONDITIONAL_ON_H2; GENERIC_BIDIRECTIONAL_LOOP_NOT_NOVEL_BY_ITSELF"
   },
   "constraints": {
     "evolutionary_computation_is_method_core": true,
@@ -38,12 +57,11 @@
     "holdout_tasks_must_remain_independent": true
   },
   "next_actions": [
-    "Audit LAOS full paper/code for state, reward, action and online update mechanics",
-    "Audit LMCOEA and AwesomeDE full methods/code; distinguish overlapping versions and transfer claims",
-    "Complete exact mechanism comparison of ARTEMIS, EvoAgent, AIDE2, MASS, GEPA, DGM, HGM and Hyperagents",
-    "Freeze one MetaBox-v2 base optimizer, shared state descriptors, abstract action vocabulary and adapters",
-    "Define the smallest held-out MetaBox-to-Agent RSI experiment and all static/adaptive baselines",
-    "Keep real LLM API disabled until explicit scope and budget approval"
+    "Seek an author manuscript or official implementation for LAOS and LMCOEA; otherwise document access limitations",
+    "Specify a nontrivial transfer object and state/action alignment method that differs from Harmony Harness and Hyperagents",
+    "Audit executable Agent phenotype, evaluator and random-search arm in candidate downstream environments",
+    "Freeze matched source/target baselines and negative-transfer controls before implementation",
+    "Reconsider or narrow H2 if the mechanism-level novelty gap cannot be defended"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -51,6 +69,7 @@
     "latest_plan": "planner/latest_plan.md",
     "reconciliation": "docs/RECONCILIATION.md",
     "literature_matrix": "docs/LITERATURE_MATRIX.md",
-    "hypothesis_audit": "plans/phase0_hypothesis_audit.md"
+    "hypothesis_audit": "plans/phase0_hypothesis_audit.md",
+    "fulltext_audit": "docs/FULLTEXT_AUDIT_2026-10-23.md"
   }
 }

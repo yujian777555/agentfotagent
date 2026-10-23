@@ -168,3 +168,12 @@ Proceed to a small MetaBox CPU feasibility run only when:
 6. the user explicitly approves the execution scope and any model/API budget before any real LLM call.
 
 No new algorithm is approved by this plan.
+
+
+## 8. Literature-based narrowing after full-text review
+
+- H1 remains a necessary source-domain validation gate, but “LLM/Agent diagnoses optimization traces and changes operators” is not the paper's novelty claim because LLM4EO, LAOS, EoH, LLaMEA, AwesomeDE and LMCOEA are direct or close prior art.
+- H3 remains conditional and cannot claim novelty from recursive/bidirectional self-improvement alone because Hyperagents, HGM, CoCoEvolve and RSI-Router cover closely related meta-level or history-driven improvement mechanisms.
+- H2 is the current discriminative hypothesis, but cross-benchmark/domain transfer is also established in Harmony Harness and Hyperagents, while MetaBBO methods cover cross-problem rule generation.
+- Before H2 can be accepted, the method must define a specific transfer object and a nontrivial mapping between numerical optimizer state/actions and Agent-genotype evolution. An adapter or renaming of explore/exploit actions is insufficient.
+- Required negative controls: fixed generic controller, target-domain controller trained only on development tasks, random/shuffled source-to-target action mapping, ordinary target-domain EA, and random search.

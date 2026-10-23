@@ -77,3 +77,21 @@ Still unresolved:
 ## Exit gate
 
 只有当当前远端来源明确、Phase 0 可以复现、相关工作对照已完成、假设有可执行且可否证的实验协议后，才进入 MetaBox 算法发现的实现阶段。若 H2 的迁移假设在最小实验中不成立，应先调整研究问题，而不是自动增加双向闭环复杂度。
+
+
+## Follow-up full-text audit — 2026-10-23
+
+### Newly established evidence
+
+- Full paper reviewed: EoH, LLM4EO, AwesomeDE, ARTEMIS, EvoAgent, GEPA, DGM, HGM, Hyperagents, AIDE², MASS, Harmony Harness, RSI-Router and CoCoEvolve.
+- Official source code inspected: EoH and LLaMEA; LLaMEA supports algorithm-level generation/evolution, mutation/crossover prompts, adaptive mutation, feature guidance, parent-selection options, multi-objective Pareto archives, novelty/niching and optional HPO. LLaMEA-HPO separately offloads numeric parameter tuning to SMAC.
+- LAOS full text/code and LMCOEA full text/code remain blocked in this pass; the publisher abstract/record is not sufficient for final novelty claims.
+- The broad H1 and H3 narratives are directly covered by prior art. H2 remains the only current candidate, but its novelty risk is high because Harmony Harness and Hyperagents already report transferable mechanisms across benchmarks/domains.
+
+### Next actions
+
+1. Continue seeking author manuscripts or official implementations for LAOS and LMCOEA; do not invent details beyond the available abstract.
+2. Write an explicit mechanism-level contrast between the proposed transfer object and Harmony Harness, Hyperagents, LMCOEA/AwesomeDE, GEPA and CoCoEvolve.
+3. Decide whether the transferable object is a policy, executable control rules or a learned representation. Define a nontrivial state/action alignment method rather than a thin adapter.
+4. Verify the downstream Agent phenotype and evaluator, preferably using a real random-search arm and strong target-domain controller.
+5. If no mechanism-level difference survives this audit, revise the idea before coding. Do not proceed merely because the two-stage narrative sounds attractive.
