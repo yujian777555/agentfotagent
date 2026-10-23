@@ -85,7 +85,7 @@ Still unresolved:
 
 - Full paper reviewed: EoH, LLM4EO, AwesomeDE, ARTEMIS, EvoAgent, GEPA, DGM, HGM, Hyperagents, AIDE², MASS, Harmony Harness, RSI-Router and CoCoEvolve.
 - Official source code inspected: EoH and LLaMEA; LLaMEA supports algorithm-level generation/evolution, mutation/crossover prompts, adaptive mutation, feature guidance, parent-selection options, multi-objective Pareto archives, novelty/niching and optional HPO. LLaMEA-HPO separately offloads numeric parameter tuning to SMAC.
-- LAOS full text/code and LMCOEA full text/code remain blocked in this pass; the publisher abstract/record is not sufficient for final novelty claims.
+- LAOS full text/code and the LMCOEA publisher PDF/official code remain blocked in this pass. The official GECCO abstract provides LAOS state/credit/replay details; ScienceDirect indexed excerpts expose LMCOEA's bi-level MetaBBO-EL, RTO²H and 18-problem setup, but neither is a complete paper/code audit.
 - The broad H1 and H3 narratives are directly covered by prior art. H2 remains the only current candidate, but its novelty risk is high because Harmony Harness and Hyperagents already report transferable mechanisms across benchmarks/domains.
 
 ### Next actions

@@ -26,15 +26,15 @@ LLM4EO initializes operators using prior knowledge, reads evolutionary-state fea
 
 ### LAOS — Large Language Model-Driven Adaptive Operator Selection
 
-Source: [ACM proceedings record](https://doi.org/10.1145/3712256.3726450).
+Sources: [official GECCO program abstract](https://gecco-2025.sigevo.org/display1863), [ACM DOI](https://doi.org/10.1145/3712256.3726450).
 
-The official publisher record/abstract describes state information in an LLM meta-prompt for operator selection and an adaptive operator-selection framework. Search results also describe optimization progress, best fitness, diversity and operator-credit information, together with offline/online replay. However, the full ACM paper was not accessible through the available route and no official code repository was found in this pass. Exact reward definition, replay update, invocation timing and ablation evidence remain **unverified**. Do not infer details from the abstract.
+The official conference abstract states that the LLM meta-prompt receives optimization progress, best fitness, population diversity and operator-credit assignment; it also describes a dual-layer replay buffer, with offline experience from fixed operator strategies and online experience accumulated during execution. The full ACM paper was not accessible through the available route and no official code repository was found in this pass. Exact credit formula, replay sampling, update timing and ablation evidence remain **unverified**. Do not infer details beyond the official abstract.
 
 ### AwesomeDE and LMCOEA
 
-Sources: [AwesomeDE full paper](https://arxiv.org/abs/2509.13251), [LMCOEA publisher record](https://doi.org/10.1016/j.eswa.2026.131756).
+Sources: [AwesomeDE full paper](https://arxiv.org/abs/2509.13251), [LMCOEA publisher record and indexed method excerpts](https://www.sciencedirect.com/science/article/pii/S095741742600669X), [LMCOEA DOI](https://doi.org/10.1016/j.eswa.2026.131756).
 
-The AwesomeDE paper uses MetaBBO meta-training to construct an LLM meta-optimizer that generates update rules for constrained evolutionary algorithms across constrained optimization problem families. This is direct overlap with using an LLM/Agent to design/update an EA controller on a meta-optimization substrate. The 2026 LMCOEA journal record describes a closely related method family, but its full text and official code were not accessible in this pass; whether it is an extension/version of AwesomeDE or a distinct method needs a direct version-level comparison.
+The AwesomeDE paper uses MetaBBO meta-training to construct an LLM meta-optimizer that generates update rules for constrained evolutionary algorithms across constrained optimization problem families. The 2026 LMCOEA article describes a bi-level MetaBBO-EL process: an LLM serves as the meta-optimizer's evolutionary strategy to generate/update constrained-EA rules, which are evaluated by base evolution; it also introduces RTO²H prompt engineering and reports evaluation over 18 scalable constrained problems. This is a close method-family collision. The full LMCOEA PDF and official code were not accessible in this pass, so exact equivalence or version lineage is not established.
 
 ### MetaBox-v2
 
