@@ -57,3 +57,20 @@
 - 决定：先核对 Phase 0 基线/模拟器、H1/H2/H3 假设和正式多种子实验协议；在审计完成前不新增 NSGA-III 实现，也不启动真实 API 实验。
 - 理由：先判断核心机制是否值得继续，避免用更多代码掩盖尚未验证的研究假设。
 - 影响：下一阶段优先级见 [latest_plan.md](../planner/latest_plan.md)。
+
+
+## D-009：H1 单独不构成新颖性主张；H2 是关键可否证门
+
+- 日期：2026-10-23
+- 决定：不把“Agent/LLM 根据演化轨迹诊断并在线改进演化算子”作为独立的新颖性主张。LLM4EO 已明确包含演化状态感知、停滞触发、算子分析与在线算子元演化；EoH、LLaMEA、LAOS、LMCOEA 也构成直接或相邻先例。
+- 理由：泛化的“LLM 赋能演化计算”已经有直接相关工作，简单换基准或改写模块不足以支撑论文创新。
+- 影响：H1 作为 Stage-A 来源域验证门；项目核心应检验从 MetaBox 数值优化发现的抽象控制策略是否能迁移到独立 Agent-RSI 任务。H3 只有 H2 通过后才启动。
+- 证据：见 [机制级文献矩阵](LITERATURE_MATRIX.md) 与 [H1/H2/H3 审计方案](../plans/phase0_hypothesis_audit.md)。
+
+## D-010：历史项目只作只读证据，不自动合并
+
+- 日期：2026-10-23
+- 决定：EvoController、EvoPareto-Agent、llm-agent-rsi-r12-audit 等仓库作为独立先前项目进行只读审查；不将其代码、测试结果或结论自动视为 agentfotagent 的实现或验证。
+- 理由：这些项目的任务、评估对象和实验边界不同；EvoController 的 action-credit 负结果尤其不能直接否定 LLM 规则发现或跨域迁移。
+- 影响：任何复用都需记录来源 commit、接口改动、验证命令和新实验；没有真实 LLM 结果的 Agent-genome 代码不得被表述为真实 RSI 证据。
+- 证据：见 [P0-R1 证据对账](RECONCILIATION.md)。
