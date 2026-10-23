@@ -3,11 +3,27 @@
 - Date: 2026-10-23
 - Repository baseline: `main @ f7ff93d00c95a89e0232058c7cfd761b726fc75e`
 - Mode: planning / evidence audit
-- Status: READY; no implementation or real API experiment authorized by this plan
+- Status: IN_PROGRESS; no implementation or real API experiment authorized by this plan
+- Audit working checkpoint before this plan update: read-only baseline was `main @ e36c79edf31712ff68c7569354a682f5f7f56da8`.
 
 ## Goal
 
 把当前新建的 GitHub 远端与先前对话中报告的本地研究状态对账，并明确第一篇论文最关键的可否证假设。不得把历史描述直接当作当前远端代码或复现实验结果。
+
+## Audit progress (2026-10-23)
+
+Completed in the current planning-only pass:
+- Verified initial commit `f7ff93d00c95a89e0232058c7cfd761b726fc75e` and governance HEAD `e36c79edf31712ff68c7569354a682f5f7f56da8`.
+- Confirmed the current `agentfotagent` remote has no source tree, tests, Phase 0 simulator, or experiment outputs.
+- Reviewed related repositories read-only: EvoController (prior action-attribution negative evidence), EvoPareto-Agent (code substrate but latest report says real HTTP=0), and llm-agent-rsi-r12-audit (offline/synthetic only).
+- Added `docs/RECONCILIATION.md`, `docs/LITERATURE_MATRIX.md`, and `plans/phase0_hypothesis_audit.md`.
+- Identified LLM4EO as direct prior art for generic online LLM operator evolution; H1 alone is not a sufficient novelty claim. H2 cross-domain transfer is the main discriminative hypothesis.
+- Inspected MetaBox-v2 official `v2.0.0` README/API docs read-only; not installed or executed.
+
+Still unresolved:
+- The reported local `d46a76d` Phase 0 source and 46/46 raw test output have not been located in the checked remote/Library sources. This is not a claim that they do not exist on the user's local disk.
+- Full method-level audits of LAOS, LMCOEA, ARTEMIS, EvoAgent, AIDE², MASS, GEPA, DGM, HGM, and Hyperagents remain pending.
+- No MetaBox benchmark, simulator efficacy experiment, or real LLM API experiment has been run in this pass.
 
 ## Task 1 — Reconcile prior artifacts
 
