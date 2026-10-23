@@ -1,59 +1,31 @@
 # Research Decision Log
 
-本文件只记录影响项目方向、实验解释或范围边界的决定。新证据出现时可以修订，但必须保留原决定及修订理由。
+## D-001 — Evolutionary computation is the method core
+2026-10-23. Agent is the discovery/diagnostic system and the downstream evolution target; EC must be methodologically central.
 
-## D-001：演化计算是方法核心
+## D-002 — Validate transfer before a full bidirectional loop
+2026-10-23. H2 is the key discriminative gate; H3 is conditional on H2 and is not justified by architectural elegance.
 
-- 日期：2026-10-23
-- 决定：研究必须以演化计算机制为核心；Agent 是算法发现/诊断者，也是后续演化的对象。
-- 理由：符合项目的研究定位与导师方向约束。
-- 影响：不能把 EC 简化为不加分析的通用候选筛选器。
+## D-003 — MetaBox is infrastructure, not a contribution
+2026-10-23. Standardized evaluation is necessary, but using MetaBox does not itself create novelty.
 
-## D-002：采用两阶段研究顺序
+## D-004 — Finite-budget allocation is not a core innovation
+2026-10-23. Evaluation budgets are controlled for fairness; budget allocation is not the thesis centerpiece.
 
-- 日期：2026-10-23
-- 决定：先研究 Agent 如何改进演化计算，再研究改进后的演化控制能否迁移到 Agent RSI。
-- 理由：分别验证方法来源和目标场景，避免一开始就把复杂闭环作为不可拆解的整体。
-- 影响：跨域迁移是核心验证门；双向反馈为条件性扩展。
+## D-005 — Live LLM API experiments need separate scope/budget approval
+2026-10-23. No real API call until the experimental scope and call/token/cost caps are explicitly approved.
 
-## D-003：MetaBox 是实验基础设施，不是创新点
+## D-006 — Remote state is the evidence baseline
+2026-10-23. Prior conversation claims about local code, test counts and evolutionary statistics remain historical/unverified until artifacts are imported and checked.
 
-- 日期：2026-10-23
-- 决定：MetaBox-v2 用于标准优化基准、算法接入和可比评估；Agent RSI 仍需独立的任务环境与适配器。
-- 理由：基准平台本身不能代替算法贡献。
-- 影响：必须明确 MetaBox 任务与 Agent 任务之间的控制策略接口。
+## D-007 — Generic H1 is not a novelty claim
+2026-10-23. LLM4EO explicitly combines evolutionary-state perception with operator-level meta-evolution; LAOS describes LLM-driven adaptive operator selection; EoH/LLaMEA/AwesomeDE/LMCOEA cover LLM-assisted heuristic or EA rule design. H1 can be a prerequisite validation stage, not the central novelty claim.
 
-## D-004：跨域迁移优先于完整闭环
+## D-008 — Generic H3 is not a novelty claim
+2026-10-23. Hyperagents modifies the meta-level improvement procedure and reports cross-domain transfer; HGM, CoCoEvolve and RSI-Router cover related lineage, history-driven or recursive improvement mechanisms. A bidirectional loop alone is not novel.
 
-- 日期：2026-10-23
-- 决定：先验证高层、状态依赖演化控制策略能否从数值优化迁移到 Agent RSI；迁移证据不足时，不实现完整反馈闭环。
-- 理由：两类搜索空间存在明显差异，迁移是关键且可否证的研究假设。
-- 影响：需要独立留出任务、无迁移基线、消融和泛化分析。
+## D-009 — H2 remains a high-risk candidate, not a confirmed gap
+2026-10-23. The remaining candidate is transfer of the same explicit controller object from numerical MetaBox tasks into a structurally different Agent-genotype search space, with nontrivial state/action alignment and stringent negative controls. Harmony Harness already covers factorized general/task-specific harness mechanisms and cross-benchmark transfer, so an adapter or generic transfer story is insufficient.
 
-## D-005：有限预算分配不作为核心创新
-
-- 日期：2026-10-23
-- 决定：不把“预算有限时如何分配候选评估”作为本项目主创新点。
-- 理由：用户明确认为单独研究有限预算的必要性不足。
-- 影响：预算控制仅作为实验公平性和运行约束，不主导论文叙事。
-
-## D-006：真实 LLM API 实验需单独授权
-
-- 日期：2026-10-23
-- 决定：在明确实验范围、费用/Token 上限和单独授权之前，不发起真实 LLM API 调用。
-- 理由：先完成研究假设、基线和实验协议审计，避免过早消耗费用或污染实验。
-- 影响：当前优先使用代码审计、可复现实验设计和必要的本地模拟验证。
-
-## D-007：远端仓库是当前事实基线
-
-- 日期：2026-10-23
-- 决定：当前 GitHub 远端只有初始提交和简短 README。过往对话中提到的本地实现、测试、NSGA-III、PEEM、PPEC 及历史进化统计，在重新导入并复核前均标记为“历史上下文/未在本远端复核”。
-- 理由：避免将不同本地目录、历史版本或探索记录误当成当前仓库中的可复现证据。
-- 影响：第一步是对账和恢复证据，而不是假定代码已经存在。
-
-## D-008：先审计已有假设，再扩展算法
-
-- 日期：2026-10-23
-- 决定：先核对 Phase 0 基线/模拟器、H1/H2/H3 假设和正式多种子实验协议；在审计完成前不新增 NSGA-III 实现，也不启动真实 API 实验。
-- 理由：先判断核心机制是否值得继续，避免用更多代码掩盖尚未验证的研究假设。
-- 影响：下一阶段优先级见 [latest_plan.md](../planner/latest_plan.md)。
+## D-010 — Literature coverage is partial
+2026-10-23. LAOS full text/code and LMCOEA full text/code were not obtained in this pass. The project must not claim exhaustive novelty review.

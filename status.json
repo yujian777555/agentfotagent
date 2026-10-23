@@ -3,42 +3,50 @@
   "repository": "https://github.com/yujian777555/agentfotagent",
   "default_branch": "main",
   "last_updated": "2026-10-23",
-  "baseline": {
-    "commit": "f7ff93d00c95a89e0232058c7cfd761b726fc75e",
-    "remote_observation": "Initial commit; only README.md existed before project governance initialization"
-  },
-  "research_direction": "Agent-assisted evolutionary computation improvement, followed by cross-domain transfer of evolutionary control to Agent RSI; bidirectional feedback is conditional on transfer evidence",
-  "current_phase": "P0-R1: remote reconciliation and hypothesis audit",
-  "phase_status": "READY",
+  "baseline_commit": "c1d7400c30f432c4e3abc5df0d7a99cfd7979774",
+  "current_phase": "P0-R2: novelty collision and transfer-object audit",
+  "phase_status": "LITERATURE_AUDIT_PARTIAL",
+  "research_direction": "Evolutionary computation as core; evaluate a specific cross-representation transfer hypothesis from numerical optimization to Agent RSI",
   "evidence_status": {
-    "remote_source_code": "NOT_PRESENT_AT_BASELINE",
-    "prior_local_phase0_report": "HISTORICAL_UNVERIFIED",
-    "prior_reported_tests": "46/46 passed in prior conversation; NOT_REPRODUCED in this remote repository",
-    "prior_reported_modules": "NSGA-III, PEEM, PPEC mentioned in prior context; NOT_VERIFIED in current remote",
-    "prior_reported_evolution_statistics": "155 rounds, 39 upgrades, 100 downgrades, 18 duplicate modifications; historical context only, definitions and artifacts not verified"
+    "implementation": "NOT_IMPLEMENTED",
+    "live_llm_api_experiments": "NOT_RUN",
+    "EoH": "PAPER_AND_OFFICIAL_CODE_REVIEWED; NOT_REPRODUCED",
+    "LLaMEA": "OFFICIAL_CODE_REVIEWED; FULL_PAPER_READER_LIMIT",
+    "LLM4EO": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_GENERIC_H1",
+    "LAOS": "PUBLISHER_RECORD_AND_ABSTRACT_ONLY; FULL_TEXT_CODE_PENDING",
+    "AwesomeDE": "PAPER_REVIEWED; META-BBO_LLM_UPDATE_RULE_OVERLAP",
+    "LMCOEA": "PUBLISHER_RECORD_AND_ABSTRACT_ONLY; FULL_TEXT_CODE_PENDING",
+    "Hyperagents": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_GENERIC_H3_AND_CROSS_DOMAIN_META-TRANSFER",
+    "HarmonyHarness": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_FACTORISED_CROSS-BENCHMARK_TRANSFER",
+    "downstream_agent_environment": "NOT_LOCKED; PHENOTYPE_EVALUATOR_AND_RANDOM_BASELINE_AUDIT_PENDING",
+    "predecessor_results": "UPSTREAM_REPORTED_ONLY; NOT_REPRODUCED_IN_THIS_REPOSITORY"
   },
   "hypotheses": {
-    "H1_agent_assisted_ec_improvement": "PENDING_AUDIT",
-    "H2_cross_domain_transfer_to_agent_rsi": "PENDING_AUDIT",
-    "H3_agent_feedback_improves_evolution_control": "PENDING_AUDIT"
+    "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
+    "H2": "HIGH_RISK_CANDIDATE; SAME_CONTROLLER_OBJECT_CROSSING_NUMERICAL_TO_AGENT_GENOTYPE_SPACE; MECHANISM_UNDEFINED",
+    "H3": "GENERIC_BIDIRECTIONAL_LOOP_NOT_NOVEL; CONDITIONAL_ON_H2"
   },
   "constraints": {
     "evolutionary_computation_is_method_core": true,
-    "metabox_is_infrastructure_not_a_contribution": true,
-    "finite_budget_allocation_is_not_a_core_innovation": true,
-    "do_not_implement_new_nsga3_before_phase0_and_hypothesis_audit": true,
-    "real_llm_api_calls": "DISABLED_UNTIL_EXPLICIT_SCOPE_AND_BUDGET_APPROVAL",
-    "unverified_historical_results_must_not_be_claimed_as_reproduced": true,
-    "holdout_tasks_must_remain_independent": true
+    "metabox_is_infrastructure_not_contribution": true,
+    "finite_budget_allocation_is_not_core_innovation": true,
+    "no_new_nsga3_before_novelty_and_phenotype_gates": true,
+    "live_llm_api_calls": "DISABLED_UNTIL_EXPLICIT_SCOPE_AND_BUDGET_APPROVAL",
+    "preserve_independent_holdout_tasks": true,
+    "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Reconcile previously reported local Phase 0 artifacts with the current remote repository",
-    "Audit H1/H2/H3 with operational definitions and falsification criteria",
-    "Build a mechanism-level literature overlap matrix",
-    "Specify the smallest discriminative experiment before implementing new methods"
+    "Obtain full text/official artifacts for LAOS and LMCOEA or document access limits",
+    "Choose and formally define the transfer object: executable rules, policy parameters, or learned representation",
+    "Audit executable Agent genotype and official evaluator in candidate downstream environments",
+    "Define target-only adaptation and shuffled-mapping negative controls",
+    "Revise or abandon H2 if no nontrivial mechanism-level distinction survives"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
+    "fulltext_audit": "docs/FULLTEXT_AUDIT_2026-10-23.md",
+    "literature_matrix": "docs/LITERATURE_MATRIX.md",
+    "reconciliation": "docs/RECONCILIATION.md",
     "decision_log": "docs/RESEARCH_DECISIONS.md",
     "latest_plan": "planner/latest_plan.md"
   }
