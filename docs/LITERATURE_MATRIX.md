@@ -1,0 +1,61 @@
+# Mechanism-Level Literature Matrix — Agent-for-Agent
+
+**Updated:** 2026-10-23  
+**Status:** First mechanism-level pass; not a completed systematic review.  
+**Core research framing:** An Agent proposes/validates an evolutionary control policy on MetaBox-v2; only if that policy shows held-out gains is its abstract control knowledge transferred to Agent RSI. Bidirectional feedback is conditional on H2.
+
+## 1. Closest work on improving evolutionary computation
+
+| Work | Object / mechanism | Evidence / setting | Overlap with H1 | Difference that remains testable |
+|---|---|---|---|---|
+| **MetaBox-v2** (NeurIPS 2025 poster; official tag `v2.0.0`) — [paper](https://arxiv.org/abs/2505.17745), [code](https://github.com/MetaEvo/MetaBox/tree/v2.0.0) | Unified benchmark/framework for MetaBBO; supports RL, supervised, neuroevolutionary and in-context-learning approaches; multiple single-/multi-objective, multimodal and multitask problem families. Current README lists 18 problem sets, 1900+ instances, and 36 baseline methods. | Source README and API/docs inspected; no installation or benchmark execution in this audit. | Infrastructure and strong baseline substrate, not a contribution. Built-in OPRO is an LLM-as-optimizer baseline, not itself evidence of a transferable evolutionary controller. | Evaluate a precise controller on held-out problem families/dimensions and then test transfer to a different target domain. |
+| **EoH: Evolution of Heuristics** (ICML 2024 oral) — [paper](https://arxiv.org/abs/2401.02051), [code](https://github.com/FeiLiu36/EOH) | Evolves natural-language “thoughts” and executable heuristic code for automatic heuristic design. | Published heuristic-design tasks; not a MetaBox-to-Agent-RSI transfer experiment. | High overlap with Agent-assisted generation/improvement of optimization heuristics. | Transfer of a state-conditioned control policy to Agent RSI is not established by EoH alone. |
+| **LLaMEA** — [paper](https://arxiv.org/abs/2405.20132), [code](https://github.com/XAI-liacs/LLaMEA) | LLM generates, mutates and selects executable optimization algorithms by measured fitness. | BBOB algorithm design and generalization to dimensions not used during generation. | High overlap with automatic EC/algorithm design and execution-based selection. | Must distinguish an evolved algorithm from an abstract control policy that is evaluated on one domain and then mapped to another. |
+| **LLaMEA-HPO** — [ACM record](https://doi.org/10.1145/3731567), [arXiv](https://arxiv.org/abs/2410.16309) | Separates LLM-driven structural algorithm evolution from SMAC-based numeric HPO of each generated heuristic. | Algorithm design with numeric parameters tuned separately. | Directly establishes that structural search and numerical tuning should not be conflated. | It does not by itself establish that a policy learned on numerical optimization transfers to Agent RSI. |
+| **LLM4EO: Online Operator Design in Evolutionary Optimization** (arXiv preprint v3, Jan 2026) — [paper](https://arxiv.org/abs/2511.16485) | LLM initializes operators from prior knowledge, analyses evolutionary state and operator performance, and triggers operator-level meta-evolution on stagnation; operator fitness uses the success ratio of better offspring to uses. | Full text inspected. Evaluated on flexible job-shop scheduling. Its GA comparison reports Brandimarte RPD 19.13% → 18.54% (about 3.08% relative improvement); repeated runs are reported for scheduling instances. | **Very high overlap with the standalone H1 claim** “Agent/LLM diagnoses search and improves evolutionary operators online.” This cannot be claimed as new in general. | The candidate difference is not “LLM observes stagnation and edits operators”; it is whether a clearly represented, independently validated control policy transfers from MetaBox numeric optimization to Agent RSI. Need compare with an LLM4EO-style baseline where feasible. |
+| **LAOS: Large Language Model-Driven Adaptive Operator Selection** — [ACM DOI](https://doi.org/10.1145/3712256.3726450) | LLM-driven adaptive operator selection. | Publisher record/abstract found; full method-level audit remains pending. | Direct overlap with using an LLM to choose operators. | Must inspect its state features, reward/credit assignment, operator action space, online/offline timing, and test generalization before novelty claims. |
+| **LMCOEA: LLM-assisted meta-evolution for constrained multi-objective optimization** — [publisher page](https://www.sciencedirect.com/science/article/abs/pii/S095741742600669X) | LLM-assisted meta-evolution for a constrained multi-objective evolutionary algorithm. | Publisher record found; full paper and official code audit remain pending. | Potentially close to Agent-assisted evolution of an evolutionary/meta-optimizer. | Need determine exactly what is evolved, whether the controller is state-conditioned, what baselines are used, and whether any cross-domain transfer is tested. |
+| **EoH-S: Evolution of Heuristic Set Using LLMs** (AAAI 2026) — [paper](https://ojs.aaai.org/index.php/AAAI/article/view/41038/44999) | Evolves a set of heuristics rather than a single heuristic. | Official paper page found; detailed mechanism audit pending. | Overlap with maintaining complementary operator/heuristic populations. | A diverse set alone is not the contribution; transfer and a measurable control interface would need independent evidence. |
+
+### Stage-A implication
+
+H1 cannot simply be “an Agent observes trajectories and improves evolutionary operators.” EoH, LLaMEA, LLM4EO, LAOS and LMCOEA already occupy much of that territory. H1 should be treated as the **source-domain validation gate** for a candidate transferable controller. The likely central question is H2, not a generic LLM-for-EC claim.
+
+## 2. Closest work on optimizing Agents / recursive self-improvement
+
+| Work / artifact | Mechanism | Overlap with Stage B / H3 | Required comparison |
+|---|---|---|---|
+| **ARTEMIS** — [paper](https://arxiv.org/abs/2512.09108) | Evolutionary optimization of mixed-type agent configurations, including prompts/tools/settings. | Direct overlap with evolving an Agent's configuration; a generic “EA optimizes an Agent” claim is weak. | Compare target search object, fitness, transfer, regression handling, and evaluation budget. |
+| **EvoAgent** — [NAACL 2025 paper](https://aclanthology.org/2025.naacl-long.315/) | Evolutionary generation of specialized multi-agent systems. | Direct overlap if the target is agent roles or multi-agent population structure. | Distinguish a transferred control policy from merely evolving agent roles/populations. |
+| **GEPA** — [ICLR 2026 paper](https://proceedings.iclr.cc/paper_files/paper/2026/hash/0e9e708b6f48e14fd0ac29e167413f76-Abstract-Conference.html) | Reflective prompt evolution with trajectory diagnosis and Pareto-based combination of lessons. | Strong baseline for prompt-level improvement and trajectory feedback. | Compare the controller's action abstraction and transfer; do not rebrand reflection or Pareto lesson selection. |
+| **Darwin Gödel Machine (DGM)** — [ICLR 2026 paper](https://openreview.net/forum?id=pUpzQZTvGY), [code](https://github.com/jennyzhang0215/dgm) | Iterative self-modification with empirical validation and a diverse archive of agents. | Strong RSI baseline; a final score increase does not alone prove that the *improver* has improved. | Separate task-Agent quality from improver/controller quality; test future descendants under equal budgets. |
+| **Huxley-Gödel Machine (HGM)** — [paper](https://openreview.net/forum?id=T0EiEuhOOL), [code](https://github.com/metauto-ai/HGM) | Uses clade meta-productivity / future-descendant value to guide self-modification search. | Direct competition for lineage-value or future-productivity claims. | Do not add lineage credit as a new contribution without an explicit estimator-level difference and matched future-descendant opportunities. |
+| **Hyperagents** — [paper](https://arxiv.org/abs/2603.19461), [code](https://github.com/facebookresearch/Hyperagents) | Task agent and editable meta-agent can co-evolve in one program. | Direct overlap with recursive modification of the improvement process. | A bidirectional loop alone is not novel; test whether the MetaBox-derived control knowledge adds independent value. |
+| **AIDE² / MASS and other 2025–2026 agent-optimization methods** | Exact mechanism-level comparison remains pending. | Potential direct overlap depending on whether they optimize agent structure, prompts, meta-optimizers, or experience. | Verify title, version, official code, evolved object, selection rule, evaluation protocol, and held-out transfer before final claims. |
+
+## 3. Prior project artifacts (not current-project evidence)
+
+| Repository | Read-only observation | Interpretation |
+|---|---|---|
+| [EvoController](https://github.com/yujian777555/EvoController) | Its Phase 2.8/2.9 reports show weak within-state action ranking under the tested ZDT state/action representation (reported pairwise AUC around 0.50–0.53), despite some action effects being measurable. | Do not repeat a generic state-action outcome predictor and infer decision ability from high overall prediction (R^2). It does not rule out an LLM proposing explicit control rules or cross-domain transfer. |
+| [EvoPareto-Agent](https://github.com/yujian777555/EvoPareto-Agent) | Provides a multi-objective Agent-genome/NSGA-III code substrate; latest commit report says real HTTP = 0 and calibration not executed. | Candidate Stage-B adapter only; not evidence of real LLM Agent or RSI gains. |
+| [llm-agent-rsi-r12-audit](https://github.com/yujian777555/llm-agent-rsi-r12-audit) | Offline HGM/VERSE source audit and synthetic experiments. | Related RSI method context only; synthetic results cannot validate this project's MetaBox transfer hypothesis. |
+
+## 4. Mechanism gap currently worth testing (not approved as novel)
+
+A potentially discriminative design is a **domain-abstract control policy** with a small shared interface:
+
+- Observable state: normalized progress slope, stagnation, diversity/novelty, and recent intervention success/uncertainty.
+- Abstract actions: explore, exploit, diversify/switch lineage, repair a weak component, and rollback/restart.
+- MetaBox adapter: map actions to a frozen numerical optimizer's allowed operator/parameter controls.
+- Agent-RSI adapter: map the same abstract actions to broad vs local edits, parent/lineage choice, targeted component edits, or rollback to a validated parent.
+
+This is only a research candidate. “Explore/exploit” abstractions, adaptive operator selection, online LLM operator evolution, and recursive meta-agents already have prior art. The testable distinction is whether a policy discovered on MetaBox transfers to unseen Agent-RSI tasks better than (a) a fixed generic controller, (b) a statically tuned target-domain controller, and (c) shuffled/random transfer.
+
+## 5. Open audit queue
+
+1. Full mechanism audit of LAOS and LMCOEA, including source code if available.
+2. Exact comparison with LLM4EO's state features, stagnation trigger, operator fitness, and ablations.
+3. Verify MetaBox-v2 data splits and adapter contracts at tag `v2.0.0`; no benchmark has been run in this project yet.
+4. Complete mechanism-level audit of ARTEMIS, EvoAgent, AIDE², MASS, GEPA, DGM, HGM and Hyperagents.
+5. Only then finalize the smallest H1/H2/H3 discriminative experiment.
