@@ -18,11 +18,14 @@
     "prior_reported_evolution_statistics": "155 rounds, 39 upgrades, 100 downgrades, 18 duplicate modifications; historical context only, definitions and artifacts not verified",
     "related_repositories": "READ_ONLY_REVIEWED: EvoController (negative action-attribution evidence), EvoPareto-Agent (real HTTP=0 in latest report), llm-agent-rsi-r12-audit (offline/synthetic only)",
     "metabox_v2": "SOURCE_REVIEWED_AT_TAG_v2.0.0; NOT_INSTALLED_OR_EXECUTED",
-    "llm4eo": "FULL_TEXT_METHOD_PASS_REVIEWED; direct overlap with generic LLM-assisted online operator evolution"
+    "llm4eo": "FULL_TEXT_METHOD_PASS_REVIEWED; direct overlap with generic LLM-assisted online operator evolution",
+    "laos": "PUBLISHER_ABSTRACT_REVIEWED; direct overlap with LLM-driven state-conditioned operator selection; full mechanism audit pending",
+    "lmcoea": "PUBLISHER_RECORD_REVIEWED; direct overlap with LLM-assisted meta-evolution of constrained multi-objective EA; full mechanism/code audit pending",
+    "awesomede": "ARXIV_METHOD_SECTION_FOUND; MetaBBO-trained LLM meta-optimizer generates constrained-EA update rules; code audit pending"
   },
   "hypotheses": {
-    "H1_agent_assisted_ec_improvement": "PENDING_EXPERIMENT; generic LLM-assisted operator evolution has direct prior art",
-    "H2_cross_domain_transfer_to_agent_rsi": "PENDING_AUDIT; identified as the main discriminative hypothesis, not validated",
+    "H1_agent_assisted_ec_improvement": "PENDING_EXPERIMENT; generic formulation strongly overlaps with LLM4EO, LAOS, LMCOEA, and AwesomeDE",
+    "H2_cross_domain_transfer_to_agent_rsi": "PENDING_AUDIT; main discriminative hypothesis, novelty not established",
     "H3_agent_feedback_improves_evolution_control": "CONDITIONAL_PENDING_H2"
   },
   "constraints": {
@@ -35,11 +38,12 @@
     "holdout_tasks_must_remain_independent": true
   },
   "next_actions": [
-    "Complete method-level review of LAOS and LMCOEA, including source code if available",
-    "Finish exact overlap audit for ARTEMIS, EvoAgent, AIDE2, MASS, GEPA, DGM, HGM, and Hyperagents",
-    "Freeze the shared abstract controller state/action interface and select a MetaBox-v2 base optimizer",
-    "Verify benchmark splits and metric contracts; do not tune on held-out tasks",
-    "Only after P0-R1 exit gate, request explicit authorization for a small MetaBox CPU feasibility run; real LLM API remains disabled"
+    "Audit LAOS full paper/code for state, reward, action and online update mechanics",
+    "Audit LMCOEA and AwesomeDE full methods/code; distinguish overlapping versions and transfer claims",
+    "Complete exact mechanism comparison of ARTEMIS, EvoAgent, AIDE2, MASS, GEPA, DGM, HGM and Hyperagents",
+    "Freeze one MetaBox-v2 base optimizer, shared state descriptors, abstract action vocabulary and adapters",
+    "Define the smallest held-out MetaBox-to-Agent RSI experiment and all static/adaptive baselines",
+    "Keep real LLM API disabled until explicit scope and budget approval"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
