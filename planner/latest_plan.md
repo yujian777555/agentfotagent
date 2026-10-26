@@ -1,37 +1,72 @@
-# Latest Plan — P0-R2: Novelty Collision and Transfer-Object Audit
+# Latest Plan — P0-R3: Project-Owned Experimental Environment
 
-- Date: 2026-10-23
-- Baseline: 78100d803856575da9ba338ce88e6cd34d9a4c58
-- Status: literature audit partial; no implementation or live API run authorized
+- Date: 2026-10-26
+- Baseline before this planning update: d52f7b43a03f5b1bbddb3990b2c1587322caa3de
+- Status: own-environment design frozen for review; scaffold implementation is the next task; no scientific experiment or live API call authorized
 
-## Completed
-1. Rechecked current repository state and predecessor-asset evidence boundaries.
-2. Completed a first-pass mechanism-level review of EoH, LLaMEA source, LLM4EO, AwesomeDE, Hyperagents, Harmony Harness and related Agent RSI methods.
-3. Established that generic H1 (LLM/Agent diagnoses traces and modifies operators) and generic H3 (recursive/bidirectional self-improvement) are not defensible standalone novelty claims.
-4. Narrowed H2 to a specific but still unconfirmed hypothesis: transfer the same explicit control object from numerical MetaBox optimization to a structurally different Agent-genotype search space.
+## Correction to the previous plan
 
-## Task A result — LAOS / LMCOEA nearest-neighbor review (2026-10-26)
-- LAOS: official GECCO 2025 abstract verified. It uses an LLM meta-prompt with progress/best-fitness/diversity and operator-credit information, plus offline and online replay layers. Full text and official code were not obtained; details beyond the abstract remain unverified.
-- LMCOEA: publisher-indexed article text and the linked GitHub repository were inspected. The code generates DE-specific MATLAB offspring-update functions, scores them against a baseline DE run, and selects strategy IDs using aggregated numerical-problem rewards. It does not expose a ready-made controller that transfers directly to Agent-genotype search.
-- The linked repo README claims MIT, but the observed tree has no root LICENSE; it also contains machine-specific paths and a placeholder API-key literal. It was not run. No live API calls were made.
-- Detailed record: [LAOS / LMCOEA Mechanism Audit](../docs/LAOS_LMCOEA_MECHANISM_AUDIT_2026-10-26.md).
+NeuroEvoScientist and EvoPareto-Agent are **not** candidate environments for this project. They are separate projects and may only be used as read-only references when checking prior-art mechanisms or identifying common evaluation pitfalls. agentfotagent must own its target Agent-evolution environment, genotype/phenotype implementation, evaluator, experiment runner, task manifests, baselines and result provenance.
 
-## Next task B — Define and falsify one transfer object
-Choose exactly one of executable state-action rules, policy parameters, or a learned control representation. Specify source and target observations/actions, invariant semantics, adaptation data, target-test isolation, and a shuffled-mapping negative control. Explicitly test whether the proposal is just LAOS-style AOS, LMCOEA/AwesomeDE-style generated update rules, Harmony Harness transfer, or target-only retraining. If the mapping is only an adapter or conceptual analogy, revise or abandon H2 before coding.
+MetaBox-v2 is retained only as the standardized source-domain optimization substrate. The target environment will be built in this repository as the **Agent Evolution Sandbox (AES)** (working name). AES is an internal experimental system, not a novelty claim by itself.
 
-## Next task C — Audit downstream Agent phenotype and evaluator
-Compare NeuroEvoScientist and EvoPareto-Agent. Verify each genome field actually changes executable behavior; locate the official evaluator and a genuine random-search arm; identify strong target-domain adaptive baselines. Do not select an environment just because it is already implemented.
+## Current research evidence
 
-## Next task D — Freeze the minimum discriminative experiment
-Required arms: standard target EA, random search, strong target adaptive controller, target-only controller tuned on development tasks, source-transfer controller, fixed generic controller, and shuffled mapping negative control. Hold out task families, not just random seeds of the same task. Predefine primary metric and minimum meaningful effect before confirmatory runs.
+1. Generic Agent-driven operator selection is crowded (EoH/LLaMEA/LLM4EO/LAOS/AwesomeDE/LMCOEA).
+2. Generic bidirectional/recursive self-improvement is crowded (including Hyperagents and related systems).
+3. Cross-domain transfer remains a high-risk hypothesis. It must be demonstrated against target-only tuning and shuffled-mapping controls.
+4. No implementation, MetaBox meta-training, or live LLM API experiment has yet been performed in this repository.
+
+## Task 1 — Implement Phase-0 AES scaffold
+
+Build only the environment and experiment contracts described in [OWN_EXPERIMENTAL_ENVIRONMENT_SPEC.md](../docs/OWN_EXPERIMENTAL_ENVIRONMENT_SPEC.md).
+
+Required minimum:
+- versioned Agent genome schema and normalization;
+- explicit genotype-to-phenotype compiler/runtime;
+- deterministic controlled multi-step tool-use world with hidden goal predicates;
+- procedural task generation with task-family train/dev/held-out manifests and hashes;
+- evaluator that derives primary success only from terminal environment state;
+- execution trace and immutable run manifest with seed/config/backend provenance;
+- mock backend for engineering tests only, never scientific performance claims;
+- same-interface random-search and conventional EA baseline skeletons using the identical evaluator;
+- tests for every active gene's behavioral effect, deterministic reset/step, leakage prevention, split isolation, cache isolation, failure-closed evaluation and baseline fairness.
+
+Do not implement a new research controller or a new NSGA-III. The purpose of this task is to make the experimental object executable and auditable.
+
+## Task 2 — Planner audit of the environment
+
+After the scaffold is pushed, independently check:
+- whether each genome field changes real runtime behavior;
+- whether the task suite has verifiable success conditions and nontrivial multi-step solvability;
+- whether any hidden state, test answers, cache artifacts or score shortcuts leak into the Agent;
+- whether random search and conventional EA use exactly the same evaluator and effective phenotype space;
+- whether task-family holdouts test generalization rather than only new seeds.
+
+If a gate fails, repair the scaffold before any scientific experiment.
+
+## Task 3 — Define the transfer object against the executable interfaces
+
+Only after the environment contract passes, specify one transfer object and its source/target state-action semantics. Compare it with LAOS, LMCOEA/AwesomeDE, Harmony Harness and target-only tuning. Include a shuffled-mapping negative control. If transfer is just a manually authored adapter or does not beat target-only tuning, recommend NO-GO/PIVOT.
+
+## Task 4 — Separate experiment authorization
+
+No live API calls, GPU pilot, MetaBox meta-training, or confirmatory task evaluation until a later plan specifies and approves:
+- model/backend and version;
+- task families and frozen splits;
+- evaluation arms, seeds and statistical plan;
+- API/token/cost cap and failure handling;
+- primary metric and minimum meaningful effect.
 
 ## Hard constraints
+
 - Evolutionary computation remains the method core.
-- Finite-budget allocation is not the research contribution.
 - MetaBox is infrastructure, not a contribution.
-- Do not add a new NSGA-III implementation before novelty and phenotype gates pass.
-- Do not call real LLM APIs until scope and call/token/cost caps are separately approved.
-- Do not modify predecessor repositories or claim upstream reports as independently reproduced.
+- Finite-budget allocation is not the core innovation.
+- Predecessor repositories are read-only references, never dependencies or result sources.
+- Do not equate mock-backend tests with Agent capability evidence.
+- Do not claim novelty or successful transfer before confirmatory evidence.
 
 ## Exit gate
-Implement only after a defensible mechanism-level difference survives comparison with Hyperagents, Harmony Harness, LLM4EO, AwesomeDE/LMCOEA and target-domain Agent evolution baselines. If the cross-representation mapping is merely an adapter or conceptual analogy, stop and revise.
+
+P0-R3 passes only when the in-repository AES scaffold and its engineering tests are independently reviewed. Research algorithm development begins after that gate, not before.

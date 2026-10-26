@@ -75,3 +75,14 @@
 ## 8. 成功与停止标准
 
 阶段成功标准应在每个实验计划中预注册或明确写出。若 Agent 辅助发现无法优于强基线，或跨域迁移在独立任务上不稳定，应先分析原因并考虑收缩主张；若双向反馈没有增量收益，则删除该部分，不以增加模块替代证据。
+
+
+## 9. Project-owned experimental environment (decision added 2026-10-26)
+
+agentfotagent owns the target-domain Agent Evolution Sandbox (AES), including its Agent genome, executable phenotype/runtime, controlled multi-step tool-use tasks, verifiable evaluator, task-family splits, baseline implementations, experiment orchestration and provenance ledger.
+
+MetaBox-v2 is the standardized source-domain substrate, not a contribution. NeuroEvoScientist and EvoPareto-Agent are independent projects and are not target environments or code dependencies for this project; they may only be read as prior-art/evaluation-pitfall references. Public benchmark adapters may later be used for external validation, but cannot replace AES as the project's controlled target environment.
+
+The first implementation phase is an engineering scaffold only. A mock backend can verify interfaces and gene behavior, but mock results cannot support scientific claims about Agent capability. No live API, GPU pilot or MetaBox meta-training is authorized until a separate experiment plan passes review.
+
+See [OWN_EXPERIMENTAL_ENVIRONMENT_SPEC.md](OWN_EXPERIMENTAL_ENVIRONMENT_SPEC.md) for the detailed contract.

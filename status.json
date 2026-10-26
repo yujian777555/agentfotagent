@@ -3,10 +3,10 @@
   "repository": "https://github.com/yujian777555/agentfotagent",
   "default_branch": "main",
   "last_updated": "2026-10-26",
-  "baseline_commit": "78100d803856575da9ba338ce88e6cd34d9a4c58",
-  "current_phase": "P0-R2: novelty collision and transfer-object audit",
-  "phase_status": "LITERATURE_AUDIT_PARTIAL",
-  "research_direction": "Evolutionary computation as core; evaluate a specific cross-representation transfer hypothesis from numerical optimization to Agent RSI",
+  "baseline_commit": "d52f7b43a03f5b1bbddb3990b2c1587322caa3de",
+  "current_phase": "P0-R3: project-owned Agent Evolution Sandbox (AES) design and scaffold",
+  "phase_status": "ENVIRONMENT_SPECIFIED; SCAFFOLD_NOT_IMPLEMENTED",
+  "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository's own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "NOT_IMPLEMENTED",
     "live_llm_api_experiments": "NOT_RUN",
@@ -19,7 +19,9 @@
     "Hyperagents": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_GENERIC_H3_AND_CROSS_DOMAIN_META-TRANSFER",
     "HarmonyHarness": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_FACTORISED_CROSS-BENCHMARK_TRANSFER",
     "downstream_agent_environment": "NOT_LOCKED; PHENOTYPE_EVALUATOR_AND_RANDOM_BASELINE_AUDIT_PENDING",
-    "predecessor_results": "UPSTREAM_REPORTED_ONLY; NOT_REPRODUCED_IN_THIS_REPOSITORY"
+    "predecessor_results": "UPSTREAM_REPORTED_ONLY; NOT_REPRODUCED_IN_THIS_REPOSITORY",
+    "own_agent_environment": "SPECIFIED_IN_DOCS; NOT_IMPLEMENTED",
+    "predecessor_projects": "NEUROEVOSCIENTIST_AND_EVOPARETO_AGENT_ARE_READ_ONLY_REFERENCES_ONLY; NOT_RUNTIME_ENVIRONMENTS_OR_DEPENDENCIES"
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
@@ -36,10 +38,11 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Choose and formally define exactly one transfer object; test whether its state/action semantics survive numerical-to-Agent genotype transfer without hand-written target policy",
-    "Audit executable Agent genotype, official evaluator and genuine random-search arm in NeuroEvoScientist and EvoPareto-Agent",
-    "Define target-only adaptation and shuffled-mapping negative controls with task-family holdouts",
-    "If no nontrivial mapping survives LAOS/LMCOEA/AwesomeDE/Harmony Harness overlap, revise or abandon H2 before implementation"
+    "Implement the Phase-0 Agent Evolution Sandbox scaffold exactly to docs/OWN_EXPERIMENTAL_ENVIRONMENT_SPEC.md; engineering-only, no live API/GPU/MetaBox meta-training",
+    "Add behavioral intervention tests for every active Agent genome field, terminal-state scoring, deterministic task generation, task-family split isolation, cache isolation and fail-closed errors",
+    "Add same-interface random-search and conventional evolutionary baseline skeletons using the identical evaluator and normalized phenotype space",
+    "After independent environment review, specify and falsify one source-to-target transfer object against target-only tuning and shuffled-mapping controls",
+    "Authorize live API/GPU/MetaBox experiments only through a separate reviewed protocol"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -48,6 +51,7 @@
     "reconciliation": "docs/RECONCILIATION.md",
     "decision_log": "docs/RESEARCH_DECISIONS.md",
     "latest_plan": "planner/latest_plan.md",
-    "laos_lmcoea_audit": "docs/LAOS_LMCOEA_MECHANISM_AUDIT_2026-10-26.md"
+    "laos_lmcoea_audit": "docs/LAOS_LMCOEA_MECHANISM_AUDIT_2026-10-26.md",
+    "own_environment_spec": "docs/OWN_EXPERIMENTAL_ENVIRONMENT_SPEC.md"
   }
 }
