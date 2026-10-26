@@ -12,10 +12,11 @@
 ## 维护入口
 - [项目章程](docs/PROJECT_CHARTER.md)
 - [相关工作机制审查](docs/FULLTEXT_AUDIT_2026-10-23.md)
+- [LAOS / LMCOEA 机制审计（2026-10-26）](docs/LAOS_LMCOEA_MECHANISM_AUDIT_2026-10-26.md)
 - [相关工作矩阵](docs/LITERATURE_MATRIX.md)
 - [前置资产对账](docs/RECONCILIATION.md)
 - [研究决策记录](docs/RESEARCH_DECISIONS.md)
 - [当前计划](planner/latest_plan.md)
 - [机器可读状态](status.json)
 
-当前阶段为 P0-R2：最近邻论文碰撞审查与跨表示迁移对象定义。当前仓库尚无研究算法实现；上游报告不等同于本仓库独立复现。
+当前阶段为 P0-R2：最近邻论文碰撞审查与跨表示迁移对象定义。LAOS 的官方摘要已核验但正文/代码仍未取得；LMCOEA 的论文方法片段与链接代码已静态审查但未复现。H2 的迁移对象仍未定义。当前仓库尚无研究算法实现；上游报告不等同于本仓库独立复现。

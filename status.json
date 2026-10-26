@@ -2,8 +2,8 @@
   "project": "agentfotagent",
   "repository": "https://github.com/yujian777555/agentfotagent",
   "default_branch": "main",
-  "last_updated": "2026-10-23",
-  "baseline_commit": "c1d7400c30f432c4e3abc5df0d7a99cfd7979774",
+  "last_updated": "2026-10-26",
+  "baseline_commit": "78100d803856575da9ba338ce88e6cd34d9a4c58",
   "current_phase": "P0-R2: novelty collision and transfer-object audit",
   "phase_status": "LITERATURE_AUDIT_PARTIAL",
   "research_direction": "Evolutionary computation as core; evaluate a specific cross-representation transfer hypothesis from numerical optimization to Agent RSI",
@@ -13,9 +13,9 @@
     "EoH": "PAPER_AND_OFFICIAL_CODE_REVIEWED; NOT_REPRODUCED",
     "LLaMEA": "OFFICIAL_CODE_REVIEWED; FULL_PAPER_READER_LIMIT",
     "LLM4EO": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_GENERIC_H1",
-    "LAOS": "PUBLISHER_RECORD_AND_ABSTRACT_ONLY; FULL_TEXT_CODE_PENDING",
+    "LAOS": "OFFICIAL_GECCO_ABSTRACT_VERIFIED; FULL_TEXT_AND_OFFICIAL_CODE_NOT_OBTAINED",
     "AwesomeDE": "PAPER_REVIEWED; META-BBO_LLM_UPDATE_RULE_OVERLAP",
-    "LMCOEA": "PUBLISHER_RECORD_AND_ABSTRACT_ONLY; FULL_TEXT_CODE_PENDING",
+    "LMCOEA": "PUBLISHER_ARTICLE_TEXT_PARTIALLY_RETRIEVED; LINKED_REPOSITORY_STATICALLY_INSPECTED; NOT_REPRODUCED; README_LICENSE_CLAIM_UNVERIFIED",
     "Hyperagents": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_GENERIC_H3_AND_CROSS_DOMAIN_META-TRANSFER",
     "HarmonyHarness": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_FACTORISED_CROSS-BENCHMARK_TRANSFER",
     "downstream_agent_environment": "NOT_LOCKED; PHENOTYPE_EVALUATOR_AND_RANDOM_BASELINE_AUDIT_PENDING",
@@ -36,11 +36,10 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Obtain full text/official artifacts for LAOS and LMCOEA or document access limits",
-    "Choose and formally define the transfer object: executable rules, policy parameters, or learned representation",
-    "Audit executable Agent genotype and official evaluator in candidate downstream environments",
-    "Define target-only adaptation and shuffled-mapping negative controls",
-    "Revise or abandon H2 if no nontrivial mechanism-level distinction survives"
+    "Choose and formally define exactly one transfer object; test whether its state/action semantics survive numerical-to-Agent genotype transfer without hand-written target policy",
+    "Audit executable Agent genotype, official evaluator and genuine random-search arm in NeuroEvoScientist and EvoPareto-Agent",
+    "Define target-only adaptation and shuffled-mapping negative controls with task-family holdouts",
+    "If no nontrivial mapping survives LAOS/LMCOEA/AwesomeDE/Harmony Harness overlap, revise or abandon H2 before implementation"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -48,6 +47,7 @@
     "literature_matrix": "docs/LITERATURE_MATRIX.md",
     "reconciliation": "docs/RECONCILIATION.md",
     "decision_log": "docs/RESEARCH_DECISIONS.md",
-    "latest_plan": "planner/latest_plan.md"
+    "latest_plan": "planner/latest_plan.md",
+    "laos_lmcoea_audit": "docs/LAOS_LMCOEA_MECHANISM_AUDIT_2026-10-26.md"
   }
 }

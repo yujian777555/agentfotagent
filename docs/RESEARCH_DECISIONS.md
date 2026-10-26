@@ -29,3 +29,8 @@
 
 ## D-010 — Literature coverage is partial
 2026-10-23. LAOS full text/code and LMCOEA full text/code were not obtained in this pass. The project must not claim exhaustive novelty review.
+
+
+## D-011 — LAOS/LMCOEA do not establish a ready-made cross-representation controller
+
+2026-10-26. The LAOS official GECCO abstract verifies LLM-driven state-conditioned AOS with operator credit assignment and offline/online replay, reinforcing rejection of generic H1. LMCOEA's linked code statically inspected in this pass generates DE-specific MATLAB offspring-update functions and evaluates them on numerical constrained optimization tasks; this is not an off-the-shelf controller for Agent-genotype evolution. The linked repo README claims MIT but no root LICENSE exists in the observed tree, and the implementation contains machine-specific paths; it was not executed. H2 remains unproven until one transfer object and its state/action semantics are defined and shown to differ materially from LAOS, AwesomeDE/LMCOEA, and Harmony Harness. No code or live API experiment is authorized by this decision.

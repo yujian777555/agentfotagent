@@ -53,3 +53,12 @@
 - LMCOEA 目前仅核验 Elsevier 出版记录/摘要，未获取正文和官方实现。
 - MetaBox-v2 官方 README/API 和 v2.0.0 版本入口已检查，但本项目尚未安装或执行。
 - 下一步必须先补齐 LAOS/LMCOEA 的正文级机制差异审查，再审计候选 Agent 环境的可执行 genotype、评分器和真正的随机搜索基线。若无法定义非平凡的控制迁移对象，应在编码前调整或放弃 H2。
+
+
+## Follow-up audit — 2026-10-26: LAOS and LMCOEA
+
+See [LAOS / LMCOEA Mechanism Audit](LAOS_LMCOEA_MECHANISM_AUDIT_2026-10-26.md) for source-level detail.
+
+- **LAOS:** the official GECCO 2025 abstract confirms state-conditioned LLM adaptive operator selection, operator credit assignment, and offline/online dual-layer experience replay. The full paper and official code were not obtained, so its credit formula, replay equations and ablations remain unverified.
+- **LMCOEA:** publisher-indexed article text and the linked repository were inspected. The repository generates DE-specific MATLAB offspring-update functions with an LLM and selects strategy IDs based on reward aggregated across constrained numerical problems. The source code is not a domain-invariant Agent-genotype controller. The linked repository's README claims MIT but the observed root tree has no LICENSE; it also contains machine-specific paths and is not self-contained. No code was run.
+- **Decision impact:** H1 remains rejected as a standalone novelty claim. H2 remains a high-risk hypothesis because the transferable object and state/action semantic mapping are still undefined. Do not implement before this gate is resolved.
