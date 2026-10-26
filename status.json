@@ -3,13 +3,14 @@
   "repository": "https://github.com/yujian777555/agentfotagent",
   "default_branch": "main",
   "last_updated": "2026-10-26",
-  "baseline_commit": "d52f7b43a03f5b1bbddb3990b2c1587322caa3de",
-  "current_phase": "P0-R3: project-owned Agent Evolution Sandbox (AES) design and scaffold",
-  "phase_status": "ENVIRONMENT_SPECIFIED; SCAFFOLD_NOT_IMPLEMENTED",
+  "baseline_commit": "d32e07c4599603260757ad64da757877b97587bf",
+  "current_phase": "P0-R3: project-owned Agent Evolution Sandbox (AES) scaffold",
+  "phase_status": "AES_SCAFFOLD_IMPLEMENTED; ENGINEERING_TESTS_PASS; AWAITING_INDEPENDENT_PLANNER_AUDIT",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository's own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
-    "implementation": "NOT_IMPLEMENTED",
+    "implementation": "AES_SCAFFOLD_IMPLEMENTED_UNDER_src/agentfotagent",
     "live_llm_api_experiments": "NOT_RUN",
+    "phase0_engineering_tests": "56_TESTS_PASSING; MOCK_BACKEND_ONLY; ENGINEERING_EVIDENCE_NOT_CAPABILITY_EVIDENCE",
     "EoH": "PAPER_AND_OFFICIAL_CODE_REVIEWED; NOT_REPRODUCED",
     "LLaMEA": "OFFICIAL_CODE_REVIEWED; FULL_PAPER_READER_LIMIT",
     "LLM4EO": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_GENERIC_H1",
@@ -18,9 +19,9 @@
     "LMCOEA": "PUBLISHER_ARTICLE_TEXT_PARTIALLY_RETRIEVED; LINKED_REPOSITORY_STATICALLY_INSPECTED; NOT_REPRODUCED; README_LICENSE_CLAIM_UNVERIFIED",
     "Hyperagents": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_GENERIC_H3_AND_CROSS_DOMAIN_META-TRANSFER",
     "HarmonyHarness": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_FACTORISED_CROSS-BENCHMARK_TRANSFER",
-    "downstream_agent_environment": "NOT_LOCKED; PHENOTYPE_EVALUATOR_AND_RANDOM_BASELINE_AUDIT_PENDING",
+    "downstream_agent_environment": "AES_OWN_ENVIRONMENT_IMPLEMENTED; AWAITING_PLANNER_AUDIT",
     "predecessor_results": "UPSTREAM_REPORTED_ONLY; NOT_REPRODUCED_IN_THIS_REPOSITORY",
-    "own_agent_environment": "SPECIFIED_IN_DOCS; NOT_IMPLEMENTED",
+    "own_agent_environment": "SPECIFIED_AND_IMPLEMENTED_AS_PHASE0_SCAFFOLD",
     "predecessor_projects": "NEUROEVOSCIENTIST_AND_EVOPARETO_AGENT_ARE_READ_ONLY_REFERENCES_ONLY; NOT_RUNTIME_ENVIRONMENTS_OR_DEPENDENCIES"
   },
   "hypotheses": {
@@ -38,10 +39,8 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Implement the Phase-0 Agent Evolution Sandbox scaffold exactly to docs/OWN_EXPERIMENTAL_ENVIRONMENT_SPEC.md; engineering-only, no live API/GPU/MetaBox meta-training",
-    "Add behavioral intervention tests for every active Agent genome field, terminal-state scoring, deterministic task generation, task-family split isolation, cache isolation and fail-closed errors",
-    "Add same-interface random-search and conventional evolutionary baseline skeletons using the identical evaluator and normalized phenotype space",
-    "After independent environment review, specify and falsify one source-to-target transfer object against target-only tuning and shuffled-mapping controls",
+    "Independent Planner audit of the AES scaffold (genome behavior, leakage, baseline fairness, family holdouts)",
+    "After the environment contract passes, specify and falsify one source-to-target transfer object against target-only tuning and shuffled-mapping controls",
     "Authorize live API/GPU/MetaBox experiments only through a separate reviewed protocol"
   ],
   "canonical_documents": {

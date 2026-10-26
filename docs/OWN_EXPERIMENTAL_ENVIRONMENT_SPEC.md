@@ -2,8 +2,9 @@
 
 - Project: Agent-for-Agent (yujian777555/agentfotagent)
 - Date: 2026-10-26
-- Status: design specification; implementation and scientific experiments not yet started
+- Status: Phase-0 AES scaffold implemented (engineering tests only); no scientific experiments authorized
 - Working name: **Agent Evolution Sandbox (AES)**. This is an internal project name, not a novelty claim.
+- Implementation root: `src/agentfotagent/` (layout below); tests in `tests/`; configs in `configs/`.
 
 ## 1. Decision and boundary
 
@@ -41,6 +42,27 @@ The first implementation should use a small, explicit package rather than import
 - results/: append-only run manifests, raw trajectories, checksums and analysis outputs. Never store secrets.
 
 Names can change during implementation, but the boundaries and evidence requirements must remain.
+
+### 3.1 Phase-0 implementation notes (2026-10-26)
+
+The scaffold now exists under `src/agentfotagent/` with the boundaries above.
+Frozen engineering decisions for this phase:
+
+- Genome schema `aes-genome-v1`: four genes (planning_mode, memory_policy,
+  verification_policy, tool_selection_policy); memory window is fixed at 4 and is
+  **not** a gene (avoids budget confounds).
+- Environment `aes-tool-world-v1`: public observations are **local only**
+  (current location, inventory, visible objects, current dial values, public relay
+  status, notes after they are read). Global object maps and hidden goals are not
+  in the Agent-visible projection.
+- Task generator `aes-task-gen-v1` families:
+  - `key_crate` — train/dev: find a key among decoy coins, unlock a crate, place artifact.
+  - `dial_set` — train/dev: read gauges + offset card, compute and set three dials.
+  - `relay_route` — held-out only: assemble a code from notes, activate relay, set frequency.
+- Evaluator `aes-evaluator-v1`: primary success is a predicate over terminal
+  environment state only; self-reports in the trace are recorded for audit and ignored.
+- Mock backend `mock-engineering-v1` is used by all Phase-0 tests. Mock results are
+  engineering evidence only and are never Agent capability evidence.
 
 ## 4. Initial Agent genotype and phenotype contract
 
@@ -132,6 +154,28 @@ The first code phase is an environment scaffold, not an algorithm-performance ex
 - unit tests use mock backends but label results as engineering-only.
 
 No live LLM calls, GPU benchmark runs or MetaBox meta-training are authorized by this specification. Those require a later, separately reviewed experiment plan.
+
+### 8.1 Phase-0 gate status (engineering tests, 2026-10-26)
+
+| Gate | Status | Evidence |
+| --- | --- | --- |
+| Gene intervention | PASS | `tests/test_gene_interventions.py` |
+| Success from env state | PASS | `tests/test_evaluator_state_based.py` |
+| Determinism | PASS | `tests/test_determinism.py` |
+| Split / family isolation | PASS | `tests/test_isolation_and_failclosed.py` |
+| Hidden-goal leakage | PASS | `tests/test_leakage.py` |
+| Cache isolation | PASS | `tests/test_isolation_and_failclosed.py` |
+| Baseline fairness | PASS | `tests/test_baseline_fairness.py` |
+| Fail-closed errors | PASS | `tests/test_isolation_and_failclosed.py` |
+| Provenance reconstruction | PASS | `tests/test_provenance_reconstruction.py` |
+| Mock labelled engineering-only | PASS | package docstrings + `engineering_only` flags |
+
+Known limitations of this phase (not gates, but must be visible):
+- The mock backend is a scripted policy. It demonstrates gene observability and
+  evaluator correctness; it says nothing about LLM-Agent capability.
+- External-validation adapter to a published interactive-agent benchmark is not
+  implemented (explicitly out of Phase-0 scope).
+- Token/API cost metrics are defined in the contract but unmeasured (no live backend).
 
 ## 9. Risks and falsification
 

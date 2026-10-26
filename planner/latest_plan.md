@@ -2,7 +2,8 @@
 
 - Date: 2026-10-26
 - Baseline before this planning update: d52f7b43a03f5b1bbddb3990b2c1587322caa3de
-- Status: own-environment design frozen for review; scaffold implementation is the next task; no scientific experiment or live API call authorized
+- Scaffold implementation baseline: d32e07c4599603260757ad64da757877b97587bf
+- Status: Phase-0 AES scaffold implemented and engineering-tested; awaiting independent Planner audit (Task 2). No scientific experiment or live API call authorized.
 
 ## Correction to the previous plan
 
@@ -34,6 +35,10 @@ Required minimum:
 
 Do not implement a new research controller or a new NSGA-III. The purpose of this task is to make the experimental object executable and auditable.
 
+**Status: COMPLETE (engineering).** Delivered under `src/agentfotagent/`, `tests/`, `configs/`, `results/manifests/`.
+Families: `key_crate` (train/dev), `dial_set` (train/dev), `relay_route` (held-out only).
+Tests: 56 engineering tests, all passing (`python -m pytest tests`). Mock backend only.
+
 ## Task 2 — Planner audit of the environment
 
 After the scaffold is pushed, independently check:
@@ -44,6 +49,9 @@ After the scaffold is pushed, independently check:
 - whether task-family holdouts test generalization rather than only new seeds.
 
 If a gate fails, repair the scaffold before any scientific experiment.
+
+**Status: PENDING independent Planner review.** Executor self-reports all Phase-0
+engineering gates passing (see spec §8.1) but this is not a substitute for audit.
 
 ## Task 3 — Define the transfer object against the executable interfaces
 
