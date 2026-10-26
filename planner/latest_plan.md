@@ -3,7 +3,7 @@
 - Date: 2026-10-26
 - Baseline before this planning update: d52f7b43a03f5b1bbddb3990b2c1587322caa3de
 - Scaffold implementation baseline: d32e07c4599603260757ad64da757877b97587bf
-- Status: Phase-0 AES scaffold implemented and engineering-tested; awaiting independent Planner audit (Task 2). No scientific experiment or live API call authorized.
+- Status: Phase-0 scaffold implemented; independent static audit at `987df6d` returned REQUEST CHANGES. Blocking semantics/provenance issues must be fixed before acceptance. No scientific experiment or live API call authorized.
 
 ## Correction to the previous plan
 
@@ -78,3 +78,21 @@ No live API calls, GPU pilot, MetaBox meta-training, or confirmatory task evalua
 ## Exit gate
 
 P0-R3 passes only when the in-repository AES scaffold and its engineering tests are independently reviewed. Research algorithm development begins after that gate, not before.
+
+
+## Independent Planner audit result — 2026-10-26
+
+**Verdict: REQUEST CHANGES.** See [PHASE0_INDEPENDENT_AUDIT_2026-10-26.md](../docs/PHASE0_INDEPENDENT_AUDIT_2026-10-26.md).
+
+Blocking items:
+1. Tool-world preconditions permit remote unlock/place/dial/relay actions, allowing state teleportation and invalid shortcuts.
+2. Planning and verification genes alter traces but do not currently control downstream decisions as their names/specification imply; memory decisions also bypass the phenotype memory interface.
+3. PublicTask includes deterministic seed/generator metadata in an interface described as runtime-visible.
+4. BaselineHarness discards actual traces and creates synthetic incomplete traces for manifests; the existing reconstruction test does not exercise this path.
+5. Evaluator can accept malformed key-crate state when the crate record is missing and can accept an empty dial target mapping.
+
+Additional pre-science concerns: random search/EA duplicate genotypes interact with caching without actual-evaluation accounting; three held-out examples from one known family are only engineering smoke tests, not generalization evidence.
+
+### Next task — Phase-0-R1 corrective pass
+
+Fix only the audit findings, add regression tests, rerun the entire test suite on the pushed commit, update the audit response matrix and status, then stop for independent review. Do not implement transfer, MetaBox meta-training, live APIs or GPU experiments.

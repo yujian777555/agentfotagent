@@ -39,3 +39,8 @@
 ## D-012 — The project must own its target experimental environment
 
 2026-10-26. The prior plan to compare NeuroEvoScientist and EvoPareto-Agent as candidate target environments was conceptually wrong for the project boundary. They are independent projects and can only be consulted read-only as prior-art/evaluation references. agentfotagent must implement its own Agent Evolution Sandbox (AES): versioned genome and phenotype runtime, controlled multi-step tool-use world, verifiable task-success evaluator, frozen task-family splits, baselines, experiment runner and provenance. MetaBox-v2 remains the standardized source-domain substrate. AES is experimental infrastructure, not automatically a novel contribution. Phase-0 implementation must be engineering-only; mock scores are not capability evidence and no live API/MetaBox experiment is authorized. Detailed contract: docs/OWN_EXPERIMENTAL_ENVIRONMENT_SPEC.md.
+
+
+## D-013 — Phase-0 AES scaffold requires corrective pass before acceptance
+
+2026-10-26. Independent static audit of \`987df6dbb21683331968f09acf6160fbbdf005bb\` returned REQUEST CHANGES. The world permits remote state-changing actions that bypass intended multi-step task semantics; planning/verification/memory genes do not all implement their stated downstream decision semantics; PublicTask exposes deterministic seed/generator metadata; BaselineHarness does not preserve raw traces and creates incomplete replacement traces; evaluator handling of malformed states is not fully fail-closed. Executor-reported 56/56 tests were not independently rerun in the audit environment. Fixes and regression tests are required before environment acceptance. No transfer experiments, live API, GPU or MetaBox meta-training until re-audit passes.

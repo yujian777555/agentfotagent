@@ -193,3 +193,10 @@ Known limitations of this phase (not gates, but must be visible):
 - AgentBench (ICLR 2024): https://proceedings.iclr.cc/paper_files/paper/2024/hash/e9df36b21ff4ee211a8b71ee8b7e9f57-Abstract-Conference.html
 
 These references support the use of standardized optimization tasks and verifiable interactive-agent evaluation; they do not imply that AES is novel or that the proposed transfer hypothesis will work.
+
+
+### 8.2 Independent audit status (2026-10-26)
+
+The executor reported 56 passing engineering tests, but independent static source review of commit \`987df6dbb21683331968f09acf6160fbbdf005bb\` returned **REQUEST CHANGES**. The test count could not be independently rerun in the audit environment. Blocking issues: (1) world tools permit remote unlock/place/dial/relay actions and state teleportation; (2) planning/verification/memory genes are not fully wired into downstream decisions; (3) model-facing task metadata includes deterministic seed/generator information; (4) the search harness drops actual traces and creates incomplete synthetic traces for manifests; (5) malformed evaluator state can pass success predicates. See \`docs/PHASE0_INDEPENDENT_AUDIT_2026-10-26.md\` for evidence and required regression tests.
+
+No scientific experiments, live APIs, GPU runs or MetaBox meta-training are authorized until the corrective pass is independently accepted.
