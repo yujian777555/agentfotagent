@@ -1,0 +1,141 @@
+{
+  "content_hashes": {
+    "dev": [
+      "fdc446aea59f353f5d36ff47b1b69f3ff653b8992d861d384a24fe61095360df",
+      "1f30d926a044395394b6fa5d4c5ca3c4295f534135919b11f05aba972a49d8cc",
+      "fe281074d4a941a7fbd9ac8355b6959fda32f24abd45a8d1fcccdb0ef06bfb45",
+      "560234a0c6c7f105681fdb68018134faa961abddd3c9314df018713452640715",
+      "9f3ba8f7987e7afdae4d3bfd978951973188844107e956f423b9d62a902fa62c",
+      "a099a12d033c02a75d6fb178ba35a06f243f0c4dee31e8f7159f36fa07e9ed17",
+      "67163cd52ea27090b87a7efa69fca12ea949c377b39c602d237eb1022c338652",
+      "462c0902b8f474aec1f353e562d07176fc115c5a25f72079bd7032ed4dc8eb99"
+    ],
+    "held_out": [
+      "d8799d575aa83e2d39226cbd6a20846779c380a232a238fbc2f83775c57d11dc",
+      "7279f0c6f0ac0f4003455898129c1da96342a0e8b24ec0e44ab40705386c098f",
+      "d6b9bed21539c49a979ad67100b77c748605d10fa4935943eb2951c2b165041c"
+    ],
+    "train": [
+      "a56e73703bfec48f10e97d270780552aec73977af576dc93fc3d2746e40ccfff",
+      "9bd8816e3180aa992a7b8378139f2e60d65cee1b92393bd7233ed3db90e294f5",
+      "d3aea40b1d1f44d3639a3eca06459c65efb9960623610295ee39dc1996f8aa17",
+      "d7a787ce96f4420d9b424b9fe25986ab79fc3bcfb71be807f729d345a261b1c5",
+      "e1c8bcc8e87875f7f94769509c9871fdc97761bc00ef27052f94c3cf2c5e5962",
+      "cc0826bfb8185cecd6775d16d2dcf75c541d911695b37826e26bb1fa1da60fb8",
+      "231ffda8f4b68c62d3c9ac4960b8a59f8036a6518de8319c8229f06a18b4157d",
+      "96db3abc76f7c453afb4aa93b3c93a4a05ebc072886fc99cb0ee139098f508c2",
+      "f2bc06f1317471a9265b5045db191c78e190b17c64e12b3f397ad8ef8d089223",
+      "7869f698f94ab28b658b854f4a97808fc7f10b91c5645325efe7b6023a56d8bc",
+      "fcee371e9d3f40b615349ef2da9bcd44721d7880a8af4ab36be682b1c69c2176",
+      "a2995908f6ca03d4c8d6416c487d4e06fb0a1d0521c550d52d142b7bc185c2db",
+      "25c4789fbb106c732a888cae7ec3d7f72702c6ec1b8702d36e6bb787607039d6",
+      "ae7f7489edb1086f3a0095b5b7f68bab88f3a4d3936e941ae3ea267fc4c8fd3a",
+      "a15830cf59f33ab960f7cad4960accea206dad64e7b47118ae4cbc899b97effc",
+      "a60a4b3bc3a0f5fcf86329e600da445117f9c07c8d6f3a7213dc69c80dc4d0c2"
+    ]
+  },
+  "counts": {
+    "dev": 8,
+    "held_out": 3,
+    "train": 16
+  },
+  "families_by_split": {
+    "dev": [
+      "dial_set",
+      "key_crate"
+    ],
+    "held_out": [
+      "relay_route"
+    ],
+    "train": [
+      "dial_set",
+      "key_crate"
+    ]
+  },
+  "family_isolation": {
+    "dev_families": [
+      "dial_set",
+      "key_crate"
+    ],
+    "held_out_families": [
+      "relay_route"
+    ],
+    "train_dev_disjoint_from_held_out": true,
+    "train_families": [
+      "dial_set",
+      "key_crate"
+    ]
+  },
+  "generator_version": "aes-task-gen-v1",
+  "manifest_hashes": {
+    "dev": "2df39872fcb72913fe16afc14bdb970870e915997bc8f3c20a5389f2a1ea697d",
+    "held_out": "035cd69761e14b6fba82e7baf8a2cbd7bcdc5615a1d5f719d551a3fdb1983b10",
+    "train": "b29f64752c061f71f953a0e1800c6b4a1f75e9ff4afac76b4e8fc01614206515"
+  },
+  "schema_version": "aes-task-splits-v1",
+  "seeds": {
+    "baseline_seeds": [
+      11,
+      22,
+      33
+    ],
+    "dev_seeds": [
+      101,
+      102,
+      103,
+      104
+    ],
+    "held_out_seeds": [
+      201,
+      202,
+      203
+    ],
+    "notes": "Seeds freeze before confirmatory evaluation. Held-out seeds belong to held-out families only.",
+    "schema_version": "aes-seeds-v1",
+    "train_seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "task_ids": {
+    "dev": [
+      "key_crate/dev/seed000101",
+      "key_crate/dev/seed000102",
+      "key_crate/dev/seed000103",
+      "key_crate/dev/seed000104",
+      "dial_set/dev/seed000101",
+      "dial_set/dev/seed000102",
+      "dial_set/dev/seed000103",
+      "dial_set/dev/seed000104"
+    ],
+    "held_out": [
+      "relay_route/held_out/seed000201",
+      "relay_route/held_out/seed000202",
+      "relay_route/held_out/seed000203"
+    ],
+    "train": [
+      "key_crate/train/seed000001",
+      "key_crate/train/seed000002",
+      "key_crate/train/seed000003",
+      "key_crate/train/seed000004",
+      "key_crate/train/seed000005",
+      "key_crate/train/seed000006",
+      "key_crate/train/seed000007",
+      "key_crate/train/seed000008",
+      "dial_set/train/seed000001",
+      "dial_set/train/seed000002",
+      "dial_set/train/seed000003",
+      "dial_set/train/seed000004",
+      "dial_set/train/seed000005",
+      "dial_set/train/seed000006",
+      "dial_set/train/seed000007",
+      "dial_set/train/seed000008"
+    ]
+  }
+}

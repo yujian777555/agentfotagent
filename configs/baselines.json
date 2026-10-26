@@ -1,0 +1,22 @@
+{
+  "schema_version": "aes-baselines-v1",
+  "arms_phase0": {
+    "fixed_hand_designed": "genome with all-default alleles (direct/none/none/fixed_ranking)",
+    "random_search": "evolution.random_search.RandomSearch over GenomeSpace",
+    "conventional_ea": "evolution.conventional_ea.ConventionalEA over the same GenomeSpace"
+  },
+  "arms_reserved_for_later_phases": [
+    "strong target-only adaptive controller",
+    "source-domain-derived transfer controller",
+    "transfer-disabled ablation",
+    "shuffled state/action mapping negative control"
+  ],
+  "shared_contract": {
+    "same_genome_space": true,
+    "same_evaluator": "evaluation.evaluator.StateBasedEvaluator",
+    "same_environment": "environments.tool_world.ToolWorld",
+    "same_max_steps": true,
+    "same_cache_rules": "runtime.cache.EvaluationCache with split-scoped content-addressed keys",
+    "mock_backend_engineering_only": true
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": "aes-config-v1",
+  "max_steps_default": 40,
+  "memory_window": 4,
+  "genome_schema_version": "aes-genome-v1",
+  "generator_version": "aes-task-gen-v1",
+  "environment_version": "aes-tool-world-v1",
+  "evaluator_version": "aes-evaluator-v1",
+  "backend_id": "mock-engineering-v1",
+  "engineering_only": true,
+  "live_llm_api": false,
+  "notes": "Phase-0 engineering configuration. Mock backend only. No research claims."
+}

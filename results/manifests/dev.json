@@ -1,0 +1,647 @@
+{
+  "count": 8,
+  "manifest_hash": "2df39872fcb72913fe16afc14bdb970870e915997bc8f3c20a5389f2a1ea697d",
+  "split": "dev",
+  "tasks": [
+    {
+      "content_hash": "fdc446aea59f353f5d36ff47b1b69f3ff653b8992d861d384a24fe61095360df",
+      "generator_version": "aes-task-gen-v1",
+      "hidden_goal": {
+        "crate_unlocked": true,
+        "object_on_surface": {
+          "object": "statue",
+          "surface": "pedestal"
+        },
+        "required_unlock_key": "coin_b",
+        "type": "key_crate"
+      },
+      "public": {
+        "content_hash": "fdc446aea59f353f5d36ff47b1b69f3ff653b8992d861d384a24fe61095360df",
+        "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
+        "family": "key_crate",
+        "generator_version": "aes-task-gen-v1",
+        "max_steps": 24,
+        "seed": 101,
+        "split": "dev",
+        "task_id": "key_crate/dev/seed000101"
+      },
+      "seed": 101,
+      "setup": {
+        "dials": {},
+        "locations": [
+          "hall",
+          "storage",
+          "corridor",
+          "vault"
+        ],
+        "notes": {},
+        "objects": {
+          "coin_a": {
+            "description": "a metal coin that looks like a key",
+            "location": "corridor",
+            "tags": [
+              "coin"
+            ],
+            "type": "key"
+          },
+          "coin_b": {
+            "description": "a metal coin that looks like a key",
+            "location": "vault",
+            "tags": [
+              "coin"
+            ],
+            "type": "key"
+          },
+          "coin_c": {
+            "description": "a metal coin that looks like a key",
+            "location": "storage",
+            "tags": [
+              "coin"
+            ],
+            "type": "key"
+          },
+          "crate": {
+            "description": "a locked crate",
+            "location": "vault",
+            "lock_key": "coin_b",
+            "locked": true,
+            "tags": [
+              "container"
+            ],
+            "type": "crate",
+            "unlocked": false
+          },
+          "pedestal": {
+            "description": "display pedestal",
+            "location": "hall",
+            "tags": [
+              "surface"
+            ],
+            "type": "surface"
+          },
+          "statue": {
+            "concealed": true,
+            "description": "a small statue",
+            "inside": "crate",
+            "location": "vault",
+            "tags": [
+              "artifact"
+            ],
+            "type": "artifact"
+          }
+        },
+        "relay": {
+          "activated": false,
+          "code": null,
+          "frequency": null
+        },
+        "start_location": "hall",
+        "surfaces": [
+          "pedestal"
+        ]
+      }
+    },
+    {
+      "content_hash": "1f30d926a044395394b6fa5d4c5ca3c4295f534135919b11f05aba972a49d8cc",
+      "generator_version": "aes-task-gen-v1",
+      "hidden_goal": {
+        "crate_unlocked": true,
+        "object_on_surface": {
+          "object": "statue",
+          "surface": "pedestal"
+        },
+        "required_unlock_key": "coin_b",
+        "type": "key_crate"
+      },
+      "public": {
+        "content_hash": "1f30d926a044395394b6fa5d4c5ca3c4295f534135919b11f05aba972a49d8cc",
+        "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
+        "family": "key_crate",
+        "generator_version": "aes-task-gen-v1",
+        "max_steps": 24,
+        "seed": 102,
+        "split": "dev",
+        "task_id": "key_crate/dev/seed000102"
+      },
+      "seed": 102,
+      "setup": {
+        "dials": {},
+        "locations": [
+          "hall",
+          "storage",
+          "corridor",
+          "vault"
+        ],
+        "notes": {},
+        "objects": {
+          "coin_a": {
+            "description": "a metal coin that looks like a key",
+            "location": "storage",
+            "tags": [
+              "coin"
+            ],
+            "type": "key"
+          },
+          "coin_b": {
+            "description": "a metal coin that looks like a key",
+            "location": "corridor",
+            "tags": [
+              "coin"
+            ],
+            "type": "key"
+          },
+          "coin_c": {
+            "description": "a metal coin that looks like a key",
+            "location": "vault",
+            "tags": [
+              "coin"
+            ],
+            "type": "key"
+          },
+          "crate": {
+            "description": "a locked crate",
+            "location": "vault",
+            "lock_key": "coin_b",
+            "locked": true,
+            "tags": [
+              "container"
+            ],
+            "type": "crate",
+            "unlocked": false
+          },
+          "pedestal": {
+            "description": "display pedestal",
+            "location": "hall",
+            "tags": [
+              "surface"
+            ],
+            "type": "surface"
+          },
+          "statue": {
+            "concealed": true,
+            "description": "a small statue",
+            "inside": "crate",
+            "location": "vault",
+            "tags": [
+              "artifact"
+            ],
+            "type": "artifact"
+          }
+        },
+        "relay": {
+          "activated": false,
+          "code": null,
+          "frequency": null
+        },
+        "start_location": "hall",
+        "surfaces": [
+          "pedestal"
+        ]
+      }
+    },
+    {
+      "content_hash": "fe281074d4a941a7fbd9ac8355b6959fda32f24abd45a8d1fcccdb0ef06bfb45",
+      "generator_version": "aes-task-gen-v1",
+      "hidden_goal": {
+        "crate_unlocked": true,
+        "object_on_surface": {
+          "object": "statue",
+          "surface": "pedestal"
+        },
+        "required_unlock_key": "coin_a",
+        "type": "key_crate"
+      },
+      "public": {
+        "content_hash": "fe281074d4a941a7fbd9ac8355b6959fda32f24abd45a8d1fcccdb0ef06bfb45",
+        "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
+        "family": "key_crate",
+        "generator_version": "aes-task-gen-v1",
+        "max_steps": 24,
+        "seed": 103,
+        "split": "dev",
+        "task_id": "key_crate/dev/seed000103"
+      },
+      "seed": 103,
+      "setup": {
+        "dials": {},
+        "locations": [
+          "hall",
+          "storage",
+          "corridor",
+          "vault"
+        ],
+        "notes": {},
+        "objects": {
+          "coin_a": {
+            "description": "a metal coin that looks like a key",
+            "location": "storage",
+            "tags": [
+              "coin"
+            ],
+            "type": "key"
+          },
+          "coin_b": {
+            "description": "a metal coin that looks like a key",
+            "location": "corridor",
+            "tags": [
+              "coin"
+            ],
+            "type": "key"
+          },
+          "coin_c": {
+            "description": "a metal coin that looks like a key",
+            "location": "vault",
+            "tags": [
+              "coin"
+            ],
+            "type": "key"
+          },
+          "crate": {
+            "description": "a locked crate",
+            "location": "vault",
+            "lock_key": "coin_a",
+            "locked": true,
+            "tags": [
+              "container"
+            ],
+            "type": "crate",
+            "unlocked": false
+          },
+          "pedestal": {
+            "description": "display pedestal",
+            "location": "hall",
+            "tags": [
+              "surface"
+            ],
+            "type": "surface"
+          },
+          "statue": {
+            "concealed": true,
+            "description": "a small statue",
+            "inside": "crate",
+            "location": "vault",
+            "tags": [
+              "artifact"
+            ],
+            "type": "artifact"
+          }
+        },
+        "relay": {
+          "activated": false,
+          "code": null,
+          "frequency": null
+        },
+        "start_location": "hall",
+        "surfaces": [
+          "pedestal"
+        ]
+      }
+    },
+    {
+      "content_hash": "560234a0c6c7f105681fdb68018134faa961abddd3c9314df018713452640715",
+      "generator_version": "aes-task-gen-v1",
+      "hidden_goal": {
+        "crate_unlocked": true,
+        "object_on_surface": {
+          "object": "statue",
+          "surface": "pedestal"
+        },
+        "required_unlock_key": "coin_b",
+        "type": "key_crate"
+      },
+      "public": {
+        "content_hash": "560234a0c6c7f105681fdb68018134faa961abddd3c9314df018713452640715",
+        "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
+        "family": "key_crate",
+        "generator_version": "aes-task-gen-v1",
+        "max_steps": 24,
+        "seed": 104,
+        "split": "dev",
+        "task_id": "key_crate/dev/seed000104"
+      },
+      "seed": 104,
+      "setup": {
+        "dials": {},
+        "locations": [
+          "hall",
+          "storage",
+          "corridor",
+          "vault"
+        ],
+        "notes": {},
+        "objects": {
+          "coin_a": {
+            "description": "a metal coin that looks like a key",
+            "location": "corridor",
+            "tags": [
+              "coin"
+            ],
+            "type": "key"
+          },
+          "coin_b": {
+            "description": "a metal coin that looks like a key",
+            "location": "vault",
+            "tags": [
+              "coin"
+            ],
+            "type": "key"
+          },
+          "coin_c": {
+            "description": "a metal coin that looks like a key",
+            "location": "storage",
+            "tags": [
+              "coin"
+            ],
+            "type": "key"
+          },
+          "crate": {
+            "description": "a locked crate",
+            "location": "vault",
+            "lock_key": "coin_b",
+            "locked": true,
+            "tags": [
+              "container"
+            ],
+            "type": "crate",
+            "unlocked": false
+          },
+          "pedestal": {
+            "description": "display pedestal",
+            "location": "hall",
+            "tags": [
+              "surface"
+            ],
+            "type": "surface"
+          },
+          "statue": {
+            "concealed": true,
+            "description": "a small statue",
+            "inside": "crate",
+            "location": "vault",
+            "tags": [
+              "artifact"
+            ],
+            "type": "artifact"
+          }
+        },
+        "relay": {
+          "activated": false,
+          "code": null,
+          "frequency": null
+        },
+        "start_location": "hall",
+        "surfaces": [
+          "pedestal"
+        ]
+      }
+    },
+    {
+      "content_hash": "9f3ba8f7987e7afdae4d3bfd978951973188844107e956f423b9d62a902fa62c",
+      "generator_version": "aes-task-gen-v1",
+      "hidden_goal": {
+        "formula": "target = (gauge - offset) % 4",
+        "targets": {
+          "alpha": 2,
+          "beta": 3,
+          "gamma": 1
+        },
+        "type": "dial_set"
+      },
+      "public": {
+        "content_hash": "9f3ba8f7987e7afdae4d3bfd978951973188844107e956f423b9d62a902fa62c",
+        "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
+        "family": "dial_set",
+        "generator_version": "aes-task-gen-v1",
+        "max_steps": 16,
+        "seed": 101,
+        "split": "dev",
+        "task_id": "dial_set/dev/seed000101"
+      },
+      "seed": 101,
+      "setup": {
+        "dials": {
+          "alpha": 0,
+          "beta": 0,
+          "gamma": 0
+        },
+        "gauges": {
+          "alpha": 2,
+          "beta": 0,
+          "gamma": 3
+        },
+        "locations": [
+          "console"
+        ],
+        "notes": {},
+        "objects": {
+          "console": {
+            "description": "calibration console",
+            "location": "console",
+            "tags": [
+              "console"
+            ],
+            "type": "surface"
+          }
+        },
+        "offsets": {
+          "alpha": 0,
+          "beta": 1,
+          "gamma": 2
+        },
+        "relay": {
+          "activated": false,
+          "code": null,
+          "frequency": null
+        },
+        "start_location": "console",
+        "surfaces": []
+      }
+    },
+    {
+      "content_hash": "a099a12d033c02a75d6fb178ba35a06f243f0c4dee31e8f7159f36fa07e9ed17",
+      "generator_version": "aes-task-gen-v1",
+      "hidden_goal": {
+        "formula": "target = (gauge - offset) % 4",
+        "targets": {
+          "alpha": 1,
+          "beta": 2,
+          "gamma": 1
+        },
+        "type": "dial_set"
+      },
+      "public": {
+        "content_hash": "a099a12d033c02a75d6fb178ba35a06f243f0c4dee31e8f7159f36fa07e9ed17",
+        "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
+        "family": "dial_set",
+        "generator_version": "aes-task-gen-v1",
+        "max_steps": 16,
+        "seed": 102,
+        "split": "dev",
+        "task_id": "dial_set/dev/seed000102"
+      },
+      "seed": 102,
+      "setup": {
+        "dials": {
+          "alpha": 0,
+          "beta": 0,
+          "gamma": 0
+        },
+        "gauges": {
+          "alpha": 3,
+          "beta": 0,
+          "gamma": 3
+        },
+        "locations": [
+          "console"
+        ],
+        "notes": {},
+        "objects": {
+          "console": {
+            "description": "calibration console",
+            "location": "console",
+            "tags": [
+              "console"
+            ],
+            "type": "surface"
+          }
+        },
+        "offsets": {
+          "alpha": 2,
+          "beta": 2,
+          "gamma": 2
+        },
+        "relay": {
+          "activated": false,
+          "code": null,
+          "frequency": null
+        },
+        "start_location": "console",
+        "surfaces": []
+      }
+    },
+    {
+      "content_hash": "67163cd52ea27090b87a7efa69fca12ea949c377b39c602d237eb1022c338652",
+      "generator_version": "aes-task-gen-v1",
+      "hidden_goal": {
+        "formula": "target = (gauge - offset) % 4",
+        "targets": {
+          "alpha": 1,
+          "beta": 0,
+          "gamma": 0
+        },
+        "type": "dial_set"
+      },
+      "public": {
+        "content_hash": "67163cd52ea27090b87a7efa69fca12ea949c377b39c602d237eb1022c338652",
+        "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
+        "family": "dial_set",
+        "generator_version": "aes-task-gen-v1",
+        "max_steps": 16,
+        "seed": 103,
+        "split": "dev",
+        "task_id": "dial_set/dev/seed000103"
+      },
+      "seed": 103,
+      "setup": {
+        "dials": {
+          "alpha": 0,
+          "beta": 0,
+          "gamma": 0
+        },
+        "gauges": {
+          "alpha": 2,
+          "beta": 2,
+          "gamma": 2
+        },
+        "locations": [
+          "console"
+        ],
+        "notes": {},
+        "objects": {
+          "console": {
+            "description": "calibration console",
+            "location": "console",
+            "tags": [
+              "console"
+            ],
+            "type": "surface"
+          }
+        },
+        "offsets": {
+          "alpha": 1,
+          "beta": 2,
+          "gamma": 2
+        },
+        "relay": {
+          "activated": false,
+          "code": null,
+          "frequency": null
+        },
+        "start_location": "console",
+        "surfaces": []
+      }
+    },
+    {
+      "content_hash": "462c0902b8f474aec1f353e562d07176fc115c5a25f72079bd7032ed4dc8eb99",
+      "generator_version": "aes-task-gen-v1",
+      "hidden_goal": {
+        "formula": "target = (gauge - offset) % 4",
+        "targets": {
+          "alpha": 3,
+          "beta": 0,
+          "gamma": 0
+        },
+        "type": "dial_set"
+      },
+      "public": {
+        "content_hash": "462c0902b8f474aec1f353e562d07176fc115c5a25f72079bd7032ed4dc8eb99",
+        "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
+        "family": "dial_set",
+        "generator_version": "aes-task-gen-v1",
+        "max_steps": 16,
+        "seed": 104,
+        "split": "dev",
+        "task_id": "dial_set/dev/seed000104"
+      },
+      "seed": 104,
+      "setup": {
+        "dials": {
+          "alpha": 0,
+          "beta": 0,
+          "gamma": 0
+        },
+        "gauges": {
+          "alpha": 3,
+          "beta": 1,
+          "gamma": 1
+        },
+        "locations": [
+          "console"
+        ],
+        "notes": {},
+        "objects": {
+          "console": {
+            "description": "calibration console",
+            "location": "console",
+            "tags": [
+              "console"
+            ],
+            "type": "surface"
+          }
+        },
+        "offsets": {
+          "alpha": 0,
+          "beta": 1,
+          "gamma": 1
+        },
+        "relay": {
+          "activated": false,
+          "code": null,
+          "frequency": null
+        },
+        "start_location": "console",
+        "surfaces": []
+      }
+    }
+  ]
+}

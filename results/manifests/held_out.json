@@ -1,0 +1,271 @@
+{
+  "count": 3,
+  "manifest_hash": "035cd69761e14b6fba82e7baf8a2cbd7bcdc5615a1d5f719d551a3fdb1983b10",
+  "split": "held_out",
+  "tasks": [
+    {
+      "content_hash": "d8799d575aa83e2d39226cbd6a20846779c380a232a238fbc2f83775c57d11dc",
+      "generator_version": "aes-task-gen-v1",
+      "hidden_goal": {
+        "code": "255",
+        "formula": "frequency = (digit_sum % 7) + 1",
+        "frequency": 6,
+        "note_digits": {
+          "note_0": 2,
+          "note_1": 5,
+          "note_2": 5
+        },
+        "type": "relay_route"
+      },
+      "public": {
+        "content_hash": "d8799d575aa83e2d39226cbd6a20846779c380a232a238fbc2f83775c57d11dc",
+        "description": "Activate the relay at the hub and set its frequency. Three notes in the north, south and east rooms each contain one code fragment in the form 'fragment i: digit d'. The three-digit code is fragment digits in order 0,1,2. Activate the relay with that code, then set frequency to (digit_sum % 7) + 1, then submit.",
+        "family": "relay_route",
+        "generator_version": "aes-task-gen-v1",
+        "max_steps": 20,
+        "seed": 201,
+        "split": "held_out",
+        "task_id": "relay_route/held_out/seed000201"
+      },
+      "seed": 201,
+      "setup": {
+        "dials": {},
+        "locations": [
+          "hub",
+          "north",
+          "south",
+          "east"
+        ],
+        "note_room": {
+          "note_0": "north",
+          "note_1": "south",
+          "note_2": "east"
+        },
+        "notes": {
+          "note_0": "fragment 0: digit 2",
+          "note_1": "fragment 1: digit 5",
+          "note_2": "fragment 2: digit 5"
+        },
+        "objects": {
+          "note_0": {
+            "description": "a paper note",
+            "location": "north",
+            "tags": [
+              "note"
+            ],
+            "type": "note"
+          },
+          "note_1": {
+            "description": "a paper note",
+            "location": "south",
+            "tags": [
+              "note"
+            ],
+            "type": "note"
+          },
+          "note_2": {
+            "description": "a paper note",
+            "location": "east",
+            "tags": [
+              "note"
+            ],
+            "type": "note"
+          },
+          "relay": {
+            "description": "route relay terminal",
+            "location": "hub",
+            "locked": true,
+            "tags": [
+              "relay"
+            ],
+            "type": "relay",
+            "unlocked": false
+          }
+        },
+        "relay": {
+          "activated": false,
+          "code": "255",
+          "frequency": null
+        },
+        "start_location": "hub",
+        "surfaces": []
+      }
+    },
+    {
+      "content_hash": "7279f0c6f0ac0f4003455898129c1da96342a0e8b24ec0e44ab40705386c098f",
+      "generator_version": "aes-task-gen-v1",
+      "hidden_goal": {
+        "code": "208",
+        "formula": "frequency = (digit_sum % 7) + 1",
+        "frequency": 4,
+        "note_digits": {
+          "note_0": 2,
+          "note_1": 0,
+          "note_2": 8
+        },
+        "type": "relay_route"
+      },
+      "public": {
+        "content_hash": "7279f0c6f0ac0f4003455898129c1da96342a0e8b24ec0e44ab40705386c098f",
+        "description": "Activate the relay at the hub and set its frequency. Three notes in the north, south and east rooms each contain one code fragment in the form 'fragment i: digit d'. The three-digit code is fragment digits in order 0,1,2. Activate the relay with that code, then set frequency to (digit_sum % 7) + 1, then submit.",
+        "family": "relay_route",
+        "generator_version": "aes-task-gen-v1",
+        "max_steps": 20,
+        "seed": 202,
+        "split": "held_out",
+        "task_id": "relay_route/held_out/seed000202"
+      },
+      "seed": 202,
+      "setup": {
+        "dials": {},
+        "locations": [
+          "hub",
+          "north",
+          "south",
+          "east"
+        ],
+        "note_room": {
+          "note_0": "north",
+          "note_1": "south",
+          "note_2": "east"
+        },
+        "notes": {
+          "note_0": "fragment 0: digit 2",
+          "note_1": "fragment 1: digit 0",
+          "note_2": "fragment 2: digit 8"
+        },
+        "objects": {
+          "note_0": {
+            "description": "a paper note",
+            "location": "north",
+            "tags": [
+              "note"
+            ],
+            "type": "note"
+          },
+          "note_1": {
+            "description": "a paper note",
+            "location": "south",
+            "tags": [
+              "note"
+            ],
+            "type": "note"
+          },
+          "note_2": {
+            "description": "a paper note",
+            "location": "east",
+            "tags": [
+              "note"
+            ],
+            "type": "note"
+          },
+          "relay": {
+            "description": "route relay terminal",
+            "location": "hub",
+            "locked": true,
+            "tags": [
+              "relay"
+            ],
+            "type": "relay",
+            "unlocked": false
+          }
+        },
+        "relay": {
+          "activated": false,
+          "code": "208",
+          "frequency": null
+        },
+        "start_location": "hub",
+        "surfaces": []
+      }
+    },
+    {
+      "content_hash": "d6b9bed21539c49a979ad67100b77c748605d10fa4935943eb2951c2b165041c",
+      "generator_version": "aes-task-gen-v1",
+      "hidden_goal": {
+        "code": "297",
+        "formula": "frequency = (digit_sum % 7) + 1",
+        "frequency": 5,
+        "note_digits": {
+          "note_0": 2,
+          "note_1": 9,
+          "note_2": 7
+        },
+        "type": "relay_route"
+      },
+      "public": {
+        "content_hash": "d6b9bed21539c49a979ad67100b77c748605d10fa4935943eb2951c2b165041c",
+        "description": "Activate the relay at the hub and set its frequency. Three notes in the north, south and east rooms each contain one code fragment in the form 'fragment i: digit d'. The three-digit code is fragment digits in order 0,1,2. Activate the relay with that code, then set frequency to (digit_sum % 7) + 1, then submit.",
+        "family": "relay_route",
+        "generator_version": "aes-task-gen-v1",
+        "max_steps": 20,
+        "seed": 203,
+        "split": "held_out",
+        "task_id": "relay_route/held_out/seed000203"
+      },
+      "seed": 203,
+      "setup": {
+        "dials": {},
+        "locations": [
+          "hub",
+          "north",
+          "south",
+          "east"
+        ],
+        "note_room": {
+          "note_0": "north",
+          "note_1": "south",
+          "note_2": "east"
+        },
+        "notes": {
+          "note_0": "fragment 0: digit 2",
+          "note_1": "fragment 1: digit 9",
+          "note_2": "fragment 2: digit 7"
+        },
+        "objects": {
+          "note_0": {
+            "description": "a paper note",
+            "location": "north",
+            "tags": [
+              "note"
+            ],
+            "type": "note"
+          },
+          "note_1": {
+            "description": "a paper note",
+            "location": "south",
+            "tags": [
+              "note"
+            ],
+            "type": "note"
+          },
+          "note_2": {
+            "description": "a paper note",
+            "location": "east",
+            "tags": [
+              "note"
+            ],
+            "type": "note"
+          },
+          "relay": {
+            "description": "route relay terminal",
+            "location": "hub",
+            "locked": true,
+            "tags": [
+              "relay"
+            ],
+            "type": "relay",
+            "unlocked": false
+          }
+        },
+        "relay": {
+          "activated": false,
+          "code": "297",
+          "frequency": null
+        },
+        "start_location": "hub",
+        "surfaces": []
+      }
+    }
+  ]
+}

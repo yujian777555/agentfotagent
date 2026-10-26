@@ -1,0 +1,8 @@
+{
+  "schema_version": "aes-seeds-v1",
+  "train_seeds": [1, 2, 3, 4, 5, 6, 7, 8],
+  "dev_seeds": [101, 102, 103, 104],
+  "held_out_seeds": [201, 202, 203],
+  "baseline_seeds": [11, 22, 33],
+  "notes": "Seeds freeze before confirmatory evaluation. Held-out seeds belong to held-out families only."
+}
