@@ -209,3 +209,10 @@ Blocking follow-up is documented in `docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.m
 4. The sequential F1–F12/F13–F18/F19–F24 split has uneven MetaBox easy/difficult and BBOB-family composition. Since no Agent proposals have been run, preserve split_v1 but verify and freeze a stratified split_v2 before any Agent pilot.
 5. Complete environment dependency/artifact provenance and add exact-SHA CI; no Actions run was found for the feature branch.
 6. P1A-1, MetaBBO meta-training and AES transfer remain blocked until P0-R1 re-review. No live API calls without separate explicit budget approval.
+
+
+## Critical P0 source-audit correction — 2026-10-27
+
+During source-level review, a blocking loader defect was found in `experiments/metabox/adapter.py::load_function`: it calls the pinned MetaBox factory with `difficulty="all"`, which ignores the passed user function-ID lists and returns all 24 BBOB functions; the adapter then selects `train_set[0]` (F1) but records the requested ID. The reported F6 runs are therefore mislabeled F1 runs. The 1,500-FE accounting and same-seed reproducibility remain useful generic DE smoke evidence, but no function-specific score or split claim is accepted.
+
+The P0 review was updated in `docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.md`. **P0 is REQUEST CHANGES; P1A-1 is blocked.** First correct the selector and test actual F1/F6/F24 identity, then regenerate all artifacts. Next correct misleading range action semantics, implement or remove unsupported dynamic actions, version the split without overwriting the invalidated split-v1 artifacts, complete environment provenance, and add exact-SHA CI. No Agent API or AES transfer experiment until re-review.
