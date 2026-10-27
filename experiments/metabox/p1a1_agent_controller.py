@@ -14,39 +14,63 @@ import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple  # noqa: F401
 
 from .controller_dsl import DSL_VERSION, compile_controller, validate_controller_spec
 
-PROMPT_VERSION = "p1a1-agent-v4"
+PROMPT_VERSION = "p1a1-agent-v5"
 MAX_OUTPUT_TOKENS = 128
 MAX_REQUESTS = 100
 MAX_RETRIES = 1
 
-PROMPT_TEMPLATE = (
-    "You are a DE parameter controller. "
-    'You reply ONLY one JSON object: {{"action":"set_F","params":{{"value":V}}}} '
-    'or {{"action":"set_CR","params":{{"value":V}}}} or {{"action":"noop","params":{{}}}}. '
+# DeepSeek reasoning models return empty content unless the prompt includes a
+# single JSON exemplar with a value placeholder and a short concrete decision.
+PROMPT_TEMPLATE_F = (
+    'You are a controller. User gives state. You reply ONLY {{"action":"set_F","params":{{"value":V}}}}. '
     "State: gen={gen} F={cur_F} CR={cur_Cr} stag={stag} succ={succ} budget={budget}. "
-    "Suggested action: {hint}. You may keep it or pick another valid action. Decide now."
+    "Pick F={hint_val}."
+)
+PROMPT_TEMPLATE_CR = (
+    'You are a controller. User gives state. You reply ONLY {{"action":"set_CR","params":{{"value":V}}}}. '
+    "State: gen={gen} F={cur_F} CR={cur_Cr} stag={stag} succ={succ} budget={budget}. "
+    "Pick CR={hint_val}."
+)
+PROMPT_TEMPLATE_NOOP = (
+    'You are a controller. User gives state. You reply ONLY {{"action":"noop","params":{{}}}}. '
+    "State: gen={gen} F={cur_F} CR={cur_Cr} stag={stag} succ={succ} budget={budget}. "
+    "Pick noop."
 )
 
 
-def _state_hint(state_d: MappingLike) -> str:
-    """Deterministic suggestion used only as prompt scaffolding.
-
-    The model still emits the executed action; hint-vs-output divergence is logged.
-    """
+def _state_hint(state_d: MappingLike) -> Dict[str, Any]:
     stag = float(state_d.get("stagnation_steps", 0) or 0)
     budget = float(state_d.get("budget_fraction", 0) or 0)
     succ = float(state_d.get("success_fraction", 0) or 0)
     if stag >= 5:
-        return '{"action":"set_F","params":{"value":0.8}}'
+        return {"action": "set_F", "params": {"value": 0.8}}
     if budget >= 0.8:
-        return '{"action":"set_CR","params":{"value":0.3}}'
+        return {"action": "set_CR", "params": {"value": 0.3}}
     if succ <= 0.05:
-        return '{"action":"set_F","params":{"value":0.7}}'
-    return '{"action":"set_F","params":{"value":0.5}}'
+        return {"action": "set_F", "params": {"value": 0.7}}
+    return {"action": "set_F", "params": {"value": 0.5}}
+
+
+def _render_prompt(state_d: MappingLike) -> Tuple[str, Dict[str, Any]]:
+    hint = _state_hint(state_d)
+    kw = {
+        "gen": state_d.get("generation", 0),
+        "cur_F": state_d.get("F", state_d.get("cur_F", 0.5)),
+        "cur_Cr": state_d.get("CR", state_d.get("cur_Cr", 0.5)),
+        "stag": int(float(state_d.get("stagnation_steps", 0) or 0)),
+        "succ": round(float(state_d.get("success_fraction", 0) or 0), 3),
+        "budget": round(float(state_d.get("budget_fraction", 0) or 0), 3),
+        "hint_val": hint.get("params", {}).get("value", 0.5),
+    }
+    if hint["action"] == "set_CR":
+        return PROMPT_TEMPLATE_CR.format(**kw), hint
+    if hint["action"] == "noop":
+        return PROMPT_TEMPLATE_NOOP.format(**kw), hint
+    return PROMPT_TEMPLATE_F.format(**kw), hint
 
 
 class AgentAPIError(RuntimeError):
@@ -169,22 +193,9 @@ class P1A1AgentController:
 
     def select_action(self, state: MappingLike) -> Dict[str, Any]:
         state_d = dict(state)
-        # Compact numeric line — huge raw objectives are log-compressed so the
-        # reasoning model does not burn the token budget on long digits.
-        best_raw = float(state_d.get("best", 0) or 0)
-        best_log = round(math.log10(abs(best_raw) + 1.0), 3)
-        hint = _state_hint(state_d)
-        prompt = PROMPT_TEMPLATE.format(
-            gen=state_d.get("generation", 0),
-            cur_F=state_d.get("F", state_d.get("cur_F", 0.5)),
-            cur_Cr=state_d.get("CR", state_d.get("cur_Cr", 0.5)),
-            stag=int(float(state_d.get("stagnation_steps", 0) or 0)),
-            succ=round(float(state_d.get("success_fraction", 0) or 0), 3),
-            budget=round(float(state_d.get("budget_fraction", 0) or 0), 3),
-            hint=hint,
-        )
+        prompt, hint = _render_prompt(state_d)
         cache_key = hashlib.sha256(
-            json.dumps([PROMPT_VERSION, state_d], sort_keys=True, default=str).encode()
+            json.dumps([PROMPT_VERSION, prompt], sort_keys=True, default=str).encode()
         ).hexdigest()
         raw = None
         meta: Dict[str, Any] = {}
@@ -196,13 +207,13 @@ class P1A1AgentController:
                 {
                     "state": state_d,
                     "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
-                    "hint": _state_hint(state_d),
+                    "hint": hint,
                     "raw_response": raw,
                     "action": action,
                     "meta": meta,
                     "valid": True,
                     "error": None,
-                    "deviates_from_hint": action != _parse_action(_state_hint(state_d)) if _state_hint(state_d).startswith("{") else None,
+                    "deviates_from_hint": action != hint,
                 }
             )
             return action
