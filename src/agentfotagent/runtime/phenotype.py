@@ -59,6 +59,9 @@ class Phenotype:
     planned: bool = False
     verified: bool = False
     memory: List[Mapping[str, Any]] = field(default_factory=list)
+    plan: Optional[List[str]] = None
+    plan_index: int = 0
+    verify_summary: Optional[Mapping[str, Any]] = None
 
     def __post_init__(self) -> None:
         self.genome = (
@@ -72,8 +75,25 @@ class Phenotype:
     def should_plan_first(self) -> bool:
         return self.genome.planning_mode == "plan_first" and not self.planned
 
-    def mark_planned(self) -> None:
+    def set_plan(self, steps: Sequence[str]) -> None:
+        """Store the plan that later decisions must consume."""
+        self.plan = [str(s) for s in steps]
         self.planned = True
+
+    def current_plan_step(self) -> Optional[str]:
+        """Active plan step, or None when no plan is driving decisions."""
+        if not self.plan:
+            return None
+        if self.plan_index >= len(self.plan):
+            return self.plan[-1] if self.plan else None
+        return self.plan[self.plan_index]
+
+    def advance_plan(self) -> None:
+        if self.plan and self.plan_index < len(self.plan):
+            self.plan_index += 1
+
+    def set_plan_index(self, index: int) -> None:
+        self.plan_index = max(0, index)
 
     # -- memory ------------------------------------------------------------
 
@@ -89,13 +109,39 @@ class Phenotype:
             return []
         return list(self.memory)
 
+    def recalled_locations(self) -> List[str]:
+        locs: List[str] = []
+        for obs in self.recall():
+            loc = obs.get("location")
+            if loc and loc not in locs:
+                locs.append(str(loc))
+        return locs
+
+    def recalled_object_locations(self) -> Dict[str, str]:
+        found: Dict[str, str] = {}
+        for obs in self.recall():
+            for oid in obs.get("visible_objects", []) or []:
+                loc = obs.get("location")
+                if loc:
+                    found[str(oid)] = str(loc)
+        return found
+
     # -- verification ------------------------------------------------------
 
     def should_verify_before_finalize(self) -> bool:
         return self.genome.verification_policy == "check_before_finalize" and not self.verified
 
+    def record_verification(self, summary: Mapping[str, Any]) -> bool:
+        """Store verify_state output. Returns True when public checks look satisfied."""
+        self.verify_summary = dict(summary)
+        return bool(summary.get("goal_checks_passed", False))
+
     def mark_verified(self) -> None:
         self.verified = True
+
+    def reset_verification(self) -> None:
+        self.verified = False
+        self.verify_summary = None
 
     # -- tool ranking ------------------------------------------------------
 
