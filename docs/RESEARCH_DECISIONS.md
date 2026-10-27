@@ -54,3 +54,8 @@
 ## D-015 — Phase-0-R2 test pass does not close all integrity gates
 
 2026-10-27. GitHub Actions independently reproduced the existing suite on exact R2 source commit ec73906e15c048285cff3bca90a4f1f8bed21da8: 127 passed in 0.43s (run 40453697835). Adversarial probes on the same source tree showed that the content-derived runtime ID can be reversed by enumerating the public generator's seed space; the relay evaluator accepts malformed goal values (code=null, frequency=99); the key_crate evaluator accepts object records without required entity types; and artifact reconstruction accepts tampered invalid_actions metrics. Therefore Phase-0 remains REQUEST CHANGES. Fix these issues, add adversarial regression tests, rerun the full suite and seek independent review. No live API, GPU, MetaBox or scientific experiment is authorized by this decision.
+
+
+## D-017 — R3 test reproduction passes, but environment remains unaccepted
+
+2026-10-27. Independent GitHub Actions run 40459330792 checked out exact R3 candidate source `cd07249a1b4675354b01f9d5ac09ab2ffe4d2033` and reproduced 162 passing tests in 0.87s on Python 3.10.22. Further probes found that integer `success=1` is accepted in place of boolean true, unknown score fields are accepted, and key_crate can succeed with missing crate/surface locations. The original counterexample probe also masks failures for R3-01/R3-04 by treating generic exceptions/assertions as PASS. Phase-0 remains REQUEST CHANGES. Fix R3-05..R3-08, add regression tests, reproduce and seek independent review. No live API, GPU, MetaBox or scientific experiments are authorized.

@@ -69,3 +69,8 @@ calls, GPU runs or scientific baseline comparisons until Phase-0 is accepted.
 Detailed report: docs/PHASE0_R2_INDEPENDENT_REVIEW_2026-10-27.md. Reproduction record: docs/PHASE0_R2_TEST_REPRODUCTION_2026-10-27.md.
 
 R1-01, R1-04 and R1-05 therefore remain PARTIAL, not FIXED. No transfer experiments, MetaBox meta-training, live API calls, GPU runs or scientific baseline comparisons until a corrective pass is independently accepted.
+
+
+## R3 independent review follow-up
+
+The R3 candidate at `cd07249a1b4675354b01f9d5ac09ab2ffe4d2033` was independently tested (162 passed in 0.87s; run 40459330792), but Phase-0 remains NOT ACCEPTED. See `docs/PHASE0_R3_INDEPENDENT_REVIEW_2026-10-27.md` for the R3-05..R3-08 findings and required follow-up. R2 findings are not reclassified as accepted by the R3 test pass.

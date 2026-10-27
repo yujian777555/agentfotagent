@@ -162,3 +162,10 @@ Required next pass:
 5. Rerun the complete suite on the corrected source commit, update status and response matrices, then stop for another independent review.
 
 **Status: NOT ACCEPTED.** No scientific experiments, live API, GPU or MetaBox meta-training are authorized until the next independent review accepts the environment.
+
+
+## Phase-0-R3 independent review — 2026-10-27
+
+Exact R3 candidate source `cd07249a1b4675354b01f9d5ac09ab2ffe4d2033` was independently tested in GitHub Actions run 40459330792: **162 passed in 0.87s** on Python 3.10.22. The candidate remains **REQUEST CHANGES / NOT ACCEPTED** because independent adversarial probes found: (1) persisted `success=True` changed to integer `1` is accepted by reconstruction; (2) unknown score fields are accepted; (3) key_crate succeeds when crate/surface location fields are missing. In addition, `tests/probe_r2_counterexamples.py` falsely reports PASS for both vulnerable and correct outcomes on R3-01 and R3-04 due to its exception handler. Details: `docs/PHASE0_R3_INDEPENDENT_REVIEW_2026-10-27.md`.
+
+Next: fix R3-05 through R3-08, add regression tests including a self-test of the probe harness, rerun the full suite and independent review. Do not merge to main or start scientific experiments.

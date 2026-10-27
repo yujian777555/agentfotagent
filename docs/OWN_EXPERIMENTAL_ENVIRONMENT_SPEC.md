@@ -277,3 +277,16 @@ The runner explicitly checked out ec73906e15c048285cff3bca90a4f1f8bed21da8 befor
 4. Changing a recorded invalid_actions metric from 0 to 999999 is accepted by reconstruct_from_artifacts.
 
 These are uncovered failure paths, not failures of the existing 127-test suite. See docs/PHASE0_R2_INDEPENDENT_REVIEW_2026-10-27.md and docs/PHASE0_R2_TEST_REPRODUCTION_2026-10-27.md. Phase-0 remains NOT ACCEPTED. No live API, GPU, MetaBox, transfer or scientific baseline experiment was run.
+
+
+### 8.7 Independent Phase-0-R3 review (2026-10-27)
+
+The exact R3 candidate tree `cd07249a1b4675354b01f9d5ac09ab2ffe4d2033` was independently tested on GitHub Actions run 40459330792: **162 passed in 0.87s**, Python 3.10.22. The test suite is engineering evidence only, not Agent capability evidence.
+
+The candidate is **REQUEST CHANGES / NOT ACCEPTED** due to uncovered cases:
+- `success` score values are coerced with `bool(value)`, so integer `1` can replace boolean `true` without rejection.
+- Unknown fields in manifest score records are silently accepted.
+- key_crate final state is accepted when the crate and pedestal/surface lack location fields.
+- `tests/probe_r2_counterexamples.py` catches generic exceptions and assertion errors as PASS, making its R3-01 and R3-04 results false-positive-prone.
+
+See `docs/PHASE0_R3_INDEPENDENT_REVIEW_2026-10-27.md` and `docs/PHASE0_R3_TEST_REPRODUCTION_2026-10-27.md`. The next corrective pass must add strict schema validation, location validation, and a tested probe harness. No live API, GPU, MetaBox, transfer or scientific baseline experiment is authorized before acceptance.
