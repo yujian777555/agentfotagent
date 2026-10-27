@@ -2,13 +2,36 @@
 
 ## Verdict
 
-**ACCEPTED AS A REAL-PLATFORM ENGINEERING SMOKE ONLY. REQUEST CHANGES FOR FULL P0 CLOSURE. P1A-1 IS BLOCKED.**
+**REQUEST CHANGES. MetaBox/DE execution smoke only; function-specific P0 is NOT ACCEPTED. P1A-1 IS BLOCKED.**
 
 Reviewed Executor candidate: `phase1a-metabox-smoke@f571b52ba73f6cfcf51901a2af72f4b980699bc7`.
 
-The core MetaBox integration evidence is credible and useful: the official DE path executes, the reported and independently wrapped FE counts agree at 1,500, the same seed reproduces the same curve, and changing the initial F setting changes outcomes. These results establish an engineering smoke, not an adaptive-controller result or Agent capability improvement.
+The core MetaBox/DE API path appears to execute, the reported and independently wrapped FE counts agree at 1,500, the same seed reproduces the same curve, and changing the initial F setting changes outcomes. However, a critical loader defect invalidates the claim that these runs evaluated F6: `load_function(6)` passes `difficulty='all'` to the pinned MetaBox dataset factory, which ignores the supplied function-ID lists and returns all 24 functions; the adapter then selects `train_set[0]`, i.e. F1. The runs are therefore real DE executions on the wrong function while the manifest labels them F6. The counts and determinism are still useful generic smoke evidence, but function-specific evidence and the split-driven loader are not accepted.
 
 The report claims 198 tests passed and one skipped locally. No GitHub Actions run was found for this feature branch, so this Planner review has inspected source and artifacts but has not independently reproduced the Windows runtime tests.
+
+## Critical finding discovered during source audit
+
+### P0-R1-00 — Function-ID selector is ignored; every requested function resolves to F1
+
+In `experiments/metabox/adapter.py::load_function`, the call is effectively:
+
+```python
+get_problem_set(cfg, "bbob-10D", "all", [function_id], [function_id])
+```
+
+The pinned upstream source `src/environment/problem/SOO/COCO_BBOB/bbob_dataset.py` explicitly builds all 24 functions and, when `difficulty == "all"`, assigns `train_set = instance_list.copy()` and `test_set = instance_list.copy()`. The provided `user_train_list` / `user_test_list` are not applied in that branch. The adapter then selects `train_set[0]`, the first function F1, but sets the wrapper's `function_id` to the requested ID. Thus the reported `bbob-10D/F6` runs are mislabeled and actually use F1.
+
+Upstream evidence: https://github.com/MetaEvo/MetaBox/blob/5565a281ce4e03efc1f6a41230507d5b66637ace/src/environment/problem/SOO/COCO_BBOB/bbob_dataset.py
+
+**Required fix and regression gate:**
+1. Call the dataset factory in explicit-list mode (e.g. `difficulty=None` with both user lists set to the requested function ID), or use another verified official path that selects exactly that function.
+2. Derive/check the actual underlying function identity rather than copying the requested ID into the wrapper.
+3. Add tests for at least F1, F6 and F24 proving each requested ID resolves to the matching underlying function; assert that distinct IDs do not all produce the same class/identity.
+4. Regenerate the smoke manifest and rerun all smoke tests after the fix. Preserve the old manifest as an invalidated historical artifact; do not overwrite it silently.
+5. Recompute split membership through the fixed loader before any Agent proposal.
+
+Until this passes, the reported F6 scores are not evidence about F6, and no function-level split claim is accepted.
 
 ## Confirmed positives
 
@@ -68,11 +91,12 @@ The reported 198-pass/1-skip result is a local Windows result. No Actions run is
 
 ## Acceptance boundary
 
-- **Accepted now:** real MetaBox/DE integration smoke, 1,500-FE accounting, same-seed determinism, and static scalar-parameter effect.
+- **Accepted narrowly:** the adapter reaches the real MetaBox DE code path and the recorded run is reproducible under its current configuration. FE accounting agrees for the reported runs.
+- **Not accepted:** function-specific F6 execution, function-identity loading/split correctness, or any inference that the F6 scores represent F6.
 - **Not established:** live trajectory-conditioned control, mutation/restart effectiveness, adaptive F/CR ranges, Agent-generated policies, MetaBBO training, transfer benefit, scientific novelty, or paper readiness.
 - **P1A-1 status:** **BLOCKED** until P0-R1-01 through P0-R1-04 are resolved and P0-R1-05/06 are either completed or explicitly dispositioned with reproducibility evidence.
 - **API/GPU:** none authorized by this review. No live LLM calls or paid inference until a separate explicit budget approval.
 
 ## Next task
 
-Execute `Phase-1A P0-R1`: correct action semantics, wire and test real trace-conditioned controller hooks (or explicitly narrow the action space), publish and verify split_v2, complete the dependency lock, and add exact-SHA CI. Stop for Planner re-review. Do not start Agent pilot, MetaBBO meta-training, or AES transfer before acceptance.
+Execute `Phase-1A P0-R1`: first fix and test P0-R1-00 function identity loading; then correct action semantics, wire and test real trace-conditioned controller hooks (or explicitly narrow the action space), publish and verify split_v2, complete the dependency lock, and add exact-SHA CI. Regenerate artifacts under a new run ID and stop for Planner re-review. Do not start Agent pilot, MetaBBO meta-training, or AES transfer before acceptance.
