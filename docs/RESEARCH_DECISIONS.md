@@ -68,3 +68,8 @@
 ## D-019 — Saturated surrogate transfer pilot is NO-GO; return to MetaBox source-domain validation
 
 2026-10-27. The Phase-1 debug pilot reaches 1.0 best success rate in all arms; all 16 genotypes solve all six small train tasks. Mean steps differ, but the EA selection objective does not optimize that secondary metric. The source allele prior is hand-written and is not MetaBox output or Agent-generated strategy knowledge. Do not scale this pilot or claim transfer benefit. Next, validate an Agent-generated constrained controller on MetaBox-v2 against strong EC/LLM-assisted baselines and held-out tasks. Only if that gate passes should the same explicit controller be transferred to AES; bidirectional feedback remains conditional on positive transfer evidence. No live API calls without explicit budget approval.
+
+
+## D-020 — R4 engineering gate merged; next phase returns to MetaBox
+
+2026-10-27. PR #2 merged the reviewed R3/R4 source and tests into main at `9e59401dd78f4be830c45634767bd3f65fb4b4ed`. Integration CI run 40464369334 passed 189 tests, 62 targeted tests and 7/7 probes. Phase-0 acceptance is limited to engineering infrastructure. The current source→AES pilot remains `NO_GO_OR_PIVOT`: all 16 genotypes solve all six small tasks and the source prior is hand-coded, not MetaBox or Agent-generated. Next: validate Agent-assisted EC on MetaBox-v2 against strong baselines and held-out tasks; transfer to AES only after a reproducible positive result. No live LLM API calls without an explicit budget.
