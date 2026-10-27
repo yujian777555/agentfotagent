@@ -201,6 +201,52 @@ class ReconstructionError(RuntimeError):
     """Raised when artifact traces and manifest scores are not in exact correspondence."""
 
 
+# All persisted score fields that must match the rebuilt EpisodeResult (R3-04).
+SCORE_COMPARE_FIELDS = (
+    "success",
+    "steps",
+    "invalid_actions",
+    "repeated_states",
+    "termination_reason",
+    "final_state_hash",
+)
+
+
+def _normalize_score_value(field: str, value: Any) -> Any:
+    if field == "success":
+        return bool(value)
+    if field in {"steps", "invalid_actions", "repeated_states"}:
+        if isinstance(value, bool):
+            raise ReconstructionError(f"{field} must be int, got bool")
+        if not isinstance(value, int):
+            raise ReconstructionError(f"{field} must be int, got {type(value).__name__}")
+        return value
+    if field == "termination_reason":
+        if not isinstance(value, str):
+            raise ReconstructionError(f"{field} must be str, got {type(value).__name__}")
+        return value
+    if field == "final_state_hash":
+        if not isinstance(value, str) or not value:
+            raise ReconstructionError(f"{field} must be non-empty str")
+        return value
+    return value
+
+
+def compare_score_fields(recorded: Mapping[str, Any], rebuilt: EpisodeResult) -> None:
+    """Strict full-field comparison between a manifest score and a rebuilt result."""
+    for field in SCORE_COMPARE_FIELDS:
+        if field not in recorded:
+            raise ReconstructionError(f"manifest score missing field: {field}")
+        rec_val = _normalize_score_value(field, recorded[field])
+        reb_val = getattr(rebuilt, field)
+        if field == "success":
+            reb_val = bool(reb_val)
+        if rec_val != reb_val:
+            raise ReconstructionError(
+                f"score field mismatch for {rebuilt.task_id}: {field} recorded={rec_val!r} rebuilt={reb_val!r}"
+            )
+
+
 def reconstruct_from_artifacts(
     artifact: Mapping[str, Any],
     tasks: Mapping[str, TaskInstance],
@@ -261,17 +307,12 @@ def reconstruct_from_artifacts(
         matched_keys.add(key)
 
         rec = score_index[key]
-        if bool(rec.get("success")) != bool(result.success) or int(rec.get("steps", -1)) != int(
-            result.steps
-        ):
-            mismatches.append(
-                {
-                    "task_id": result.task_id,
-                    "reason": "score_mismatch",
-                    "recorded": rec,
-                    "rebuilt_success": result.success,
-                }
-            )
+        try:
+            compare_score_fields(rec, result)
+        except ReconstructionError:
+            raise
+        except Exception as exc:
+            raise ReconstructionError(f"invalid manifest score record: {exc}") from exc
 
     # Every manifest score must be covered by a trace (R1-05: reverse direction).
     unmatched_scores = [k for k in score_index if k not in matched_keys]

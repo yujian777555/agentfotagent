@@ -69,3 +69,7 @@ calls, GPU runs or scientific baseline comparisons until Phase-0 is accepted.
 Detailed report: docs/PHASE0_R2_INDEPENDENT_REVIEW_2026-10-27.md. Reproduction record: docs/PHASE0_R2_TEST_REPRODUCTION_2026-10-27.md.
 
 R1-01, R1-04 and R1-05 therefore remain PARTIAL, not FIXED. No transfer experiments, MetaBox meta-training, live API calls, GPU runs or scientific baseline comparisons until a corrective pass is independently accepted.
+
+## Phase-0-R3 corrective follow-up
+
+Residual findings R2-01..R2-04 from docs/PHASE0_R2_INDEPENDENT_REVIEW_2026-10-27.md are addressed on branch phase0-r3-fixes. See docs/PHASE0_R3_AUDIT_RESPONSE.md. This R2 matrix is not re-marked ACCEPTED.

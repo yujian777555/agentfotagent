@@ -162,3 +162,18 @@ Required next pass:
 5. Rerun the complete suite on the corrected source commit, update status and response matrices, then stop for another independent review.
 
 **Status: NOT ACCEPTED.** No scientific experiments, live API, GPU or MetaBox meta-training are authorized until the next independent review accepts the environment.
+
+## Phase-0-R3 corrective pass — 2026-10-27
+
+Basis: docs/PHASE0_R2_INDEPENDENT_REVIEW_2026-10-27.md (REQUEST CHANGES on ec73906).
+
+Branch phase0-r3-fixes implements R3-01..R3-04 only:
+- R3-01 random runtime tokens; seed-enum attack fails
+- R3-02 relay code/frequency schema + generator consistency
+- R3-03 key_crate entity types + pedestal surface required
+- R3-04 full persisted score-field reconstruction
+
+Response matrix: docs/PHASE0_R3_AUDIT_RESPONSE.md.
+Executor tests: 162 collected, all passing on the R3 tree (mock backend only).
+
+**Status: R3 FIXES IMPLEMENTED (executor). NOT ACCEPTED.** Next step is independent review of phase0-r3-fixes. No scientific experiments.

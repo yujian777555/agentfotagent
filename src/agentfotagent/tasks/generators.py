@@ -16,7 +16,7 @@ import random
 from typing import Any, Dict, List, Mapping, Sequence, Tuple
 
 from ..environments.tool_world import task_content_hash
-from ..interfaces import RuntimeTask, TaskInstance
+from ..interfaces import RuntimeTask, TaskInstance, new_runtime_token
 
 
 GENERATOR_VERSION = "aes-task-gen-v2"
@@ -70,9 +70,9 @@ def _make_task(
         description=description,
         max_steps=max_steps,
     )
-    # Opaque runtime id: digest of content hash only — does not encode
-    # family, split or seed in a recoverable/legible form.
-    runtime_id = "rt_" + hashlib.sha256(content_hash.encode("utf-8")).hexdigest()[:16]
+    # Random presentation token: cannot be reverse-mapped from a public
+    # generator's seed enumeration. Evaluation identity remains content_hash.
+    runtime_id = new_runtime_token()
     runtime = RuntimeTask(
         runtime_id=runtime_id,
         description=description,

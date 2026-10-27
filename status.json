@@ -4,14 +4,14 @@
   "default_branch": "main",
   "last_updated": "2026-10-27",
   "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
-  "current_phase": "P0-R2 independent review",
-  "phase_status": "REQUEST_CHANGES_R2_REVIEW; AWAITING_R3_FIXES; NOT_ACCEPTED",
+  "current_phase": "P0-R3: Phase-0-R3 corrective fixes (R2-01..R2-04)",
+  "phase_status": "R3_FIXES_IMPLEMENTED; AWAITING_INDEPENDENT_REVIEW; NOT_ACCEPTED",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "AES_SCAFFOLD_WITH_R2_RESIDUAL_FIXES_ON_ec73906e15c048285cff3bca90a4f1f8bed21da8",
     "live_llm_api_experiments": "NOT_RUN",
-    "phase0_engineering_tests": "R1_INDEPENDENT: 104 passed in 0.24s on ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9 (run 40441941389); R2_INDEPENDENT: 127 passed in 0.43s on exact source ec73906e15c048285cff3bca90a4f1f8bed21da8 (run 40453697835); mock backend only; existing suite passes but adversarial probes found residual failures; not Agent capability evidence",
-    "audit_response": "docs/PHASE0_R2_AUDIT_RESPONSE.md",
+    "phase0_engineering_tests": "R2_INDEPENDENT_GITHUB_ACTIONS: 127 passed on ec73906 (run 40453697835); R3_EXECUTOR: 162 passed on phase0-r3-fixes tree; probes: 4/4 counterexamples rejected; MOCK_BACKEND_ONLY; NOT_INDEPENDENTLY_REPRODUCED_ON_R3_YET",
+    "audit_response": "docs/PHASE0_R3_AUDIT_RESPONSE.md",
     "EoH": "PAPER_AND_OFFICIAL_CODE_REVIEWED; NOT_REPRODUCED",
     "LLaMEA": "OFFICIAL_CODE_REVIEWED; FULL_PAPER_READER_LIMIT",
     "LLM4EO": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_GENERIC_H1",
@@ -22,7 +22,7 @@
     "HarmonyHarness": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_FACTORISED_CROSS-BENCHMARK_TRANSFER",
     "downstream_agent_environment": "AES_OWN_ENVIRONMENT_R1_FIXES_IN; AWAITING_REVIEW",
     "predecessor_results": "UPSTREAM_REPORTED_ONLY; NOT_REPRODUCED_IN_THIS_REPOSITORY",
-    "own_agent_environment": "R2 fixes independently tested, but R1-01/R1-04/R1-05 remain PARTIAL after adversarial review; Phase-0 NOT_ACCEPTED",
+    "own_agent_environment": "R3_FIXES_FOR_R2-01..R2-04; AWAITING_INDEPENDENT_ACCEPTANCE",
     "predecessor_projects": "NEUROEVOSCIENTIST_AND_EVOPARETO_AGENT_ARE_READ_ONLY_REFERENCES_ONLY; NOT_RUNTIME_ENVIRONMENTS_OR_DEPENDENCIES",
     "phase0_independent_review": "REQUEST_CHANGES on R2 source ec73906e15c048285cff3bca90a4f1f8bed21da8; adversarial probes found reversible runtime ID, malformed relay goal accepted, malformed key_crate entity state accepted, and unvalidated invalid_actions score field",
     "phase0_test_reproduction": "docs/PHASE0_R1_TEST_REPRODUCTION_2026-10-27.md; GitHub Actions run https://github.com/yujian777555/agentfotagent/actions/runs/40441941389",
@@ -44,12 +44,10 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Replace deterministic content-derived runtime_id with a genuinely opaque runtime token or secret-keyed identifier; preserve deterministic evaluation manifests separately and add a seed-enumeration regression test",
-    "Validate relay goal code type/format, frequency range and code-frequency consistency; reject malformed goal values",
-    "Validate required key_crate entity types and relay object type/location in the evaluator; malformed states must fail closed",
-    "Make reconstruct_from_artifacts compare every recorded score field, including success, steps, invalid_actions, repeated_states, termination_reason and final-state hash; add per-field tampering tests",
-    "Rerun the full suite on the corrected source commit, independently reproduce it, update the audit response and status, and stop for independent review",
-    "Do not start scientific baselines, transfer, live API, GPU or MetaBox meta-training until Phase-0 is accepted"
+    "Independent review of branch phase0-r3-fixes (R3-01 runtime tokens, R3-02 relay goals, R3-03 key_crate entities, R3-04 score reconstruction)",
+    "Do not mark Phase-0 ACCEPTED until that review passes",
+    "If accepted, freeze scientific budget semantics before any baseline comparison",
+    "Authorize live API/GPU/MetaBox experiments only through a separate reviewed protocol"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -66,8 +64,12 @@
     "phase0_r1_test_reproduction": "docs/PHASE0_R1_TEST_REPRODUCTION_2026-10-27.md",
     "phase0_r2_audit_response": "docs/PHASE0_R2_AUDIT_RESPONSE.md",
     "phase0_r2_independent_review": "docs/PHASE0_R2_INDEPENDENT_REVIEW_2026-10-27.md",
-    "phase0_r2_test_reproduction": "docs/PHASE0_R2_TEST_REPRODUCTION_2026-10-27.md"
+    "phase0_r2_test_reproduction": "docs/PHASE0_R2_TEST_REPRODUCTION_2026-10-27.md",
+    "phase0_r3_audit_response": "docs/PHASE0_R3_AUDIT_RESPONSE.md"
   },
   "corrective_pass_commit": "2d5209dfac7b1fd1348ee04ebaf0a3f9bfefef39",
-  "current_reviewed_source_commit": "ec73906e15c048285cff3bca90a4f1f8bed21da8"
+  "current_reviewed_source_commit": "ec73906e15c048285cff3bca90a4f1f8bed21da8",
+  "work_branch": "phase0-r3-fixes",
+  "reviewed_r2_source": "ec73906e15c048285cff3bca90a4f1f8bed21da8",
+  "audit_baseline_main": "a13e17f92b471dba629c2a69d0d9462d3e117cbf"
 }

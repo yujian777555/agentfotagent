@@ -54,3 +54,7 @@
 ## D-015 — Phase-0-R2 test pass does not close all integrity gates
 
 2026-10-27. GitHub Actions independently reproduced the existing suite on exact R2 source commit ec73906e15c048285cff3bca90a4f1f8bed21da8: 127 passed in 0.43s (run 40453697835). Adversarial probes on the same source tree showed that the content-derived runtime ID can be reversed by enumerating the public generator's seed space; the relay evaluator accepts malformed goal values (code=null, frequency=99); the key_crate evaluator accepts object records without required entity types; and artifact reconstruction accepts tampered invalid_actions metrics. Therefore Phase-0 remains REQUEST CHANGES. Fix these issues, add adversarial regression tests, rerun the full suite and seek independent review. No live API, GPU, MetaBox or scientific experiment is authorized by this decision.
+
+## D-016 — Runtime presentation tokens must not be generator-derived
+
+2026-10-27. R2 runtime_id was a truncated content-hash digest and was reverse-mapped to a seed by enumerating the public generator. Fix on phase0-r3-fixes: model-facing runtime_id is a random secrets token excluded from manifest identity hashes; evaluation identity (task_id, content_hash, seed) remains deterministic. Deterministic digest IDs are not an acceptable substitute for opacity.

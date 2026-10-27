@@ -59,9 +59,10 @@ class RuntimeTask:
     """Model-facing task payload.
 
     Contains only the instruction fields the Agent is permitted to see.
-    ``runtime_id`` is an opaque token: it must not encode family, split or seed.
-    Evaluation-side IDs, seeds, generator version, content hashes and hidden
-    goals live exclusively on TaskInstance.
+    ``runtime_id`` is a random, per-instance presentation token. It is NOT
+    derived from family/split/seed/content hash and must remain
+    unpredictable so a public generator cannot map it back to task metadata.
+    Stable evaluation identity (task_id, content_hash) lives on TaskInstance.
     """
 
     runtime_id: str
@@ -75,6 +76,13 @@ class RuntimeTask:
             "description": self.description,
             "max_steps": self.max_steps,
         }
+
+
+def new_runtime_token() -> str:
+    """Cryptographically random opaque runtime presentation token."""
+    import secrets
+
+    return "rt_" + secrets.token_hex(12)
 
 
 @dataclass(frozen=True)

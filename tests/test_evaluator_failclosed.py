@@ -137,10 +137,12 @@ def test_happy_paths_still_pass():
     # key_crate
     t1 = generate_task("key_crate", 2, "train")
     s1 = _state(
+        location="hall",
         objects={
-            "statue": {"location": "pedestal"},
-            "crate": {"unlocked": True, "locked": False},
-        }
+            "statue": {"type": "artifact", "location": "pedestal"},
+            "crate": {"type": "crate", "unlocked": True, "locked": False},
+            "pedestal": {"type": "surface", "location": "hall"},
+        },
     )
     assert StateBasedEvaluator().evaluate(t1, s1, []).success is True
 

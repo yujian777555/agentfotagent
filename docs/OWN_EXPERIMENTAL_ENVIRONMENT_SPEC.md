@@ -277,3 +277,14 @@ The runner explicitly checked out ec73906e15c048285cff3bca90a4f1f8bed21da8 befor
 4. Changing a recorded invalid_actions metric from 0 to 999999 is accepted by reconstruct_from_artifacts.
 
 These are uncovered failure paths, not failures of the existing 127-test suite. See docs/PHASE0_R2_INDEPENDENT_REVIEW_2026-10-27.md and docs/PHASE0_R2_TEST_REPRODUCTION_2026-10-27.md. Phase-0 remains NOT ACCEPTED. No live API, GPU, MetaBox, transfer or scientific baseline experiment was run.
+
+### 8.6 Phase-0-R3 residual fixes (2026-10-27)
+
+Response to docs/PHASE0_R2_INDEPENDENT_REVIEW_2026-10-27.md on branch phase0-r3-fixes:
+
+- R3-01: runtime_id is a random secrets.token_hex presentation token; evaluation identity (task_id, content_hash) stays stable; manifest_hash excludes runtime tokens so seed enumeration cannot reverse-map tokens to family/seed.
+- R3-02: relay goals require code as 3 ASCII digits, frequency as non-bool int in 1-7, and consistency with formula frequency=(digit_sum%7)+1.
+- R3-03: key_crate success requires statue type artifact, crate type crate, and pedestal surface object type surface.
+- R3-04: reconstruct_from_artifacts compares every persisted score field (success, steps, invalid_actions, repeated_states, termination_reason, final_state_hash) with strict typing.
+
+Four original counterexamples are preserved as probes and must fail closed. Engineering-only. Phase-0 remains NOT ACCEPTED pending independent review of this branch.

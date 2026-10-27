@@ -23,6 +23,15 @@ REQUIRED_DIALS = ("alpha", "beta", "gamma")
 DIAL_VALUE_MIN = 0
 DIAL_VALUE_MAX = 3
 
+# Entity types as defined by aes-task-gen-v2 generators / tool world.
+KEY_CRATE_ARTIFACT_TYPE = "artifact"
+KEY_CRATE_CONTAINER_TYPE = "crate"
+KEY_CRATE_SURFACE_TYPE = "surface"
+RELAY_OBJECT_TYPE = "relay"
+RELAY_CODE_DIGITS = 3
+RELAY_FREQ_MIN = 1
+RELAY_FREQ_MAX = 7
+
 
 class StateBasedEvaluator(Evaluator):
     """Fail-closed evaluator over terminal environment state."""
@@ -67,16 +76,29 @@ class StateBasedEvaluator(Evaluator):
         if not isinstance(objects, Mapping):
             return False
 
+        # Target artifact must exist with the generator-defined type.
         obj = objects.get(obj_id)
         if not isinstance(obj, Mapping):
+            return False
+        if obj.get("type") != KEY_CRATE_ARTIFACT_TYPE:
             return False
         if obj.get("location") != surface:
             return False
 
+        # Crate container must exist with the expected type and explicit unlock.
         crate = objects.get("crate")
         if not isinstance(crate, Mapping):
             return False
+        if crate.get("type") != KEY_CRATE_CONTAINER_TYPE:
+            return False
         if crate.get("unlocked") is not True:
+            return False
+
+        # Referenced surface/surface object must exist with the expected type.
+        surface_obj = objects.get(surface)
+        if not isinstance(surface_obj, Mapping):
+            return False
+        if surface_obj.get("type") != KEY_CRATE_SURFACE_TYPE:
             return False
         return True
 
@@ -105,12 +127,34 @@ class StateBasedEvaluator(Evaluator):
                 return False
         return True
 
+    @staticmethod
+    def _valid_relay_code(code: Any) -> bool:
+        """Canonical relay code: exactly 3 digit characters (aes-task-gen-v2)."""
+        if not isinstance(code, str):
+            return False
+        if len(code) != RELAY_CODE_DIGITS:
+            return False
+        return all(ch.isdigit() and ch.isascii() for ch in code)
+
+    @staticmethod
+    def _expected_relay_frequency(code: str) -> int:
+        digits = [int(ch) for ch in code]
+        return (sum(digits) % 7) + 1
+
     def _pred_relay_route(self, goal: Mapping[str, Any], state: Mapping[str, Any]) -> bool:
-        # Required goal fields.
+        # Required goal fields with full schema validation (R3-02).
         if "frequency" not in goal or "code" not in goal:
             return False
+        code = goal.get("code")
         expected = goal.get("frequency")
+        if not self._valid_relay_code(code):
+            return False
         if not isinstance(expected, int) or isinstance(expected, bool):
+            return False
+        if expected < RELAY_FREQ_MIN or expected > RELAY_FREQ_MAX:
+            return False
+        # code/frequency must match the generator formula.
+        if expected != self._expected_relay_frequency(code):
             return False
 
         # Required world object.
@@ -120,7 +164,7 @@ class StateBasedEvaluator(Evaluator):
         relay_obj = objects.get("relay")
         if not isinstance(relay_obj, Mapping):
             return False
-        if relay_obj.get("type") != "relay":
+        if relay_obj.get("type") != RELAY_OBJECT_TYPE:
             return False
 
         relay = state.get("relay")

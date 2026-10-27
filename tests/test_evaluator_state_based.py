@@ -57,8 +57,9 @@ def test_key_crate_predicate_requires_object_on_surface():
     task = generate_task("key_crate", 1, "train")
     not_yet = {
         "objects": {
-            "statue": {"location": "vault"},
-            "crate": {"unlocked": True, "locked": False},
+            "statue": {"type": "artifact", "location": "vault"},
+            "crate": {"type": "crate", "unlocked": True, "locked": False},
+            "pedestal": {"type": "surface", "location": "hall"},
         },
         "step": 10,
         "termination_reason": "agent_submit",
@@ -71,8 +72,9 @@ def test_key_crate_predicate_requires_object_on_surface():
 
     done = {
         "objects": {
-            "statue": {"location": "pedestal"},
-            "crate": {"unlocked": True, "locked": False},
+            "statue": {"type": "artifact", "location": "pedestal"},
+            "crate": {"type": "crate", "unlocked": True, "locked": False},
+            "pedestal": {"type": "surface", "location": "hall"},
         },
         "step": 12,
         "termination_reason": "agent_submit",
@@ -88,8 +90,9 @@ def test_key_crate_requires_unlocked_crate():
     task = generate_task("key_crate", 1, "train")
     state = {
         "objects": {
-            "statue": {"location": "pedestal"},
-            "crate": {"unlocked": False, "locked": True},
+            "statue": {"type": "artifact", "location": "pedestal"},
+            "crate": {"type": "crate", "unlocked": False, "locked": True},
+            "pedestal": {"type": "surface", "location": "hall"},
         },
         "step": 12,
         "termination_reason": "agent_submit",

@@ -11,20 +11,41 @@ from ..interfaces import TaskInstance
 
 
 def manifest_hash(entries: Sequence[Mapping[str, Any]]) -> str:
-    payload = json.dumps(list(entries), sort_keys=True, separators=(",", ":"), default=str)
+    """Stable hash over evaluation identity only.
+
+    Random runtime presentation tokens are excluded so regenerating a task
+    keeps the same evaluation manifest hash while still issuing a new opaque
+    runtime_id.
+    """
+    stable = []
+    for entry in entries:
+        e = dict(entry)
+        e.pop("runtime", None)
+        e.pop("runtime_id", None)
+        stable.append(e)
+    payload = json.dumps(stable, sort_keys=True, separators=(",", ":"), default=str)
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
-def task_to_manifest_entry(task: TaskInstance, include_hidden: bool = True) -> Dict[str, Any]:
-    entry: Dict[str, Any] = {
-        # Evaluation-side metadata. Runtime-facing payload is only RuntimeTask.
+def task_identity(task: TaskInstance) -> Dict[str, Any]:
+    """Deterministic evaluation-side identity (no runtime tokens)."""
+    return {
         "task_id": task.task_id,
-        "runtime": task.runtime.to_payload(),
         "family": task.family,
         "split": task.split,
         "seed": task.seed,
         "generator_version": task.generator_version,
         "content_hash": task.content_hash,
+        "description": task.runtime.description,
+        "max_steps": task.runtime.max_steps,
+    }
+
+
+def task_to_manifest_entry(task: TaskInstance, include_hidden: bool = True) -> Dict[str, Any]:
+    entry: Dict[str, Any] = {
+        # Evaluation-side identity. Runtime tokens are presentation-only.
+        **task_identity(task),
+        "runtime": task.runtime.to_payload(),
     }
     if include_hidden:
         # Manifest is an evaluation-side artifact; Agent runtime must not read held-out manifests.
