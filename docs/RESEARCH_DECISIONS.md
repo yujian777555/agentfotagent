@@ -73,3 +73,8 @@
 ## D-020 — R4 engineering gate merged; next phase returns to MetaBox
 
 2026-10-27. PR #2 merged the reviewed R3/R4 source and tests into main at `9e59401dd78f4be830c45634767bd3f65fb4b4ed`. Integration CI run 40464369334 passed 189 tests, 62 targeted tests and 7/7 probes. Phase-0 acceptance is limited to engineering infrastructure. The current source→AES pilot remains `NO_GO_OR_PIVOT`: all 16 genotypes solve all six small tasks and the source prior is hand-coded, not MetaBox or Agent-generated. Next: validate Agent-assisted EC on MetaBox-v2 against strong baselines and held-out tasks; transfer to AES only after a reproducible positive result. No live LLM API calls without an explicit budget.
+
+
+## D-021 — Phase-1A P0 accepted narrowly; adaptive-controller gate remains blocked
+
+2026-10-27. Reviewed `phase1a-metabox-smoke@f571b52ba73f6cfcf51901a2af72f4b980699bc7`. Accept the real MetaBox/DE smoke only: 1,500 FE counts agree and same-seed curves reproduce. Do not treat this as evidence of adaptive control. The adapter invokes the controller once on a constant initial state; range actions apply midpoint scalars; mutation strategy/restart are not consumed by upstream DE. The F1–F12/F13–F18/F19–F24 split is uneven by MetaBox easy/difficult labels and BBOB families. P0-R1 must correct action semantics, add trace-conditioned hooks or narrow the action space, version and freeze a stratified split_v2, complete environment provenance and add exact-SHA CI. P1A-1 remains blocked. Full review: `docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.md`.
