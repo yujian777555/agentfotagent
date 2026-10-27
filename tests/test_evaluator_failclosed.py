@@ -149,7 +149,10 @@ def test_happy_paths_still_pass():
     s2 = _state(dials=dict(t2.hidden_goal["targets"]))
     assert StateBasedEvaluator().evaluate(t2, s2, []).success is True
 
-    # relay
+    # relay (requires a valid relay object plus relay state)
     t3 = generate_task("relay_route", 2, "held_out")
-    s3 = _state(relay={"activated": True, "frequency": t3.hidden_goal["frequency"]})
+    s3 = _state(
+        objects={"relay": {"type": "relay", "location": "hub"}},
+        relay={"activated": True, "frequency": t3.hidden_goal["frequency"]},
+    )
     assert StateBasedEvaluator().evaluate(t3, s3, []).success is True

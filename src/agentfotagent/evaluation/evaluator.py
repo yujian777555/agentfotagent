@@ -14,6 +14,16 @@ from ..environments.tool_world import state_hash
 from ..interfaces import EpisodeResult, Evaluator, TaskInstance
 
 
+# Semantic version advanced in Phase-0-R2 after R1 evaluator fixes.
+EVALUATOR_VERSION = "aes-evaluator-v2"
+
+
+# Expected dial names for dial_set goals (complete set required).
+REQUIRED_DIALS = ("alpha", "beta", "gamma")
+DIAL_VALUE_MIN = 0
+DIAL_VALUE_MAX = 3
+
+
 class StateBasedEvaluator(Evaluator):
     """Fail-closed evaluator over terminal environment state."""
 
@@ -44,7 +54,13 @@ class StateBasedEvaluator(Evaluator):
             return False
         obj_id = spec.get("object")
         surface = spec.get("surface")
-        if not obj_id or not surface:
+        if not isinstance(obj_id, str) or not obj_id:
+            return False
+        if not isinstance(surface, str) or not surface:
+            return False
+
+        # crate_unlocked is a required constraint; missing or non-true fails closed.
+        if goal.get("crate_unlocked") is not True:
             return False
 
         objects = state.get("objects")
@@ -53,53 +69,84 @@ class StateBasedEvaluator(Evaluator):
 
         obj = objects.get(obj_id)
         if not isinstance(obj, Mapping):
-            return False  # missing target object → fail closed
+            return False
         if obj.get("location") != surface:
             return False
 
-        # Crate must exist and its unlocked status must be explicitly valid.
         crate = objects.get("crate")
         if not isinstance(crate, Mapping):
-            return False  # missing crate record → fail closed (F5)
-        if goal.get("crate_unlocked"):
-            # Require an explicit successful unlock, not a missing/False flag.
-            if crate.get("unlocked") is not True:
-                return False
+            return False
+        if crate.get("unlocked") is not True:
+            return False
         return True
 
     def _pred_dial_set(self, goal: Mapping[str, Any], state: Mapping[str, Any]) -> bool:
         targets = goal.get("targets")
         if not isinstance(targets, Mapping) or not targets:
-            return False  # empty/missing target set → fail closed (F5)
+            return False
+        # Complete expected dial set required — partial goals fail closed.
+        if set(targets.keys()) != set(REQUIRED_DIALS):
+            return False
         dials = state.get("dials")
         if not isinstance(dials, Mapping):
             return False
-        for key, expected in targets.items():
+        for key in REQUIRED_DIALS:
+            expected = targets.get(key)
+            if not isinstance(expected, int) or isinstance(expected, bool):
+                return False
+            if expected < DIAL_VALUE_MIN or expected > DIAL_VALUE_MAX:
+                return False
             if key not in dials:
-                return False  # missing dial → fail closed
+                return False
             actual = dials.get(key)
             if not isinstance(actual, int) or isinstance(actual, bool):
-                return False
-            if not isinstance(expected, int) or isinstance(expected, bool):
                 return False
             if actual != expected:
                 return False
         return True
 
     def _pred_relay_route(self, goal: Mapping[str, Any], state: Mapping[str, Any]) -> bool:
+        # Required goal fields.
+        if "frequency" not in goal or "code" not in goal:
+            return False
+        expected = goal.get("frequency")
+        if not isinstance(expected, int) or isinstance(expected, bool):
+            return False
+
+        # Required world object.
+        objects = state.get("objects")
+        if not isinstance(objects, Mapping):
+            return False
+        relay_obj = objects.get("relay")
+        if not isinstance(relay_obj, Mapping):
+            return False
+        if relay_obj.get("type") != "relay":
+            return False
+
         relay = state.get("relay")
         if not isinstance(relay, Mapping):
-            return False  # missing/malformed relay → fail closed (F5)
+            return False
         activated = relay.get("activated")
         if activated is not True:
             return False
         frequency = relay.get("frequency")
-        expected = goal.get("frequency")
         if not isinstance(frequency, int) or isinstance(frequency, bool):
             return False
-        if not isinstance(expected, int) or isinstance(expected, bool):
-            return False
         return frequency == expected
+
+    @staticmethod
+    def _safe_steps(final_state: Any) -> int:
+        if not isinstance(final_state, Mapping):
+            return 0
+        raw = final_state.get("step", 0)
+        if isinstance(raw, bool):
+            return 0
+        if isinstance(raw, int):
+            return max(0, raw)
+        try:
+            return max(0, int(raw))
+        except (TypeError, ValueError):
+            return 0
 
     def evaluate(
         self,
@@ -113,42 +160,66 @@ class StateBasedEvaluator(Evaluator):
         except Exception:
             success = False  # fail closed on unexpected evaluator errors
 
-        steps = int(final_state.get("step", 0)) if isinstance(final_state, Mapping) else 0
+        try:
+            steps = self._safe_steps(final_state)
+        except Exception:
+            steps = 0
+
         invalid_actions = 0
-        for entry in trace or []:
-            info = entry.get("info") or {}
-            if info.get("valid") is False or entry.get("valid") is False:
-                invalid_actions += 1
+        try:
+            for entry in trace or []:
+                info = entry.get("info") or {}
+                if info.get("valid") is False or entry.get("valid") is False:
+                    invalid_actions += 1
+        except Exception:
+            invalid_actions = 0
 
         repeated_states = 0
-        seen = set()
-        for entry in trace or []:
-            sh = entry.get("state_hash")
-            if sh is None:
-                continue
-            if sh in seen:
-                repeated_states += 1
-            else:
-                seen.add(sh)
+        try:
+            seen = set()
+            for entry in trace or []:
+                sh = entry.get("state_hash")
+                if sh is None:
+                    continue
+                if sh in seen:
+                    repeated_states += 1
+                else:
+                    seen.add(sh)
+        except Exception:
+            repeated_states = 0
 
-        termination_reason = (
-            str(final_state.get("termination_reason", "unknown"))
-            if isinstance(final_state, Mapping)
-            else "unknown"
-        )
+        try:
+            termination_reason = (
+                str(final_state.get("termination_reason", "unknown"))
+                if isinstance(final_state, Mapping)
+                else "unknown"
+            )
+        except Exception:
+            termination_reason = "unknown"
+
         if termination_reason in {"error", "backend_error", "missing_output"}:
             success = False
 
-        claimed = any(
-            bool((e.get("info") or {}).get("self_report_success"))
-            or bool(e.get("self_report_success"))
-            for e in (trace or [])
-        )
+        claimed = False
+        try:
+            claimed = any(
+                bool((e.get("info") or {}).get("self_report_success"))
+                or bool(e.get("self_report_success"))
+                for e in (trace or [])
+            )
+        except Exception:
+            claimed = False
+
         diagnostic = {
             "claimed_success": claimed,
             "self_report_ignored": True,
             "termination_reason": termination_reason,
         }
+
+        try:
+            final_state_hash = state_hash(final_state if isinstance(final_state, Mapping) else {})
+        except Exception:
+            final_state_hash = "unhashable-state"
 
         return EpisodeResult(
             task_id=task.task_id,
@@ -158,7 +229,7 @@ class StateBasedEvaluator(Evaluator):
             invalid_actions=invalid_actions,
             repeated_states=repeated_states,
             termination_reason=termination_reason,
-            final_state_hash=state_hash(final_state if isinstance(final_state, Mapping) else {}),
+            final_state_hash=final_state_hash,
             diagnostic=diagnostic,
         )
 

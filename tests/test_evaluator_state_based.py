@@ -107,11 +107,12 @@ def test_key_crate_requires_unlocked_crate():
 def test_relay_predicate():
     task = generate_task("relay_route", 1, "held_out")
     freq = task.hidden_goal["frequency"]
+    relay_obj = {"relay": {"type": "relay", "location": "hub"}}
     bad = {
         "relay": {"activated": True, "frequency": (freq % 7) + 1},
+        "objects": relay_obj,
         "step": 9,
         "termination_reason": "agent_submit",
-        "objects": {},
         "dials": {},
         "inventory": [],
         "location": "hub",
@@ -120,9 +121,9 @@ def test_relay_predicate():
 
     good = {
         "relay": {"activated": True, "frequency": freq},
+        "objects": relay_obj,
         "step": 10,
         "termination_reason": "agent_submit",
-        "objects": {},
         "dials": {},
         "inventory": [],
         "location": "hub",

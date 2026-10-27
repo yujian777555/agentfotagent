@@ -106,6 +106,7 @@ class RunManifest:
     episodes: Tuple[str, ...] = ()
     scores: Tuple[Mapping[str, Any], ...] = ()
     accounting: Mapping[str, Any] = field(default_factory=dict)
+    source_commit_sha: str = ""
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -124,6 +125,7 @@ class RunManifest:
             "episodes": list(self.episodes),
             "scores": [dict(s) for s in self.scores],
             "accounting": dict(self.accounting),
+            "source_commit_sha": self.source_commit_sha,
         }
 
 
@@ -144,6 +146,7 @@ def build_run_manifest(
     results: Sequence[EpisodeResult],
     engineering_only: bool = True,
     accounting: Optional[Mapping[str, Any]] = None,
+    source_commit_sha: str = "",
 ) -> RunManifest:
     scores = tuple(
         {
@@ -174,6 +177,7 @@ def build_run_manifest(
         episodes=tuple(e.task_id for e in episodes),
         scores=scores,
         accounting=dict(accounting or {}),
+        source_commit_sha=source_commit_sha,
     )
 
 
@@ -193,6 +197,10 @@ def reconstruct_scores(
     return out
 
 
+class ReconstructionError(RuntimeError):
+    """Raised when artifact traces and manifest scores are not in exact correspondence."""
+
+
 def reconstruct_from_artifacts(
     artifact: Mapping[str, Any],
     tasks: Mapping[str, TaskInstance],
@@ -200,25 +208,36 @@ def reconstruct_from_artifacts(
 ) -> Dict[str, Any]:
     """Reload a serialized run artifact and rebuild every score from actual traces.
 
-    Rebuilt results are matched to manifest scores by (task_id, final_state_hash);
-    the trace's own genome_hash is checked against the recorded value.
+    Completeness is enforced in both directions:
+    - every trace must map to exactly one manifest score;
+    - every manifest score must map to exactly one trace.
+    Missing traces, extra scores or hash mismatches raise ReconstructionError.
     """
-    traces = [EpisodeTrace.from_dict(t) for t in artifact.get("traces", [])]
-    rebuilt = []
-    mismatches = []
+    raw_traces = artifact.get("traces")
+    raw_scores = artifact.get("manifest", {}).get("scores")
+    if raw_traces is None or raw_scores is None:
+        raise ReconstructionError("artifact must contain traces and manifest.scores")
 
-    recorded_scores = {
-        (s.get("task_id"), s.get("genome_hash"), s.get("final_state_hash")): s
-        for s in artifact.get("manifest", {}).get("scores", [])
-    }
+    traces = [EpisodeTrace.from_dict(t) for t in raw_traces]
+    recorded_scores = list(raw_scores)
+
+    # Index manifest scores by full identity key.
+    score_index: Dict[Tuple[Any, Any, Any], Mapping[str, Any]] = {}
+    for s in recorded_scores:
+        key = (s.get("task_id"), s.get("genome_hash"), s.get("final_state_hash"))
+        if key in score_index:
+            raise ReconstructionError(f"duplicate manifest score key: {key}")
+        score_index[key] = s
+
+    rebuilt = []
+    matched_keys = set()
+    mismatches = []
 
     for trace in traces:
         task = tasks.get(trace.task_id)
         if task is None:
-            mismatches.append({"task_id": trace.task_id, "reason": "missing_task"})
-            continue
+            raise ReconstructionError(f"missing task for trace {trace.task_id}")
         result = evaluator.evaluate(task, trace.final_state, trace.steps)
-        # Attach the genome hash recorded in the actual trace.
         result_with_genome = result.__class__(
             task_id=result.task_id,
             genome_hash=trace.genome_hash,
@@ -233,17 +252,15 @@ def reconstruct_from_artifacts(
         rebuilt.append(result_with_genome)
 
         key = (result.task_id, trace.genome_hash, result.final_state_hash)
-        if key not in recorded_scores:
-            mismatches.append(
-                {
-                    "task_id": result.task_id,
-                    "reason": "missing_in_manifest",
-                    "final_state_hash": result.final_state_hash,
-                    "genome_hash": trace.genome_hash,
-                }
+        if key not in score_index:
+            raise ReconstructionError(
+                f"trace has no corresponding manifest score: {key}"
             )
-            continue
-        rec = recorded_scores[key]
+        if key in matched_keys:
+            raise ReconstructionError(f"duplicate trace identity: {key}")
+        matched_keys.add(key)
+
+        rec = score_index[key]
         if bool(rec.get("success")) != bool(result.success) or int(rec.get("steps", -1)) != int(
             result.steps
         ):
@@ -256,9 +273,21 @@ def reconstruct_from_artifacts(
                 }
             )
 
+    # Every manifest score must be covered by a trace (R1-05: reverse direction).
+    unmatched_scores = [k for k in score_index if k not in matched_keys]
+    if unmatched_scores:
+        raise ReconstructionError(
+            f"manifest scores missing corresponding traces: {unmatched_scores}"
+        )
+
+    if mismatches:
+        raise ReconstructionError(f"score values disagree after rebuild: {mismatches}")
+
     return {
         "rebuilt": rebuilt,
-        "mismatches": mismatches,
+        "mismatches": [],
+        "trace_count": len(traces),
+        "score_count": len(recorded_scores),
         "manifest_task_manifest_hash": artifact.get("manifest", {}).get("task_manifest_hash"),
         "accounting": artifact.get("accounting"),
     }
