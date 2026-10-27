@@ -114,7 +114,15 @@ class LLMBackend:
                     self.stats.invalid_responses += 1
                     if attempt < MAX_RETRIES:
                         continue
-                    raise AgentAPIError("empty model content after retries")
+                    # Invalid model output: caller records fallback; do not raise
+                    # as if the API transport failed.
+                    return "", {
+                        "cached": False,
+                        "model": payload.get("model", self.model),
+                        "usage": usage,
+                        "id": payload.get("id"),
+                        "empty_content": True,
+                    }
                 meta = {
                     "cached": False,
                     "model": payload.get("model", self.model),
@@ -206,6 +214,24 @@ class P1A1AgentController:
         meta: Dict[str, Any] = {}
         try:
             raw, meta = self.backend.complete(prompt, cache_key=cache_key)
+            if meta.get("empty_content") or not (raw or "").strip():
+                hint = state_hint(state_d)
+                self.backend.stats.invalid_responses += 1
+                self.events.append(
+                    {
+                        "state": state_d,
+                        "prompt": prompt,
+                        "hint_action": hint,
+                        "llm_action": None,
+                        "raw_response": raw,
+                        "action": self._fallback,
+                        "meta": meta,
+                        "valid": False,
+                        "error": "empty_model_content",
+                        "deviates_from_hint": None,
+                    }
+                )
+                return self._fallback
             action = parse_action(raw)
             hint = state_hint(state_d)  # post-hoc only
             self.events.append(
