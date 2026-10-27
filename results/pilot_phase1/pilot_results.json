@@ -1,0 +1,261 @@
+{
+  "arms": {
+    "random_search": {
+      "best_rates": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "max": 1.0,
+      "mean": 1.0
+    },
+    "shuffled_mapping": {
+      "best_rates": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "max": 1.0,
+      "mean": 1.0
+    },
+    "target_only_ea": {
+      "best_rates": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "max": 1.0,
+      "mean": 1.0
+    },
+    "transfer_ea": {
+      "best_rates": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "max": 1.0,
+      "mean": 1.0
+    }
+  },
+  "budget": 12,
+  "findings": {
+    "interpretation": "Pipeline works end-to-end. Current AES train difficulty does not support transfer claims on success rate. Need harder tasks or efficiency objective before expand. Not confirmatory.",
+    "pilot_decision": "NO_GO_OR_PIVOT",
+    "primary_success_rate": "CEILING: all 16 genotypes solve all 6 pilot train tasks (success=1.0). Transfer cannot separate.",
+    "secondary_mean_steps": "Discriminative (9.83 to 13.0). Lowest: direct+bounded_episodic+none+state_conditioned (9.83). Highest: plan_first+none+check (13.0).",
+    "source_prior_conflict": "Surrogate source prior prefers plan_first/verify, which are SLOWER on AES train tasks."
+  },
+  "not_confirmatory": true,
+  "phase": "phase1-pipeline-pilot",
+  "phase0_accepted": false,
+  "pilot_decision": "NO_GO_OR_PIVOT",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "python": "3.10.1 (tags/v3.10.1:2cd268a, Dec  6 2021, 19:10:37) [MSC v.1929 64 bit (AMD64)]",
+  "rows": [
+    {
+      "accounting": {
+        "actual_episode_executions": 48,
+        "cache_hits": 24,
+        "candidate_proposals": 12,
+        "task_evaluations": 72,
+        "unique_genomes": 8
+      },
+      "arm": "random_search",
+      "best_success_rate": 1.0,
+      "budget": 12,
+      "mean_success_rate": 1.0,
+      "run_id": "random_search-11",
+      "seed": 11,
+      "wall_seconds": 0.0988
+    },
+    {
+      "accounting": {
+        "actual_episode_executions": 30,
+        "cache_hits": 42,
+        "candidate_proposals": 12,
+        "task_evaluations": 72,
+        "unique_genomes": 5
+      },
+      "arm": "target_only_ea",
+      "best_success_rate": 1.0,
+      "budget": 12,
+      "mean_success_rate": 1.0,
+      "run_id": "conventional_ea-11",
+      "seed": 11,
+      "wall_seconds": 0.0774
+    },
+    {
+      "accounting": {
+        "actual_episode_executions": 30,
+        "cache_hits": 42,
+        "candidate_proposals": 12,
+        "task_evaluations": 72,
+        "unique_genomes": 5
+      },
+      "arm": "transfer_ea",
+      "best_success_rate": 1.0,
+      "budget": 12,
+      "mean_success_rate": 1.0,
+      "run_id": "transfer_ea-11",
+      "seed": 11,
+      "wall_seconds": 0.0801
+    },
+    {
+      "accounting": {
+        "actual_episode_executions": 30,
+        "cache_hits": 42,
+        "candidate_proposals": 12,
+        "task_evaluations": 72,
+        "unique_genomes": 5
+      },
+      "arm": "shuffled_mapping",
+      "best_success_rate": 1.0,
+      "budget": 12,
+      "mean_success_rate": 1.0,
+      "run_id": "transfer_ea-11",
+      "seed": 11,
+      "wall_seconds": 0.0803
+    },
+    {
+      "accounting": {
+        "actual_episode_executions": 66,
+        "cache_hits": 6,
+        "candidate_proposals": 12,
+        "task_evaluations": 72,
+        "unique_genomes": 11
+      },
+      "arm": "random_search",
+      "best_success_rate": 1.0,
+      "budget": 12,
+      "mean_success_rate": 1.0,
+      "run_id": "random_search-22",
+      "seed": 22,
+      "wall_seconds": 0.1265
+    },
+    {
+      "accounting": {
+        "actual_episode_executions": 54,
+        "cache_hits": 18,
+        "candidate_proposals": 12,
+        "task_evaluations": 72,
+        "unique_genomes": 9
+      },
+      "arm": "target_only_ea",
+      "best_success_rate": 1.0,
+      "budget": 12,
+      "mean_success_rate": 1.0,
+      "run_id": "conventional_ea-22",
+      "seed": 22,
+      "wall_seconds": 0.1034
+    },
+    {
+      "accounting": {
+        "actual_episode_executions": 48,
+        "cache_hits": 24,
+        "candidate_proposals": 12,
+        "task_evaluations": 72,
+        "unique_genomes": 8
+      },
+      "arm": "transfer_ea",
+      "best_success_rate": 1.0,
+      "budget": 12,
+      "mean_success_rate": 1.0,
+      "run_id": "transfer_ea-22",
+      "seed": 22,
+      "wall_seconds": 0.1135
+    },
+    {
+      "accounting": {
+        "actual_episode_executions": 54,
+        "cache_hits": 18,
+        "candidate_proposals": 12,
+        "task_evaluations": 72,
+        "unique_genomes": 9
+      },
+      "arm": "shuffled_mapping",
+      "best_success_rate": 1.0,
+      "budget": 12,
+      "mean_success_rate": 1.0,
+      "run_id": "transfer_ea-22",
+      "seed": 22,
+      "wall_seconds": 0.1057
+    },
+    {
+      "accounting": {
+        "actual_episode_executions": 54,
+        "cache_hits": 18,
+        "candidate_proposals": 12,
+        "task_evaluations": 72,
+        "unique_genomes": 9
+      },
+      "arm": "random_search",
+      "best_success_rate": 1.0,
+      "budget": 12,
+      "mean_success_rate": 1.0,
+      "run_id": "random_search-33",
+      "seed": 33,
+      "wall_seconds": 0.1029
+    },
+    {
+      "accounting": {
+        "actual_episode_executions": 48,
+        "cache_hits": 24,
+        "candidate_proposals": 12,
+        "task_evaluations": 72,
+        "unique_genomes": 8
+      },
+      "arm": "target_only_ea",
+      "best_success_rate": 1.0,
+      "budget": 12,
+      "mean_success_rate": 1.0,
+      "run_id": "conventional_ea-33",
+      "seed": 33,
+      "wall_seconds": 0.1419
+    },
+    {
+      "accounting": {
+        "actual_episode_executions": 42,
+        "cache_hits": 30,
+        "candidate_proposals": 12,
+        "task_evaluations": 72,
+        "unique_genomes": 7
+      },
+      "arm": "transfer_ea",
+      "best_success_rate": 1.0,
+      "budget": 12,
+      "mean_success_rate": 1.0,
+      "run_id": "transfer_ea-33",
+      "seed": 33,
+      "wall_seconds": 0.1188
+    },
+    {
+      "accounting": {
+        "actual_episode_executions": 48,
+        "cache_hits": 24,
+        "candidate_proposals": 12,
+        "task_evaluations": 72,
+        "unique_genomes": 8
+      },
+      "arm": "shuffled_mapping",
+      "best_success_rate": 1.0,
+      "budget": 12,
+      "mean_success_rate": 1.0,
+      "run_id": "transfer_ea-33",
+      "seed": 33,
+      "wall_seconds": 0.0961
+    }
+  ],
+  "seeds": [
+    11,
+    22,
+    33
+  ],
+  "tasks": [
+    "key_crate/train/seed000001",
+    "key_crate/train/seed000002",
+    "key_crate/train/seed000003",
+    "dial_set/train/seed000001",
+    "dial_set/train/seed000002",
+    "dial_set/train/seed000003"
+  ]
+}
