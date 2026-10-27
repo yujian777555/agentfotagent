@@ -1,8 +1,6 @@
 # Phase-1 Experiment Definition (transfer object pilot)
 
-Status: PRE-ACCEPTANCE PIPELINE PILOT. Phase-0 is NOT ACCEPTED until R4
-independent review passes. This document defines the experiment; results from
-the pilot are directional only and are not confirmatory evidence.
+Status: DEBUG PIPELINE PILOT COMPLETED; NOT CONFIRMATORY. Phase-0 R4 is now accepted and merged as an engineering scaffold only. This source→AES transfer pilot remains NO_GO_OR_PIVOT and does not validate transfer benefit.
 
 ## Scientific question
 
@@ -46,3 +44,8 @@ as mutation biases when generating offspring in the conventional EA.
 - Seeds: 3 (debug). Budget: 12 genome proposals per arm.
 - Train tasks only. Held-out not read in the pilot.
 - Artifacts under `results/pilot_phase1/`.
+
+
+## Post-pilot decision (2026-10-27)
+
+This protocol is retained as the record of the initial pipeline pilot, not as authorization to scale it. The source allele weights are a fixed surrogate, not MetaBox output or Agent-generated knowledge; the primary success metric saturated at 1.0 for every arm. The next scientific gate is Phase-1A: Agent-assisted EC on MetaBox-v2 with real evolutionary trajectories, a constrained controller representation, strong baselines, held-out validation and an explicitly approved LLM call/token/cost budget. Only after a positive source-domain result should this transfer protocol be revisited.
