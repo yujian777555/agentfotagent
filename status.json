@@ -4,8 +4,8 @@
   "default_branch": "main",
   "last_updated": "2026-10-27",
   "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
-  "current_phase": "Phase-1A P0-R1-Corrective",
-  "phase_status": "P0_R1_CORRECTIVE_IMPLEMENTED; AWAITING_PLANNER_REVIEW; P1A1_BLOCKED",
+  "current_phase": "Phase-1A P0-R1-Corrective-2",
+  "phase_status": "CORRECTIVE2_IMPLEMENTED; AWAITING_PLANNER_FINAL_ACCEPTANCE; P1A1_BLOCKED",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
@@ -38,7 +38,7 @@
     "phase1a_smoke": "Executor reports 198 passed/1 skipped locally, plus 15 targeted tests. No Actions run found for feature branch. Existing tests do not verify actual underlying BBOB function identity; loader bug means function-specific results are invalidated.",
     "phase1a": "P0-R1 required, first fix actual function ID selection and add F1/F6/F24 identity regression tests; then correct action semantics, add real trace-conditioned hooks or narrow DSL, preserve split_v1 and verify stratified split_v2, complete environment lock and add exact-SHA CI. P1A-1 Agent pilot BLOCKED.",
     "metabox_integration": "metaevobox 2.0.2 (PyPI); upstream SHA 5565a281 claimed pairing not byte-verified; controlled_de live hooks with real success_fraction; regret vs raw_objective split",
-    "phase1a_tests": "metabox-env 225 passed; project 204 passed + 1 skip; smoke run phase1a-smoke-r1c-20261027 FE exact"
+    "phase1a_tests": "project 210 passed 1 expected-skip; metabox 42 passed; smoke run_id phase1a-smoke-4662564c9e0c-clean-20261027T173407 on clean SHA 4662564c9e0cc8c43980ba1339b480dab82489d6"
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
@@ -83,11 +83,12 @@
     "phase1a_metabox_protocol": "docs/PHASE1A_METABOX_PROTOCOL.md",
     "phase1a_p0_planner_review": "docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.md",
     "phase1a_p0_r1_review_response": "docs/PHASE1A_P0_R1_REVIEW_RESPONSE.md",
-    "phase1a_p0_r1_corrective_report": "docs/PHASE1A_P0_R1_CORRECTIVE_REPORT.md"
+    "phase1a_p0_r1_corrective_report": "docs/PHASE1A_P0_R1_CORRECTIVE_REPORT.md",
+    "phase1a_p0_r1_corrective2_report": "docs/PHASE1A_P0_R1_CORRECTIVE_2_REPORT.md"
   },
   "corrective_pass_commit": "1776e0f9f4cc606ae66eaeca20c833d72e3b7ab0",
   "current_reviewed_source_commit": "3e48bf5305ba667490358c140dad556f1ebf84e2",
-  "work_branch": "phase1a-p0-r1-corrective",
+  "work_branch": "phase1a-p0-r1-corrective-2",
   "reviewed_r3_source": "cd07249a1b4675354b01f9d5ac09ab2ffe4d2033",
   "reviewed_r4_source": "3e48bf5305ba667490358c140dad556f1ebf84e2",
   "integration_branch": "phase0-r4-integration",
