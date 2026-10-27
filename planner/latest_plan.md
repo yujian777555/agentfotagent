@@ -96,3 +96,19 @@ Additional pre-science concerns: random search/EA duplicate genotypes interact w
 ### Next task — Phase-0-R1 corrective pass
 
 Fix only the audit findings, add regression tests, rerun the entire test suite on the pushed commit, update the audit response matrix and status, then stop for independent review. Do not implement transfer, MetaBox meta-training, live APIs or GPU experiments.
+
+**Status: CORRECTIVE PASS IMPLEMENTED (executor).** See docs/PHASE0_R1_AUDIT_RESPONSE.md.
+
+Fixed with regression tests:
+1. Tool-world locality preconditions (F1) — remote unlock/place/dial/relay rejected; unlock releases at container; failed actions do not mutate business state. tests/test_tool_preconditions.py
+2. Gene semantics (F2) — plan consumed by phase gates; verification reads verify_state and blocks submit; memory uses phenotype.recall(). tests/test_gene_semantics.py
+3. Runtime payload isolation (F3) — RuntimeTask vs TaskInstance; backend payload tests. tests/test_runtime_payload_isolation.py
+4. Actual-trace provenance (F4) — BaselineHarness keeps EpisodeTraces; best-record genome hash; E2E JSON round-trip reconstruction. tests/test_harness_reconstruction.py
+5. Fail-closed evaluator (F5) — tests/test_evaluator_failclosed.py
+6. Evaluation accounting (C1) — proposals/unique/cache-hits/episodes. tests/test_evaluation_accounting.py
+
+Full suite rerun on the corrective commit: python -m pytest tests -q (executor-reported all pass; mock backend only).
+
+### Stop
+
+Executor stops. Waiting for independent Planner re-review of the corrective commit. No transfer experiments, MetaBox meta-training, live APIs or GPU runs.

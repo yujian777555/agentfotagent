@@ -4,13 +4,14 @@
   "default_branch": "main",
   "last_updated": "2026-10-26",
   "baseline_commit": "987df6dbb21683331968f09acf6160fbbdf005bb",
-  "current_phase": "P0-R3-R1: Phase-0 AES corrective audit",
-  "phase_status": "REQUEST_CHANGES_INDEPENDENT_AUDIT; AWAITING_FIXES",
-  "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository's own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
+  "current_phase": "P0-R3-R1: Phase-0 AES corrective pass (audit fixes)",
+  "phase_status": "AUDIT_FIXES_IMPLEMENTED; AWAITING_INDEPENDENT_REVIEW",
+  "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
-    "implementation": "AES_SCAFFOLD_IMPLEMENTED_UNDER_src/agentfotagent",
+    "implementation": "AES_SCAFFOLD_PLUS_R1_CORRECTIVE_FIXES_UNDER_src/agentfotagent",
     "live_llm_api_experiments": "NOT_RUN",
-    "phase0_engineering_tests": "EXECUTOR_REPORTED_56_PASS; NOT_INDEPENDENTLY_RERUN; STATIC_AUDIT_REQUEST_CHANGES",
+    "phase0_engineering_tests": "EXECUTOR_RUN_PYTEST_TESTS_104_COLLECTED_ALL_PASS; MOCK_BACKEND_ONLY; NOT_INDEPENDENTLY_RERUN_AFTER_R1",
+    "audit_response": "docs/PHASE0_R1_AUDIT_RESPONSE.md",
     "EoH": "PAPER_AND_OFFICIAL_CODE_REVIEWED; NOT_REPRODUCED",
     "LLaMEA": "OFFICIAL_CODE_REVIEWED; FULL_PAPER_READER_LIMIT",
     "LLM4EO": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_GENERIC_H1",
@@ -19,9 +20,9 @@
     "LMCOEA": "PUBLISHER_ARTICLE_TEXT_PARTIALLY_RETRIEVED; LINKED_REPOSITORY_STATICALLY_INSPECTED; NOT_REPRODUCED; README_LICENSE_CLAIM_UNVERIFIED",
     "Hyperagents": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_GENERIC_H3_AND_CROSS_DOMAIN_META-TRANSFER",
     "HarmonyHarness": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_FACTORISED_CROSS-BENCHMARK_TRANSFER",
-    "downstream_agent_environment": "AES_OWN_ENVIRONMENT_IMPLEMENTED; AWAITING_PLANNER_AUDIT",
+    "downstream_agent_environment": "AES_OWN_ENVIRONMENT_R1_FIXES_IN; AWAITING_REVIEW",
     "predecessor_results": "UPSTREAM_REPORTED_ONLY; NOT_REPRODUCED_IN_THIS_REPOSITORY",
-    "own_agent_environment": "SCAFFOLD_IMPLEMENTED; NOT_ACCEPTED_PENDING_TOOL_PRECONDITION_GENE_SEMANTICS_PROVENANCE_AND_FAIL_CLOSED_FIXES",
+    "own_agent_environment": "R1_FIXES_FOR_F1_F2_F3_F4_F5_AND_C1_ACCOUNTING; AWAITING_INDEPENDENT_ACCEPTANCE",
     "predecessor_projects": "NEUROEVOSCIENTIST_AND_EVOPARETO_AGENT_ARE_READ_ONLY_REFERENCES_ONLY; NOT_RUNTIME_ENVIRONMENTS_OR_DEPENDENCIES"
   },
   "hypotheses": {
@@ -39,12 +40,10 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Fix remote action preconditions and add adversarial tests for place/unlock/dial/relay locality",
-    "Make planning, verification and memory genes affect downstream decisions through their declared phenotype mechanisms",
-    "Separate model-facing task payload from seed/generator/content-hash metadata",
-    "Persist actual episode traces in BaselineHarness run artifacts and prove end-to-end score reconstruction",
-    "Make evaluator fail closed on missing/malformed required goal/state fields",
-    "Add duplicate/cached evaluation accounting before any scientific baseline comparison; then rerun full tests and request independent re-audit"
+    "Independent re-review of Phase-0-R1 corrective commit (tool preconditions, gene semantics, payload isolation, provenance reconstruction, fail-closed evaluator, accounting)",
+    "If accepted, freeze scientific budget semantics (proposals vs unique evaluations vs episodes) before any baseline comparison",
+    "Only after environment acceptance: specify and falsify one source-to-target transfer object against target-only tuning and shuffled-mapping controls",
+    "Authorize live API/GPU/MetaBox experiments only through a separate reviewed protocol"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -55,6 +54,7 @@
     "latest_plan": "planner/latest_plan.md",
     "laos_lmcoea_audit": "docs/LAOS_LMCOEA_MECHANISM_AUDIT_2026-10-26.md",
     "own_environment_spec": "docs/OWN_EXPERIMENTAL_ENVIRONMENT_SPEC.md",
-    "phase0_independent_audit": "docs/PHASE0_INDEPENDENT_AUDIT_2026-10-26.md"
+    "phase0_independent_audit": "docs/PHASE0_INDEPENDENT_AUDIT_2026-10-26.md",
+    "phase0_r1_audit_response": "docs/PHASE0_R1_AUDIT_RESPONSE.md"
   }
 }

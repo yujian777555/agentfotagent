@@ -197,6 +197,21 @@ These references support the use of standardized optimization tasks and verifiab
 
 ### 8.2 Independent audit status (2026-10-26)
 
-The executor reported 56 passing engineering tests, but independent static source review of commit \`987df6dbb21683331968f09acf6160fbbdf005bb\` returned **REQUEST CHANGES**. The test count could not be independently rerun in the audit environment. Blocking issues: (1) world tools permit remote unlock/place/dial/relay actions and state teleportation; (2) planning/verification/memory genes are not fully wired into downstream decisions; (3) model-facing task metadata includes deterministic seed/generator information; (4) the search harness drops actual traces and creates incomplete synthetic traces for manifests; (5) malformed evaluator state can pass success predicates. See \`docs/PHASE0_INDEPENDENT_AUDIT_2026-10-26.md\` for evidence and required regression tests.
+The executor reported 56 passing engineering tests, but independent static source review of commit `987df6dbb21683331968f09acf6160fbbdf005bb` returned **REQUEST CHANGES**. The test count could not be independently rerun in the audit environment. Blocking issues: (1) world tools permit remote unlock/place/dial/relay actions and state teleportation; (2) planning/verification/memory genes are not fully wired into downstream decisions; (3) model-facing task metadata includes deterministic seed/generator information; (4) the search harness drops actual traces and creates incomplete synthetic traces for manifests; (5) malformed evaluator state can pass success predicates. See `docs/PHASE0_INDEPENDENT_AUDIT_2026-10-26.md` for evidence and required regression tests.
 
 No scientific experiments, live APIs, GPU runs or MetaBox meta-training are authorized until the corrective pass is independently accepted.
+
+### 8.3 Phase-0-R1 corrective pass (2026-10-26)
+
+Audit findings F1-F5 and concern C1 were repaired in-repository. Summary:
+
+- **F1 tool preconditions:** unlock/place/set_dial/read_gauge/read_offset_card/activate_relay/set_frequency require interactive locality; unlock releases contained objects at the container location; failed actions do not mutate business state (step counter only).
+- **F2 gene semantics:** planning_mode=plan_first stores a plan consumed by phase gates (changing the plan changes the next action); verification_policy=check_before_finalize reads verify_state output and blocks submit until public goal checks pass; memory_policy=bounded_episodic search uses phenotype.recall() only.
+- **F3 runtime metadata:** RuntimeTask = {task_id, description, max_steps}; seeds/generator/hashes/split/hidden goals stay on the evaluation-side TaskInstance. Tests assert the exact backend payload.
+- **F4 provenance:** BaselineHarness retains actual EpisodeTraces; manifests use those traces and the best record genome hash; reconstruct_from_artifacts rebuilds every score after JSON round-trip.
+- **F5 fail-closed evaluator:** missing crate/target/dial/relay entities, empty dial goals, malformed values and unknown goal types return failure.
+- **C1 accounting:** runs record candidate_proposals, unique_genomes, cache_hits, actual_episode_executions, task_evaluations. Cache hits are never counted as new episodes.
+
+Response matrix: docs/PHASE0_R1_AUDIT_RESPONSE.md. C2 (held-out family is smoke-test only) is acknowledged as a later-phase limitation, not a Phase-0 code gate.
+
+Awaiting independent re-review. Still no scientific experiments, live APIs, GPU runs or MetaBox meta-training.
