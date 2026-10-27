@@ -299,3 +299,10 @@ The R4 candidate at `3e48bf5305ba667490358c140dad556f1ebf84e2` passed hosted CI 
 This acceptance is limited to the mock-backed environment, phenotype execution path, evaluator and trace/score reconstruction. It is not Agent capability evidence or scientific validation. The candidate remains on `phase0-r4-fixes` pending controlled integration into main; preserve all R1–R3 audit records. A non-blocking recommendation is to strengthen the probe harness test by substituting a genuinely vulnerable evaluator in the test and invoking the real probe end-to-end.
 
 The pre-acceptance Phase-1 transfer pilot is `NO_GO_OR_PIVOT`: success rate is saturated across all 16 genotypes on six small tasks, and its source prior is a hand-coded surrogate rather than MetaBox or Agent-generated knowledge. Do not expand that pilot. Follow the project charter order: first validate Agent-assisted EC on MetaBox-v2, then test transfer of the same explicit controller object to AES only if the source-domain gate passes. No live API calls until budget and scope are approved.
+
+
+### 8.8 R4 integration and research-gate status (2026-10-27)
+
+The reviewed R3/R4 source and tests were integrated through PR #2, merge commit `9e59401dd78f4be830c45634767bd3f65fb4b4ed`. Integration CI run 40464369334 passed 62 targeted tests, 189 full-suite tests and 7/7 probes. Phase-0 is accepted as an engineering scaffold only.
+
+The initial Phase-1 source→AES transfer pilot is `NO_GO_OR_PIVOT`: its success metric is saturated and its source weights are a fixed surrogate. Do not interpret it as evidence for MetaBox transfer or Agent capability. The next scientific gate is Agent-assisted EC on MetaBox-v2; require an explicit controller representation, strong baselines, held-out tasks, predeclared metrics and an approved LLM budget before any live calls.
