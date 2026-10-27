@@ -32,3 +32,10 @@ CI: `.github/workflows/phase0-r4-tests.yml` runs probes + targeted + full suite 
 
 - Independent CI reproduction of the exact R4 SHA is required before acceptance.
 - Phase-0 remains NOT ACCEPTED until that review passes.
+
+
+## Independent review and integration outcome — 2026-10-27
+
+**ACCEPTED FOR THE ENGINEERING GATE ONLY.** Exact candidate `3e48bf5305ba667490358c140dad556f1ebf84e2` passed hosted CI run 40462185561 (189 full-suite tests, 62 targeted tests, 7/7 probes). Integration PR [#2](https://github.com/yujian777555/agentfotagent/pull/2) passed CI run 40464369334 against the integration merge tree (189 full-suite tests, 62 targeted tests, 7/7 probes) and was merged as `9e59401dd78f4be830c45634767bd3f65fb4b4ed`.
+
+This acceptance covers only the mock-backed engineering environment, evaluator and provenance path. It is not Agent capability evidence, transfer-benefit evidence or paper-readiness evidence. The Phase-1 pilot remains `NO_GO_OR_PIVOT`; next is Phase-1A Agent-assisted EC on MetaBox-v2. No live API calls until an explicit call/token/cost budget is approved.
