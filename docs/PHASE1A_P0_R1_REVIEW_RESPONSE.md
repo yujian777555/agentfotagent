@@ -50,3 +50,7 @@ baseline (controller applied only as start-time config for that path).
 ## Stop
 
 Awaiting Planner re-review. P1A-1 still blocked until acceptance.
+
+## P0-R1-Corrective follow-up
+
+CI workflow test paths, controlled_de success_fraction wiring, FE independence, metric semantics (raw vs regret), full traces and exact FE budget are fixed on branch \phase1a-p0-r1-corrective\. See docs/PHASE1A_P0_R1_CORRECTIVE_REPORT.md.

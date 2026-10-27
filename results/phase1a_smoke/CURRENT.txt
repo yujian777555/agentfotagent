@@ -1,1 +1,1 @@
-manifest_phase1a-smoke-r1-20261027.json
+manifest_phase1a-smoke-r1c-20261027.json

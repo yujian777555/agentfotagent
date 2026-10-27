@@ -161,18 +161,31 @@ def test_unsupported_actions_rejected_by_official_de():
 
 
 def test_controlled_de_live_trajectory_triggers_rule():
-    """Stagnation rule fires mid-run; F history changes accordingly."""
+    """Stagnation rule must actually fire on a real BBOB path (no false positive)."""
+    spec = {
+        "schema_version": "aes-controller-dsl-v2",
+        "controller_id": "stag_switch",
+        "initial_action": {"action": "set_F", "params": {"value": 0.5}},
+        "rules": [
+            {
+                "when": {"stagnation_steps": {"op": ">=", "value": 2.0}},
+                "then": {"action": "set_F", "params": {"value": 0.8}},
+            }
+        ],
+    }
+    ctrl = compile_controller(spec)
     p = load_function(6)
-    ctrl = compile_controller(fixed_controller_a())  # F 0.5, stagnation>=10 → F 0.8
     res = run_controlled_de(p._problem, ctrl, max_fes=800, seed=4)
-    assert res.fes >= 800
+    assert res.fes == 800
+    assert res.independent_fes == 800
     assert len(res.action_events) > 1
-    # At least one event must have applied set_F 0.8 after stagnation.
-    f_values = {e["effect"].get("F") for e in res.action_events if e["effect"].get("applied") == "set_F"}
-    assert 0.5 in f_values or 0.8 in f_values
-    assert res.applied_F_history[0] == 0.5
-    # After enough generations, F should be 0.8 if stagnation occurred; else stays 0.5
-    assert res.applied_F_history[-1] in (0.5, 0.8)
+    f_used = [e["F_used"] for e in res.action_events]
+    assert 0.5 in f_used, "initial F=0.5 must appear"
+    assert 0.8 in f_used, "stagnation rule must fire and apply F=0.8"
+    fire = next(e for e in res.action_events if e["effect"].get("F") == 0.8)
+    assert fire["state"]["stagnation_steps"] >= 2.0
+    assert fire["action"]["params"]["value"] == 0.8
+    assert fire["F_used"] == 0.8
 
 
 def test_controlled_de_state_change_selects_different_action():
@@ -194,12 +207,17 @@ def test_controlled_de_state_change_selects_different_action():
 
 def test_applied_F_CR_match_controller_actions():
     p = load_function(6)
-    ctrl = compile_controller(fixed_controller_b())  # initial F=0.9
+    spec = {
+        "schema_version": "aes-controller-dsl-v2",
+        "controller_id": "const_f",
+        "initial_action": {"action": "set_F", "params": {"value": 0.9}},
+        "rules": [],
+    }
+    ctrl = compile_controller(spec)
     res = run_controlled_de(p._problem, ctrl, max_fes=600, seed=2)
-    # First applied F must equal controller initial action.
     assert res.applied_F_history[0] == 0.9
-    # Every recorded effect F must appear in history at same index.
     for i, ev in enumerate(res.action_events):
+        assert ev["F_used"] == res.applied_F_history[i]
         if ev["effect"].get("applied") == "set_F":
             assert res.applied_F_history[i] == ev["effect"]["F"]
         if ev["effect"].get("applied") == "set_CR":
@@ -213,8 +231,9 @@ def test_controlled_de_seed_reproducible():
     p2 = load_function(6)
     r2 = run_controlled_de(p2._problem, ctrl, max_fes=500, seed=9)
     assert r1.cost_curve == r2.cost_curve
-    assert r1.best_cost == r2.best_cost
-    assert r1.fes == r2.fes
+    assert r1.best_raw_objective == r2.best_raw_objective
+    assert r1.fes == r2.fes == 500
+    assert r1.independent_fes == r2.independent_fes == 500
     assert [e["action"] for e in r1.action_events] == [e["action"] for e in r2.action_events]
 
 
@@ -230,3 +249,26 @@ def test_recorded_actions_match_effects():
             assert eff["F"] == ev["action"]["params"]["value"]
         if name == "set_CR":
             assert eff["Cr"] == ev["action"]["params"]["value"]
+
+
+def test_controlled_de_success_fraction_wired():
+    p = load_function(6)
+    ctrl = compile_controller(fixed_controller_a())
+    res = run_controlled_de(p._problem, ctrl, max_fes=400, seed=6)
+    assert res.action_events[0]["state"]["success_fraction"] == 0.0
+    if len(res.action_events) > 1:
+        assert res.action_events[1]["state"]["success_fraction"] == pytest.approx(
+            res.action_events[0]["success_fraction_this_gen"]
+        )
+
+
+def test_controlled_de_fe_exact_and_metric():
+    p = load_function(6)
+    ctrl = compile_controller(fixed_controller_a())
+    res = run_controlled_de(p._problem, ctrl, max_fes=600, seed=8)
+    assert res.fes == res.independent_fes == 600
+    assert res.init_fes == 20
+    # BBOB F6 has a bias optimum; regret should be computed
+    assert res.optimum is not None
+    assert res.primary_metric == "regret"
+    assert res.best_regret is not None

@@ -2,7 +2,7 @@ name: phase1a-metabox
 
 on:
   push:
-    branches: ["phase1a-p0-r1", "phase1a-metabox-smoke"]
+    branches: ["phase1a-p0-r1-corrective", "phase1a-p0-r1", "phase1a-metabox-smoke"]
   pull_request:
     branches: ["main"]
   workflow_dispatch:
@@ -25,10 +25,11 @@ jobs:
       - name: Record SHA
         run: |
           echo "Testing commit: $(git rev-parse HEAD)"
-      - name: Install pytest
+          git log -1 --oneline
+      - name: Install test deps
         run: python -m pip install pytest
-      - name: Project unit tests (DSL etc)
-        run: python -m pytest tests/test_controller_dsl.py tests/test_p0r1_metabox_fixes.py -o addopts='' -q -ra
+      - name: Full project suite
+        run: python -m pytest tests -o addopts='' -q -ra
 
   metabox-integration:
     runs-on: windows-latest
@@ -36,20 +37,29 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.ref || github.sha }}
-      - name: Record SHA
+      - name: Record SHA and provenance
         run: |
           echo "Testing commit: $(git rev-parse HEAD)"
+          git log -1 --oneline
       - name: Install uv
-        run: pip install uv
-      - name: Create MetaBox venv (pinned)
+        run: python -m pip install uv
+      - name: Create MetaBox venv (pinned metaevobox==2.0.2 from PyPI)
         run: |
           uv venv metabox-env --python 3.11
           uv pip install --python metabox-env/Scripts/python.exe metaevobox==2.0.2
           uv pip install --python metabox-env/Scripts/python.exe pytest
-      - name: Integration tests
+          metabox-env/Scripts/python.exe -c "import metaevobox,importlib.metadata as m; print('metaevobox', m.version('metaevobox'))"
+      - name: Integration + controller tests (must not all skip)
         run: |
-          metabox-env/Scripts/python.exe -m pytest tests/test_metabox_integration.py tests/test_p0r1_metabox_fixes.py tests/test_controller_dsl.py -o addopts='' -q -ra
-      - name: Upload smoke manifest
+          metabox-env/Scripts/python.exe -m pytest tests/test_p0r1_metabox_fixes.py -o addopts='' -q -ra --tb=short
+      - name: Fail if all skipped
+        run: |
+          $out = metabox-env/Scripts/python.exe -m pytest tests/test_p0r1_metabox_fixes.py -o addopts='' -q --collect-only
+          echo $out
+          if ($out -match "0 collected") { exit 1 }
+      - name: Smoke run
+        run: metabox-env/Scripts/python.exe experiments/metabox/run_smoke.py
+      - name: Upload smoke manifests
         if: always()
         uses: actions/upload-artifact@v4
         with:

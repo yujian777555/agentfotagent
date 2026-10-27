@@ -212,7 +212,10 @@ def fixed_controller_b() -> Dict[str, Any]:
                 "then": {"action": "set_CR", "params": {"value": 0.9}},
             },
             {
-                "when": {"improvement_rate": {"op": "<", "value": 0.001}},
+                "when": {
+                    "improvement_rate": {"op": "<", "value": 0.001},
+                    "budget_fraction": {"op": ">=", "value": 0.1},
+                },
                 "then": {"action": "set_F", "params": {"value": 1.0}},
             },
         ],
