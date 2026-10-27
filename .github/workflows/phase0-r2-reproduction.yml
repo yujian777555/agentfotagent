@@ -1,0 +1,59 @@
+name: Phase-0-R2 test reproduction
+
+on:
+  push:
+    branches:
+      - "audit/reproduce-phase0-r2-tests"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reproduce-r2:
+    name: Reproduce full test suite on exact R2 merge tree
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout audit branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout exact R2 merge commit
+        env:
+          SOURCE_SHA: "ec73906e15c048285cff3bca90a4f1f8bed21da8"
+        run: |
+          git checkout --detach "$SOURCE_SHA"
+          test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+          {
+            echo "workflow_commit=${GITHUB_SHA}"
+            echo "source_commit=$(git rev-parse HEAD)"
+          } | tee reproduction-metadata.txt
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install test dependencies and project
+        run: |
+          python -m pip install --upgrade pip setuptools pytest
+          python -m pip install -e .
+
+      - name: Run complete test suite
+        shell: bash
+        run: |
+          set -o pipefail
+          python --version | tee -a reproduction-metadata.txt
+          python -m pytest tests -o addopts='' -q -ra 2>&1 | tee phase0-r2-pytest.log
+
+      - name: Upload reproducibility evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase0-r2-reproduction-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            reproduction-metadata.txt
+            phase0-r2-pytest.log
+          if-no-files-found: warn
