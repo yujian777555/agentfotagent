@@ -11,6 +11,7 @@ family-level generalization, not merely new seeds of seen families.
 """
 from __future__ import annotations
 
+import hashlib
 import random
 from typing import Any, Dict, List, Mapping, Sequence, Tuple
 
@@ -18,7 +19,7 @@ from ..environments.tool_world import task_content_hash
 from ..interfaces import RuntimeTask, TaskInstance
 
 
-GENERATOR_VERSION = "aes-task-gen-v1"
+GENERATOR_VERSION = "aes-task-gen-v2"
 
 FAMILIES: Tuple[str, ...] = ("key_crate", "dial_set", "relay_route")
 
@@ -69,8 +70,11 @@ def _make_task(
         description=description,
         max_steps=max_steps,
     )
+    # Opaque runtime id: digest of content hash only — does not encode
+    # family, split or seed in a recoverable/legible form.
+    runtime_id = "rt_" + hashlib.sha256(content_hash.encode("utf-8")).hexdigest()[:16]
     runtime = RuntimeTask(
-        task_id=task_id,
+        runtime_id=runtime_id,
         description=description,
         max_steps=max_steps,
     )
@@ -83,6 +87,7 @@ def _make_task(
         seed=seed,
         generator_version=GENERATOR_VERSION,
         content_hash=content_hash,
+        task_id=task_id,
     )
 
 

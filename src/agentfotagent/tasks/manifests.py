@@ -18,6 +18,7 @@ def manifest_hash(entries: Sequence[Mapping[str, Any]]) -> str:
 def task_to_manifest_entry(task: TaskInstance, include_hidden: bool = True) -> Dict[str, Any]:
     entry: Dict[str, Any] = {
         # Evaluation-side metadata. Runtime-facing payload is only RuntimeTask.
+        "task_id": task.task_id,
         "runtime": task.runtime.to_payload(),
         "family": task.family,
         "split": task.split,

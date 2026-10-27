@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Mapping, Optional, Sequence, Set, Tuple
 from ..interfaces import Action, Observation, StepResult, TaskInstance
 
 
-TOOL_WORLD_VERSION = "aes-tool-world-v1"
+TOOL_WORLD_VERSION = "aes-tool-world-v2"
 
 # Public tools visible to the Agent runtime.
 READ_ONLY_TOOLS = (
@@ -541,10 +541,13 @@ class ToolWorld:
         st = self._state
         assert st is not None
         relay_obj = st.objects.get("relay")
-        if relay_obj is not None:
-            blocked = self._here_or_fail(str(relay_obj.get("location")), "relay")
-            if blocked is not None:
-                return blocked
+        # Missing or malformed relay object → fail closed (no locality bypass).
+        if not isinstance(relay_obj, Mapping) or relay_obj.get("type") != "relay":
+            return self._invalid("relay object missing or invalid")
+        if relay_obj.get("location") != st.location:
+            return self._invalid(f"object not here: relay")
+        if relay_obj.get("concealed"):
+            return self._invalid("relay object missing or invalid")
         code = args.get("code")
         expected = st.relay.get("code")
         if expected is None:
@@ -563,10 +566,13 @@ class ToolWorld:
         st = self._state
         assert st is not None
         relay_obj = st.objects.get("relay")
-        if relay_obj is not None:
-            blocked = self._here_or_fail(str(relay_obj.get("location")), "relay")
-            if blocked is not None:
-                return blocked
+        # Missing or malformed relay object → fail closed (no locality bypass).
+        if not isinstance(relay_obj, Mapping) or relay_obj.get("type") != "relay":
+            return self._invalid("relay object missing or invalid")
+        if relay_obj.get("location") != st.location:
+            return self._invalid(f"object not here: relay")
+        if relay_obj.get("concealed"):
+            return self._invalid("relay object missing or invalid")
         if not st.relay.get("activated"):
             return self._invalid("relay not activated")
         freq = args.get("frequency")
@@ -602,13 +608,22 @@ class ToolWorld:
 
 def load_task_from_dict(raw: Mapping[str, Any]) -> TaskInstance:
     """Reconstruct a TaskInstance from a serialized manifest entry."""
+    import hashlib
+
     from ..interfaces import RuntimeTask
 
-    public = raw.get("public") or raw.get("runtime") or {}
+    runtime_raw = raw.get("runtime") or {}
+    public = raw.get("public") or {}
+    description = runtime_raw.get("description") or public.get("description") or ""
+    max_steps = int(runtime_raw.get("max_steps") or public.get("max_steps") or 0)
+    content_hash = str(raw["content_hash"])
+    runtime_id = runtime_raw.get("runtime_id") or (
+        "rt_" + hashlib.sha256(content_hash.encode("utf-8")).hexdigest()[:16]
+    )
     runtime = RuntimeTask(
-        task_id=str(public["task_id"]),
-        description=str(public["description"]),
-        max_steps=int(public["max_steps"]),
+        runtime_id=str(runtime_id),
+        description=str(description),
+        max_steps=max_steps,
     )
     return TaskInstance(
         runtime=runtime,
@@ -618,7 +633,8 @@ def load_task_from_dict(raw: Mapping[str, Any]) -> TaskInstance:
         setup=dict(raw["setup"]),
         seed=int(raw["seed"]),
         generator_version=str(raw["generator_version"]),
-        content_hash=str(raw["content_hash"]),
+        content_hash=content_hash,
+        task_id=str(raw.get("task_id") or public.get("task_id") or ""),
     )
 
 

@@ -33,7 +33,9 @@ from .phenotype import FIXED_TOOL_RANK, Phenotype, compile_phenotype
 
 
 ENGINEERING_ONLY = True
-MOCK_BACKEND_ID = "mock-engineering-v1"
+# Advanced in Phase-0-R2 after R1 semantic fixes (verification frequency check,
+# opaque runtime ids). Old v1 results must not be confused with this version.
+MOCK_BACKEND_ID = "mock-engineering-v2"
 
 KEY_CRATE_ROOMS = ("hall", "storage", "corridor", "vault")
 RELAY_ROOMS = ("hub", "north", "south", "east")
@@ -351,7 +353,21 @@ def _goal_checks_passed(family: str, summary: Mapping[str, Any], policy: "MockPo
                 return False
         return True
     if family == "relay_route":
-        return bool(summary.get("relay_activated")) and summary.get("relay_frequency") is not None
+        if not summary.get("relay_activated"):
+            return False
+        actual = summary.get("relay_frequency")
+        if not isinstance(actual, int) or isinstance(actual, bool):
+            return False
+        # Expected frequency is derived from the three observed note fragments.
+        frags = policy.known_frags
+        if any(f"note_{i}" not in frags for i in range(3)):
+            return False
+        try:
+            digits = [int(_digit(frags[f"note_{i}"])) for i in range(3)]
+        except (TypeError, ValueError):
+            return False
+        expected = (sum(digits) % 7) + 1
+        return actual == expected
     return False
 
 
@@ -425,7 +441,7 @@ def run_episode(
 
     observation = env.reset(task)
     trace = EpisodeTrace(
-        task_id=task.runtime.task_id,
+        task_id=task.task_id,
         split=task.split,
         genome_hash=gh,
         backend_id=backend_id,
@@ -436,12 +452,8 @@ def run_episode(
     terminated = False
     termination_reason = ""
     for i in range(max_steps):
-        # Model-facing context: runtime task fields only (no seed/hash/hidden goal).
-        runtime_context = {
-            "task_id": task.runtime.task_id,
-            "description": task.runtime.description,
-            "max_steps": task.runtime.max_steps,
-        }
+        # Model-facing context: runtime task fields only (opaque id, no eval metadata).
+        runtime_context = task.runtime.to_payload()
         try:
             action = backend.propose(
                 Observation(content=observation.content), runtime_context

@@ -59,18 +59,19 @@ class RuntimeTask:
     """Model-facing task payload.
 
     Contains only the instruction fields the Agent is permitted to see.
-    Seeds, generator version, content hashes, split labels and hidden goals
-    live exclusively on the evaluation-side TaskInstance.
+    ``runtime_id`` is an opaque token: it must not encode family, split or seed.
+    Evaluation-side IDs, seeds, generator version, content hashes and hidden
+    goals live exclusively on TaskInstance.
     """
 
-    task_id: str
+    runtime_id: str
     description: str
     max_steps: int
 
     def to_payload(self) -> Dict[str, Any]:
         """Exact serialization sent to a backend together with observations."""
         return {
-            "task_id": self.task_id,
+            "runtime_id": self.runtime_id,
             "description": self.description,
             "max_steps": self.max_steps,
         }
@@ -88,10 +89,11 @@ class TaskInstance:
     seed: int
     generator_version: str
     content_hash: str
+    task_id: str = ""  # evaluation-side ID (family/split/seed); never model-facing
 
     @property
-    def task_id(self) -> str:
-        return self.runtime.task_id
+    def eval_id(self) -> str:
+        return self.task_id
 
 
 # ---------------------------------------------------------------------------
