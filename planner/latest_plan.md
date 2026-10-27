@@ -180,3 +180,10 @@ The Phase-1 pilot is **NO_GO_OR_PIVOT** for the current transfer setup: all 16 g
 Next sequence: (1) integrate R4 to main; (2) define and review Phase-1A on MetaBox-v2 where an Agent diagnoses real evolutionary trajectories and proposes constrained controller changes; (3) compare to strong EC and LLM-assisted baselines on held-out tasks; (4) only if Phase-1A is positive, test transfer of the same explicit controller to AES; (5) only if transfer is reproducible, test bidirectional feedback. The pilot review is `docs/PHASE1_PILOT_REVIEW_2026-10-27.md`.
 
 No live LLM API calls until a call/token/cost budget is explicitly approved. Do not use mock results as scientific evidence.
+
+
+## Post-merge state and next executable phase — 2026-10-27
+
+PR #2 integrated the reviewed R3/R4 AES source, tests and pilot artifacts into `main`. Merge commit: `9e59401dd78f4be830c45634767bd3f65fb4b4ed`. Integration CI run 40464369334 passed on merge tree `f01a7ecc1f007276ff425d4894a8aa57dfc35bac`: 62 targeted tests, 189 full-suite tests and all 7 probes passed. Phase-0 is accepted as engineering infrastructure only; no Agent-capability or scientific claim is established.
+
+**Do next: Phase-1A Agent-assisted EC on MetaBox-v2.** Do not expand the current surrogate-source→AES pilot: every genotype solved all six tasks, the success objective is saturated, and the source prior was manually specified rather than produced by MetaBox or an Agent. Phase-1A must have the Agent inspect actual evolutionary trajectories and propose constrained, executable controller changes. Compare against strong conventional adaptive EC and relevant LLM-assisted EC baselines; freeze objective, evaluation budget, seeds, validation/test split, negative controls and stop rules. Live LLM calls remain disabled until an explicit call/token/cost budget is approved. Only if Phase-1A is reproducibly positive should the same controller object be transferred to AES; bidirectional feedback is conditional on positive transfer evidence.
