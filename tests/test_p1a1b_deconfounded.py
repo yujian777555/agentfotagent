@@ -32,8 +32,8 @@ def test_prompt_contains_no_hint_value_or_recommendation():
     prompt = render_prompt(STATE)
     assert "Suggested" not in prompt
     assert "Pick F=" not in prompt
-    assert "recommendations" in prompt  # explicitly says examples are not recs
-    assert "Choose one action based on the state" in prompt
+    assert '{"action"' not in prompt
+    assert "Choose the action only from the current public state" in prompt
 
 
 def test_prompt_identical_regardless_of_hint_controller(monkeypatch):

@@ -66,13 +66,10 @@ def test_prompt_has_no_hint_and_no_pick():
     p = render_prompt(STATE)
     assert "Pick" not in p
     assert "Suggested" not in p
-    assert "recommendation" not in p.lower() or "not recommendations" in p
-    # no state-derived hint value 0.8 (hint for this state is set_F 0.8)
-    assert '"value":0.8}} (CR' in p  # syntax example for CR is present
-    # but "Pick F=0.8" style recommendation must be absent
-    assert "Pick F=0.8" not in p
-    assert "syntax examples only" in p
-    assert "Choose one action based on the state" in p
+    assert '{"action"' not in p  # no JSON examples at all
+    assert "syntax examples" not in p
+    assert "action must be one of: set_F, set_CR, noop" in p
+    assert "Choose the action only from the current public state" in p
 
 
 def test_prompt_ignores_hint_controller(monkeypatch):

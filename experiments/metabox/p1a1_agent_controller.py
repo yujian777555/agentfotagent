@@ -17,22 +17,23 @@ from typing import Any, Dict, List, Mapping, Optional, Tuple
 
 from .controller_dsl import DSL_VERSION, validate_controller_spec
 
-PROMPT_VERSION = "p1a1c-agent-v1"
+PROMPT_VERSION = "p1a1d-agent-v1"
 MAX_OUTPUT_TOKENS = 256
 MAX_REQUESTS = 140
 MAX_RETRIES = 1
 
-# Multi-action syntax examples with different values; values are NOT recommendations.
+# Pure text protocol: NO concrete parameter-value examples (P1A-1D).
 PROMPT_TEMPLATE = (
     "You control Differential Evolution parameters. "
-    "Reply with a single JSON object only. "
-    "Legal actions: "
-    '{{"action":"set_F","params":{{"value":0.35}}}} (F between 0.1 and 1.0); '
-    '{{"action":"set_CR","params":{{"value":0.8}}}} (CR between 0.0 and 1.0); '
-    '{{"action":"noop","params":{{}}}}. '
-    "The numbers above are syntax examples only, not recommendations. "
-    "State: gen={gen} F={cur_F} CR={cur_Cr} stag={stag} succ={succ} budget={budget} improve={imp}. "
-    "Choose one action based on the state."
+    "Output one JSON object and nothing else. "
+    "The object has exactly two fields: action and params. "
+    "action must be one of: set_F, set_CR, noop. "
+    "If action is set_F, params must contain value in [0.1, 1.0]. "
+    "If action is set_CR, params must contain value in [0.0, 1.0]. "
+    "If action is noop, params must be an empty object. "
+    "Choose the action only from the current public state. "
+    "Do not output explanations, code, or extra fields. "
+    "State: gen={gen} F={cur_F} CR={cur_Cr} stag={stag} succ={succ} budget={budget} improve={imp}."
 )
 
 
