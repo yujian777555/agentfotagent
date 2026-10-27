@@ -4,8 +4,8 @@
   "default_branch": "main",
   "last_updated": "2026-10-27",
   "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
-  "current_phase": "Phase-0 R4 merged; Phase-1A MetaBox experiment protocol next",
-  "phase_status": "PHASE0_ACCEPTED_ENGINEERING_ONLY; R4_MERGED; PHASE1A_PROTOCOL_REQUIRED; NO_LIVE_API",
+  "current_phase": "Phase-1A MetaBox-v2 Agent-assisted EC protocol and no-LLM integration smoke",
+  "phase_status": "PHASE0_ACCEPTED_ENGINEERING_ONLY; PHASE1A_PROTOCOL_DRAFTED; NO_LIVE_API; NO_CONFIRMATORY_RUN",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
@@ -50,11 +50,11 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Phase-1A: define a reproducible Agent-assisted EC experiment on MetaBox-v2; the Agent must diagnose real evolutionary trajectories and propose constrained, executable controller changes",
-    "Pre-register strong conventional and LLM-assisted EC baselines, objective/metrics, seeds, FE/runtime budget, validation/test split, negative controls and stop rules",
-    "Do not scale the saturated surrogate-source-to-AES pilot or claim transfer benefit",
-    "Do not call live LLM APIs until explicit call/token/cost budget is approved",
-    "Only if Phase-1A is reproducibly positive, transfer the same explicit controller object to AES; only if transfer is positive, test bidirectional feedback"
+    "Execute P1A-0: pin official MetaBox-v2 source and run a no-LLM integration smoke with one verified problem and baseline",
+    "Verify FE accounting, objective direction, deterministic seeds, metric calculation and controller DSL compilation",
+    "Inspect available MetaBox baselines and freeze function-level train/validation/test splits before Agent proposals",
+    "If a suitable local model is unavailable, request explicit LLM API call/token/cost approval before Agent pilot",
+    "Do not scale the saturated source-prior-to-AES pilot; only test controller transfer to AES after positive held-out Phase-1A evidence"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -77,7 +77,8 @@
     "phase0_r3_test_reproduction": "docs/PHASE0_R3_TEST_REPRODUCTION_2026-10-27.md",
     "phase0_r4_independent_review": "docs/PHASE0_R4_INDEPENDENT_REVIEW_2026-10-27.md",
     "phase1_pilot_review": "docs/PHASE1_PILOT_REVIEW_2026-10-27.md",
-    "phase0_r4_audit_response": "docs/PHASE0_R4_AUDIT_RESPONSE.md"
+    "phase0_r4_audit_response": "docs/PHASE0_R4_AUDIT_RESPONSE.md",
+    "phase1a_metabox_protocol": "docs/PHASE1A_METABOX_PROTOCOL.md"
   },
   "corrective_pass_commit": "1776e0f9f4cc606ae66eaeca20c833d72e3b7ab0",
   "current_reviewed_source_commit": "3e48bf5305ba667490358c140dad556f1ebf84e2",
