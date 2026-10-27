@@ -4,8 +4,8 @@
   "default_branch": "main",
   "last_updated": "2026-10-27",
   "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
-  "current_phase": "Phase-1A P1A-1E deepseek-flash preflight",
-  "phase_status": "LLM_POLICY_DEGENERATE_FLASH; FORMAL_EXPERIMENT_NOT_STARTED",
+  "current_phase": "Phase-1A P1A-1F transfer-object gate",
+  "phase_status": "TRANSFER_OBJECT_GATE_COMPLETE; CANDIDATE_C_CONDITIONAL_GO",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
@@ -43,7 +43,8 @@
     "p1a1b_pilot": "run p1a1-4c6333adb1f5-clean-20261027T192647; llm vs hint_only 4-0 and vs random 4-0 on completed pairs BUT only set_F=0.5 dummy echo; 2/6 LLM blocked by 100-request budget; F20 missing",
     "p1a1c_preflight": "3/3 valid JSON after thinking=disabled + json_object; but 1/3 action signatures (echo set_F=0.35); LLM_POLICY_DEGENERATE; formal 42-run not started; requests 3/140",
     "p1a1d_preflight": "no-example prompt p1a1d-agent-v1; 3/3 valid JSON but 1 signature set_F=0.7 across A/B/C single-variable states; GATE2+GATE3 FAIL; requests 3/140; LLM_POLICY_DEGENERATE",
-    "p1a1e_preflight": "deepseek-flash available; 3/3 valid JSON; all states set_F=0.7; GATE2+GATE3 FAIL; same attractor as v4-pro; requests 3/140"
+    "p1a1e_preflight": "deepseek-flash available; 3/3 valid JSON; all states set_F=0.7; GATE2+GATE3 FAIL; same attractor as v4-pro; requests 3/140",
+    "p1a1f_gate": "LLM-direct control REJECTED_FOR_CURRENT_PROTOCOL; A/B NO-GO; C CONDITIONAL GO pending AES space/difficulty expansion; no LLM/perf run this phase"
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
@@ -60,8 +61,9 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Cross-model degeneration confirmed; stop or redesign with state-computed numeric fields",
-    "No formal 42-run until preflight shows real state-dependent signatures"
+    "Before transfer experiments: expand AES genotype space/task difficulty off ceiling",
+    "Implement target intervention effect logging; freeze splits + shuffled-map control",
+    "If expansion impossible: NO_GO_TRANSFER for current MetaBox-AES pairing"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -95,7 +97,8 @@
     "phase1a_p1a1_deconfounded_report": "docs/PHASE1A_P1A1_DECONFOUNDED_REPORT.md",
     "phase1a_p1a1_c_preflight_report": "docs/PHASE1A_P1A1_C_PREFLIGHT_REPORT.md",
     "phase1a_p1a1_d_preflight_report": "docs/PHASE1A_P1A1_D_PREFLIGHT_REPORT.md",
-    "phase1a_p1a1_e_flash_preflight_report": "docs/PHASE1A_P1A1_E_FLASH_PREFLIGHT_REPORT.md"
+    "phase1a_p1a1_e_flash_preflight_report": "docs/PHASE1A_P1A1_E_FLASH_PREFLIGHT_REPORT.md",
+    "phase1a_p1a1f_transfer_object_gate": "docs/PHASE1A_P1A1F_TRANSFER_OBJECT_GATE.md"
   },
   "corrective_pass_commit": "1776e0f9f4cc606ae66eaeca20c833d72e3b7ab0",
   "current_reviewed_source_commit": "3e48bf5305ba667490358c140dad556f1ebf84e2",
