@@ -7,6 +7,8 @@
 - Corrective pass: Phase-0-R2
 - Scope: residual audit findings only. No live LLM API, GPU, MetaBox meta-training, transfer or scientific baseline comparison.
 
+Merged push commit: 2d5209dfac7b1fd1348ee04ebaf0a3f9bfefef39 (R2 fixes + preserved R1 reproduction docs).
+
 ## Test command (executor-run)
 
 ```text
