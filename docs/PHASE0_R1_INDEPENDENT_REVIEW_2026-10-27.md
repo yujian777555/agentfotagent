@@ -115,7 +115,7 @@ Environment, evaluator and mock-backend behavior changed in Phase-0-R1, but the 
 
 1. Fix R1-01 through R1-06 and add targeted regression tests.
 2. Bump environment/evaluator/backend version identifiers and update cache/config/provenance metadata.
-3. Run python -m pytest tests -q in a reachable environment; record exact commit SHA and output. The previous 104-pass result remains executor-reported.
+3. After fixing the residual findings, rerun the full suite on the corrected source commit and record the exact SHA/output. The current R1 source suite has already been independently reproduced (104 passed in 0.24s; run 40441941389), but that run does not test the yet-unfixed adversarial cases.
 4. Update docs/PHASE0_R1_AUDIT_RESPONSE.md, planner/latest_plan.md, status.json and the environment spec.
 5. Push the corrective commit, verify HEAD == origin/main, and stop for independent review.
 
