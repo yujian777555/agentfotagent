@@ -105,6 +105,7 @@ class RunManifest:
     engineering_only: bool = True
     episodes: Tuple[str, ...] = ()
     scores: Tuple[Mapping[str, Any], ...] = ()
+    accounting: Mapping[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -122,6 +123,7 @@ class RunManifest:
             "engineering_only": self.engineering_only,
             "episodes": list(self.episodes),
             "scores": [dict(s) for s in self.scores],
+            "accounting": dict(self.accounting),
         }
 
 
@@ -141,6 +143,7 @@ def build_run_manifest(
     episodes: Sequence[EpisodeTrace],
     results: Sequence[EpisodeResult],
     engineering_only: bool = True,
+    accounting: Optional[Mapping[str, Any]] = None,
 ) -> RunManifest:
     scores = tuple(
         {
@@ -170,6 +173,7 @@ def build_run_manifest(
         engineering_only=engineering_only,
         episodes=tuple(e.task_id for e in episodes),
         scores=scores,
+        accounting=dict(accounting or {}),
     )
 
 
@@ -187,3 +191,74 @@ def reconstruct_scores(
         result = evaluator.evaluate(task, trace.final_state, trace.steps)
         out.append(result)
     return out
+
+
+def reconstruct_from_artifacts(
+    artifact: Mapping[str, Any],
+    tasks: Mapping[str, TaskInstance],
+    evaluator,
+) -> Dict[str, Any]:
+    """Reload a serialized run artifact and rebuild every score from actual traces.
+
+    Rebuilt results are matched to manifest scores by (task_id, final_state_hash);
+    the trace's own genome_hash is checked against the recorded value.
+    """
+    traces = [EpisodeTrace.from_dict(t) for t in artifact.get("traces", [])]
+    rebuilt = []
+    mismatches = []
+
+    recorded_scores = {
+        (s.get("task_id"), s.get("genome_hash"), s.get("final_state_hash")): s
+        for s in artifact.get("manifest", {}).get("scores", [])
+    }
+
+    for trace in traces:
+        task = tasks.get(trace.task_id)
+        if task is None:
+            mismatches.append({"task_id": trace.task_id, "reason": "missing_task"})
+            continue
+        result = evaluator.evaluate(task, trace.final_state, trace.steps)
+        # Attach the genome hash recorded in the actual trace.
+        result_with_genome = result.__class__(
+            task_id=result.task_id,
+            genome_hash=trace.genome_hash,
+            success=result.success,
+            steps=result.steps,
+            invalid_actions=result.invalid_actions,
+            repeated_states=result.repeated_states,
+            termination_reason=result.termination_reason,
+            final_state_hash=result.final_state_hash,
+            diagnostic=result.diagnostic,
+        )
+        rebuilt.append(result_with_genome)
+
+        key = (result.task_id, trace.genome_hash, result.final_state_hash)
+        if key not in recorded_scores:
+            mismatches.append(
+                {
+                    "task_id": result.task_id,
+                    "reason": "missing_in_manifest",
+                    "final_state_hash": result.final_state_hash,
+                    "genome_hash": trace.genome_hash,
+                }
+            )
+            continue
+        rec = recorded_scores[key]
+        if bool(rec.get("success")) != bool(result.success) or int(rec.get("steps", -1)) != int(
+            result.steps
+        ):
+            mismatches.append(
+                {
+                    "task_id": result.task_id,
+                    "reason": "score_mismatch",
+                    "recorded": rec,
+                    "rebuilt_success": result.success,
+                }
+            )
+
+    return {
+        "rebuilt": rebuilt,
+        "mismatches": mismatches,
+        "manifest_task_manifest_hash": artifact.get("manifest", {}).get("task_manifest_hash"),
+        "accounting": artifact.get("accounting"),
+    }
