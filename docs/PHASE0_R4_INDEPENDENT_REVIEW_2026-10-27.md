@@ -45,3 +45,8 @@ The four original R3 counterexamples and three R4 probes all returned expected r
 Integrate the accepted R4 source and tests into `main` while preserving the main-branch audit documents and status history. Then begin **Phase-1A: Agent-assisted evolutionary computation on MetaBox-v2**. Do not expand the saturated surrogate-source transfer pilot. The project's intended sequence is (A) validate that an Agent can discover a controller that improves EC over strong baselines on MetaBox, then (B) test the same explicit controller object on AES. Phase (C), bidirectional feedback, remains conditional on reproducible positive evidence in phase B.
 
 The Phase-1 pilot decision is `NO_GO_OR_PIVOT` for its current source→AES transfer setup; details are in `docs/PHASE1_PILOT_REVIEW_2026-10-27.md`.
+
+
+## Post-review integration update — 2026-10-27
+
+The reviewed source was integrated via PR #2. Merge commit: `9e59401dd78f4be830c45634767bd3f65fb4b4ed`. The integration PR's CI run [40464369334](https://github.com/yujian777555/agentfotagent/actions/runs/40464369334) tested its pull-request merge tree `f01a7ecc1f007276ff425d4894a8aa57dfc35bac`: 62 targeted tests passed in 0.22s, the full suite passed 189 tests in 0.45s, and all 7 counterexample probes passed. The candidate is now merged into `main` for engineering use only. The scientific limitations and non-blocking probe-test-strengthening note above remain in force.
