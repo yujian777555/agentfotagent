@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT))
 
 def load_latest_manifest():
     out = ROOT / "results" / "p1a1_pilot"
-    ms = sorted(out.glob("manifest_p1a1-*.json"))
+    ms = sorted(out.glob("manifest_p1a1-*.json"), key=lambda p: p.stat().st_mtime)
     if not ms:
         raise SystemExit("no p1a1 manifest")
     return json.loads(ms[-1].read_text(encoding="utf-8")), ms[-1]
