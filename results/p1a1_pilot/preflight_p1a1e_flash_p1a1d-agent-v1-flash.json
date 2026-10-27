@@ -1,0 +1,175 @@
+{
+  "results": [
+    {
+      "name": "A_baseline",
+      "state": {
+        "generation": 5,
+        "F": 0.5,
+        "CR": 0.5,
+        "success_fraction": 0.2,
+        "improvement_rate": 0.1,
+        "stagnation_steps": 2,
+        "budget_fraction": 0.4
+      },
+      "prompt_sha": "3dab6a106e60915d0d91a4c0bc81529055fe228eb029e5d9fbc483a66fb56df0",
+      "raw": "{\"action\": \"set_F\", \"params\": {\"value\": 0.7}}",
+      "action": {
+        "action": "set_F",
+        "params": {
+          "value": 0.7
+        }
+      },
+      "sig": [
+        "set_F",
+        0.7
+      ],
+      "valid": true,
+      "error": null,
+      "hint": {
+        "action": "set_F",
+        "params": {
+          "value": 0.5
+        }
+      },
+      "deviates_from_hint": true,
+      "meta": {
+        "id": null,
+        "model": "deepseek-flash",
+        "finish_reason": "stop",
+        "content_length": 45,
+        "reasoning_content_length": 0,
+        "usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 18,
+          "total_tokens": 198,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 180
+        },
+        "empty_content": null
+      }
+    },
+    {
+      "name": "B_high_stag",
+      "state": {
+        "generation": 5,
+        "F": 0.5,
+        "CR": 0.5,
+        "success_fraction": 0.2,
+        "improvement_rate": 0.1,
+        "stagnation_steps": 8,
+        "budget_fraction": 0.4
+      },
+      "prompt_sha": "0a5d16183ad3bc30bdec880302ed4b122f7e359f00722697c2879ef87da37fd5",
+      "raw": "{\"action\": \"set_F\", \"params\": {\"value\": 0.7}}",
+      "action": {
+        "action": "set_F",
+        "params": {
+          "value": 0.7
+        }
+      },
+      "sig": [
+        "set_F",
+        0.7
+      ],
+      "valid": true,
+      "error": null,
+      "hint": {
+        "action": "set_F",
+        "params": {
+          "value": 0.8
+        }
+      },
+      "deviates_from_hint": true,
+      "meta": {
+        "id": null,
+        "model": "deepseek-flash",
+        "finish_reason": "stop",
+        "content_length": 45,
+        "reasoning_content_length": 0,
+        "usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 18,
+          "total_tokens": 198,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 180
+        },
+        "empty_content": null
+      }
+    },
+    {
+      "name": "C_high_budget",
+      "state": {
+        "generation": 5,
+        "F": 0.5,
+        "CR": 0.5,
+        "success_fraction": 0.2,
+        "improvement_rate": 0.1,
+        "stagnation_steps": 2,
+        "budget_fraction": 0.85
+      },
+      "prompt_sha": "be0635f4e83bfcbfc8b0691dff9c101b3d8171bb1123094137df7a2bba9981b6",
+      "raw": "{\"action\": \"set_F\", \"params\": {\"value\": 0.7}}",
+      "action": {
+        "action": "set_F",
+        "params": {
+          "value": 0.7
+        }
+      },
+      "sig": [
+        "set_F",
+        0.7
+      ],
+      "valid": true,
+      "error": null,
+      "hint": {
+        "action": "set_CR",
+        "params": {
+          "value": 0.3
+        }
+      },
+      "deviates_from_hint": true,
+      "meta": {
+        "id": null,
+        "model": "deepseek-flash",
+        "finish_reason": "stop",
+        "content_length": 45,
+        "reasoning_content_length": 0,
+        "usage": {
+          "prompt_tokens": 180,
+          "completion_tokens": 18,
+          "total_tokens": 198,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 180
+        },
+        "empty_content": null
+      }
+    }
+  ],
+  "stats": {
+    "requests": 3,
+    "retries": 0,
+    "prompt_tokens": 540,
+    "completion_tokens": 54,
+    "reasoning_tokens": 0,
+    "cache_hits": 0,
+    "invalid_responses": 0,
+    "api_failures": 0,
+    "empty_content": 0,
+    "finish_reasons": {
+      "stop": 3
+    },
+    "total_cost_usd_estimate": 0.0,
+    "note": "DeepSeek returns usage tokens; USD cost not provided by API"
+  },
+  "prompt_version": "p1a1d-agent-v1-flash",
+  "model": "deepseek-flash"
+}
