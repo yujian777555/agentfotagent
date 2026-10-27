@@ -225,7 +225,7 @@ class P1A1AgentController:
         state_d = dict(state)
         prompt = render_prompt(state_d)
         cache_key = hashlib.sha256(
-            json.dumps([PROMPT_VERSION, self.model, prompt], separators=(",", ":")).encode()
+            json.dumps([PROMPT_VERSION, self.backend.model, prompt], separators=(",", ":")).encode()
         ).hexdigest()
         raw = ""
         meta: Dict[str, Any] = {}

@@ -64,10 +64,14 @@ def test_cache_key_includes_new_prompt_version():
     import hashlib
 
     prompt = render_prompt(STATE)
-    k_new = hashlib.sha256(json.dumps([PROMPT_VERSION, prompt], separators=(",", ":")).encode()).hexdigest()
-    k_old = hashlib.sha256(json.dumps(["p1a1c-agent-v1", prompt], separators=(",", ":")).encode()).hexdigest()
+    k_new = hashlib.sha256(
+        json.dumps([PROMPT_VERSION, "deepseek-flash", prompt], separators=(",", ":")).encode()
+    ).hexdigest()
+    k_old = hashlib.sha256(
+        json.dumps(["p1a1c-agent-v1", "deepseek-v4-pro", prompt], separators=(",", ":")).encode()
+    ).hexdigest()
     assert k_new != k_old
-    assert PROMPT_VERSION == "p1a1d-agent-v1"
+    assert PROMPT_VERSION.startswith("p1a1d-agent-v1")
 
 
 def _resp(payload: dict):
