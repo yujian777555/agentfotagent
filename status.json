@@ -4,8 +4,8 @@
   "default_branch": "main",
   "last_updated": "2026-10-27",
   "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
-  "current_phase": "Phase-1A MetaBox-v2 Agent-assisted EC protocol and no-LLM integration smoke",
-  "phase_status": "PHASE0_ACCEPTED_ENGINEERING_ONLY; PHASE1A_PROTOCOL_DRAFTED; NO_LIVE_API; NO_CONFIRMATORY_RUN",
+  "current_phase": "Phase-1A P0 smoke reviewed; P0-R1 corrective pass required before Agent pilot",
+  "phase_status": "P0_ENGINEERING_SMOKE_ACCEPTED; P0_R1_REQUEST_CHANGES; P1A1_BLOCKED; NO_LIVE_API",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
@@ -33,7 +33,10 @@
     "phase0_r4_independent_review": "ACCEPTED_FOR_ENGINEERING_GATE_ONLY on candidate 3e48bf5305ba667490358c140dad556f1ebf84e2; merged via PR #2 at 9e59401dd78f4be830c45634767bd3f65fb4b4ed; integration CI 40464369334 passed.",
     "phase1_pilot": "NO_GO_OR_PIVOT: all 16 genotypes reached 1.0 success on six small train tasks; mean steps 9.83-13.0; source prior is hand-written surrogate, not MetaBox or Agent-generated; mock backend only; not confirmatory.",
     "phase1_pilot_review": "docs/PHASE1_PILOT_REVIEW_2026-10-27.md",
-    "phase1A": "NOT_STARTED; next gate is Agent-assisted EC on MetaBox-v2 with explicit controller object, strong baselines, validation/test separation and approved API budget"
+    "phase1A": "NOT_STARTED; next gate is Agent-assisted EC on MetaBox-v2 with explicit controller object, strong baselines, validation/test separation and approved API budget",
+    "phase1a_p0_planner_review": "ACCEPTED_AS_REAL_PLATFORM_ENGINEERING_SMOKE_ONLY; REQUEST CHANGES FOR FULL P0 CLOSURE; see docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.md. Static scalar F effect and FE/repro checks are credible; live trajectory feedback is absent; mutation/restart actions are no-ops; split needs stratification; no Actions run found for feature branch.",
+    "phase1a_smoke": "Executor reports 198 passed/1 skipped locally, plus 15 targeted tests. No CI run associated with phase1a-metabox-smoke at reviewed SHA f571b52ba73f6cfcf51901a2af72f4b980699bc7; results are local evidence, not independent CI reproduction.",
+    "phase1a": "P0 engineering smoke accepted narrowly. P0-R1 required: correct F/CR range semantics, wire generation-level state/action hooks or narrow DSL, reject unsupported mutation/restart actions, create split_v2 stratified by MetaBox difficulty and BBOB family, complete dependency lock, add exact-SHA CI. P1A-1 Agent pilot BLOCKED."
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
@@ -50,11 +53,12 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Execute P1A-0: pin official MetaBox-v2 source and run a no-LLM integration smoke with one verified problem and baseline",
-    "Verify FE accounting, objective direction, deterministic seeds, metric calculation and controller DSL compilation",
-    "Inspect available MetaBox baselines and freeze function-level train/validation/test splits before Agent proposals",
-    "If a suitable local model is unavailable, request explicit LLM API call/token/cost approval before Agent pilot",
-    "Do not scale the saturated source-prior-to-AES pilot; only test controller transfer to AES after positive held-out Phase-1A evidence"
+    "Execute P0-R1 corrections from docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.md on a feature branch",
+    "Verify the proposed stratified split_v2 against the pinned MetaBox source and preserve split_v1 artifacts",
+    "Implement and test actual trajectory-conditioned controller hooks, or narrow the pilot DSL to only operational actions",
+    "Add full environment lock/provenance and exact-SHA CI for the MetaBox smoke",
+    "Request Planner re-review before any Agent API pilot",
+    "No live LLM API, MetaBBO meta-training, or AES transfer until the gate is accepted and the user approves the API budget"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -78,7 +82,8 @@
     "phase0_r4_independent_review": "docs/PHASE0_R4_INDEPENDENT_REVIEW_2026-10-27.md",
     "phase1_pilot_review": "docs/PHASE1_PILOT_REVIEW_2026-10-27.md",
     "phase0_r4_audit_response": "docs/PHASE0_R4_AUDIT_RESPONSE.md",
-    "phase1a_metabox_protocol": "docs/PHASE1A_METABOX_PROTOCOL.md"
+    "phase1a_metabox_protocol": "docs/PHASE1A_METABOX_PROTOCOL.md",
+    "phase1a_p0_planner_review": "docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.md"
   },
   "corrective_pass_commit": "1776e0f9f4cc606ae66eaeca20c833d72e3b7ab0",
   "current_reviewed_source_commit": "3e48bf5305ba667490358c140dad556f1ebf84e2",
@@ -87,5 +92,6 @@
   "reviewed_r4_source": "3e48bf5305ba667490358c140dad556f1ebf84e2",
   "integration_branch": "phase0-r4-integration",
   "integration_source_candidate": "3e48bf5305ba667490358c140dad556f1ebf84e2",
-  "integration_commit_sha": "9e59401dd78f4be830c45634767bd3f65fb4b4ed"
+  "integration_commit_sha": "9e59401dd78f4be830c45634767bd3f65fb4b4ed",
+  "reviewed_phase1a_p0_commit": "f571b52ba73f6cfcf51901a2af72f4b980699bc7"
 }
