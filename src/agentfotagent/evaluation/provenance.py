@@ -201,6 +201,87 @@ class ReconstructionError(RuntimeError):
     """Raised when artifact traces and manifest scores are not in exact correspondence."""
 
 
+# All persisted score fields that must match the rebuilt EpisodeResult (R3-04/R4-01/R4-02).
+SCORE_COMPARE_FIELDS = (
+    "success",
+    "steps",
+    "invalid_actions",
+    "repeated_states",
+    "termination_reason",
+    "final_state_hash",
+)
+
+# Identity fields allowed on a score record (no unknown keys, R4-02).
+SCORE_IDENTITY_FIELDS = (
+    "task_id",
+    "genome_hash",
+)
+
+# Versioned score-record schema. Extensions require bumping this and validating.
+SCORE_RECORD_SCHEMA_VERSION = "aes-score-record-v2"
+ALLOWED_SCORE_FIELDS = frozenset(SCORE_COMPARE_FIELDS) | frozenset(SCORE_IDENTITY_FIELDS)
+
+
+def _normalize_score_value(field: str, value: Any) -> Any:
+    if field == "success":
+        # R4-01: require a real boolean; never coerce int/str/None.
+        if not isinstance(value, bool):
+            raise ReconstructionError(
+                f"{field} must be bool, got {type(value).__name__}"
+            )
+        return value
+    if field in {"steps", "invalid_actions", "repeated_states"}:
+        if isinstance(value, bool):
+            raise ReconstructionError(f"{field} must be int, got bool")
+        if not isinstance(value, int):
+            raise ReconstructionError(f"{field} must be int, got {type(value).__name__}")
+        return value
+    if field == "termination_reason":
+        if not isinstance(value, str):
+            raise ReconstructionError(f"{field} must be str, got {type(value).__name__}")
+        return value
+    if field == "final_state_hash":
+        if not isinstance(value, str) or not value:
+            raise ReconstructionError(f"{field} must be non-empty str")
+        return value
+    return value
+
+
+def validate_score_record_schema(recorded: Mapping[str, Any]) -> None:
+    """R4-02: closed schema — reject unknown keys and missing required keys."""
+    if not isinstance(recorded, Mapping):
+        raise ReconstructionError("score record must be a mapping")
+    keys = set(recorded.keys())
+    unknown = keys - ALLOWED_SCORE_FIELDS
+    if unknown:
+        raise ReconstructionError(f"unknown score fields: {sorted(unknown)}")
+    missing = set(SCORE_COMPARE_FIELDS) | set(SCORE_IDENTITY_FIELDS)
+    missing -= keys
+    if missing:
+        raise ReconstructionError(f"manifest score missing field: {sorted(missing)}")
+    # Identity field types
+    for f in SCORE_IDENTITY_FIELDS:
+        if not isinstance(recorded[f], str) or not recorded[f]:
+            raise ReconstructionError(f"{f} must be non-empty str")
+    # Score field types
+    for f in SCORE_COMPARE_FIELDS:
+        _normalize_score_value(f, recorded[f])
+
+
+def compare_score_fields(recorded: Mapping[str, Any], rebuilt: EpisodeResult) -> None:
+    """Strict full-field comparison between a manifest score and a rebuilt result."""
+    validate_score_record_schema(recorded)
+    for field in SCORE_COMPARE_FIELDS:
+        rec_val = _normalize_score_value(field, recorded[field])
+        reb_val = getattr(rebuilt, field)
+        if rec_val != reb_val:
+            raise ReconstructionError(
+                f"score field mismatch for {rebuilt.task_id}: {field} recorded={rec_val!r} rebuilt={reb_val!r}"
+            )
+    if recorded["task_id"] != rebuilt.task_id:
+        raise ReconstructionError("score task_id does not match rebuilt result")
+
+
 def reconstruct_from_artifacts(
     artifact: Mapping[str, Any],
     tasks: Mapping[str, TaskInstance],
@@ -261,17 +342,12 @@ def reconstruct_from_artifacts(
         matched_keys.add(key)
 
         rec = score_index[key]
-        if bool(rec.get("success")) != bool(result.success) or int(rec.get("steps", -1)) != int(
-            result.steps
-        ):
-            mismatches.append(
-                {
-                    "task_id": result.task_id,
-                    "reason": "score_mismatch",
-                    "recorded": rec,
-                    "rebuilt_success": result.success,
-                }
-            )
+        try:
+            compare_score_fields(rec, result)
+        except ReconstructionError:
+            raise
+        except Exception as exc:
+            raise ReconstructionError(f"invalid manifest score record: {exc}") from exc
 
     # Every manifest score must be covered by a trace (R1-05: reverse direction).
     unmatched_scores = [k for k in score_index if k not in matched_keys]

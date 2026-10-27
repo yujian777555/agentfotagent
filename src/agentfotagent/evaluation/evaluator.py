@@ -23,6 +23,15 @@ REQUIRED_DIALS = ("alpha", "beta", "gamma")
 DIAL_VALUE_MIN = 0
 DIAL_VALUE_MAX = 3
 
+# Entity types as defined by aes-task-gen-v2 generators / tool world.
+KEY_CRATE_ARTIFACT_TYPE = "artifact"
+KEY_CRATE_CONTAINER_TYPE = "crate"
+KEY_CRATE_SURFACE_TYPE = "surface"
+RELAY_OBJECT_TYPE = "relay"
+RELAY_CODE_DIGITS = 3
+RELAY_FREQ_MIN = 1
+RELAY_FREQ_MAX = 7
+
 
 class StateBasedEvaluator(Evaluator):
     """Fail-closed evaluator over terminal environment state."""
@@ -39,7 +48,7 @@ class StateBasedEvaluator(Evaluator):
         gtype = goal.get("type")
 
         if gtype == "key_crate":
-            return self._pred_key_crate(goal, final_state)
+            return self._pred_key_crate(goal, final_state, task)
         if gtype == "dial_set":
             return self._pred_dial_set(goal, final_state)
         if gtype == "relay_route":
@@ -48,7 +57,7 @@ class StateBasedEvaluator(Evaluator):
         # Unknown goal types fail closed.
         return False
 
-    def _pred_key_crate(self, goal: Mapping[str, Any], state: Mapping[str, Any]) -> bool:
+    def _pred_key_crate(self, goal: Mapping[str, Any], state: Mapping[str, Any], task: TaskInstance) -> bool:
         spec = goal.get("object_on_surface")
         if not isinstance(spec, Mapping):
             return False
@@ -63,21 +72,73 @@ class StateBasedEvaluator(Evaluator):
         if goal.get("crate_unlocked") is not True:
             return False
 
+        # Authoritative world contract from the generated task (R4-03).
+        setup = task.setup or {}
+        legal_locations = set(setup.get("locations") or [])
+        legal_surfaces = set(setup.get("surfaces") or [])
+        setup_objects = setup.get("objects") or {}
+        if not legal_locations:
+            return False
+        if not isinstance(setup_objects, Mapping):
+            return False
+
         objects = state.get("objects")
         if not isinstance(objects, Mapping):
             return False
 
+        def _loc_ok(obj: Mapping[str, Any]) -> bool:
+            loc = obj.get("location")
+            return isinstance(loc, str) and loc in (legal_locations | legal_surfaces)
+
+        # Target artifact must exist with the generator-defined type and sit on the surface.
         obj = objects.get(obj_id)
         if not isinstance(obj, Mapping):
             return False
+        if obj.get("type") != KEY_CRATE_ARTIFACT_TYPE:
+            return False
         if obj.get("location") != surface:
             return False
+        if not _loc_ok(obj):
+            return False
 
+        # Crate container: expected type, explicit unlock, location matches task setup.
         crate = objects.get("crate")
         if not isinstance(crate, Mapping):
             return False
+        if crate.get("type") != KEY_CRATE_CONTAINER_TYPE:
+            return False
         if crate.get("unlocked") is not True:
             return False
+        crate_setup = setup_objects.get("crate")
+        if not isinstance(crate_setup, Mapping):
+            return False
+        expected_crate_loc = crate_setup.get("location")
+        if not isinstance(expected_crate_loc, str) or not expected_crate_loc:
+            return False
+        if crate.get("location") != expected_crate_loc:
+            return False
+        if expected_crate_loc not in legal_locations:
+            return False
+
+        # Surface object: expected type and location from task setup.
+        surface_obj = objects.get(surface)
+        if not isinstance(surface_obj, Mapping):
+            return False
+        if surface_obj.get("type") != KEY_CRATE_SURFACE_TYPE:
+            return False
+        surface_setup = setup_objects.get(surface)
+        if not isinstance(surface_setup, Mapping):
+            return False
+        expected_surface_loc = surface_setup.get("location")
+        if not isinstance(expected_surface_loc, str) or not expected_surface_loc:
+            return False
+        if surface_obj.get("location") != expected_surface_loc:
+            return False
+        if expected_surface_loc not in legal_locations:
+            return False
+        if surface not in legal_surfaces:
+            return False
+
         return True
 
     def _pred_dial_set(self, goal: Mapping[str, Any], state: Mapping[str, Any]) -> bool:
@@ -105,12 +166,34 @@ class StateBasedEvaluator(Evaluator):
                 return False
         return True
 
+    @staticmethod
+    def _valid_relay_code(code: Any) -> bool:
+        """Canonical relay code: exactly 3 digit characters (aes-task-gen-v2)."""
+        if not isinstance(code, str):
+            return False
+        if len(code) != RELAY_CODE_DIGITS:
+            return False
+        return all(ch.isdigit() and ch.isascii() for ch in code)
+
+    @staticmethod
+    def _expected_relay_frequency(code: str) -> int:
+        digits = [int(ch) for ch in code]
+        return (sum(digits) % 7) + 1
+
     def _pred_relay_route(self, goal: Mapping[str, Any], state: Mapping[str, Any]) -> bool:
-        # Required goal fields.
+        # Required goal fields with full schema validation (R3-02).
         if "frequency" not in goal or "code" not in goal:
             return False
+        code = goal.get("code")
         expected = goal.get("frequency")
+        if not self._valid_relay_code(code):
+            return False
         if not isinstance(expected, int) or isinstance(expected, bool):
+            return False
+        if expected < RELAY_FREQ_MIN or expected > RELAY_FREQ_MAX:
+            return False
+        # code/frequency must match the generator formula.
+        if expected != self._expected_relay_frequency(code):
             return False
 
         # Required world object.
@@ -120,7 +203,7 @@ class StateBasedEvaluator(Evaluator):
         relay_obj = objects.get("relay")
         if not isinstance(relay_obj, Mapping):
             return False
-        if relay_obj.get("type") != "relay":
+        if relay_obj.get("type") != RELAY_OBJECT_TYPE:
             return False
 
         relay = state.get("relay")

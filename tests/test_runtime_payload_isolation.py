@@ -76,8 +76,8 @@ def test_opaque_runtime_id_encodes_nothing_readable():
         task = generate_task(fam, seed, split)
         rid = task.runtime.runtime_id
         assert rid.startswith("rt_")
-        # Opaque: hex digest, no family/split text or structured seed encoding.
-        assert re.fullmatch(r"rt_[0-9a-f]{16}", rid), rid
+        # Opaque random token (R3-01): not a short content-hash digest.
+        assert re.fullmatch(r"rt_[0-9a-f]{24}", rid), rid
         assert fam not in rid
         assert split not in rid
         assert f"seed{seed}" not in rid
@@ -138,8 +138,10 @@ def test_runtime_task_has_no_eval_metadata_fields():
     assert not hasattr(rt, "task_id")
 
 
-def test_runtime_ids_are_stable_across_regeneration():
+def test_runtime_ids_are_random_eval_identity_stable():
     a = generate_task("dial_set", 3, "train")
     b = generate_task("dial_set", 3, "train")
-    assert a.runtime.runtime_id == b.runtime.runtime_id
     assert a.content_hash == b.content_hash
+    assert a.task_id == b.task_id
+    # R3-01: presentation tokens are random per instance, not generator-derived.
+    assert a.runtime.runtime_id != b.runtime.runtime_id

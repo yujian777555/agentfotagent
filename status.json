@@ -4,13 +4,13 @@
   "default_branch": "main",
   "last_updated": "2026-10-27",
   "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
-  "current_phase": "P0-R4 candidate reviewed; main integration pending; Phase-1A MetaBox protocol next",
-  "phase_status": "R4_CANDIDATE_ACCEPTED_ENGINEERING_ONLY; MAIN_INTEGRATION_PENDING; PHASE1A_PROTOCOL_REQUIRED; NO_LIVE_API",
+  "current_phase": "P0-R4 integration candidate; PR CI pending",
+  "phase_status": "R4_SOURCE_INTEGRATED_IN_REVIEW_BRANCH; PR_CI_PENDING; NOT_YET_MERGED_MAIN; PHASE1A_PROTOCOL_REQUIRED; NO_LIVE_API",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
-    "implementation": "R4 candidate 3e48bf5305ba667490358c140dad556f1ebf84e2 on phase0-r4-fixes; accepted for engineering gate only; not merged to main",
+    "implementation": "R3/R4 source, tests and pilot artifacts imported from accepted candidate 3e48bf5305ba667490358c140dad556f1ebf84e2 into phase0-r4-integration; PR CI pending; main unchanged",
     "live_llm_api_experiments": "NOT_RUN",
-    "phase0_engineering_tests": "R4 exact-SHA hosted CI run 40462185561: 189 passed in 0.64s; targeted R3+R4 tests 62 passed in 0.25s; counterexample probes 7/7 PASS; Python 3.11.17; mock backend only",
+    "phase0_engineering_tests": "Source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2 passed hosted CI run 40462185561: 189 full suite + 62 targeted tests; 7/7 probes PASS. Integration branch requires its own PR CI run before merge. Mock backend only.",
     "audit_response": "docs/PHASE0_R2_AUDIT_RESPONSE.md",
     "EoH": "PAPER_AND_OFFICIAL_CODE_REVIEWED; NOT_REPRODUCED",
     "LLaMEA": "OFFICIAL_CODE_REVIEWED; FULL_PAPER_READER_LIMIT",
@@ -50,12 +50,11 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Integrate phase0-r4-fixes candidate into main without overwriting R1-R3 independent audit history; keep commit provenance and update status to reflect merge",
-    "Define Phase-1A: Agent-assisted EC on MetaBox-v2; the Agent must diagnose real search trajectories and propose constrained, executable controller changes",
-    "Pre-register strong EC and LLM-assisted baselines, objective/metrics, seeds, FE/runtime budget, validation/test split, negative controls and stop rules",
-    "Do not scale the saturated surrogate-source→AES pilot or claim transfer benefit",
-    "Do not call live LLM APIs until explicit call/token/cost budget is approved",
-    "Only after Phase-1A is reproducibly positive, test transfer of the same explicit controller to AES; test bidirectional feedback only if transfer is positive"
+    "Verify the Phase-0 integration PR CI against the exact integration commit",
+    "If PR CI passes, merge the integration PR while preserving R1-R4 audit history and status records",
+    "After merge, define Phase-1A Agent-assisted EC on MetaBox-v2 with strong baselines, held-out tasks, predeclared metrics and an approved LLM budget",
+    "Do not scale the saturated surrogate-source-to-AES pilot or claim transfer benefit",
+    "No live LLM API calls until call/token/cost budget is explicitly approved"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -84,5 +83,7 @@
   "current_reviewed_source_commit": "3e48bf5305ba667490358c140dad556f1ebf84e2",
   "work_branch": "phase0-r4-fixes",
   "reviewed_r3_source": "cd07249a1b4675354b01f9d5ac09ab2ffe4d2033",
-  "reviewed_r4_source": "3e48bf5305ba667490358c140dad556f1ebf84e2"
+  "reviewed_r4_source": "3e48bf5305ba667490358c140dad556f1ebf84e2",
+  "integration_branch": "phase0-r4-integration",
+  "integration_source_candidate": "3e48bf5305ba667490358c140dad556f1ebf84e2"
 }

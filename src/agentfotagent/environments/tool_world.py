@@ -608,20 +608,17 @@ class ToolWorld:
 
 def load_task_from_dict(raw: Mapping[str, Any]) -> TaskInstance:
     """Reconstruct a TaskInstance from a serialized manifest entry."""
-    import hashlib
-
-    from ..interfaces import RuntimeTask
+    from ..interfaces import RuntimeTask, new_runtime_token
 
     runtime_raw = raw.get("runtime") or {}
     public = raw.get("public") or {}
     description = runtime_raw.get("description") or public.get("description") or ""
     max_steps = int(runtime_raw.get("max_steps") or public.get("max_steps") or 0)
     content_hash = str(raw["content_hash"])
-    runtime_id = runtime_raw.get("runtime_id") or (
-        "rt_" + hashlib.sha256(content_hash.encode("utf-8")).hexdigest()[:16]
-    )
+    # Fresh random presentation token; never reuse a deterministic digest.
+    runtime_id = new_runtime_token()
     runtime = RuntimeTask(
-        runtime_id=str(runtime_id),
+        runtime_id=runtime_id,
         description=str(description),
         max_steps=max_steps,
     )

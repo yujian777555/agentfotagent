@@ -136,11 +136,15 @@ def test_non_mapping_state_fails_closed():
 def test_happy_paths_still_pass():
     # key_crate
     t1 = generate_task("key_crate", 2, "train")
+    crate_loc = t1.setup["objects"]["crate"]["location"]
+    ped_loc = t1.setup["objects"]["pedestal"]["location"]
     s1 = _state(
+        location=ped_loc,
         objects={
-            "statue": {"location": "pedestal"},
-            "crate": {"unlocked": True, "locked": False},
-        }
+            "statue": {"type": "artifact", "location": "pedestal"},
+            "crate": {"type": "crate", "unlocked": True, "locked": False, "location": crate_loc},
+            "pedestal": {"type": "surface", "location": ped_loc},
+        },
     )
     assert StateBasedEvaluator().evaluate(t1, s1, []).success is True
 

@@ -1,0 +1,59 @@
+"""Transfer-biased EA arm for the Phase-1 pilot (not a research algorithm claim)."""
+from __future__ import annotations
+
+import random
+from typing import Callable, List, Mapping, Sequence
+
+from ..genome.schema import Genome, GenomeSpace, normalize_genome
+from ..interfaces import SearchAlgorithm, SearchRecord
+from ..transfer.source_prior import biased_mutate
+
+
+class TransferEA(SearchAlgorithm):
+    name = "transfer_ea"
+
+    def __init__(
+        self,
+        space: GenomeSpace,
+        seed: int = 0,
+        mu: int = 3,
+        lam: int = 3,
+        weights: Mapping[str, Mapping[str, float]] | None = None,
+    ) -> None:
+        self.space = space
+        self.seed = seed
+        self.mu = max(1, mu)
+        self.lam = max(1, lam)
+        self.weights = weights or {}
+
+    def run(self, evaluate_genome: Callable[[Genome], SearchRecord], budget: int) -> List[SearchRecord]:
+        rng = random.Random(self.seed)
+        records: List[SearchRecord] = []
+        if budget <= 0:
+            return records
+        population: List[SearchRecord] = []
+        for _ in range(min(self.mu, budget)):
+            rec = evaluate_genome(self.space.sample(rng))
+            population.append(rec)
+            records.append(rec)
+        while len(records) < budget:
+            parents: List[SearchRecord] = []
+            for _ in range(self.lam):
+                if len(records) >= budget:
+                    break
+                if len(population) >= 2:
+                    a = population[int(rng.randrange(len(population)))]
+                    b = population[int(rng.randrange(len(population)))]
+                    parent = a if a.success_rate >= b.success_rate else b
+                else:
+                    parent = population[0]
+                child = biased_mutate(normalize_genome(parent.genome), self.space, self.weights, rng)
+                rec = evaluate_genome(child)
+                records.append(rec)
+                parents.append(rec)
+            if not parents:
+                break
+            combined = population + parents
+            combined.sort(key=lambda r: r.success_rate, reverse=True)
+            population = combined[: self.mu]
+        return records

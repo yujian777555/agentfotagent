@@ -1,0 +1,36 @@
+name: phase0-r4-tests
+
+on:
+  push:
+    branches: ["phase0-r4-fixes"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git ref/SHA to test"
+        required: false
+        default: ""
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pytest
+        run: python -m pip install pytest
+      - name: Record SHA
+        run: |
+          echo "Testing commit: $(git rev-parse HEAD)"
+          git status
+      - name: Run counterexample probes
+        run: python tests/probe_r2_counterexamples.py
+      - name: Run R4 targeted tests
+        run: python -m pytest tests/test_r4_corrective_fixes.py tests/test_r3_corrective_fixes.py -o addopts='' -q -ra
+      - name: Run full suite
+        run: python -m pytest tests -o addopts='' -q -ra
