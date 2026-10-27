@@ -48,6 +48,43 @@ jobs:
           python --version | tee -a reproduction-metadata.txt
           python -m pytest tests -o addopts='' -q -ra 2>&1 | tee phase0-r2-pytest.log
 
+      - name: Run independent adversarial probes (expected findings are reported, not masked)
+        shell: bash
+        run: |
+          python - <<'PY' | tee phase0-r2-adversarial-probes.log
+          from agentfotagent.evaluation.evaluator import StateBasedEvaluator
+          from agentfotagent.evaluation.provenance import reconstruct_from_artifacts
+          from agentfotagent.evolution.harness import BaselineHarness
+          from agentfotagent.evolution.random_search import RandomSearch
+          from agentfotagent.genome.schema import GenomeSpace
+          from agentfotagent.tasks.generators import generate_task
+
+          # Probe A: can the deterministic runtime ID be mapped back to a known seed?
+          target = generate_task('dial_set', 17, 'dev').runtime.runtime_id
+          guess = next((s for s in range(101) if generate_task('dial_set', s, 'train').runtime.runtime_id == target), None)
+          print(f'PROBE_A_runtime_id={target}; seed_guess_with_public_generator={guess}')
+
+          # Probe B: malformed relay goal values (code=None, impossible frequency=99).
+          task = generate_task('relay_route', 1, 'held_out')
+          object.__setattr__(task, 'hidden_goal', {'type': 'relay_route', 'code': None, 'frequency': 99})
+          state = {'objects': {'relay': {'type': 'relay', 'location': 'hub'}}, 'relay': {'activated': True, 'frequency': 99}, 'step': 1}
+          result = StateBasedEvaluator().evaluate(task, state, [])
+          print(f'PROBE_B_malformed_goal_success={result.success}; goal={{code: None, frequency: 99}}')
+
+          # Probe C: alter non-compared manifest metrics while preserving identity and compared fields.
+          tasks = [generate_task('dial_set', 1, 'train'), generate_task('dial_set', 2, 'train')]
+          task_map = {t.task_id: t for t in tasks}
+          space = GenomeSpace()
+          harness = BaselineHarness(tasks=tasks, space=space, config={'protocol': 'r2-audit-probe'})
+          artifact = harness.run_and_collect(RandomSearch(space, seed=7), budget=2)
+          score = artifact['manifest']['scores'][0]
+          original = score.get('invalid_actions')
+          score['invalid_actions'] = 999999
+          rebuilt = reconstruct_from_artifacts(artifact, task_map, StateBasedEvaluator())
+          print(f'PROBE_C_tampered_invalid_actions_recorded={score["invalid_actions"]}; original={original}; reconstruction_accepted={rebuilt["mismatches"] == []}')
+          print('NOTE: these are diagnostic probes of the exact source tree; a reported finding is not a test-suite failure.')
+          PY
+
       - name: Upload reproducibility evidence
         if: always()
         uses: actions/upload-artifact@v4
