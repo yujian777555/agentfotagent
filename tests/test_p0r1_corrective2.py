@@ -10,9 +10,14 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from experiments.metabox.run_smoke import (  # noqa: E402
+from experiments.metabox.provenance import (  # noqa: E402
     DirtyWorktreeError,
+    ProvenanceError,
     ensure_clean_worktree,
+    ensure_unique_artifacts,
+    git_rev_parse_head,
+    git_status_porcelain,
+    make_run_id,
 )
 
 
@@ -23,10 +28,13 @@ def test_ensure_clean_worktree_returns_sha():
 
 
 def test_dirty_worktree_rejected_without_allow():
-    # In CI/test the worktree is often dirty (pyc etc); if dirty, must raise.
-    from experiments.metabox.run_smoke import _git_status_porcelain
+    from experiments.metabox.provenance import git_status_porcelain
 
-    if _git_status_porcelain().strip():
+    try:
+        dirty = git_status_porcelain()
+    except Exception:
+        pytest.skip("git unavailable")
+    if dirty:
         with pytest.raises(DirtyWorktreeError):
             ensure_clean_worktree(allow_dirty=False)
     else:

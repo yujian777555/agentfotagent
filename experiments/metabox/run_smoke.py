@@ -32,44 +32,12 @@ from experiments.metabox.controller_dsl import (  # noqa: E402
 from experiments.metabox.controlled_de import run_controlled_de  # noqa: E402
 
 
-def _git_sha() -> str:
-    try:
-        out = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, timeout=10)
-        if out.returncode == 0:
-            return out.stdout.strip()
-    except Exception:
-        pass
-    return "unknown"
-
-
-class DirtyWorktreeError(RuntimeError):
-    """Raised when an official reproducible run is attempted on uncommitted code."""
-
-
-def _git_status_porcelain() -> str:
-    out = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, timeout=10)
-    return out.stdout if out.returncode == 0 else ""
-
-
-def ensure_clean_worktree(*, allow_dirty: bool = False) -> Dict[str, str]:
-    """Verify the worktree is clean before an official run.
-
-    Returns a provenance dict. If dirty and ``allow_dirty`` is False, raises
-    DirtyWorktreeError — never labels a dirty run as a clean-SHA run.
-    """
-    sha = _git_sha()
-    dirty = _git_status_porcelain().strip()
-    if dirty and not allow_dirty:
-        raise DirtyWorktreeError(
-            "worktree is dirty; commit first or pass --allow-dirty "
-            "(dirty runs are recorded as dirty, not as clean-SHA runs). "
-            "Diff:\n" + dirty[:2000]
-        )
-    return {
-        "git_sha": sha,
-        "worktree_dirty": "true" if dirty else "false",
-        "dirty_files": dirty[:2000] if dirty else "",
-    }
+from experiments.metabox.provenance import (  # noqa: E402
+    DirtyWorktreeError,
+    ensure_clean_worktree,
+    ensure_unique_artifacts,
+    make_run_id,
+)
 
 
 def main(argv: List[str] | None = None) -> None:
@@ -82,10 +50,7 @@ def main(argv: List[str] | None = None) -> None:
 
     prov = ensure_clean_worktree(allow_dirty=allow_dirty)
     git_sha = prov["git_sha"]
-    # Unique run id: sha prefix + worktree flag + timestamp. Never reused.
-    stamp = time.strftime("%Y%m%dT%H%M%S")
-    dirty_tag = "dirty" if prov["worktree_dirty"] == "true" else "clean"
-    run_id = f"phase1a-smoke-{git_sha[:12]}-{dirty_tag}-{stamp}"
+    run_id = make_run_id(git_sha, worktree_dirty=prov["worktree_dirty"], tag="phase1a-smoke")
 
     mb = import_metabox()
     lock_path = ROOT / "experiments" / "metabox" / "LOCK.json"
@@ -100,11 +65,9 @@ def main(argv: List[str] | None = None) -> None:
     if old.exists() and not (out_dir / "INVALIDATED_manifest_p0_f6_mislabeled.json").exists():
         shutil.copy2(old, out_dir / "INVALIDATED_manifest_p0_f6_mislabeled.json")
 
-    # Unique trace directory per run — never overwrites prior traces.
     trace_dir = out_dir / "traces" / run_id
     manifest_path = out_dir / f"manifest_{run_id}.json"
-    if manifest_path.exists() or trace_dir.exists():
-        raise RuntimeError(f"refusing to overwrite existing run artifacts for {run_id}")
+    ensure_unique_artifacts(manifest_path, trace_dir)
 
     # --- Official DE runs ---
     rows = []
