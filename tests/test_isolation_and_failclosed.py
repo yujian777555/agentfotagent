@@ -13,9 +13,9 @@ from conftest import make_genome
 
 
 def test_family_split_isolation(splits):
-    train_fams = {t.public.family for t in splits["train"]}
-    dev_fams = {t.public.family for t in splits["dev"]}
-    held_fams = {t.public.family for t in splits["held_out"]}
+    train_fams = {t.family for t in splits["train"]}
+    dev_fams = {t.family for t in splits["dev"]}
+    held_fams = {t.family for t in splits["held_out"]}
 
     assert train_fams
     assert dev_fams
@@ -30,7 +30,7 @@ def test_family_split_isolation(splits):
 def test_task_ids_disjoint_across_splits(splits):
     ids = {}
     for name, tasks in splits.items():
-        ids[name] = {t.public.task_id for t in tasks}
+        ids[name] = {t.task_id for t in tasks}
     assert ids["train"].isdisjoint(ids["dev"])
     assert ids["train"].isdisjoint(ids["held_out"])
     assert ids["dev"].isdisjoint(ids["held_out"])
@@ -70,7 +70,7 @@ def test_held_out_cannot_reuse_dev_cache_entries():
     task_held = generate_task("relay_route", 1, "held_out")
 
     key_train = make_cache_key(
-        task_id=task_train.public.task_id,
+        task_id=task_train.task_id,
         task_content_hash=task_train.content_hash,
         split="train",
         genome_hash="g",
@@ -82,7 +82,7 @@ def test_held_out_cannot_reuse_dev_cache_entries():
     from agentfotagent.interfaces import EpisodeResult
 
     result = EpisodeResult(
-        task_id=task_train.public.task_id,
+        task_id=task_train.task_id,
         genome_hash="g",
         success=True,
         steps=1,
@@ -99,7 +99,7 @@ def test_held_out_cannot_reuse_dev_cache_entries():
 
     # A held-out task gets a different key and a miss.
     key_held = make_cache_key(
-        task_id=task_held.public.task_id,
+        task_id=task_held.task_id,
         task_content_hash=task_held.content_hash,
         split="held_out",
         genome_hash="g",
@@ -151,8 +151,8 @@ def test_backend_error_fails_closed_and_not_success():
     ev = EV(genome_hash=genome_hash(g))
     env.reset(task)
     trace = EpisodeTrace(
-        task_id=task.public.task_id,
-        split=task.public.split,
+        task_id=task.task_id,
+        split=task.split,
         genome_hash=genome_hash(g),
         backend_id="boom",
         seed=0,
@@ -182,7 +182,7 @@ def test_max_steps_termination_not_silently_successful():
     env = ToolWorld()
     env.reset(task)
     # Burn steps with no-ops that fail.
-    for _ in range(task.public.max_steps):
+    for _ in range(task.runtime.max_steps):
         if env.final_state()["terminated"]:
             break
         env.step(Action("list_objects", {}))

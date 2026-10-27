@@ -1,412 +1,331 @@
 {
   "count": 27,
   "generator_version": "aes-task-gen-v1",
-  "manifest_hash": "8d1ae76418adf30bf635f11bbb797c49dba3b1df158d739322d8a2fa57642ac4",
+  "manifest_hash": "033fff5a262934bf605d3e968a745db47ffed5cfc0ee7d0f57f029721f8b985c",
   "tasks": [
     {
       "content_hash": "a56e73703bfec48f10e97d270780552aec73977af576dc93fc3d2746e40ccfff",
+      "family": "key_crate",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "a56e73703bfec48f10e97d270780552aec73977af576dc93fc3d2746e40ccfff",
+      "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
-        "family": "key_crate",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 24,
-        "seed": 1,
-        "split": "train",
         "task_id": "key_crate/train/seed000001"
       },
-      "seed": 1
+      "seed": 1,
+      "split": "train"
     },
     {
       "content_hash": "9bd8816e3180aa992a7b8378139f2e60d65cee1b92393bd7233ed3db90e294f5",
+      "family": "key_crate",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "9bd8816e3180aa992a7b8378139f2e60d65cee1b92393bd7233ed3db90e294f5",
+      "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
-        "family": "key_crate",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 24,
-        "seed": 2,
-        "split": "train",
         "task_id": "key_crate/train/seed000002"
       },
-      "seed": 2
+      "seed": 2,
+      "split": "train"
     },
     {
       "content_hash": "d3aea40b1d1f44d3639a3eca06459c65efb9960623610295ee39dc1996f8aa17",
+      "family": "key_crate",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "d3aea40b1d1f44d3639a3eca06459c65efb9960623610295ee39dc1996f8aa17",
+      "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
-        "family": "key_crate",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 24,
-        "seed": 3,
-        "split": "train",
         "task_id": "key_crate/train/seed000003"
       },
-      "seed": 3
+      "seed": 3,
+      "split": "train"
     },
     {
       "content_hash": "d7a787ce96f4420d9b424b9fe25986ab79fc3bcfb71be807f729d345a261b1c5",
+      "family": "key_crate",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "d7a787ce96f4420d9b424b9fe25986ab79fc3bcfb71be807f729d345a261b1c5",
+      "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
-        "family": "key_crate",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 24,
-        "seed": 4,
-        "split": "train",
         "task_id": "key_crate/train/seed000004"
       },
-      "seed": 4
+      "seed": 4,
+      "split": "train"
     },
     {
       "content_hash": "e1c8bcc8e87875f7f94769509c9871fdc97761bc00ef27052f94c3cf2c5e5962",
+      "family": "key_crate",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "e1c8bcc8e87875f7f94769509c9871fdc97761bc00ef27052f94c3cf2c5e5962",
+      "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
-        "family": "key_crate",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 24,
-        "seed": 5,
-        "split": "train",
         "task_id": "key_crate/train/seed000005"
       },
-      "seed": 5
+      "seed": 5,
+      "split": "train"
     },
     {
       "content_hash": "cc0826bfb8185cecd6775d16d2dcf75c541d911695b37826e26bb1fa1da60fb8",
+      "family": "key_crate",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "cc0826bfb8185cecd6775d16d2dcf75c541d911695b37826e26bb1fa1da60fb8",
+      "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
-        "family": "key_crate",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 24,
-        "seed": 6,
-        "split": "train",
         "task_id": "key_crate/train/seed000006"
       },
-      "seed": 6
+      "seed": 6,
+      "split": "train"
     },
     {
       "content_hash": "231ffda8f4b68c62d3c9ac4960b8a59f8036a6518de8319c8229f06a18b4157d",
+      "family": "key_crate",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "231ffda8f4b68c62d3c9ac4960b8a59f8036a6518de8319c8229f06a18b4157d",
+      "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
-        "family": "key_crate",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 24,
-        "seed": 7,
-        "split": "train",
         "task_id": "key_crate/train/seed000007"
       },
-      "seed": 7
+      "seed": 7,
+      "split": "train"
     },
     {
       "content_hash": "96db3abc76f7c453afb4aa93b3c93a4a05ebc072886fc99cb0ee139098f508c2",
+      "family": "key_crate",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "96db3abc76f7c453afb4aa93b3c93a4a05ebc072886fc99cb0ee139098f508c2",
+      "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
-        "family": "key_crate",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 24,
-        "seed": 8,
-        "split": "train",
         "task_id": "key_crate/train/seed000008"
       },
-      "seed": 8
+      "seed": 8,
+      "split": "train"
     },
     {
-      "content_hash": "f2bc06f1317471a9265b5045db191c78e190b17c64e12b3f397ad8ef8d089223",
+      "content_hash": "4e7096af9b02a2338fdd9eaf805ee1f4e2750a84ad7193a95a19bd789960933f",
+      "family": "dial_set",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "f2bc06f1317471a9265b5045db191c78e190b17c64e12b3f397ad8ef8d089223",
+      "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
-        "family": "dial_set",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 16,
-        "seed": 1,
-        "split": "train",
         "task_id": "dial_set/train/seed000001"
       },
-      "seed": 1
+      "seed": 1,
+      "split": "train"
     },
     {
-      "content_hash": "7869f698f94ab28b658b854f4a97808fc7f10b91c5645325efe7b6023a56d8bc",
+      "content_hash": "d3ca45d628195445585686ff5a609f6381a8f2f24cb88970a8a16d183216e39c",
+      "family": "dial_set",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "7869f698f94ab28b658b854f4a97808fc7f10b91c5645325efe7b6023a56d8bc",
+      "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
-        "family": "dial_set",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 16,
-        "seed": 2,
-        "split": "train",
         "task_id": "dial_set/train/seed000002"
       },
-      "seed": 2
+      "seed": 2,
+      "split": "train"
     },
     {
-      "content_hash": "fcee371e9d3f40b615349ef2da9bcd44721d7880a8af4ab36be682b1c69c2176",
+      "content_hash": "ba32efd9ac0786b40146d354fa161365aaabfb6172d421a31416846deb099551",
+      "family": "dial_set",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "fcee371e9d3f40b615349ef2da9bcd44721d7880a8af4ab36be682b1c69c2176",
+      "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
-        "family": "dial_set",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 16,
-        "seed": 3,
-        "split": "train",
         "task_id": "dial_set/train/seed000003"
       },
-      "seed": 3
+      "seed": 3,
+      "split": "train"
     },
     {
-      "content_hash": "a2995908f6ca03d4c8d6416c487d4e06fb0a1d0521c550d52d142b7bc185c2db",
+      "content_hash": "7d9858a081237c58e149854bab9a0c6238e2118d9e9fa18b2596dc7070518c94",
+      "family": "dial_set",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "a2995908f6ca03d4c8d6416c487d4e06fb0a1d0521c550d52d142b7bc185c2db",
+      "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
-        "family": "dial_set",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 16,
-        "seed": 4,
-        "split": "train",
         "task_id": "dial_set/train/seed000004"
       },
-      "seed": 4
+      "seed": 4,
+      "split": "train"
     },
     {
-      "content_hash": "25c4789fbb106c732a888cae7ec3d7f72702c6ec1b8702d36e6bb787607039d6",
+      "content_hash": "763eee8f25839ab1ee4738ebbf56cf3ab76a7cfc25b4405935842a3efacb7452",
+      "family": "dial_set",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "25c4789fbb106c732a888cae7ec3d7f72702c6ec1b8702d36e6bb787607039d6",
+      "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
-        "family": "dial_set",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 16,
-        "seed": 5,
-        "split": "train",
         "task_id": "dial_set/train/seed000005"
       },
-      "seed": 5
+      "seed": 5,
+      "split": "train"
     },
     {
-      "content_hash": "ae7f7489edb1086f3a0095b5b7f68bab88f3a4d3936e941ae3ea267fc4c8fd3a",
+      "content_hash": "72ec1625096a3d5d5b8b4f2b884f9c60be211bfe3956e9fb8d41ab8ddb7d4eba",
+      "family": "dial_set",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "ae7f7489edb1086f3a0095b5b7f68bab88f3a4d3936e941ae3ea267fc4c8fd3a",
+      "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
-        "family": "dial_set",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 16,
-        "seed": 6,
-        "split": "train",
         "task_id": "dial_set/train/seed000006"
       },
-      "seed": 6
+      "seed": 6,
+      "split": "train"
     },
     {
-      "content_hash": "a15830cf59f33ab960f7cad4960accea206dad64e7b47118ae4cbc899b97effc",
+      "content_hash": "fed7e95276bb58c00b8bf3b72ccdfa5455800cb63b14cacb4892b6623794ac50",
+      "family": "dial_set",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "a15830cf59f33ab960f7cad4960accea206dad64e7b47118ae4cbc899b97effc",
+      "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
-        "family": "dial_set",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 16,
-        "seed": 7,
-        "split": "train",
         "task_id": "dial_set/train/seed000007"
       },
-      "seed": 7
+      "seed": 7,
+      "split": "train"
     },
     {
-      "content_hash": "a60a4b3bc3a0f5fcf86329e600da445117f9c07c8d6f3a7213dc69c80dc4d0c2",
+      "content_hash": "a7a922c89798347c051f3ff00b2eb858fb9c5c79a67176f949ba65af2c537349",
+      "family": "dial_set",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "a60a4b3bc3a0f5fcf86329e600da445117f9c07c8d6f3a7213dc69c80dc4d0c2",
+      "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
-        "family": "dial_set",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 16,
-        "seed": 8,
-        "split": "train",
         "task_id": "dial_set/train/seed000008"
       },
-      "seed": 8
+      "seed": 8,
+      "split": "train"
     },
     {
       "content_hash": "fdc446aea59f353f5d36ff47b1b69f3ff653b8992d861d384a24fe61095360df",
+      "family": "key_crate",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "fdc446aea59f353f5d36ff47b1b69f3ff653b8992d861d384a24fe61095360df",
+      "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
-        "family": "key_crate",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 24,
-        "seed": 101,
-        "split": "dev",
         "task_id": "key_crate/dev/seed000101"
       },
-      "seed": 101
+      "seed": 101,
+      "split": "dev"
     },
     {
       "content_hash": "1f30d926a044395394b6fa5d4c5ca3c4295f534135919b11f05aba972a49d8cc",
+      "family": "key_crate",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "1f30d926a044395394b6fa5d4c5ca3c4295f534135919b11f05aba972a49d8cc",
+      "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
-        "family": "key_crate",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 24,
-        "seed": 102,
-        "split": "dev",
         "task_id": "key_crate/dev/seed000102"
       },
-      "seed": 102
+      "seed": 102,
+      "split": "dev"
     },
     {
       "content_hash": "fe281074d4a941a7fbd9ac8355b6959fda32f24abd45a8d1fcccdb0ef06bfb45",
+      "family": "key_crate",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "fe281074d4a941a7fbd9ac8355b6959fda32f24abd45a8d1fcccdb0ef06bfb45",
+      "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
-        "family": "key_crate",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 24,
-        "seed": 103,
-        "split": "dev",
         "task_id": "key_crate/dev/seed000103"
       },
-      "seed": 103
+      "seed": 103,
+      "split": "dev"
     },
     {
       "content_hash": "560234a0c6c7f105681fdb68018134faa961abddd3c9314df018713452640715",
+      "family": "key_crate",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "560234a0c6c7f105681fdb68018134faa961abddd3c9314df018713452640715",
+      "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
-        "family": "key_crate",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 24,
-        "seed": 104,
-        "split": "dev",
         "task_id": "key_crate/dev/seed000104"
       },
-      "seed": 104
+      "seed": 104,
+      "split": "dev"
     },
     {
-      "content_hash": "9f3ba8f7987e7afdae4d3bfd978951973188844107e956f423b9d62a902fa62c",
+      "content_hash": "3ea066dcf095b156c990a70222af1336b1638c40e5b07c59650515f457a5609c",
+      "family": "dial_set",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "9f3ba8f7987e7afdae4d3bfd978951973188844107e956f423b9d62a902fa62c",
+      "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
-        "family": "dial_set",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 16,
-        "seed": 101,
-        "split": "dev",
         "task_id": "dial_set/dev/seed000101"
       },
-      "seed": 101
+      "seed": 101,
+      "split": "dev"
     },
     {
-      "content_hash": "a099a12d033c02a75d6fb178ba35a06f243f0c4dee31e8f7159f36fa07e9ed17",
+      "content_hash": "cad4d02fe8bf33c609f34ab08793d4ab076154e0f57f74b55a739fede9b4d59e",
+      "family": "dial_set",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "a099a12d033c02a75d6fb178ba35a06f243f0c4dee31e8f7159f36fa07e9ed17",
+      "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
-        "family": "dial_set",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 16,
-        "seed": 102,
-        "split": "dev",
         "task_id": "dial_set/dev/seed000102"
       },
-      "seed": 102
+      "seed": 102,
+      "split": "dev"
     },
     {
-      "content_hash": "67163cd52ea27090b87a7efa69fca12ea949c377b39c602d237eb1022c338652",
+      "content_hash": "f412eb73786b63c43c7a603dd2c63c2234deadaa05c841244fbaea4c2e467d10",
+      "family": "dial_set",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "67163cd52ea27090b87a7efa69fca12ea949c377b39c602d237eb1022c338652",
+      "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
-        "family": "dial_set",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 16,
-        "seed": 103,
-        "split": "dev",
         "task_id": "dial_set/dev/seed000103"
       },
-      "seed": 103
+      "seed": 103,
+      "split": "dev"
     },
     {
-      "content_hash": "462c0902b8f474aec1f353e562d07176fc115c5a25f72079bd7032ed4dc8eb99",
+      "content_hash": "f0c926d1cb656d9e6338bb57c0f8bf9b18b5b1aed4ac91bd9edc9b1331a449f5",
+      "family": "dial_set",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "462c0902b8f474aec1f353e562d07176fc115c5a25f72079bd7032ed4dc8eb99",
+      "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
-        "family": "dial_set",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 16,
-        "seed": 104,
-        "split": "dev",
         "task_id": "dial_set/dev/seed000104"
       },
-      "seed": 104
+      "seed": 104,
+      "split": "dev"
     },
     {
       "content_hash": "d8799d575aa83e2d39226cbd6a20846779c380a232a238fbc2f83775c57d11dc",
+      "family": "relay_route",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "d8799d575aa83e2d39226cbd6a20846779c380a232a238fbc2f83775c57d11dc",
+      "runtime": {
         "description": "Activate the relay at the hub and set its frequency. Three notes in the north, south and east rooms each contain one code fragment in the form 'fragment i: digit d'. The three-digit code is fragment digits in order 0,1,2. Activate the relay with that code, then set frequency to (digit_sum % 7) + 1, then submit.",
-        "family": "relay_route",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 20,
-        "seed": 201,
-        "split": "held_out",
         "task_id": "relay_route/held_out/seed000201"
       },
-      "seed": 201
+      "seed": 201,
+      "split": "held_out"
     },
     {
       "content_hash": "7279f0c6f0ac0f4003455898129c1da96342a0e8b24ec0e44ab40705386c098f",
+      "family": "relay_route",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "7279f0c6f0ac0f4003455898129c1da96342a0e8b24ec0e44ab40705386c098f",
+      "runtime": {
         "description": "Activate the relay at the hub and set its frequency. Three notes in the north, south and east rooms each contain one code fragment in the form 'fragment i: digit d'. The three-digit code is fragment digits in order 0,1,2. Activate the relay with that code, then set frequency to (digit_sum % 7) + 1, then submit.",
-        "family": "relay_route",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 20,
-        "seed": 202,
-        "split": "held_out",
         "task_id": "relay_route/held_out/seed000202"
       },
-      "seed": 202
+      "seed": 202,
+      "split": "held_out"
     },
     {
       "content_hash": "d6b9bed21539c49a979ad67100b77c748605d10fa4935943eb2951c2b165041c",
+      "family": "relay_route",
       "generator_version": "aes-task-gen-v1",
-      "public": {
-        "content_hash": "d6b9bed21539c49a979ad67100b77c748605d10fa4935943eb2951c2b165041c",
+      "runtime": {
         "description": "Activate the relay at the hub and set its frequency. Three notes in the north, south and east rooms each contain one code fragment in the form 'fragment i: digit d'. The three-digit code is fragment digits in order 0,1,2. Activate the relay with that code, then set frequency to (digit_sum % 7) + 1, then submit.",
-        "family": "relay_route",
-        "generator_version": "aes-task-gen-v1",
         "max_steps": 20,
-        "seed": 203,
-        "split": "held_out",
         "task_id": "relay_route/held_out/seed000203"
       },
-      "seed": 203
+      "seed": 203,
+      "split": "held_out"
     }
   ]
 }

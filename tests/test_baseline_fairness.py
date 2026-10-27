@@ -87,7 +87,7 @@ def test_budget_respected():
 def test_max_steps_shared_across_methods():
     """Budget confound guard: max interaction limit is task-fixed, not genome-set."""
     task = generate_task("key_crate", 1, "train")
-    assert task.public.max_steps == 24
+    assert task.runtime.max_steps == 24
     g_best = make_genome(
         planning_mode="plan_first",
         memory_policy="bounded_episodic",
@@ -95,11 +95,11 @@ def test_max_steps_shared_across_methods():
         tool_selection_policy="state_conditioned",
     )
     g_worst = make_genome()
-    assert task.public.max_steps == 24  # independent of genome
+    assert task.runtime.max_steps == 24  # independent of genome
     from agentfotagent.runtime.mock_backend import run_episode
 
     _, tr_best, _ = run_episode(task, g_best, seed=1)
     _, tr_worst, _ = run_episode(task, g_worst, seed=1)
     # Neither genome receives a larger step budget.
-    assert len(tr_best.steps) <= task.public.max_steps
-    assert len(tr_worst.steps) <= task.public.max_steps
+    assert len(tr_best.steps) <= task.runtime.max_steps
+    assert len(tr_worst.steps) <= task.runtime.max_steps

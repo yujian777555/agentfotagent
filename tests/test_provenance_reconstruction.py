@@ -20,7 +20,7 @@ def test_trace_contains_reconstruction_fields():
     g = make_genome(planning_mode="plan_first")
     ok, trace, payload = run_episode(task, g, seed=1)
 
-    assert trace.task_id == task.public.task_id
+    assert trace.task_id == task.task_id
     assert trace.seed == 1
     assert trace.genome_hash == genome_hash(g)
     assert trace.backend_id.startswith("mock")
@@ -50,7 +50,7 @@ def test_reconstruct_scores_matches_original():
         traces.append(tr)
         originals.append(payload["episode_result"])
 
-    task_map = {t.public.task_id: t for t in tasks}
+    task_map = {t.task_id: t for t in tasks}
     rebuilt = reconstruct_scores(traces, task_map, StateBasedEvaluator())
     assert [r.success for r in rebuilt] == [r.success for r in originals]
     assert [r.final_state_hash for r in rebuilt] == [r.final_state_hash for r in originals]
@@ -74,7 +74,7 @@ def test_run_manifest_records_provenance():
         environment_version="aes-tool-world-v1",
         evaluator_version="aes-evaluator-v1",
         generator_version=task.generator_version,
-        max_steps=task.public.max_steps,
+        max_steps=task.runtime.max_steps,
         episodes=[tr],
         results=[result],
         engineering_only=True,
@@ -88,7 +88,7 @@ def test_run_manifest_records_provenance():
     assert d["evaluator_version"]
     assert d["generator_version"]
     assert d["engineering_only"] is True
-    assert d["scores"] and d["scores"][0]["task_id"] == task.public.task_id
+    assert d["scores"] and d["scores"][0]["task_id"] == task.task_id
 
     # Manifest scores match evaluator results.
     assert d["scores"][0]["success"] == result.success
