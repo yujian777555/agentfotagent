@@ -145,6 +145,20 @@ Executor fixed residual findings R1-01..R1-06 only:
 
 Response matrix: docs/PHASE0_R2_AUDIT_RESPONSE.md.
 
-R2 executor tests: 127 collected, all passing (mock backend only). This is engineering evidence and is **not** an independent reproduction of the R2 tree. The 104-test GitHub Actions result above applies to the R1 tree (ebd3d99) only.
+R2 full-suite result has now been independently reproduced on exact source commit ec73906e15c048285cff3bca90a4f1f8bed21da8: **127 passed in 0.43s** on GitHub Actions run [40453697835](https://github.com/yujian777555/agentfotagent/actions/runs/40453697835). Adversarial probes in the same run found residual issues; see docs/PHASE0_R2_INDEPENDENT_REVIEW_2026-10-27.md. The suite is engineering-only, not Agent capability evidence.
 
 **Status: RESIDUAL FIXES IMPLEMENTED (executor). NOT ACCEPTED.** Next step is independent code review of the R2 tree — not a scientific experiment. No transfer experiments, MetaBox meta-training, live APIs or GPU runs.
+
+
+## Independent Phase-0-R2 review — 2026-10-27
+
+**Verdict: REQUEST CHANGES.** The exact R2 code tree at ec73906e15c048285cff3bca90a4f1f8bed21da8 was independently tested on GitHub Actions: 127 passed in 0.43s. The same run executed targeted adversarial probes and found four residual issues: (1) deterministic runtime IDs reveal the seed by brute-force lookup against the public task generator; (2) relay goals with code=None and frequency=99 can pass the evaluator; (3) key_crate states with missing object type records can pass; (4) reconstruction accepts a manifest with invalid_actions tampered from 0 to 999999. Full report: docs/PHASE0_R2_INDEPENDENT_REVIEW_2026-10-27.md; reproducibility record: docs/PHASE0_R2_TEST_REPRODUCTION_2026-10-27.md.
+
+Required next pass:
+1. Replace content-derived runtime IDs with a genuinely opaque token or keyed identifier unavailable to the Agent; preserve stable evaluation manifests separately and test seed enumeration attacks.
+2. Validate relay goal value types, digit format, frequency range and code/frequency consistency.
+3. Make evaluator required-entity validation fail closed for malformed key_crate and relay state records, including required object types and locations.
+4. Compare every recorded score field against reconstruction, including success, steps, invalid_actions, repeated_states, termination_reason and final-state hash; add per-field tampering tests.
+5. Rerun the complete suite on the corrected source commit, update status and response matrices, then stop for another independent review.
+
+**Status: NOT ACCEPTED.** No scientific experiments, live API, GPU or MetaBox meta-training are authorized until the next independent review accepts the environment.

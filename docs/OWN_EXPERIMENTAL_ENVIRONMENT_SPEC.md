@@ -254,6 +254,26 @@ Response to docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md. Residual findings o
 - R1-05: reconstruct_from_artifacts enforces exact trace/score bijection (raises ReconstructionError otherwise); cache retains traces; begin_run resets run-scoped traces and accounting.
 - R1-06: versions advanced to aes-tool-world-v2 / aes-evaluator-v2 / mock-engineering-v2 / aes-task-gen-v2; run manifests record source_commit_sha.
 
-R2 executor test result (mock backend, engineering-only): see docs/PHASE0_R2_AUDIT_RESPONSE.md and status.json. This is **not** Agent capability evidence and is **not** an independent reproduction of the R2 tree.
+R2 full-suite result has now been independently reproduced on exact source commit ec73906e15c048285cff3bca90a4f1f8bed21da8: 127 passed in 0.43s on GitHub Actions run https://github.com/yujian777555/agentfotagent/actions/runs/40453697835. This is engineering-only evidence, not Agent capability evidence. The same run's adversarial probes found residual issues; see docs/PHASE0_R2_INDEPENDENT_REVIEW_2026-10-27.md.
 
 Still engineering-only. No scientific experiments authorized. Phase-0 remains unaccepted pending independent review of the R2 tree.
+
+
+### 8.6 Independent Phase-0-R2 test reproduction and residual review (2026-10-27)
+
+Exact audited source tree: ec73906e15c048285cff3bca90a4f1f8bed21da8.
+
+- GitHub Actions run: https://github.com/yujian777555/agentfotagent/actions/runs/40453697835
+- Runtime: Ubuntu GitHub-hosted runner, Python 3.11.17
+- Command: python -m pytest tests -o addopts='' -q -ra
+- Result: **127 passed in 0.43s**, exit status 0
+- Workflow branch: audit/reproduce-phase0-r2-tests; workflow commit 20f99a86c36743a3aab0703e6a563d119e89f710
+- Artifact: https://github.com/yujian777555/agentfotagent/actions/runs/40453697835/artifacts/12711107094
+
+The runner explicitly checked out ec73906e15c048285cff3bca90a4f1f8bed21da8 before executing tests. Adversarial probes against that exact tree found:
+1. Runtime ID rt_7b72f14d92fb4a4c maps back to seed 17 by enumerating seeds 0–100 with the public generator.
+2. A relay goal with code=None and frequency=99, paired with an activated relay at frequency 99, is accepted as success.
+3. A key_crate state whose statue/crate records omit their required entity types is accepted as success.
+4. Changing a recorded invalid_actions metric from 0 to 999999 is accepted by reconstruct_from_artifacts.
+
+These are uncovered failure paths, not failures of the existing 127-test suite. See docs/PHASE0_R2_INDEPENDENT_REVIEW_2026-10-27.md and docs/PHASE0_R2_TEST_REPRODUCTION_2026-10-27.md. Phase-0 remains NOT ACCEPTED. No live API, GPU, MetaBox, transfer or scientific baseline experiment was run.
