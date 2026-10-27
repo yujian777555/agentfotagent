@@ -78,3 +78,8 @@
 ## D-021 — Phase-1A P0 accepted narrowly; adaptive-controller gate remains blocked
 
 2026-10-27. Reviewed `phase1a-metabox-smoke@f571b52ba73f6cfcf51901a2af72f4b980699bc7`. Accept the real MetaBox/DE smoke only: 1,500 FE counts agree and same-seed curves reproduce. Do not treat this as evidence of adaptive control. The adapter invokes the controller once on a constant initial state; range actions apply midpoint scalars; mutation strategy/restart are not consumed by upstream DE. The F1–F12/F13–F18/F19–F24 split is uneven by MetaBox easy/difficult labels and BBOB families. P0-R1 must correct action semantics, add trace-conditioned hooks or narrow the action space, version and freeze a stratified split_v2, complete environment provenance and add exact-SHA CI. P1A-1 remains blocked. Full review: `docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.md`.
+
+
+## D-022 — Phase-1A P0 results invalidated for function-specific claims by loader bug
+
+2026-10-27. Source audit of `phase1a-metabox-smoke@f571b52ba73f6cfcf51901a2af72f4b980699bc7` found that `load_function` calls the pinned MetaBox BBOB factory with `difficulty="all"`. That branch ignores `user_train_list`/`user_test_list`, builds all functions F1–F24, and the adapter selects the first item (F1) while labelling it with the requested ID. Therefore all reported F6 smoke runs are actually F1 executions. FE accounting and seed reproducibility remain generic smoke evidence; function identity, F6 scores and split correctness are not accepted. Fix the selector and add actual identity tests for F1/F6/F24 before rerunning. P0 is REQUEST CHANGES and P1A-1 is blocked. See `docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.md`.
