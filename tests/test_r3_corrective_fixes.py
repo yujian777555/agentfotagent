@@ -312,12 +312,14 @@ def test_key_crate_unlocked_but_other_conditions_fail():
 
 def test_key_crate_valid_generated_task_still_succeeds():
     task = generate_task("key_crate", 2, "train")
+    crate_loc = task.setup["objects"]["crate"]["location"]
+    ped_loc = task.setup["objects"]["pedestal"]["location"]
     state = _state(
-        location="hall",
+        location=ped_loc,
         objects={
             "statue": {"type": "artifact", "location": "pedestal"},
-            "crate": {"type": "crate", "unlocked": True, "locked": False},
-            "pedestal": {"type": "surface", "location": "hall"},
+            "crate": {"type": "crate", "unlocked": True, "locked": False, "location": crate_loc},
+            "pedestal": {"type": "surface", "location": ped_loc},
         },
     )
     assert StateBasedEvaluator().evaluate(task, state, []).success is True

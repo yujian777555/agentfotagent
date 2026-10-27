@@ -48,7 +48,7 @@ class StateBasedEvaluator(Evaluator):
         gtype = goal.get("type")
 
         if gtype == "key_crate":
-            return self._pred_key_crate(goal, final_state)
+            return self._pred_key_crate(goal, final_state, task)
         if gtype == "dial_set":
             return self._pred_dial_set(goal, final_state)
         if gtype == "relay_route":
@@ -57,7 +57,7 @@ class StateBasedEvaluator(Evaluator):
         # Unknown goal types fail closed.
         return False
 
-    def _pred_key_crate(self, goal: Mapping[str, Any], state: Mapping[str, Any]) -> bool:
+    def _pred_key_crate(self, goal: Mapping[str, Any], state: Mapping[str, Any], task: TaskInstance) -> bool:
         spec = goal.get("object_on_surface")
         if not isinstance(spec, Mapping):
             return False
@@ -72,11 +72,25 @@ class StateBasedEvaluator(Evaluator):
         if goal.get("crate_unlocked") is not True:
             return False
 
+        # Authoritative world contract from the generated task (R4-03).
+        setup = task.setup or {}
+        legal_locations = set(setup.get("locations") or [])
+        legal_surfaces = set(setup.get("surfaces") or [])
+        setup_objects = setup.get("objects") or {}
+        if not legal_locations:
+            return False
+        if not isinstance(setup_objects, Mapping):
+            return False
+
         objects = state.get("objects")
         if not isinstance(objects, Mapping):
             return False
 
-        # Target artifact must exist with the generator-defined type.
+        def _loc_ok(obj: Mapping[str, Any]) -> bool:
+            loc = obj.get("location")
+            return isinstance(loc, str) and loc in (legal_locations | legal_surfaces)
+
+        # Target artifact must exist with the generator-defined type and sit on the surface.
         obj = objects.get(obj_id)
         if not isinstance(obj, Mapping):
             return False
@@ -84,8 +98,10 @@ class StateBasedEvaluator(Evaluator):
             return False
         if obj.get("location") != surface:
             return False
+        if not _loc_ok(obj):
+            return False
 
-        # Crate container must exist with the expected type and explicit unlock.
+        # Crate container: expected type, explicit unlock, location matches task setup.
         crate = objects.get("crate")
         if not isinstance(crate, Mapping):
             return False
@@ -93,13 +109,36 @@ class StateBasedEvaluator(Evaluator):
             return False
         if crate.get("unlocked") is not True:
             return False
+        crate_setup = setup_objects.get("crate")
+        if not isinstance(crate_setup, Mapping):
+            return False
+        expected_crate_loc = crate_setup.get("location")
+        if not isinstance(expected_crate_loc, str) or not expected_crate_loc:
+            return False
+        if crate.get("location") != expected_crate_loc:
+            return False
+        if expected_crate_loc not in legal_locations:
+            return False
 
-        # Referenced surface/surface object must exist with the expected type.
+        # Surface object: expected type and location from task setup.
         surface_obj = objects.get(surface)
         if not isinstance(surface_obj, Mapping):
             return False
         if surface_obj.get("type") != KEY_CRATE_SURFACE_TYPE:
             return False
+        surface_setup = setup_objects.get(surface)
+        if not isinstance(surface_setup, Mapping):
+            return False
+        expected_surface_loc = surface_setup.get("location")
+        if not isinstance(expected_surface_loc, str) or not expected_surface_loc:
+            return False
+        if surface_obj.get("location") != expected_surface_loc:
+            return False
+        if expected_surface_loc not in legal_locations:
+            return False
+        if surface not in legal_surfaces:
+            return False
+
         return True
 
     def _pred_dial_set(self, goal: Mapping[str, Any], state: Mapping[str, Any]) -> bool:

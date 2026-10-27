@@ -4,14 +4,14 @@
   "default_branch": "main",
   "last_updated": "2026-10-27",
   "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
-  "current_phase": "P0-R3: Phase-0-R3 corrective fixes (R2-01..R2-04)",
-  "phase_status": "R3_FIXES_IMPLEMENTED; AWAITING_INDEPENDENT_REVIEW; NOT_ACCEPTED",
+  "current_phase": "P0-R4: Phase-0-R4 corrective fixes (R3-05..R3-08)",
+  "phase_status": "R4_FIXES_IMPLEMENTED; AWAITING_INDEPENDENT_REVIEW; NOT_ACCEPTED",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "AES_SCAFFOLD_WITH_R2_RESIDUAL_FIXES_ON_ec73906e15c048285cff3bca90a4f1f8bed21da8",
     "live_llm_api_experiments": "NOT_RUN",
-    "phase0_engineering_tests": "R2_INDEPENDENT_GITHUB_ACTIONS: 127 passed on ec73906 (run 40453697835); R3_EXECUTOR: python -m pytest tests -o addopts='' -q -ra -> 162 passed; probes tests/probe_r2_counterexamples.py 4/4 PASS; source commit 16031f7e3c18a13f91a2af15eb09575b541f85cd branch phase0-r3-fixes; Python 3.10.1 local; MOCK_BACKEND_ONLY; NOT_INDEPENDENTLY_REPRODUCED_ON_R3_YET",
-    "audit_response": "docs/PHASE0_R3_AUDIT_RESPONSE.md",
+    "phase0_engineering_tests": "R3_INDEPENDENT: 162 passed on cd07249 (run 40459330792); R4_EXECUTOR: 189 passed; probes 7/7 PASS; MOCK_BACKEND_ONLY",
+    "audit_response": "docs/PHASE0_R4_AUDIT_RESPONSE.md",
     "EoH": "PAPER_AND_OFFICIAL_CODE_REVIEWED; NOT_REPRODUCED",
     "LLaMEA": "OFFICIAL_CODE_REVIEWED; FULL_PAPER_READER_LIMIT",
     "LLM4EO": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_GENERIC_H1",
@@ -22,7 +22,7 @@
     "HarmonyHarness": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_FACTORISED_CROSS-BENCHMARK_TRANSFER",
     "downstream_agent_environment": "AES_OWN_ENVIRONMENT_R1_FIXES_IN; AWAITING_REVIEW",
     "predecessor_results": "UPSTREAM_REPORTED_ONLY; NOT_REPRODUCED_IN_THIS_REPOSITORY",
-    "own_agent_environment": "R3_FIXES_FOR_R2-01..R2-04; AWAITING_INDEPENDENT_ACCEPTANCE",
+    "own_agent_environment": "R4_FIXES_FOR_R3-05..R3-08; AWAITING_INDEPENDENT_ACCEPTANCE",
     "predecessor_projects": "NEUROEVOSCIENTIST_AND_EVOPARETO_AGENT_ARE_READ_ONLY_REFERENCES_ONLY; NOT_RUNTIME_ENVIRONMENTS_OR_DEPENDENCIES",
     "phase0_independent_review": "REQUEST_CHANGES on R2 source ec73906e15c048285cff3bca90a4f1f8bed21da8; adversarial probes found reversible runtime ID, malformed relay goal accepted, malformed key_crate entity state accepted, and unvalidated invalid_actions score field",
     "phase0_test_reproduction": "docs/PHASE0_R1_TEST_REPRODUCTION_2026-10-27.md; GitHub Actions run https://github.com/yujian777555/agentfotagent/actions/runs/40441941389",
@@ -44,10 +44,9 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Independent review of branch phase0-r3-fixes (R3-01 runtime tokens, R3-02 relay goals, R3-03 key_crate entities, R3-04 score reconstruction)",
+    "Independent CI reproduction of R4 SHA and review of phase0-r4-fixes",
     "Do not mark Phase-0 ACCEPTED until that review passes",
-    "If accepted, freeze scientific budget semantics before any baseline comparison",
-    "Authorize live API/GPU/MetaBox experiments only through a separate reviewed protocol"
+    "After acceptance: Phase-1 transfer pilot (target-only vs transfer vs shuffled-mapping)"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -65,11 +64,13 @@
     "phase0_r2_audit_response": "docs/PHASE0_R2_AUDIT_RESPONSE.md",
     "phase0_r2_independent_review": "docs/PHASE0_R2_INDEPENDENT_REVIEW_2026-10-27.md",
     "phase0_r2_test_reproduction": "docs/PHASE0_R2_TEST_REPRODUCTION_2026-10-27.md",
-    "phase0_r3_audit_response": "docs/PHASE0_R3_AUDIT_RESPONSE.md"
+    "phase0_r3_audit_response": "docs/PHASE0_R3_AUDIT_RESPONSE.md",
+    "phase0_r4_audit_response": "docs/PHASE0_R4_AUDIT_RESPONSE.md",
+    "phase0_r3_independent_review": "docs/PHASE0_R3_INDEPENDENT_REVIEW_2026-10-27.md"
   },
   "corrective_pass_commit": "16031f7e3c18a13f91a2af15eb09575b541f85cd",
   "current_reviewed_source_commit": "ec73906e15c048285cff3bca90a4f1f8bed21da8",
-  "work_branch": "phase0-r3-fixes",
+  "work_branch": "phase0-r4-fixes",
   "reviewed_r2_source": "ec73906e15c048285cff3bca90a4f1f8bed21da8",
   "audit_baseline_main": "a13e17f92b471dba629c2a69d0d9462d3e117cbf"
 }
