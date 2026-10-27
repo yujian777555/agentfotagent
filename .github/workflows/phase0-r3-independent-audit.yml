@@ -31,7 +31,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10.1"
+          python-version: "3.10"
       - name: Install project and test dependencies
         run: |
           python -m pip install --upgrade pip setuptools pytest
@@ -81,6 +81,28 @@ jobs:
           except ReconstructionError as exc:
               print(f'PASS R3-06: unknown extra score field rejected: {exc}')
           PY
+      - name: Probe key_crate location validation
+        shell: bash
+        run: |
+          python - <<'PY' 2>&1 | tee r3-keycrate-location-probe.log
+          from agentfotagent.evaluation.evaluator import StateBasedEvaluator
+          from agentfotagent.tasks.generators import generate_task
+          task = generate_task('key_crate', 1, 'train')
+          malformed = {
+              'objects': {
+                  'statue': {'type': 'artifact', 'location': 'pedestal'},
+                  'crate': {'type': 'crate', 'unlocked': True},
+                  'pedestal': {'type': 'surface'},
+              },
+              'dials': {}, 'relay': {}, 'inventory': [], 'location': 'hall',
+              'step': 5, 'termination_reason': 'agent_submit',
+          }
+          result = StateBasedEvaluator().evaluate(task, malformed, [])
+          if result.success:
+              print('FINDING R3-07: key_crate accepts missing crate/pedestal location fields')
+          else:
+              print('PASS R3-07: missing key_crate location fields rejected')
+          PY
       - name: Upload audit logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -91,4 +113,5 @@ jobs:
             r3-pytest.log
             r2-counterexample-probe.log
             r3-extra-adversarial-probes.log
+            r3-keycrate-location-probe.log
           if-no-files-found: warn
