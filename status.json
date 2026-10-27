@@ -4,8 +4,8 @@
   "default_branch": "main",
   "last_updated": "2026-10-27",
   "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
-  "current_phase": "Phase-1A P1A-1B deconfounded LLM pilot",
-  "phase_status": "P1A1B_COMPLETE; LLM_NO_INDEPENDENT_CHOICES; METHOD_REVISION_REQUIRED",
+  "current_phase": "Phase-1A P1A-1C API contract + preflight",
+  "phase_status": "LLM_POLICY_DEGENERATE; FORMAL_RERUN_STOPPED",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
@@ -40,7 +40,8 @@
     "metabox_integration": "metaevobox 2.0.2 (PyPI); upstream SHA 5565a281 claimed pairing not byte-verified; controlled_de live hooks with real success_fraction; regret vs raw_objective split",
     "phase1a_tests": "project 210 passed 1 expected-skip; metabox 42 passed; smoke run_id phase1a-smoke-4662564c9e0c-clean-20261027T173407 on clean SHA 4662564c9e0cc8c43980ba1339b480dab82489d6",
     "p1a1_pilot": "run p1a1-319b3582baad-clean-20261027T182625; 36/36 runs; LLM deepseek-v4-pro 85 req; llm W-L vs random 1-5, vs official 3-3, vs classic 2-4; hint-deviation 0/84",
-    "p1a1b_pilot": "run p1a1-4c6333adb1f5-clean-20261027T192647; llm vs hint_only 4-0 and vs random 4-0 on completed pairs BUT only set_F=0.5 dummy echo; 2/6 LLM blocked by 100-request budget; F20 missing"
+    "p1a1b_pilot": "run p1a1-4c6333adb1f5-clean-20261027T192647; llm vs hint_only 4-0 and vs random 4-0 on completed pairs BUT only set_F=0.5 dummy echo; 2/6 LLM blocked by 100-request budget; F20 missing",
+    "p1a1c_preflight": "3/3 valid JSON after thinking=disabled + json_object; but 1/3 action signatures (echo set_F=0.35); LLM_POLICY_DEGENERATE; formal 42-run not started; requests 3/140"
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
@@ -57,9 +58,9 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Revise LLM output protocol so choices cannot collapse to format dummy",
-    "Increase request budget or reduce generations; re-run only with non-dummy choices",
-    "Do not expand to full train split on current evidence"
+    "Revise output protocol so choices cannot collapse to a syntax-example echo",
+    "Or switch model family; re-preflight max 3 requests before formal runs",
+    "Do not expand to full train split; do not fabricate LLM independence"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -90,7 +91,8 @@
     "phase1a_p0_r1_corrective2_report": "docs/PHASE1A_P0_R1_CORRECTIVE_2_REPORT.md",
     "phase1a_p1a1_pilot_protocol": "docs/PHASE1A_P1A1_PILOT_PROTOCOL.md",
     "phase1a_p1a1_pilot_report": "docs/PHASE1A_P1A1_PILOT_REPORT.md",
-    "phase1a_p1a1_deconfounded_report": "docs/PHASE1A_P1A1_DECONFOUNDED_REPORT.md"
+    "phase1a_p1a1_deconfounded_report": "docs/PHASE1A_P1A1_DECONFOUNDED_REPORT.md",
+    "phase1a_p1a1_c_preflight_report": "docs/PHASE1A_P1A1_C_PREFLIGHT_REPORT.md"
   },
   "corrective_pass_commit": "1776e0f9f4cc606ae66eaeca20c833d72e3b7ab0",
   "current_reviewed_source_commit": "3e48bf5305ba667490358c140dad556f1ebf84e2",
