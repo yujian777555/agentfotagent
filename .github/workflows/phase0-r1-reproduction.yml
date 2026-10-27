@@ -48,7 +48,7 @@ jobs:
         run: |
           set -o pipefail
           python --version | tee -a reproduction-metadata.txt
-          python -m pytest tests -q 2>&1 | tee phase0-r1-pytest.log
+          python -m pytest tests -o addopts='' -q -ra 2>&1 | tee phase0-r1-pytest.log
 
       - name: Upload reproducibility evidence
         if: always()
