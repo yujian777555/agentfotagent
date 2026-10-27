@@ -71,6 +71,12 @@ jobs:
           result = StateBasedEvaluator().evaluate(task, state, [])
           print(f'PROBE_B_malformed_goal_success={result.success}; goal={{code: None, frequency: 99}}')
 
+          # Probe D: malformed key-crate entity types are currently not checked by the predicate.
+          crate_task = generate_task('key_crate', 1, 'train')
+          malformed_crate_state = {'objects': {'statue': {'location': 'pedestal'}, 'crate': {'unlocked': True}}, 'step': 1}
+          crate_result = StateBasedEvaluator().evaluate(crate_task, malformed_crate_state, [])
+          print(f'PROBE_D_key_crate_success_without_entity_types={crate_result.success}')
+
           # Probe C: alter non-compared manifest metrics while preserving identity and compared fields.
           tasks = [generate_task('dial_set', 1, 'train'), generate_task('dial_set', 2, 'train')]
           task_map = {t.task_id: t for t in tasks}
@@ -93,4 +99,5 @@ jobs:
           path: |
             reproduction-metadata.txt
             phase0-r2-pytest.log
+            phase0-r2-adversarial-probes.log
           if-no-files-found: warn
