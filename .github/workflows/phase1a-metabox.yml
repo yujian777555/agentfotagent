@@ -2,7 +2,7 @@ name: phase1a-metabox
 
 on:
   push:
-    branches: ["phase1a-p0-r1-corrective", "phase1a-p0-r1", "phase1a-metabox-smoke"]
+    branches: ["phase1a-p0-r1-corrective-2", "phase1a-p0-r1-corrective", "phase1a-p0-r1", "phase1a-metabox-smoke"]
   pull_request:
     branches: ["main"]
   workflow_dispatch:
@@ -26,8 +26,12 @@ jobs:
         run: |
           echo "Testing commit: $(git rev-parse HEAD)"
           git log -1 --oneline
-      - name: Install test deps
-        run: python -m pip install pytest
+      - name: Install test dependencies (declared in pyproject [test])
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest numpy
+          python -m pip install -e ".[test]" 2>$null
+          python -c "import numpy, pytest; print('numpy', numpy.__version__, 'pytest', pytest.__version__)"
       - name: Full project suite
         run: python -m pytest tests -o addopts='' -q -ra
 
@@ -47,7 +51,7 @@ jobs:
         run: |
           uv venv metabox-env --python 3.11
           uv pip install --python metabox-env/Scripts/python.exe metaevobox==2.0.2
-          uv pip install --python metabox-env/Scripts/python.exe pytest
+          uv pip install --python metabox-env/Scripts/python.exe pytest numpy
           metabox-env/Scripts/python.exe -c "import metaevobox,importlib.metadata as m; print('metaevobox', m.version('metaevobox'))"
       - name: Integration + controller tests (must not all skip)
         run: |

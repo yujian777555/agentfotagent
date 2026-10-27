@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 import numpy as np  # noqa: E402
+from typing import Any, Dict, List  # noqa: E402
 
 from experiments.metabox.adapter import (  # noqa: E402
     METABOX_GIT_SHA,
@@ -41,12 +42,50 @@ def _git_sha() -> str:
     return "unknown"
 
 
-def main() -> None:
+class DirtyWorktreeError(RuntimeError):
+    """Raised when an official reproducible run is attempted on uncommitted code."""
+
+
+def _git_status_porcelain() -> str:
+    out = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, timeout=10)
+    return out.stdout if out.returncode == 0 else ""
+
+
+def ensure_clean_worktree(*, allow_dirty: bool = False) -> Dict[str, str]:
+    """Verify the worktree is clean before an official run.
+
+    Returns a provenance dict. If dirty and ``allow_dirty`` is False, raises
+    DirtyWorktreeError — never labels a dirty run as a clean-SHA run.
+    """
+    sha = _git_sha()
+    dirty = _git_status_porcelain().strip()
+    if dirty and not allow_dirty:
+        raise DirtyWorktreeError(
+            "worktree is dirty; commit first or pass --allow-dirty "
+            "(dirty runs are recorded as dirty, not as clean-SHA runs). "
+            "Diff:\n" + dirty[:2000]
+        )
+    return {
+        "git_sha": sha,
+        "worktree_dirty": "true" if dirty else "false",
+        "dirty_files": dirty[:2000] if dirty else "",
+    }
+
+
+def main(argv: List[str] | None = None) -> None:
+    argv = list(argv if argv is not None else sys.argv[1:])
+    allow_dirty = "--allow-dirty" in argv
+
     max_fes = 1500
     seeds = [11, 22]
     function_id = 6
-    run_id = "phase1a-smoke-r1c-20261027"
-    git_sha = _git_sha()
+
+    prov = ensure_clean_worktree(allow_dirty=allow_dirty)
+    git_sha = prov["git_sha"]
+    # Unique run id: sha prefix + worktree flag + timestamp. Never reused.
+    stamp = time.strftime("%Y%m%dT%H%M%S")
+    dirty_tag = "dirty" if prov["worktree_dirty"] == "true" else "clean"
+    run_id = f"phase1a-smoke-{git_sha[:12]}-{dirty_tag}-{stamp}"
 
     mb = import_metabox()
     lock_path = ROOT / "experiments" / "metabox" / "LOCK.json"
@@ -55,12 +94,17 @@ def main() -> None:
     ctrl_a = compile_controller(fixed_controller_a())
     ctrl_b = compile_controller(fixed_controller_b())
 
-    # Preserve previous artifacts (do not overwrite).
     out_dir = ROOT / "results" / "phase1a_smoke"
     out_dir.mkdir(parents=True, exist_ok=True)
     old = out_dir / "manifest.json"
     if old.exists() and not (out_dir / "INVALIDATED_manifest_p0_f6_mislabeled.json").exists():
         shutil.copy2(old, out_dir / "INVALIDATED_manifest_p0_f6_mislabeled.json")
+
+    # Unique trace directory per run — never overwrites prior traces.
+    trace_dir = out_dir / "traces" / run_id
+    manifest_path = out_dir / f"manifest_{run_id}.json"
+    if manifest_path.exists() or trace_dir.exists():
+        raise RuntimeError(f"refusing to overwrite existing run artifacts for {run_id}")
 
     # --- Official DE runs ---
     rows = []
@@ -77,9 +121,8 @@ def main() -> None:
             result["independent_fes"] = result["independent_fes"]
             rows.append(result)
 
-    # --- Controlled DE with live hooks + full traces ---
-    trace_dir = out_dir / "traces"
-    trace_dir.mkdir(exist_ok=True)
+    # --- Controlled DE with live hooks + full traces (per-run directory) ---
+    trace_dir.mkdir(parents=True, exist_ok=True)
     controlled_rows = []
     for controller in (ctrl_a, ctrl_b):
         for seed in seeds:
@@ -91,6 +134,8 @@ def main() -> None:
             # Full raw trace on disk with hash.
             trace_obj = {
                 "run_id": run_id,
+                "git_sha": git_sha,
+                "worktree_dirty": prov["worktree_dirty"],
                 "controller_id": controller.controller_id,
                 "controller_hash": controller.controller_hash,
                 "seed": seed,
@@ -99,6 +144,8 @@ def main() -> None:
                 "payload": payload,
             }
             trace_path = trace_dir / f"controlled_{controller.controller_id}_seed{seed}.json"
+            if trace_path.exists():
+                raise RuntimeError(f"refusing to overwrite trace {trace_path}")
             trace_path.write_text(json.dumps(trace_obj, sort_keys=True, default=str), encoding="utf-8")
             digest = hashlib.sha256(trace_path.read_bytes()).hexdigest()
             controlled_rows.append(
@@ -162,10 +209,13 @@ def main() -> None:
 
     manifest = {
         "run_id": run_id,
-        "phase": "phase1a-metabox-smoke-p0-r1-corrective",
+        "phase": "phase1a-metabox-smoke-p0-r1-corrective-2",
         "engineering_only": True,
         "not_agent_capability": True,
         "agentfotagent_git_sha": git_sha,
+        "worktree_dirty": prov["worktree_dirty"],
+        "dirty_files": prov["dirty_files"],
+        "run_started_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "metabox": {
             "package": "metaevobox",
             "version": mb["version"],
@@ -212,20 +262,20 @@ def main() -> None:
         "controlled_fe_accounting_match": c_fe_ok,
         "controlled_fe_budget_exact": fe_budget_ok,
     }
-    path = out_dir / f"manifest_{run_id}.json"
-    path.write_text(json.dumps(manifest, indent=2, sort_keys=True, default=str), encoding="utf-8")
-    (out_dir / "CURRENT.txt").write_text(path.name, encoding="utf-8")
+    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True, default=str), encoding="utf-8")
+    (out_dir / "CURRENT.txt").write_text(manifest_path.name, encoding="utf-8")
     print(
         json.dumps(
             {
                 "run_id": run_id,
                 "git_sha": git_sha,
+                "worktree_dirty": prov["worktree_dirty"],
                 "identity": identity,
                 "official_fe_match": fe_ok,
                 "controlled_fe_match": c_fe_ok,
                 "fe_budget_exact": fe_budget_ok,
                 "repro": repro,
-                "manifest": str(path),
+                "manifest": str(manifest_path),
             },
             indent=2,
         )

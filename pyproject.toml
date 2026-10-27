@@ -9,6 +9,12 @@ description = "Agent Evolution Sandbox (AES) — project-owned multi-step tool-u
 requires-python = ">=3.10"
 readme = "README.md"
 
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0",
+    "numpy>=1.24",
+]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
