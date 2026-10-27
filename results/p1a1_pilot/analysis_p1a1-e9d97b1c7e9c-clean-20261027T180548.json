@@ -1,0 +1,271 @@
+{
+  "manifest": "D:\\agentfotagent\\results\\p1a1_pilot\\manifest_p1a1-e9d97b1c7e9c-clean-20261027T180548.json",
+  "run_id": "p1a1-e9d97b1c7e9c-clean-20261027T180548",
+  "llm_status": "AVAILABLE",
+  "rows": [
+    {
+      "method": "official_meta_de",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 6065.805702833966,
+      "fes": 300
+    },
+    {
+      "method": "fixed_classic_de",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 5851.720833345079,
+      "fes": 300
+    },
+    {
+      "method": "fixed_explore_de",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 10301.440096171438,
+      "fes": 300
+    },
+    {
+      "method": "stagnation_heuristic",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 9550.101828719024,
+      "fes": 300
+    },
+    {
+      "method": "random_valid_controller",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 2312.3868676169914,
+      "fes": 300
+    },
+    {
+      "method": "llm_agent",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 1010.7984418112026,
+      "fes": 300
+    },
+    {
+      "method": "official_meta_de",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 8665.607232437733,
+      "fes": 300
+    },
+    {
+      "method": "fixed_classic_de",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 7063.37097877041,
+      "fes": 300
+    },
+    {
+      "method": "fixed_explore_de",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 12894.969740108876,
+      "fes": 300
+    },
+    {
+      "method": "stagnation_heuristic",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 5344.49549219741,
+      "fes": 300
+    },
+    {
+      "method": "random_valid_controller",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 5924.084808230255,
+      "fes": 300
+    },
+    {
+      "method": "llm_agent",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 3197.470565911672,
+      "fes": 300
+    },
+    {
+      "method": "official_meta_de",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 83555876.57365076,
+      "fes": 300
+    },
+    {
+      "method": "fixed_classic_de",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 47548309.12103305,
+      "fes": 300
+    },
+    {
+      "method": "fixed_explore_de",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 85070217.93945001,
+      "fes": 300
+    },
+    {
+      "method": "stagnation_heuristic",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 52884880.09344773,
+      "fes": 300
+    },
+    {
+      "method": "random_valid_controller",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 52273562.72097369,
+      "fes": 300
+    },
+    {
+      "method": "llm_agent",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 27582593.440615375,
+      "fes": 300
+    },
+    {
+      "method": "official_meta_de",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 57519448.84619863,
+      "fes": 300
+    },
+    {
+      "method": "fixed_classic_de",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 95688332.31696701,
+      "fes": 300
+    },
+    {
+      "method": "fixed_explore_de",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 115752650.61419195,
+      "fes": 300
+    },
+    {
+      "method": "stagnation_heuristic",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 62981581.764147446,
+      "fes": 300
+    },
+    {
+      "method": "random_valid_controller",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 37456345.17594169,
+      "fes": 300
+    },
+    {
+      "method": "llm_agent",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 33089610.846534915,
+      "fes": 300
+    },
+    {
+      "method": "official_meta_de",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 463965.6491641505,
+      "fes": 300
+    },
+    {
+      "method": "fixed_classic_de",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 839478.1750546176,
+      "fes": 300
+    },
+    {
+      "method": "fixed_explore_de",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 1294468.3559268746,
+      "fes": 300
+    },
+    {
+      "method": "stagnation_heuristic",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 642851.61211049,
+      "fes": 300
+    },
+    {
+      "method": "random_valid_controller",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 576345.5581618614,
+      "fes": 300
+    },
+    {
+      "method": "llm_agent",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 195198.54052568373,
+      "fes": 300
+    },
+    {
+      "method": "official_meta_de",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 304316.04819409584,
+      "fes": 300
+    },
+    {
+      "method": "fixed_classic_de",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 1527914.0392082147,
+      "fes": 300
+    },
+    {
+      "method": "fixed_explore_de",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 2355922.237045861,
+      "fes": 300
+    },
+    {
+      "method": "stagnation_heuristic",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 1731715.2201801457,
+      "fes": 300
+    },
+    {
+      "method": "random_valid_controller",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 181536.8598704658,
+      "fes": 300
+    },
+    {
+      "method": "llm_agent",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 507183.19048432575,
+      "fes": 300
+    }
+  ],
+  "failures": [],
+  "llm_stats": {
+    "api_failures": 0,
+    "cache_hits": 4,
+    "completion_tokens": 10240,
+    "invalid_responses": 84,
+    "note": "cost estimate from reported tokens \u00d7 published prices; if service omits usage, cost stays 0 and token counts are authoritative",
+    "prompt_tokens": 19005,
+    "requests": 80,
+    "retries": 0,
+    "total_cost_usd_estimate": 0.0
+  }
+}

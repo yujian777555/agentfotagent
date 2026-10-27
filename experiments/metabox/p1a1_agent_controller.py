@@ -17,23 +17,16 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from .controller_dsl import DSL_VERSION, compile_controller, validate_controller_spec
 
-PROMPT_VERSION = "p1a1-agent-v1"
-MAX_OUTPUT_TOKENS = 128
+PROMPT_VERSION = "p1a1-agent-v2"
+MAX_OUTPUT_TOKENS = 256  # headroom for reasoning tokens; content kept short
 MAX_REQUESTS = 100
 MAX_RETRIES = 1
 
-PROMPT_TEMPLATE = """You control Differential Evolution parameters.
-Schema {schema}. Allowed actions: set_F, set_CR, noop.
-F in [0.1,1.0], CR in [0.0,1.0].
-
-Public state (JSON):
-{state}
-
-Current params: F={cur_F}, CR={cur_Cr}.
-
-Reply with ONLY one JSON object, no prose:
-{{"action":"set_F","params":{{"value":0.5}}}}
-or {{"action":"set_CR","params":{{"value":0.9}}}} or {{"action":"noop","params":{{}}}}
+PROMPT_TEMPLATE = """Set DE params. JSON only, no markdown, no prose.
+Actions: set_F (0.1-1.0), set_CR (0.0-1.0), noop.
+State: {state}
+F={cur_F} CR={cur_Cr}
+Output exactly one JSON object like {{"action":"set_F","params":{{"value":0.6}}}}
 """
 
 
@@ -114,6 +107,17 @@ class LLMBackend:
                 self.stats.prompt_tokens += int(usage.get("prompt_tokens") or 0)
                 self.stats.completion_tokens += int(usage.get("completion_tokens") or 0)
                 text = payload["choices"][0]["message"]["content"]
+                if not (text or "").strip():
+                    self.stats.invalid_responses += 1
+                    if attempt < MAX_RETRIES:
+                        self.stats.retries += 1
+                        self.stats.requests += 1
+                        # compact retry prompt
+                        body2 = dict(body)
+                        body2["max_tokens"] = 320
+                        data = json.dumps(body2).encode("utf-8")
+                        continue
+                    raise AgentAPIError("empty model content after retries")
                 meta = {
                     "cached": False,
                     "model": payload.get("model", self.model),
@@ -147,10 +151,9 @@ class P1A1AgentController:
     def select_action(self, state: MappingLike) -> Dict[str, Any]:
         state_d = dict(state)
         prompt = PROMPT_TEMPLATE.format(
-            schema=DSL_VERSION,
-            state=json.dumps(state_d, sort_keys=True),
-            cur_F=state_d.get("F", state_d.get("cur_F", "?")),
-            cur_Cr=state_d.get("CR", state_d.get("cur_Cr", "?")),
+            state=json.dumps(state_d, separators=(",", ":")),
+            cur_F=state_d.get("F", "?"),
+            cur_Cr=state_d.get("CR", "?"),
         )
         cache_key = hashlib.sha256(
             json.dumps([PROMPT_VERSION, state_d], sort_keys=True, default=str).encode()
@@ -213,14 +216,16 @@ MappingLike = Any
 
 
 def _parse_action(raw: str) -> Dict[str, Any]:
-    text = raw.strip()
-    # extract first JSON object
+    text = (raw or "").strip()
+    if text.startswith("```"):
+        text = text.strip("`")
+        if text.lower().startswith("json"):
+            text = text[4:]
     start = text.find("{")
     end = text.rfind("}")
     if start < 0 or end < start:
         raise ValueError(f"no JSON object in response: {raw!r}")
     obj = json.loads(text[start : end + 1])
-    # Validate as DSL v2 action
     spec = {
         "schema_version": DSL_VERSION,
         "controller_id": "tmp",
