@@ -4,14 +4,14 @@
   "default_branch": "main",
   "last_updated": "2026-10-27",
   "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
-  "current_phase": "P0-R1 independent re-review",
-  "phase_status": "REQUEST_CHANGES_SECOND_INDEPENDENT_REVIEW; AWAITING_FIXES",
+  "current_phase": "P0-R3-R2: Phase-0 residual audit fixes (R1-01..R1-06)",
+  "phase_status": "R2_RESIDUAL_FIXES_IMPLEMENTED; AWAITING_INDEPENDENT_REVIEW",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "AES_SCAFFOLD_PLUS_R1_CORRECTIVE_FIXES_UNDER_src/agentfotagent",
     "live_llm_api_experiments": "NOT_RUN",
-    "phase0_engineering_tests": "EXECUTOR_REPORTED_104_PASS_ON_ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9; NOT_INDEPENDENTLY_RERUN (git clone blocked by DNS resolution; audited commit has zero GitHub check runs); MOCK_BACKEND_ONLY",
-    "audit_response": "docs/PHASE0_R1_AUDIT_RESPONSE.md",
+    "phase0_engineering_tests": "PYTHON -m PYTEST TESTS -q; 127_COLLECTED_ALL_PASS; MOCK_BACKEND_ONLY; EXECUTOR_REPORTED; SEE_CORRECTIVE_SHA_AFTER_PUSH",
+    "audit_response": "docs/PHASE0_R2_AUDIT_RESPONSE.md",
     "EoH": "PAPER_AND_OFFICIAL_CODE_REVIEWED; NOT_REPRODUCED",
     "LLaMEA": "OFFICIAL_CODE_REVIEWED; FULL_PAPER_READER_LIMIT",
     "LLM4EO": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_GENERIC_H1",
@@ -22,7 +22,7 @@
     "HarmonyHarness": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_FACTORISED_CROSS-BENCHMARK_TRANSFER",
     "downstream_agent_environment": "AES_OWN_ENVIRONMENT_R1_FIXES_IN; AWAITING_REVIEW",
     "predecessor_results": "UPSTREAM_REPORTED_ONLY; NOT_REPRODUCED_IN_THIS_REPOSITORY",
-    "own_agent_environment": "R1_FIXES_PRESENT_BUT_SECOND_INDEPENDENT_REVIEW_REQUEST_CHANGES; RESIDUAL_F2_F3_F5_F4_C1_AND_VERSIONING_GAPS",
+    "own_agent_environment": "R2_FIXES_FOR_R1-01..R1-06; VERSIONS_BUMPED_TO_V2; AWAITING_INDEPENDENT_ACCEPTANCE",
     "predecessor_projects": "NEUROEVOSCIENTIST_AND_EVOPARETO_AGENT_ARE_READ_ONLY_REFERENCES_ONLY; NOT_RUNTIME_ENVIRONMENTS_OR_DEPENDENCIES",
     "phase0_independent_review": "REQUEST_CHANGES; audited main 3322a9d8eef80308a50c55f25292d4034d94699f; implementation ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9"
   },
@@ -41,13 +41,10 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Make model-facing task IDs opaque or omit IDs that encode family/split/seed; add value-level payload regression tests",
-    "Require relay object existence for activation/frequency tools and evaluator scoring; test missing-object bypass",
-    "Make relay verification compare actual frequency with the value derived from observed note fragments",
-    "Fail closed on incomplete goal schemas and malformed final-state metrics without exceptions",
-    "Make artifact reconstruction enforce complete trace-score correspondence in both directions; isolate/reset accounting and traces per run",
-    "Bump environment/evaluator/backend version identifiers and update config/cache/provenance metadata after semantic changes",
-    "Rerun the full test suite in a reachable environment, push, and stop for independent re-review"
+    "Independent re-review of Phase-0-R2 residual fixes (opaque runtime ids, relay verification, missing-relay fail-closed, goal schemas, bidirectional reconstruction, version bumps)",
+    "If accepted, freeze scientific budget semantics before any baseline comparison",
+    "Only after environment acceptance: specify and falsify one source-to-target transfer object",
+    "Authorize live API/GPU/MetaBox experiments only through a separate reviewed protocol"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -60,7 +57,8 @@
     "own_environment_spec": "docs/OWN_EXPERIMENTAL_ENVIRONMENT_SPEC.md",
     "phase0_independent_audit": "docs/PHASE0_INDEPENDENT_AUDIT_2026-10-26.md",
     "phase0_r1_audit_response": "docs/PHASE0_R1_AUDIT_RESPONSE.md",
-    "phase0_r1_independent_review": "docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md"
+    "phase0_r1_independent_review": "docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md",
+    "phase0_r2_audit_response": "docs/PHASE0_R2_AUDIT_RESPONSE.md"
   },
   "corrective_pass_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9"
 }

@@ -1,13 +1,14 @@
 {
-  "schema_version": "aes-config-v1",
+  "schema_version": "aes-config-v2",
   "max_steps_default": 40,
   "memory_window": 4,
   "genome_schema_version": "aes-genome-v1",
-  "generator_version": "aes-task-gen-v1",
-  "environment_version": "aes-tool-world-v1",
-  "evaluator_version": "aes-evaluator-v1",
-  "backend_id": "mock-engineering-v1",
+  "generator_version": "aes-task-gen-v2",
+  "environment_version": "aes-tool-world-v2",
+  "evaluator_version": "aes-evaluator-v2",
+  "backend_id": "mock-engineering-v2",
+  "phenotype_version": "aes-phenotype-v2",
   "engineering_only": true,
   "live_llm_api": false,
-  "notes": "Phase-0 engineering configuration. Mock backend only. No research claims."
+  "notes": "Phase-0-R2 engineering configuration. Versions advanced after R1 semantic fixes. Mock backend only. No research claims."
 }

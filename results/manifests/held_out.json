@@ -1,12 +1,12 @@
 {
   "count": 3,
-  "manifest_hash": "a34d3a0680ccdd3018fef998360ba0c7a57700f48904ea8f29db06861049561a",
+  "manifest_hash": "116108cc2cbf590cb9a59f32d689469cfd7fe7d4e34fb6d76b099d2ed2b5ecea",
   "split": "held_out",
   "tasks": [
     {
-      "content_hash": "d8799d575aa83e2d39226cbd6a20846779c380a232a238fbc2f83775c57d11dc",
+      "content_hash": "b4a6e1bdbec3f7ece693bff07f8292334f98e426a5f44a0e6dbd9715cec7d8e8",
       "family": "relay_route",
-      "generator_version": "aes-task-gen-v1",
+      "generator_version": "aes-task-gen-v2",
       "hidden_goal": {
         "code": "255",
         "formula": "frequency = (digit_sum % 7) + 1",
@@ -21,7 +21,7 @@
       "runtime": {
         "description": "Activate the relay at the hub and set its frequency. Three notes in the north, south and east rooms each contain one code fragment in the form 'fragment i: digit d'. The three-digit code is fragment digits in order 0,1,2. Activate the relay with that code, then set frequency to (digit_sum % 7) + 1, then submit.",
         "max_steps": 20,
-        "task_id": "relay_route/held_out/seed000201"
+        "runtime_id": "rt_522f38db0402fc4b"
       },
       "seed": 201,
       "setup": {
@@ -86,12 +86,13 @@
         "start_location": "hub",
         "surfaces": []
       },
-      "split": "held_out"
+      "split": "held_out",
+      "task_id": "relay_route/held_out/seed000201"
     },
     {
-      "content_hash": "7279f0c6f0ac0f4003455898129c1da96342a0e8b24ec0e44ab40705386c098f",
+      "content_hash": "1af52bb8a60726726a4f176b1dbd148bc0a769bd2233aec06603d97b937b9e8c",
       "family": "relay_route",
-      "generator_version": "aes-task-gen-v1",
+      "generator_version": "aes-task-gen-v2",
       "hidden_goal": {
         "code": "208",
         "formula": "frequency = (digit_sum % 7) + 1",
@@ -106,7 +107,7 @@
       "runtime": {
         "description": "Activate the relay at the hub and set its frequency. Three notes in the north, south and east rooms each contain one code fragment in the form 'fragment i: digit d'. The three-digit code is fragment digits in order 0,1,2. Activate the relay with that code, then set frequency to (digit_sum % 7) + 1, then submit.",
         "max_steps": 20,
-        "task_id": "relay_route/held_out/seed000202"
+        "runtime_id": "rt_d54a078a60207dd8"
       },
       "seed": 202,
       "setup": {
@@ -171,12 +172,13 @@
         "start_location": "hub",
         "surfaces": []
       },
-      "split": "held_out"
+      "split": "held_out",
+      "task_id": "relay_route/held_out/seed000202"
     },
     {
-      "content_hash": "d6b9bed21539c49a979ad67100b77c748605d10fa4935943eb2951c2b165041c",
+      "content_hash": "2fe8f7359bc0fcb23458f0c8a78a7b8a2ff6abaa750bf55115e2aa19b8595ff5",
       "family": "relay_route",
-      "generator_version": "aes-task-gen-v1",
+      "generator_version": "aes-task-gen-v2",
       "hidden_goal": {
         "code": "297",
         "formula": "frequency = (digit_sum % 7) + 1",
@@ -191,7 +193,7 @@
       "runtime": {
         "description": "Activate the relay at the hub and set its frequency. Three notes in the north, south and east rooms each contain one code fragment in the form 'fragment i: digit d'. The three-digit code is fragment digits in order 0,1,2. Activate the relay with that code, then set frequency to (digit_sum % 7) + 1, then submit.",
         "max_steps": 20,
-        "task_id": "relay_route/held_out/seed000203"
+        "runtime_id": "rt_8dbb6a377c0b89a0"
       },
       "seed": 203,
       "setup": {
@@ -256,7 +258,8 @@
         "start_location": "hub",
         "surfaces": []
       },
-      "split": "held_out"
+      "split": "held_out",
+      "task_id": "relay_route/held_out/seed000203"
     }
   ]
 }

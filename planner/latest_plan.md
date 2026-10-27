@@ -126,3 +126,21 @@ Residual blockers:
 6. Environment/evaluator/mock-backend version identifiers were not bumped after semantics changed, weakening cache/provenance separation.
 
 Correct only these residual issues, add adversarial regression tests, rerun the complete suite in a reachable environment, update the response matrix and status, push, then stop for another independent review. No transfer, MetaBox, live API or GPU experiments.
+
+## Phase-0-R2 residual audit response — 2026-10-27
+
+**Basis:** docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md (REQUEST CHANGES on ebd3d99).
+
+Executor fixed residual findings R1-01..R1-06 only:
+- R1-01 opaque runtime_id (no family/split/seed in backend payload)
+- R1-02 relay verification compares expected frequency from note fragments
+- R1-03 missing/malformed relay object fail-closed in tools and evaluator
+- R1-04 complete dial/key_crate/relay goal schemas; safe step metrics
+- R1-05 bidirectional trace/score reconstruction; run-scoped harness state
+- R1-06 version identifiers advanced to v2; source commit SHA in run manifests
+
+Response matrix: docs/PHASE0_R2_AUDIT_RESPONSE.md.
+
+**Status: RESIDUAL FIXES IMPLEMENTED (executor).** Awaiting independent re-review.
+No transfer experiments, MetaBox meta-training, live APIs or GPU runs.
+

@@ -1,12 +1,12 @@
 {
   "count": 8,
-  "manifest_hash": "5ba6a55f0d0d1cd4bbc112a8bd180846836764ce7bbc4e13927babec002b726a",
+  "manifest_hash": "4ac2557d2aceb6aea5ef0a9dfc1db1c5bda47827e6fc3ea0906713bf5b54ebea",
   "split": "dev",
   "tasks": [
     {
-      "content_hash": "fdc446aea59f353f5d36ff47b1b69f3ff653b8992d861d384a24fe61095360df",
+      "content_hash": "305e0104a4ebf549e27f2f9ce15aae2afc68670bc306cc69e1d76f0eaffcbd77",
       "family": "key_crate",
-      "generator_version": "aes-task-gen-v1",
+      "generator_version": "aes-task-gen-v2",
       "hidden_goal": {
         "crate_unlocked": true,
         "object_on_surface": {
@@ -19,7 +19,7 @@
       "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
         "max_steps": 24,
-        "task_id": "key_crate/dev/seed000101"
+        "runtime_id": "rt_9f2f7dc59d337217"
       },
       "seed": 101,
       "setup": {
@@ -96,12 +96,13 @@
           "pedestal"
         ]
       },
-      "split": "dev"
+      "split": "dev",
+      "task_id": "key_crate/dev/seed000101"
     },
     {
-      "content_hash": "1f30d926a044395394b6fa5d4c5ca3c4295f534135919b11f05aba972a49d8cc",
+      "content_hash": "a71d46553fe73faac4a31b347553f010e8433536a78ab139325d31ee5005140b",
       "family": "key_crate",
-      "generator_version": "aes-task-gen-v1",
+      "generator_version": "aes-task-gen-v2",
       "hidden_goal": {
         "crate_unlocked": true,
         "object_on_surface": {
@@ -114,7 +115,7 @@
       "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
         "max_steps": 24,
-        "task_id": "key_crate/dev/seed000102"
+        "runtime_id": "rt_022fb7aa360cb374"
       },
       "seed": 102,
       "setup": {
@@ -191,12 +192,13 @@
           "pedestal"
         ]
       },
-      "split": "dev"
+      "split": "dev",
+      "task_id": "key_crate/dev/seed000102"
     },
     {
-      "content_hash": "fe281074d4a941a7fbd9ac8355b6959fda32f24abd45a8d1fcccdb0ef06bfb45",
+      "content_hash": "bf788b0d013d55a82bb751beaa2b477a7e969353464e1f774762c58e31d48188",
       "family": "key_crate",
-      "generator_version": "aes-task-gen-v1",
+      "generator_version": "aes-task-gen-v2",
       "hidden_goal": {
         "crate_unlocked": true,
         "object_on_surface": {
@@ -209,7 +211,7 @@
       "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
         "max_steps": 24,
-        "task_id": "key_crate/dev/seed000103"
+        "runtime_id": "rt_ef59a17074585b37"
       },
       "seed": 103,
       "setup": {
@@ -286,12 +288,13 @@
           "pedestal"
         ]
       },
-      "split": "dev"
+      "split": "dev",
+      "task_id": "key_crate/dev/seed000103"
     },
     {
-      "content_hash": "560234a0c6c7f105681fdb68018134faa961abddd3c9314df018713452640715",
+      "content_hash": "4fdf7fe2e153967f6a47680feabb490b2d3b03654e46756f1af2f55070ac473a",
       "family": "key_crate",
-      "generator_version": "aes-task-gen-v1",
+      "generator_version": "aes-task-gen-v2",
       "hidden_goal": {
         "crate_unlocked": true,
         "object_on_surface": {
@@ -304,7 +307,7 @@
       "runtime": {
         "description": "Move the statue onto the pedestal in the hall. The statue is inside a locked crate in the vault. Exactly one of the coin-like keys unlocks the crate; the others are decoys. Call submit when done.",
         "max_steps": 24,
-        "task_id": "key_crate/dev/seed000104"
+        "runtime_id": "rt_f9682a5226c0c7bd"
       },
       "seed": 104,
       "setup": {
@@ -381,12 +384,13 @@
           "pedestal"
         ]
       },
-      "split": "dev"
+      "split": "dev",
+      "task_id": "key_crate/dev/seed000104"
     },
     {
-      "content_hash": "3ea066dcf095b156c990a70222af1336b1638c40e5b07c59650515f457a5609c",
+      "content_hash": "3a3a00ebbbbac016a247f7614dfad948d7a20a1f6268dda2aee2a5401b222675",
       "family": "dial_set",
-      "generator_version": "aes-task-gen-v1",
+      "generator_version": "aes-task-gen-v2",
       "hidden_goal": {
         "formula": "target = (gauge - offset) % 4",
         "targets": {
@@ -399,7 +403,7 @@
       "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
         "max_steps": 16,
-        "task_id": "dial_set/dev/seed000101"
+        "runtime_id": "rt_bc75650986a5dac4"
       },
       "seed": 101,
       "setup": {
@@ -441,12 +445,13 @@
         "start_location": "console",
         "surfaces": []
       },
-      "split": "dev"
+      "split": "dev",
+      "task_id": "dial_set/dev/seed000101"
     },
     {
-      "content_hash": "cad4d02fe8bf33c609f34ab08793d4ab076154e0f57f74b55a739fede9b4d59e",
+      "content_hash": "1f3c91a20833069996359be2733da644ee3b99e412a2f420330906973d4bb2f4",
       "family": "dial_set",
-      "generator_version": "aes-task-gen-v1",
+      "generator_version": "aes-task-gen-v2",
       "hidden_goal": {
         "formula": "target = (gauge - offset) % 4",
         "targets": {
@@ -459,7 +464,7 @@
       "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
         "max_steps": 16,
-        "task_id": "dial_set/dev/seed000102"
+        "runtime_id": "rt_d8d4d1c4c6a3152e"
       },
       "seed": 102,
       "setup": {
@@ -501,12 +506,13 @@
         "start_location": "console",
         "surfaces": []
       },
-      "split": "dev"
+      "split": "dev",
+      "task_id": "dial_set/dev/seed000102"
     },
     {
-      "content_hash": "f412eb73786b63c43c7a603dd2c63c2234deadaa05c841244fbaea4c2e467d10",
+      "content_hash": "7ca61fbf16d27a8ff8647302c374edcd2a5f03cd4dd6c96fbefd17c2c3e54ed0",
       "family": "dial_set",
-      "generator_version": "aes-task-gen-v1",
+      "generator_version": "aes-task-gen-v2",
       "hidden_goal": {
         "formula": "target = (gauge - offset) % 4",
         "targets": {
@@ -519,7 +525,7 @@
       "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
         "max_steps": 16,
-        "task_id": "dial_set/dev/seed000103"
+        "runtime_id": "rt_a483ec973916c38a"
       },
       "seed": 103,
       "setup": {
@@ -561,12 +567,13 @@
         "start_location": "console",
         "surfaces": []
       },
-      "split": "dev"
+      "split": "dev",
+      "task_id": "dial_set/dev/seed000103"
     },
     {
-      "content_hash": "f0c926d1cb656d9e6338bb57c0f8bf9b18b5b1aed4ac91bd9edc9b1331a449f5",
+      "content_hash": "5c37203ac858a99e17a8d9c571227d9047c62c5cc4d81a282fb268e792861a7b",
       "family": "dial_set",
-      "generator_version": "aes-task-gen-v1",
+      "generator_version": "aes-task-gen-v2",
       "hidden_goal": {
         "formula": "target = (gauge - offset) % 4",
         "targets": {
@@ -579,7 +586,7 @@
       "runtime": {
         "description": "Set dials alpha, beta, gamma to their hidden calibration targets. Each dial has a gauge reading equal to (target + offset) % 4. The offset card lists the offsets. Compute target = (gauge - offset) % 4 for each dial, set them, then submit.",
         "max_steps": 16,
-        "task_id": "dial_set/dev/seed000104"
+        "runtime_id": "rt_da5cf6cd2d6b06e9"
       },
       "seed": 104,
       "setup": {
@@ -621,7 +628,8 @@
         "start_location": "console",
         "surfaces": []
       },
-      "split": "dev"
+      "split": "dev",
+      "task_id": "dial_set/dev/seed000104"
     }
   ]
 }

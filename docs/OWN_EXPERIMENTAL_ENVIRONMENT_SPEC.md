@@ -230,3 +230,17 @@ Residual findings:
 - **Version/provenance gap:** TOOL_WORLD_VERSION, EVALUATOR_VERSION, and MOCK_BACKEND_ID remain at their pre-correction v1 identifiers despite semantic changes. Bump versions and update configs/cache/provenance before any scientific runs.
 
 The original F1-F5 fixes are useful progress, but Phase-0 is not accepted until these residual paths have regression coverage and pass independent review. No scientific experiments, live APIs, GPU runs, transfer experiments or MetaBox meta-training are authorized.
+
+### 8.4 Phase-0-R2 residual fixes (2026-10-27)
+
+Response to docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md. Residual findings only:
+
+- R1-01: RuntimeTask.runtime_id is opaque; evaluation task_id stays on TaskInstance; payload tests scan serialized values for family/split/seed leaks.
+- R1-02: verification for relay_route compares public frequency to the value derived from observed note fragments.
+- R1-03: activate_relay/set_frequency require a valid local relay object; evaluator requires objects["relay"], not only the relay state map.
+- R1-04: dial_set requires complete alpha/beta/gamma targets in range; key_crate requires crate_unlocked is True; relay goal requires code+frequency; step metrics type-safe; evaluate never raises on malformed input.
+- R1-05: reconstruct_from_artifacts enforces exact trace/score bijection (raises ReconstructionError otherwise); cache retains traces; begin_run resets run-scoped traces and accounting.
+- R1-06: versions advanced to aes-tool-world-v2 / aes-evaluator-v2 / mock-engineering-v2 / aes-task-gen-v2; run manifests record source_commit_sha.
+
+Still engineering-only. No scientific experiments authorized.
+
