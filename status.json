@@ -4,8 +4,8 @@
   "default_branch": "main",
   "last_updated": "2026-10-27",
   "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
-  "current_phase": "Phase-1A MetaBox-v2 Agent-assisted EC protocol and no-LLM integration smoke",
-  "phase_status": "PHASE0_ACCEPTED_ENGINEERING_ONLY; PHASE1A_PROTOCOL_DRAFTED; NO_LIVE_API; NO_CONFIRMATORY_RUN",
+  "current_phase": "Phase-1A P0: MetaBox-v2 integration smoke",
+  "phase_status": "METABOX_P0_SMOKE_COMPLETE; AWAITING_PLANNER_REVIEW",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
@@ -33,7 +33,9 @@
     "phase0_r4_independent_review": "ACCEPTED_FOR_ENGINEERING_GATE_ONLY on candidate 3e48bf5305ba667490358c140dad556f1ebf84e2; merged via PR #2 at 9e59401dd78f4be830c45634767bd3f65fb4b4ed; integration CI 40464369334 passed.",
     "phase1_pilot": "NO_GO_OR_PIVOT: all 16 genotypes reached 1.0 success on six small train tasks; mean steps 9.83-13.0; source prior is hand-written surrogate, not MetaBox or Agent-generated; mock backend only; not confirmatory.",
     "phase1_pilot_review": "docs/PHASE1_PILOT_REVIEW_2026-10-27.md",
-    "phase1A": "NOT_STARTED; next gate is Agent-assisted EC on MetaBox-v2 with explicit controller object, strong baselines, validation/test separation and approved API budget"
+    "phase1A": "NOT_STARTED; next gate is Agent-assisted EC on MetaBox-v2 with explicit controller object, strong baselines, validation/test separation and approved API budget",
+    "metabox_integration": "metaevobox 2.0.2; git 5565a281ce4e03efc1f6a41230507d5b66637ace; venv D:/metabox-env Python 3.11.15; DE on bbob-10D F6; FE accounting matched; seed reproducible; 2 fixed controllers executed",
+    "phase1a_tests": "DSL 8 passed (project py); integration+DSL 15 passed (metabox-env); full suite 198 passed + 1 skip (metaevobox not in project env)"
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
@@ -50,11 +52,9 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Execute P1A-0: pin official MetaBox-v2 source and run a no-LLM integration smoke with one verified problem and baseline",
-    "Verify FE accounting, objective direction, deterministic seeds, metric calculation and controller DSL compilation",
-    "Inspect available MetaBox baselines and freeze function-level train/validation/test splits before Agent proposals",
-    "If a suitable local model is unavailable, request explicit LLM API call/token/cost approval before Agent pilot",
-    "Do not scale the saturated source-prior-to-AES pilot; only test controller transfer to AES after positive held-out Phase-1A evidence"
+    "Planner review of Phase-1A P0 integration smoke (phase1a-metabox-smoke)",
+    "After approval: freeze formal arm comparison and request LLM budget for P1A-1 pilot",
+    "No live LLM / GPU / MetaBBO meta-training until authorized"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -78,11 +78,12 @@
     "phase0_r4_independent_review": "docs/PHASE0_R4_INDEPENDENT_REVIEW_2026-10-27.md",
     "phase1_pilot_review": "docs/PHASE1_PILOT_REVIEW_2026-10-27.md",
     "phase0_r4_audit_response": "docs/PHASE0_R4_AUDIT_RESPONSE.md",
-    "phase1a_metabox_protocol": "docs/PHASE1A_METABOX_PROTOCOL.md"
+    "phase1a_metabox_protocol": "docs/PHASE1A_METABOX_PROTOCOL.md",
+    "phase1a_metabox_integration_report": "docs/PHASE1A_METABOX_INTEGRATION_REPORT.md"
   },
   "corrective_pass_commit": "1776e0f9f4cc606ae66eaeca20c833d72e3b7ab0",
   "current_reviewed_source_commit": "3e48bf5305ba667490358c140dad556f1ebf84e2",
-  "work_branch": "phase0-r4-fixes",
+  "work_branch": "phase1a-metabox-smoke",
   "reviewed_r3_source": "cd07249a1b4675354b01f9d5ac09ab2ffe4d2033",
   "reviewed_r4_source": "3e48bf5305ba667490358c140dad556f1ebf84e2",
   "integration_branch": "phase0-r4-integration",

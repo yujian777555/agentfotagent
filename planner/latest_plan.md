@@ -194,3 +194,10 @@ PR #2 integrated the reviewed R3/R4 AES source, tests and pilot artifacts into `
 Created `docs/PHASE1A_METABOX_PROTOCOL.md`. Immediate next task is P1A-0: pin the official MetaBox-v2 source, inspect the actual installed API/baseline catalog, and run a no-LLM integration smoke that validates FE accounting, objective direction, seed determinism, metric calculation, and typed-controller compilation. Then freeze function-level train/validation/test splits and compare against verified strong baselines.
 
 The Agent pilot requires a real local model or explicit approval for a live API call/token/cost budget; no hand-written surrogate may be presented as Agent-generated knowledge. The current source-prior→AES pilot remains NO_GO_OR_PIVOT. Transfer to AES is conditional on a reproducible positive held-out Phase-1A result.
+
+## Phase-1A P0 MetaBox integration smoke — 2026-10-27
+
+Branch \phase1a-metabox-smoke\. Official metaevobox 2.0.2 (git 5565a281, v2.0.0) installed in isolated Python 3.11.15 venv. Verified BBOB-10D + DE path, minimization direction, FE accounting, seed reproducibility. Typed controller DSL with two legal fixed controllers executed through real MetaBox config. Function-identity split frozen 12/6/6. Report: docs/PHASE1A_METABOX_INTEGRATION_REPORT.md.
+
+**Status: P0 SMOKE COMPLETE (executor).** Awaiting Planner review. No LLM API.
+
