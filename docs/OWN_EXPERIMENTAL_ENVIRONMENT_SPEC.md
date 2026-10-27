@@ -230,3 +230,16 @@ Residual findings:
 - **Version/provenance gap:** TOOL_WORLD_VERSION, EVALUATOR_VERSION, and MOCK_BACKEND_ID remain at their pre-correction v1 identifiers despite semantic changes. Bump versions and update configs/cache/provenance before any scientific runs.
 
 The original F1-F5 fixes are useful progress, but Phase-0 is not accepted until these residual paths have regression coverage and pass independent review. No scientific experiments, live APIs, GPU runs, transfer experiments or MetaBox meta-training are authorized.
+
+
+### 8.5 Independent test reproduction (2026-10-27)
+
+The existing R1 engineering suite was independently reproduced on GitHub Actions against exact source commit `ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9`.
+
+- Run: https://github.com/yujian777555/agentfotagent/actions/runs/40441941389
+- Environment: Ubuntu GitHub-hosted runner, Python 3.11.17
+- Command: `python -m pytest tests -o addopts='' -q -ra`
+- Result: **104 passed in 0.24s** (exit status 0)
+- Detailed record: [PHASE0_R1_TEST_REPRODUCTION_2026-10-27.md](PHASE0_R1_TEST_REPRODUCTION_2026-10-27.md)
+
+This confirms only that the existing engineering suite passes on the R1 source tree. The static-review residual defects remain open, so Phase-0 is still **REQUEST CHANGES**. Mock-backend results are not Agent capability evidence. No live API, GPU, MetaBox, transfer or scientific experiment was run.

@@ -10,7 +10,7 @@
   "evidence_status": {
     "implementation": "AES_SCAFFOLD_PLUS_R1_CORRECTIVE_FIXES_UNDER_src/agentfotagent",
     "live_llm_api_experiments": "NOT_RUN",
-    "phase0_engineering_tests": "EXECUTOR_REPORTED_104_PASS_ON_ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9; NOT_INDEPENDENTLY_RERUN (git clone blocked by DNS resolution; audited commit has zero GitHub check runs); MOCK_BACKEND_ONLY",
+    "phase0_engineering_tests": "INDEPENDENTLY_REPRODUCED_ON_GITHUB_ACTIONS: 104 passed in 0.24s; Python 3.11.17 / Ubuntu; exact source commit ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9; run 40441941389; MOCK_BACKEND_ONLY; ENGINEERING_EVIDENCE_NOT_AGENT_CAPABILITY_EVIDENCE",
     "audit_response": "docs/PHASE0_R1_AUDIT_RESPONSE.md",
     "EoH": "PAPER_AND_OFFICIAL_CODE_REVIEWED; NOT_REPRODUCED",
     "LLaMEA": "OFFICIAL_CODE_REVIEWED; FULL_PAPER_READER_LIMIT",
@@ -24,7 +24,8 @@
     "predecessor_results": "UPSTREAM_REPORTED_ONLY; NOT_REPRODUCED_IN_THIS_REPOSITORY",
     "own_agent_environment": "R1_FIXES_PRESENT_BUT_SECOND_INDEPENDENT_REVIEW_REQUEST_CHANGES; RESIDUAL_F2_F3_F5_F4_C1_AND_VERSIONING_GAPS",
     "predecessor_projects": "NEUROEVOSCIENTIST_AND_EVOPARETO_AGENT_ARE_READ_ONLY_REFERENCES_ONLY; NOT_RUNTIME_ENVIRONMENTS_OR_DEPENDENCIES",
-    "phase0_independent_review": "REQUEST_CHANGES; audited main 3322a9d8eef80308a50c55f25292d4034d94699f; implementation ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9"
+    "phase0_independent_review": "REQUEST_CHANGES; code source ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9; existing 104-test suite independently passes, but residual adversarial gaps R1-01 through R1-06 remain",
+    "phase0_test_reproduction": "docs/PHASE0_R1_TEST_REPRODUCTION_2026-10-27.md; GitHub Actions run https://github.com/yujian777555/agentfotagent/actions/runs/40441941389"
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
@@ -47,7 +48,7 @@
     "Fail closed on incomplete goal schemas and malformed final-state metrics without exceptions",
     "Make artifact reconstruction enforce complete trace-score correspondence in both directions; isolate/reset accounting and traces per run",
     "Bump environment/evaluator/backend version identifiers and update config/cache/provenance metadata after semantic changes",
-    "Rerun the full test suite in a reachable environment, push, and stop for independent re-review"
+    "After residual fixes, rerun the full test suite on the corrected commit, push, and stop for independent re-review"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -60,7 +61,8 @@
     "own_environment_spec": "docs/OWN_EXPERIMENTAL_ENVIRONMENT_SPEC.md",
     "phase0_independent_audit": "docs/PHASE0_INDEPENDENT_AUDIT_2026-10-26.md",
     "phase0_r1_audit_response": "docs/PHASE0_R1_AUDIT_RESPONSE.md",
-    "phase0_r1_independent_review": "docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md"
+    "phase0_r1_independent_review": "docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md",
+    "phase0_r1_test_reproduction": "docs/PHASE0_R1_TEST_REPRODUCTION_2026-10-27.md"
   },
   "corrective_pass_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9"
 }

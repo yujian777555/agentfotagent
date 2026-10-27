@@ -50,7 +50,7 @@ After the scaffold is pushed, independently check:
 
 If a gate fails, repair the scaffold before any scientific experiment.
 
-**Status: REQUEST CHANGES after independent Planner re-review (2026-10-27).** The executor's 104/104 test report remains unverified independently; source review found residual defects documented in docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md.
+**Status: REQUEST CHANGES after independent Planner re-review (2026-10-27).** GitHub Actions independently reproduced the existing suite on source commit `ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9`: **104 passed in 0.24s** ([run](https://github.com/yujian777555/agentfotagent/actions/runs/40441941389)). Source review still found residual defects documented in `docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md`; passing the existing suite does not close them.
 
 ## Task 3 — Define the transfer object against the executable interfaces
 
@@ -126,3 +126,8 @@ Residual blockers:
 6. Environment/evaluator/mock-backend version identifiers were not bumped after semantics changed, weakening cache/provenance separation.
 
 Correct only these residual issues, add adversarial regression tests, rerun the complete suite in a reachable environment, update the response matrix and status, push, then stop for another independent review. No transfer, MetaBox, live API or GPU experiments.
+
+
+## Independent test reproduction — 2026-10-27
+
+The full existing suite was independently run through GitHub Actions on the exact R1 source commit `ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9` (Python 3.11.17, Ubuntu): **104 passed in 0.24s**. Run evidence: https://github.com/yujian777555/agentfotagent/actions/runs/40441941389. This is engineering evidence only; the phase remains REQUEST CHANGES because the adversarial gaps in the independent review have not yet been fixed.
