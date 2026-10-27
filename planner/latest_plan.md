@@ -3,7 +3,7 @@
 - Date: 2026-10-26
 - Baseline before this planning update: d52f7b43a03f5b1bbddb3990b2c1587322caa3de
 - Scaffold implementation baseline: d32e07c4599603260757ad64da757877b97587bf
-- Status: Phase-0 scaffold implemented; independent static audit at `987df6d` returned REQUEST CHANGES. Blocking semantics/provenance issues must be fixed before acceptance. No scientific experiment or live API call authorized.
+- Status: Phase-0-R1 corrective code is pushed (code commit ebd3d99; current main before this review 3322a9d). Independent re-review returned REQUEST CHANGES because residual payload-isolation, verification, fail-closed evaluation, provenance and versioning gaps remain. No scientific experiment or live API is authorized.
 
 ## Correction to the previous plan
 
@@ -50,8 +50,7 @@ After the scaffold is pushed, independently check:
 
 If a gate fails, repair the scaffold before any scientific experiment.
 
-**Status: PENDING independent Planner review.** Executor self-reports all Phase-0
-engineering gates passing (see spec §8.1) but this is not a substitute for audit.
+**Status: REQUEST CHANGES after independent Planner re-review (2026-10-27).** The executor's 104/104 test report remains unverified independently; source review found residual defects documented in docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md.
 
 ## Task 3 — Define the transfer object against the executable interfaces
 
@@ -112,3 +111,18 @@ Full suite rerun on the corrective commit: python -m pytest tests -q (executor-r
 ### Stop
 
 Executor stops. Waiting for independent Planner re-review of the corrective commit. No transfer experiments, MetaBox meta-training, live APIs or GPU runs.
+
+
+## Independent re-review — 2026-10-27
+
+**Verdict: REQUEST CHANGES.** Audit source tree: 3322a9d8eef80308a50c55f25292d4034d94699f; implementation fixes are in ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9. Full report: [PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md](../docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md).
+
+Residual blockers:
+1. RuntimeTask.task_id still encodes {family}/{split}/seed{seed}, and run_episode sends it in backend context; the new payload test checks field names but not encoded values.
+2. Relay verification treats any non-null frequency as passing, even if it is wrong.
+3. Missing relay objects bypass locality checks in activate_relay / set_frequency; evaluator also accepts a relay-state mapping with no objects["relay"].
+4. Fail-closed validation is incomplete: partial dial target maps and missing crate_unlocked goal constraints can pass; malformed step values can still raise during evaluation.
+5. Artifact reconstruction does not detect manifest scores with missing traces; reusing a harness can mix traces/accounting across runs.
+6. Environment/evaluator/mock-backend version identifiers were not bumped after semantics changed, weakening cache/provenance separation.
+
+Correct only these residual issues, add adversarial regression tests, rerun the complete suite in a reachable environment, update the response matrix and status, push, then stop for another independent review. No transfer, MetaBox, live API or GPU experiments.

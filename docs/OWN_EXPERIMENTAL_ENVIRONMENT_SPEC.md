@@ -2,7 +2,7 @@
 
 - Project: Agent-for-Agent (yujian777555/agentfotagent)
 - Date: 2026-10-26
-- Status: Phase-0 AES scaffold implemented (engineering tests only); no scientific experiments authorized
+- Status: Phase-0-R1 code implemented; independent re-review returned REQUEST CHANGES (engineering tests only); no scientific experiments authorized
 - Working name: **Agent Evolution Sandbox (AES)**. This is an internal project name, not a novelty claim.
 - Implementation root: `src/agentfotagent/` (layout below); tests in `tests/`; configs in `configs/`.
 
@@ -203,7 +203,7 @@ No scientific experiments, live APIs, GPU runs or MetaBox meta-training are auth
 
 ### 8.3 Phase-0-R1 corrective pass (2026-10-26)
 
-Audit findings F1-F5 and concern C1 were repaired in-repository. Summary:
+Executor reported F1-F5 and concern C1 repaired in-repository. Independent re-review found residual defects; the following summary records the executor's implementation claims, not acceptance:
 
 - **F1 tool preconditions:** unlock/place/set_dial/read_gauge/read_offset_card/activate_relay/set_frequency require interactive locality; unlock releases contained objects at the container location; failed actions do not mutate business state (step counter only).
 - **F2 gene semantics:** planning_mode=plan_first stores a plan consumed by phase gates (changing the plan changes the next action); verification_policy=check_before_finalize reads verify_state output and blocks submit until public goal checks pass; memory_policy=bounded_episodic search uses phenotype.recall() only.
@@ -215,3 +215,18 @@ Audit findings F1-F5 and concern C1 were repaired in-repository. Summary:
 Response matrix: docs/PHASE0_R1_AUDIT_RESPONSE.md. C2 (held-out family is smoke-test only) is acknowledged as a later-phase limitation, not a Phase-0 code gate.
 
 Awaiting independent re-review. Still no scientific experiments, live APIs, GPU runs or MetaBox meta-training.
+
+
+### 8.4 Independent re-review of Phase-0-R1 (2026-10-27)
+
+**Status: REQUEST CHANGES.** The 104-test result is executor-reported; it was not independently rerun in the audit environment because GitHub DNS resolution failed, and the audited commit has no recorded GitHub check runs.
+
+Residual findings:
+- **F3 partial:** the runtime-facing task_id still has the form {family}/{split}/seed{seed:06d} and is sent in backend context. An opaque runtime ID or omission from model-facing context is required; test the actual string value, not only field names.
+- **F2 partial:** _goal_checks_passed for relay_route checks activation plus a non-null frequency, not the expected frequency derived from the three observed note fragments.
+- **F1/F5 partial:** relay locality checks are conditional on objects["relay"] existing. If absent, activation/frequency tools skip locality; the evaluator likewise accepts a matching state["relay"] without requiring a valid relay object.
+- **F5 partial:** incomplete goal schemas (e.g. only one dial target or absent crate_unlocked) are not rejected. Malformed final_state["step"] can raise during metric extraction after the predicate guard.
+- **F4/C1 partial:** reconstruction checks traces against manifest scores but does not detect extra manifest scores with no trace. Reusing a harness can retain old traces and cumulative accounting in a later run artifact.
+- **Version/provenance gap:** TOOL_WORLD_VERSION, EVALUATOR_VERSION, and MOCK_BACKEND_ID remain at their pre-correction v1 identifiers despite semantic changes. Bump versions and update configs/cache/provenance before any scientific runs.
+
+The original F1-F5 fixes are useful progress, but Phase-0 is not accepted until these residual paths have regression coverage and pass independent review. No scientific experiments, live APIs, GPU runs, transfer experiments or MetaBox meta-training are authorized.

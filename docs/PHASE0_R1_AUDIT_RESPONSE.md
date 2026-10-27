@@ -22,12 +22,12 @@ This result is executor-reported until independently rerun.
 
 | ID | Finding | Severity | Fix | Regression tests | Status |
 | --- | --- | --- | --- | --- | --- |
-| F1 | Tool preconditions permit remote unlock/place/dial/relay and state teleportation | BLOCKER | Locality checks in `tool_world.py`: unlock/place/set_dial/read_gauge/read_offset_card/activate_relay/set_frequency require interactive range; unlock releases contents at the **container** location; failed actions do not mutate business state | `tests/test_tool_preconditions.py` | FIXED |
-| F2 | plan/verification/memory genes only altered traces, not decisions | BLOCKER | Plan is stored on the phenotype and consumed for phase gating (changed plan → changed action); verification reads `verify_state` output and blocks submit until public goal checks pass; memory search uses `phenotype.recall()` only (no parallel `searched_rooms`) | `tests/test_gene_semantics.py` | FIXED |
-| F3 | PublicTask exposed seed/generator/hash metadata | MAJOR | Split into `RuntimeTask` (task_id, description, max_steps) and evaluation-side `TaskInstance`; backend payload test over the exact serialized object | `tests/test_runtime_payload_isolation.py` | FIXED |
-| F4 | Harness discarded real traces and built synthetic incomplete ones | BLOCKER | `BaselineHarness` retains actual `EpisodeTrace` per evaluation; `build_manifest` uses those traces; representative genome = best record (not first); `reconstruct_from_artifacts` reloads serialized artifacts and rebuilds every score | `tests/test_harness_reconstruction.py` | FIXED |
-| F5 | Evaluator accepted malformed key-crate / empty dial goals | MAJOR | Fail-closed predicates: require crate and target objects, explicit `unlocked is True`, non-empty dial targets, typed dial values, valid relay object + int frequency; unknown/empty goals and non-mapping state fail closed | `tests/test_evaluator_failclosed.py` | FIXED |
-| C1 | Duplicate genomes vs cache without evaluation accounting | Concern | `EvaluationAccounting` records candidate_proposals, unique_genomes, cache_hits, actual_episode_executions, task_evaluations; documented that cache hits are not new episodes | `tests/test_evaluation_accounting.py` | FIXED (accounting only; scientific budget semantics still freeze before research runs) |
+| F1 | Tool preconditions permit remote unlock/place/dial/relay and state teleportation | BLOCKER | Locality checks cover normal generated tasks, but missing objects[relay] still bypasses activate/set-frequency locality checks | tests/test_tool_preconditions.py (missing-object adversarial case absent) | PARTIAL — REQUEST CHANGES |
+| F2 | plan/verification/memory genes only altered traces, not decisions | BLOCKER | Plan and memory now affect decisions; relay verification still accepts any non-null frequency rather than checking the expected frequency derived from notes | tests/test_gene_semantics.py (wrong-frequency case absent) | PARTIAL — REQUEST CHANGES |
+| F3 | PublicTask exposed seed/generator/hash metadata | MAJOR | Separate runtime task object exists, but task_id still encodes family/split/seed and is sent to the backend | tests/test_runtime_payload_isolation.py (encoded-value case absent) | PARTIAL — REQUEST CHANGES |
+| F4 | Harness discarded real traces and built synthetic incomplete ones | BLOCKER | Actual traces are retained and normal fresh-harness reconstruction works; reconstruction does not detect manifest scores lacking traces, and harness reuse can mix run artifacts/accounting | tests/test_harness_reconstruction.py (tamper/reuse cases absent) | PARTIAL — REQUEST CHANGES |
+| F5 | Evaluator accepted malformed key-crate / empty dial goals | MAJOR | Common malformed cases fail closed, but partial dial goals, missing crate_unlocked, missing relay object, and malformed step remain unguarded | tests/test_evaluator_failclosed.py (partial-schema/step cases absent; relay happy path uses empty objects) | PARTIAL — REQUEST CHANGES |
+| C1 | Duplicate genomes vs cache without evaluation accounting | Concern | Basic counters distinguish proposals/cache hits/episodes, but accounting and trace storage are harness-lifetime state, not run-scoped when a harness is reused | tests/test_evaluation_accounting.py (reuse case absent) | PARTIAL (freeze budget semantics and test run isolation before research) |
 | C2 | Held-out family is engineering smoke test, not generalization evidence | Concern | Accepted limitation. `relay_route` held-out remains a split-plumbing smoke test. No capability claim. Stronger family freeze + external validation stay later-phase items | documented in spec §8.1 / §8.2 | ACKNOWLEDGED (not a Phase-0 code gate) |
 | C3 | Missing adversarial precondition and harness-artifact tests | Concern | Added in this pass with F1/F4 regression files | `test_tool_preconditions.py`, `test_harness_reconstruction.py` | FIXED |
 
@@ -52,3 +52,18 @@ This result is executor-reported until independently rerun.
 ## Stop condition
 
 Executor stops here. Waiting for independent Planner re-review of the corrective commit.
+
+
+## Independent re-review — 2026-10-27
+
+**Verdict: REQUEST CHANGES.** See docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md.
+
+The original fixes are present, but the following acceptance gates remain open:
+- F1/F5: missing relay object must fail closed in both tool handlers and evaluator.
+- F2: relay verification must compare frequency with the value derived from observed note fragments.
+- F3: model-facing task IDs must not encode family, split, or seed; add a value-level payload test.
+- F5: require complete goal schemas and handle malformed state metrics without exceptions.
+- F4/C1: verify manifest-to-trace completeness in both directions and make accounting/artifacts run-scoped or reset them deterministically.
+- Provenance: bump environment/evaluator/backend version identifiers after semantic changes and update config/cache metadata.
+
+The 104-pass test result remains executor-reported. Independent test execution was blocked by DNS resolution failure, and no GitHub check runs are recorded. No scientific experiments are authorized until the next independent review accepts the fixes.
