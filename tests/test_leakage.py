@@ -130,10 +130,13 @@ def test_full_manifest_is_evaluation_side_only():
     task = generate_task("relay_route", 1, "held_out")
     entry = task_to_manifest_entry(task, include_hidden=True)
     assert "hidden_goal" in entry
-    # Runtime receives PublicTask only — documented by the PublicTask fields.
-    pub = task.public
-    assert not hasattr(pub, "hidden_goal")
-    assert not hasattr(pub, "setup")
+    # Runtime receives RuntimeTask only.
+    payload = task.runtime.to_payload()
+    assert set(payload.keys()) == {"task_id", "description", "max_steps"}
+    assert "seed" not in payload
+    assert "hidden_goal" not in payload
+    assert "generator_version" not in payload
+    assert "content_hash" not in payload
 
 
 def test_mock_episode_trace_has_no_hidden_goal_payload():

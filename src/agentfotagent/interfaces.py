@@ -10,6 +10,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple
 
+# Backward-compatible alias removed: PublicTask split into RuntimeTask + TaskInstance.
+
 
 # ---------------------------------------------------------------------------
 # Actions and observations
@@ -53,33 +55,43 @@ class StepResult:
 # ---------------------------------------------------------------------------
 
 @dataclass(frozen=True)
-class PublicTask:
-    """Task information visible to the Agent runtime.
+class RuntimeTask:
+    """Model-facing task payload.
 
-    Hidden goals, success predicates and evaluator internals are intentionally
-    excluded. The runtime must never receive the full TaskInstance.
+    Contains only the instruction fields the Agent is permitted to see.
+    Seeds, generator version, content hashes, split labels and hidden goals
+    live exclusively on the evaluation-side TaskInstance.
     """
 
     task_id: str
-    family: str
-    split: str
     description: str
     max_steps: int
-    seed: int
-    generator_version: str
-    content_hash: str
+
+    def to_payload(self) -> Dict[str, Any]:
+        """Exact serialization sent to a backend together with observations."""
+        return {
+            "task_id": self.task_id,
+            "description": self.description,
+            "max_steps": self.max_steps,
+        }
 
 
 @dataclass(frozen=True)
 class TaskInstance:
-    """Full task record used by environment + evaluator only."""
+    """Full evaluation-side task record. Not exposed to the Agent runtime."""
 
-    public: PublicTask
+    runtime: RuntimeTask
+    family: str
+    split: str
     hidden_goal: Mapping[str, Any]
     setup: Mapping[str, Any]
     seed: int
     generator_version: str
     content_hash: str
+
+    @property
+    def task_id(self) -> str:
+        return self.runtime.task_id
 
 
 # ---------------------------------------------------------------------------

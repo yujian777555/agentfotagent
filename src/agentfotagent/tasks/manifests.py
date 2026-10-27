@@ -17,16 +17,10 @@ def manifest_hash(entries: Sequence[Mapping[str, Any]]) -> str:
 
 def task_to_manifest_entry(task: TaskInstance, include_hidden: bool = True) -> Dict[str, Any]:
     entry: Dict[str, Any] = {
-        "public": {
-            "task_id": task.public.task_id,
-            "family": task.public.family,
-            "split": task.public.split,
-            "description": task.public.description,
-            "max_steps": task.public.max_steps,
-            "seed": task.public.seed,
-            "generator_version": task.public.generator_version,
-            "content_hash": task.public.content_hash,
-        },
+        # Evaluation-side metadata. Runtime-facing payload is only RuntimeTask.
+        "runtime": task.runtime.to_payload(),
+        "family": task.family,
+        "split": task.split,
         "seed": task.seed,
         "generator_version": task.generator_version,
         "content_hash": task.content_hash,
@@ -40,11 +34,11 @@ def task_to_manifest_entry(task: TaskInstance, include_hidden: bool = True) -> D
 
 def split_summary(splits: Mapping[str, Sequence[TaskInstance]]) -> Dict[str, Any]:
     families_by_split = {
-        name: sorted({t.public.family for t in tasks})
+        name: sorted({t.family for t in tasks})
         for name, tasks in splits.items()
     }
     task_ids = {
-        name: [t.public.task_id for t in tasks]
+        name: [t.task_id for t in tasks]
         for name, tasks in splits.items()
     }
     hashes = {
