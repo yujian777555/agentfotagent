@@ -15,7 +15,7 @@ import random
 from typing import Any, Dict, List, Mapping, Sequence, Tuple
 
 from ..environments.tool_world import task_content_hash
-from ..interfaces import PublicTask, TaskInstance
+from ..interfaces import RuntimeTask, TaskInstance
 
 
 GENERATOR_VERSION = "aes-task-gen-v1"
@@ -69,18 +69,15 @@ def _make_task(
         description=description,
         max_steps=max_steps,
     )
-    public = PublicTask(
+    runtime = RuntimeTask(
         task_id=task_id,
-        family=family,
-        split=split,
         description=description,
         max_steps=max_steps,
-        seed=seed,
-        generator_version=GENERATOR_VERSION,
-        content_hash=content_hash,
     )
     return TaskInstance(
-        public=public,
+        runtime=runtime,
+        family=family,
+        split=split,
         hidden_goal=hidden_goal,
         setup=setup,
         seed=seed,
@@ -188,6 +185,7 @@ def _gen_dial_set(seed: int, split: str, task_id: str) -> TaskInstance:
         "start_location": "console",
         "locations": ["console"],
         "surfaces": [],
+        "dial_location": "console",
         "dials": {n: 0 for n in names},
         "gauges": gauges,
         "offsets": offsets,

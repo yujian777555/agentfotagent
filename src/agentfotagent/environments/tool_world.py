@@ -51,6 +51,22 @@ def _stable_hash(payload: Any) -> str:
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()
 
 
+def _business_state(state: Mapping[str, Any]) -> Dict[str, Any]:
+    """Business fields excluding the step counter (used to prove no mutation on failure)."""
+    return {
+        "location": state.get("location"),
+        "inventory": list(state.get("inventory", [])),
+        "objects": state.get("objects"),
+        "dials": state.get("dials"),
+        "notes": state.get("notes"),
+        "read_notes": state.get("read_notes"),
+        "relay": state.get("relay"),
+        "plan": state.get("plan"),
+        "terminated": state.get("terminated"),
+        "termination_reason": state.get("termination_reason"),
+    }
+
+
 @dataclass
 class _SealedGoal:
     """Opaque container. Attribute access is allowed only from evaluator/env paths."""
@@ -182,6 +198,25 @@ class ToolWorld:
 
     # -- stepping ----------------------------------------------------------
 
+    def _here_or_fail(self, required_location: str, what: str):
+        """Locality precondition: the Agent must be at ``required_location``."""
+        st = self._state
+        assert st is not None
+        if st.location != required_location:
+            return self._invalid(f"not in range for {what}: required location {required_location}")
+        return None
+
+    def _local_destination(self, dest: Any) -> bool:
+        """A destination is in range if it is the current room or a surface object here."""
+        st = self._state
+        assert st is not None
+        if dest == st.location:
+            return True
+        obj = st.objects.get(str(dest))
+        if obj is not None and not obj.get("concealed") and obj.get("location") == st.location:
+            return True
+        return False
+
     def step(self, action: Action) -> StepResult:
         assert self._state is not None and self._task is not None, "reset() must be called first"
         st = self._state
@@ -202,7 +237,7 @@ class ToolWorld:
         # (handled inside handlers only on success). We still count the step.
         if not result.info.get("valid", True):
             st.step += 1
-            if st.step >= self._task.public.max_steps and not st.terminated:
+            if st.step >= self._task.runtime.max_steps and not st.terminated:
                 self._terminate("max_steps")
             return StepResult(
                 observation=Observation(content=st.public_view()),
@@ -212,7 +247,7 @@ class ToolWorld:
             )
 
         st.step += 1
-        if not st.terminated and st.step >= self._task.public.max_steps:
+        if not st.terminated and st.step >= self._task.runtime.max_steps:
             self._terminate("max_steps")
 
         return StepResult(
@@ -300,8 +335,12 @@ class ToolWorld:
     def _tool_read_gauge(self, args: Mapping[str, Any]) -> StepResult:
         st = self._state
         assert st is not None
-        dial = args.get("dial")
         setup = self._task.setup if self._task else {}
+        dial_loc = setup.get("dial_location", setup.get("start_location", st.location))
+        blocked = self._here_or_fail(str(dial_loc), "dial console")
+        if blocked is not None:
+            return blocked
+        dial = args.get("dial")
         gauges = setup.get("gauges", {})
         if dial not in gauges:
             return self._invalid(f"unknown dial: {dial}")
@@ -316,6 +355,10 @@ class ToolWorld:
         st = self._state
         assert st is not None
         setup = self._task.setup if self._task else {}
+        dial_loc = setup.get("dial_location", setup.get("start_location", st.location))
+        blocked = self._here_or_fail(str(dial_loc), "dial console")
+        if blocked is not None:
+            return blocked
         offsets = setup.get("offsets", {})
         return StepResult(
             observation=Observation(content=st.public_view()),
@@ -328,13 +371,27 @@ class ToolWorld:
         """Public consistency summary used by verification_policy. No hidden goal."""
         st = self._state
         assert st is not None
-        unlocked = {oid: bool(o.get("unlocked", True)) for oid, o in st.objects.items() if o.get("type") in {"crate", "relay"}}
+        unlocked = {
+            oid: bool(o.get("unlocked", True))
+            for oid, o in st.objects.items()
+            if o.get("type") in {"crate", "relay"}
+        }
+        surface_contents: Dict[str, List[str]] = {}
+        surfaces = set(self._task.setup.get("surfaces", [])) if self._task else set()
+        for oid, obj in st.objects.items():
+            loc = obj.get("location")
+            if loc in surfaces:
+                surface_contents.setdefault(str(loc), []).append(oid)
+        for key in surface_contents:
+            surface_contents[key].sort()
         summary = {
             "unlocked": unlocked,
             "dials": dict(st.dials),
             "inventory": sorted(st.inventory),
             "relay_activated": bool(st.relay.get("activated", False)),
             "relay_frequency": st.relay.get("frequency"),
+            "surface_contents": surface_contents,
+            "location": st.location,
         }
         return StepResult(
             observation=Observation(content=st.public_view()),
@@ -412,6 +469,9 @@ class ToolWorld:
         valid_dest = set(setup.get("locations", [])) | set(setup.get("surfaces", []))
         if dest not in valid_dest:
             return self._invalid(f"unknown destination: {dest}")
+        # Locality: the destination surface/room must be at the Agent's current location.
+        if not self._local_destination(dest):
+            return self._invalid(f"destination not in range: {dest}")
         st.inventory.remove(oid)
         st.objects[oid]["location"] = dest
         return StepResult(
@@ -429,6 +489,9 @@ class ToolWorld:
         if oid not in st.objects:
             return self._invalid(f"unknown object: {oid}")
         obj = st.objects[oid]
+        # Locality: unlocking requires interactive access to the container.
+        if obj.get("location") != st.location:
+            return self._invalid(f"object not here: {oid}")
         if key_id not in st.inventory:
             return self._invalid(f"key not held: {key_id}")
         required = obj.get("lock_key")
@@ -438,10 +501,11 @@ class ToolWorld:
             return self._invalid("wrong key")
         obj["unlocked"] = True
         obj["locked"] = False
-        # Release contained objects to the unlocker's location and un-conceal them.
+        # Release contained objects at the container's actual location.
+        container_loc = obj.get("location")
         for other_id, other in st.objects.items():
             if other.get("inside") == oid:
-                other["location"] = st.location
+                other["location"] = container_loc
                 other["inside"] = None
                 other["concealed"] = False
         return StepResult(
@@ -454,6 +518,11 @@ class ToolWorld:
     def _tool_set_dial(self, args: Mapping[str, Any]) -> StepResult:
         st = self._state
         assert st is not None
+        setup = self._task.setup if self._task else {}
+        dial_loc = setup.get("dial_location", setup.get("start_location", st.location))
+        blocked = self._here_or_fail(str(dial_loc), "dial console")
+        if blocked is not None:
+            return blocked
         dial = args.get("dial")
         value = args.get("value")
         if dial not in st.dials:
@@ -471,6 +540,11 @@ class ToolWorld:
     def _tool_activate_relay(self, args: Mapping[str, Any]) -> StepResult:
         st = self._state
         assert st is not None
+        relay_obj = st.objects.get("relay")
+        if relay_obj is not None:
+            blocked = self._here_or_fail(str(relay_obj.get("location")), "relay")
+            if blocked is not None:
+                return blocked
         code = args.get("code")
         expected = st.relay.get("code")
         if expected is None:
@@ -488,6 +562,11 @@ class ToolWorld:
     def _tool_set_frequency(self, args: Mapping[str, Any]) -> StepResult:
         st = self._state
         assert st is not None
+        relay_obj = st.objects.get("relay")
+        if relay_obj is not None:
+            blocked = self._here_or_fail(str(relay_obj.get("location")), "relay")
+            if blocked is not None:
+                return blocked
         if not st.relay.get("activated"):
             return self._invalid("relay not activated")
         freq = args.get("frequency")
@@ -523,20 +602,18 @@ class ToolWorld:
 
 def load_task_from_dict(raw: Mapping[str, Any]) -> TaskInstance:
     """Reconstruct a TaskInstance from a serialized manifest entry."""
-    from ..interfaces import PublicTask
+    from ..interfaces import RuntimeTask
 
-    public = PublicTask(
-        task_id=str(raw["public"]["task_id"]),
-        family=str(raw["public"]["family"]),
-        split=str(raw["public"]["split"]),
-        description=str(raw["public"]["description"]),
-        max_steps=int(raw["public"]["max_steps"]),
-        seed=int(raw["public"]["seed"]),
-        generator_version=str(raw["public"]["generator_version"]),
-        content_hash=str(raw["public"]["content_hash"]),
+    public = raw.get("public") or raw.get("runtime") or {}
+    runtime = RuntimeTask(
+        task_id=str(public["task_id"]),
+        description=str(public["description"]),
+        max_steps=int(public["max_steps"]),
     )
     return TaskInstance(
-        public=public,
+        runtime=runtime,
+        family=str(raw.get("family") or public.get("family") or ""),
+        split=str(raw.get("split") or public.get("split") or ""),
         hidden_goal=dict(raw["hidden_goal"]),
         setup=dict(raw["setup"]),
         seed=int(raw["seed"]),
