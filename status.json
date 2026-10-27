@@ -4,13 +4,13 @@
   "default_branch": "main",
   "last_updated": "2026-10-27",
   "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
-  "current_phase": "P0-R4 integration candidate; PR CI pending",
-  "phase_status": "R4_SOURCE_INTEGRATED_IN_REVIEW_BRANCH; PR_CI_PENDING; NOT_YET_MERGED_MAIN; PHASE1A_PROTOCOL_REQUIRED; NO_LIVE_API",
+  "current_phase": "Phase-0 R4 merged; Phase-1A MetaBox experiment protocol next",
+  "phase_status": "PHASE0_ACCEPTED_ENGINEERING_ONLY; R4_MERGED; PHASE1A_PROTOCOL_REQUIRED; NO_LIVE_API",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
-    "implementation": "R3/R4 source, tests and pilot artifacts imported from accepted candidate 3e48bf5305ba667490358c140dad556f1ebf84e2 into phase0-r4-integration; PR CI pending; main unchanged",
+    "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
     "live_llm_api_experiments": "NOT_RUN",
-    "phase0_engineering_tests": "Source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2 passed hosted CI run 40462185561: 189 full suite + 62 targeted tests; 7/7 probes PASS. Integration branch requires its own PR CI run before merge. Mock backend only.",
+    "phase0_engineering_tests": "R4 candidate CI run 40462185561: 189 passed in 0.64s; integration PR CI run 40464369334 on synthetic merge commit f01a7ecc1f007276ff425d4894a8aa57dfc35bac: 62 targeted passed in 0.22s, 189 full-suite passed in 0.45s, 7/7 probes PASS. Mock backend only; engineering gate only.",
     "audit_response": "docs/PHASE0_R2_AUDIT_RESPONSE.md",
     "EoH": "PAPER_AND_OFFICIAL_CODE_REVIEWED; NOT_REPRODUCED",
     "LLaMEA": "OFFICIAL_CODE_REVIEWED; FULL_PAPER_READER_LIMIT",
@@ -22,7 +22,7 @@
     "HarmonyHarness": "PAPER_REVIEWED; DIRECT_OVERLAP_WITH_FACTORISED_CROSS-BENCHMARK_TRANSFER",
     "downstream_agent_environment": "AES_OWN_ENVIRONMENT_R1_FIXES_IN; AWAITING_REVIEW",
     "predecessor_results": "UPSTREAM_REPORTED_ONLY; NOT_REPRODUCED_IN_THIS_REPOSITORY",
-    "own_agent_environment": "R4 candidate accepted for engineering gate only on 3e48bf5305ba667490358c140dad556f1ebf84e2; controlled integration into main pending; no Agent capability claim",
+    "own_agent_environment": "Phase-0 R4 engineering scaffold accepted and merged; no Agent capability claim. Current AES pilot is saturated and NO_GO_OR_PIVOT.",
     "predecessor_projects": "NEUROEVOSCIENTIST_AND_EVOPARETO_AGENT_ARE_READ_ONLY_REFERENCES_ONLY; NOT_RUNTIME_ENVIRONMENTS_OR_DEPENDENCIES",
     "phase0_independent_review": "REQUEST_CHANGES on R2 source ec73906e15c048285cff3bca90a4f1f8bed21da8; adversarial probes found reversible runtime ID, malformed relay goal accepted, malformed key_crate entity state accepted, and unvalidated invalid_actions score field",
     "phase0_test_reproduction": "docs/PHASE0_R1_TEST_REPRODUCTION_2026-10-27.md; GitHub Actions run https://github.com/yujian777555/agentfotagent/actions/runs/40441941389",
@@ -30,8 +30,8 @@
     "phase0_r2_test_reproduction": "docs/PHASE0_R2_TEST_REPRODUCTION_2026-10-27.md; GitHub Actions run https://github.com/yujian777555/agentfotagent/actions/runs/40453697835; exact source SHA ec73906e15c048285cff3bca90a4f1f8bed21da8",
     "phase0_r3_test_reproduction": "docs/PHASE0_R3_TEST_REPRODUCTION_2026-10-27.md; GitHub Actions run https://github.com/yujian777555/agentfotagent/actions/runs/40459330792; exact source cd07249a1b4675354b01f9d5ac09ab2ffe4d2033",
     "phase0_r3_independent_review": "REQUEST_CHANGES on cd07249a1b4675354b01f9d5ac09ab2ffe4d2033: non-boolean success accepted, unknown score field accepted, key_crate missing locations accepted, and original probe harness has false-positive logic for R3-01/R3-04",
-    "phase0_r4_independent_review": "ACCEPTED_FOR_ENGINEERING_GATE_ONLY on 3e48bf5305ba667490358c140dad556f1ebf84e2; exact SHA hosted CI https://github.com/yujian777555/agentfotagent/actions/runs/40462185561; 189 full-suite + 62 targeted tests passed; 7/7 probes PASS; one non-blocking recommendation to strengthen vulnerable-evaluator probe self-test",
-    "phase1_pilot": "NO_GO_OR_PIVOT: all 16 genotypes reached 1.0 success on six small train tasks; 9.83-13.0 mean steps; source prior is hand-written surrogate, not MetaBox or Agent-generated; mock backend only; not confirmatory",
+    "phase0_r4_independent_review": "ACCEPTED_FOR_ENGINEERING_GATE_ONLY on candidate 3e48bf5305ba667490358c140dad556f1ebf84e2; merged via PR #2 at 9e59401dd78f4be830c45634767bd3f65fb4b4ed; integration CI 40464369334 passed.",
+    "phase1_pilot": "NO_GO_OR_PIVOT: all 16 genotypes reached 1.0 success on six small train tasks; mean steps 9.83-13.0; source prior is hand-written surrogate, not MetaBox or Agent-generated; mock backend only; not confirmatory.",
     "phase1_pilot_review": "docs/PHASE1_PILOT_REVIEW_2026-10-27.md",
     "phase1A": "NOT_STARTED; next gate is Agent-assisted EC on MetaBox-v2 with explicit controller object, strong baselines, validation/test separation and approved API budget"
   },
@@ -50,11 +50,11 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Verify the Phase-0 integration PR CI against the exact integration commit",
-    "If PR CI passes, merge the integration PR while preserving R1-R4 audit history and status records",
-    "After merge, define Phase-1A Agent-assisted EC on MetaBox-v2 with strong baselines, held-out tasks, predeclared metrics and an approved LLM budget",
+    "Phase-1A: define a reproducible Agent-assisted EC experiment on MetaBox-v2; the Agent must diagnose real evolutionary trajectories and propose constrained, executable controller changes",
+    "Pre-register strong conventional and LLM-assisted EC baselines, objective/metrics, seeds, FE/runtime budget, validation/test split, negative controls and stop rules",
     "Do not scale the saturated surrogate-source-to-AES pilot or claim transfer benefit",
-    "No live LLM API calls until call/token/cost budget is explicitly approved"
+    "Do not call live LLM APIs until explicit call/token/cost budget is approved",
+    "Only if Phase-1A is reproducibly positive, transfer the same explicit controller object to AES; only if transfer is positive, test bidirectional feedback"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -85,5 +85,6 @@
   "reviewed_r3_source": "cd07249a1b4675354b01f9d5ac09ab2ffe4d2033",
   "reviewed_r4_source": "3e48bf5305ba667490358c140dad556f1ebf84e2",
   "integration_branch": "phase0-r4-integration",
-  "integration_source_candidate": "3e48bf5305ba667490358c140dad556f1ebf84e2"
+  "integration_source_candidate": "3e48bf5305ba667490358c140dad556f1ebf84e2",
+  "integration_commit_sha": "9e59401dd78f4be830c45634767bd3f65fb4b4ed"
 }
