@@ -4,7 +4,7 @@
 - Audit basis: `docs/PHASE0_INDEPENDENT_AUDIT_2026-10-26.md` (verdict: REQUEST CHANGES)
 - Corrective pass: Phase-0-R1
 - Audited commit under repair: `987df6dbb21683331968f09acf6160fbbdf005bb`
-- Corrective commit: see `status.json` → `baseline_commit` after push
+- Corrective commit (full pass): `ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9`
 - Scope of this pass: audit findings only. No live LLM API, GPU, MetaBox meta-training or transfer experiments.
 
 ## Test command (executor-run, reproducible)
@@ -13,9 +13,10 @@
 python -m pytest tests -q
 ```
 
-Executor-run result on the corrective commit: **104 tests collected, all passing**
-(0 failures). Mock backend only; engineering evidence is never Agent capability
-evidence. This count is executor-reported until independently rerun.
+Run at: `ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9`
+Executor-run result: **104 tests collected, all passing** (0 failures, 0 errors).
+Mock backend only; engineering evidence is never Agent capability evidence.
+This result is executor-reported until independently rerun.
 
 ## Findings
 

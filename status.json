@@ -3,14 +3,14 @@
   "repository": "https://github.com/yujian777555/agentfotagent",
   "default_branch": "main",
   "last_updated": "2026-10-26",
-  "baseline_commit": "987df6dbb21683331968f09acf6160fbbdf005bb",
+  "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
   "current_phase": "P0-R3-R1: Phase-0 AES corrective pass (audit fixes)",
   "phase_status": "AUDIT_FIXES_IMPLEMENTED; AWAITING_INDEPENDENT_REVIEW",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "AES_SCAFFOLD_PLUS_R1_CORRECTIVE_FIXES_UNDER_src/agentfotagent",
     "live_llm_api_experiments": "NOT_RUN",
-    "phase0_engineering_tests": "EXECUTOR_RUN_PYTEST_TESTS_104_COLLECTED_ALL_PASS; MOCK_BACKEND_ONLY; NOT_INDEPENDENTLY_RERUN_AFTER_R1",
+    "phase0_engineering_tests": "PYTHON -m PYTEST TESTS -Q; 104_COLLECTED_ALL_PASS; COMMIT ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9; MOCK_BACKEND_ONLY; EXECUTOR_REPORTED",
     "audit_response": "docs/PHASE0_R1_AUDIT_RESPONSE.md",
     "EoH": "PAPER_AND_OFFICIAL_CODE_REVIEWED; NOT_REPRODUCED",
     "LLaMEA": "OFFICIAL_CODE_REVIEWED; FULL_PAPER_READER_LIMIT",
@@ -56,5 +56,6 @@
     "own_environment_spec": "docs/OWN_EXPERIMENTAL_ENVIRONMENT_SPEC.md",
     "phase0_independent_audit": "docs/PHASE0_INDEPENDENT_AUDIT_2026-10-26.md",
     "phase0_r1_audit_response": "docs/PHASE0_R1_AUDIT_RESPONSE.md"
-  }
+  },
+  "corrective_pass_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9"
 }
