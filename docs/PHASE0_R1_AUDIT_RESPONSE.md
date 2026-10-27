@@ -16,7 +16,7 @@ python -m pytest tests -q
 Run at: `ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9`
 Executor-run result: **104 tests collected, all passing** (0 failures, 0 errors).
 Mock backend only; engineering evidence is never Agent capability evidence.
-This result is executor-reported until independently rerun.
+This result has now been independently reproduced through GitHub Actions on the exact R1 source commit; see `docs/PHASE0_R1_TEST_REPRODUCTION_2026-10-27.md`.
 
 ## Findings
 
@@ -66,4 +66,4 @@ The original fixes are present, but the following acceptance gates remain open:
 - F4/C1: verify manifest-to-trace completeness in both directions and make accounting/artifacts run-scoped or reset them deterministically.
 - Provenance: bump environment/evaluator/backend version identifiers after semantic changes and update config/cache metadata.
 
-The 104-pass test result remains executor-reported. Independent test execution was blocked by DNS resolution failure, and no GitHub check runs are recorded. No scientific experiments are authorized until the next independent review accepts the fixes.
+The existing suite was independently reproduced: 104 passed in 0.24s on source commit `ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9` in GitHub Actions ([run 40441941389](https://github.com/yujian777555/agentfotagent/actions/runs/40441941389)). The original implementation commit has no check run attached; the reproduction ran from an isolated workflow branch and explicitly checked out that exact source SHA. The suite passing does not cover the residual adversarial cases listed above. No scientific experiments are authorized until the next independent review accepts the fixes.

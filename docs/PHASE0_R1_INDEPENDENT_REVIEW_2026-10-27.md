@@ -5,7 +5,7 @@
 - Corrective implementation commit: ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9
 - Verdict: **REQUEST CHANGES — Phase-0 remains unaccepted**
 - Review type: independent static source and regression-test review through the GitHub repository connector.
-- Test status: executor reports python -m pytest tests -q → 104 collected, all passing. This reviewer did not independently rerun pytest: git clone failed because the audit environment could not resolve github.com; GitHub check-runs for the implementation commit report zero checks. Do not describe the 104-test result as independently reproduced.
+- Test status: independently reproduced on GitHub Actions run [40441941389](https://github.com/yujian777555/agentfotagent/actions/runs/40441941389): `python -m pytest tests -o addopts='' -q -ra` → **104 passed in 0.24s**, Python 3.11.17 on Ubuntu. The workflow explicitly checked out source commit `ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9`; see `docs/PHASE0_R1_TEST_REPRODUCTION_2026-10-27.md`. The original commit itself has no attached check run; this independent run was triggered from an isolated audit branch. Passing existing tests does not resolve the residual static-review findings below.
 - No code was modified in the implementation by this review; no live API, GPU, MetaBox or scientific experiment was run.
 
 ## What is genuinely improved
@@ -115,8 +115,23 @@ Environment, evaluator and mock-backend behavior changed in Phase-0-R1, but the 
 
 1. Fix R1-01 through R1-06 and add targeted regression tests.
 2. Bump environment/evaluator/backend version identifiers and update cache/config/provenance metadata.
-3. Run python -m pytest tests -q in a reachable environment; record exact commit SHA and output. The previous 104-pass result remains executor-reported.
+3. After fixing the residual findings, rerun the full suite on the corrected source commit and record the exact SHA/output. The current R1 source suite has already been independently reproduced (104 passed in 0.24s; run 40441941389), but that run does not test the yet-unfixed adversarial cases.
 4. Update docs/PHASE0_R1_AUDIT_RESPONSE.md, planner/latest_plan.md, status.json and the environment spec.
 5. Push the corrective commit, verify HEAD == origin/main, and stop for independent review.
 
 **Stop condition:** no transfer experiments, MetaBox meta-training, live LLM API calls, GPU runs or scientific baseline comparisons until the next independent review accepts Phase-0.
+
+
+## Test reproduction update — 2026-10-27
+
+A GitHub Actions run was created on the isolated branch `audit/reproduce-phase0-r1-tests`. The workflow checkout then detached to the exact corrective source commit `ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9` before installing dependencies or running tests.
+
+- Run: https://github.com/yujian777555/agentfotagent/actions/runs/40441941389
+- Workflow branch commit: `146710f6e23b86eb1907c5c1c7115ed6d11b6f82`
+- Source commit tested: `ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9`
+- Runtime: Ubuntu GitHub-hosted runner, Python 3.11.17
+- Command: `python -m pytest tests -o addopts='' -q -ra`
+- Result: **104 passed in 0.24s**, exit status 0
+- Artifact: https://github.com/yujian777555/agentfotagent/actions/runs/40441941389/artifacts/12706387658
+
+This independently confirms that the existing 104-test suite passes on the R1 source tree. It does **not** establish that the suite covers all adversarial cases identified in this report. Verdict remains **REQUEST CHANGES** until R1-01 through R1-06 are fixed and reviewed. No live API, GPU, MetaBox, transfer or scientific experiment was run.

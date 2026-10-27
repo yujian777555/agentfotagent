@@ -231,9 +231,21 @@ Residual findings:
 
 The original F1-F5 fixes are useful progress, but Phase-0 is not accepted until these residual paths have regression coverage and pass independent review. No scientific experiments, live APIs, GPU runs, transfer experiments or MetaBox meta-training are authorized.
 
-### 8.4 Phase-0-R2 residual fixes (2026-10-27)
+### 8.4 Independent test reproduction of the R1 source tree (2026-10-27)
 
-Response to docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md. Residual findings only:
+The existing R1 engineering suite (104 tests) was independently reproduced on GitHub Actions against exact source commit `ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9`.
+
+- Run: https://github.com/yujian777555/agentfotagent/actions/runs/40441941389
+- Environment: Ubuntu GitHub-hosted runner, Python 3.11.17
+- Command: `python -m pytest tests -o addopts='' -q -ra`
+- Result: **104 passed in 0.24s** (exit status 0)
+- Detailed record: [PHASE0_R1_TEST_REPRODUCTION_2026-10-27.md](PHASE0_R1_TEST_REPRODUCTION_2026-10-27.md)
+
+This confirms only that the then-existing engineering suite passes on the R1 source tree. The static-review residual defects identified after that run were addressed in Phase-0-R2 (below) and still require independent review of the R2 tree. Mock-backend results are not Agent capability evidence. No live API, GPU, MetaBox, transfer or scientific experiment was run.
+
+### 8.5 Phase-0-R2 residual fixes (2026-10-27)
+
+Response to docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md. Residual findings only. These fixes are on the R2 source tree and are **not** the same as the 104-test R1 reproduction in section 8.4.
 
 - R1-01: RuntimeTask.runtime_id is opaque; evaluation task_id stays on TaskInstance; payload tests scan serialized values for family/split/seed leaks.
 - R1-02: verification for relay_route compares public frequency to the value derived from observed note fragments.
@@ -242,5 +254,6 @@ Response to docs/PHASE0_R1_INDEPENDENT_REVIEW_2026-10-27.md. Residual findings o
 - R1-05: reconstruct_from_artifacts enforces exact trace/score bijection (raises ReconstructionError otherwise); cache retains traces; begin_run resets run-scoped traces and accounting.
 - R1-06: versions advanced to aes-tool-world-v2 / aes-evaluator-v2 / mock-engineering-v2 / aes-task-gen-v2; run manifests record source_commit_sha.
 
-Still engineering-only. No scientific experiments authorized.
+R2 executor test result (mock backend, engineering-only): see docs/PHASE0_R2_AUDIT_RESPONSE.md and status.json. This is **not** Agent capability evidence and is **not** an independent reproduction of the R2 tree.
 
+Still engineering-only. No scientific experiments authorized. Phase-0 remains unaccepted pending independent review of the R2 tree.
