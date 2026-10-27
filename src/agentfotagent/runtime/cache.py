@@ -48,6 +48,7 @@ class EvaluationCache:
 
     _store: Dict[str, EpisodeResult] = field(default_factory=dict)
     _key_meta: Dict[str, Dict[str, Any]] = field(default_factory=dict)
+    _traces: Dict[str, Any] = field(default_factory=dict)
 
     def get(self, key: str, *, expected_split: Optional[str] = None) -> Optional[EpisodeResult]:
         if key not in self._store:
@@ -59,9 +60,14 @@ class EvaluationCache:
             )
         return self._store[key]
 
-    def put(self, key: str, result: EpisodeResult, *, meta: Mapping[str, Any]) -> None:
+    def get_trace(self, key: str) -> Optional[Any]:
+        return self._traces.get(key)
+
+    def put(self, key: str, result: EpisodeResult, *, meta: Mapping[str, Any], trace: Any = None) -> None:
         self._store[key] = result
         self._key_meta[key] = dict(meta)
+        if trace is not None:
+            self._traces[key] = trace
 
     def __len__(self) -> int:
         return len(self._store)

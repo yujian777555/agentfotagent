@@ -49,10 +49,10 @@ def test_cache_key_includes_split_and_content():
         task_content_hash="h1",
         split="train",
         genome_hash="g1",
-        backend_id="mock-engineering-v1",
+        backend_id="mock-engineering-v2",
         config_hash="c1",
-        environment_version="aes-tool-world-v1",
-        evaluator_version="aes-evaluator-v1",
+        environment_version="aes-tool-world-v2",
+        evaluator_version="aes-evaluator-v2",
     )
     k_train = make_cache_key(**base)
     k_dev = make_cache_key(**{**base, "split": "dev"})

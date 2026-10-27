@@ -60,19 +60,19 @@ def test_run_manifest_records_provenance():
     task = generate_task("relay_route", 1, "held_out")
     g = make_genome()
     ok, tr, payload = run_episode(task, g, seed=1)
-    config = {"protocol": "phase0", "backend": "mock-engineering-v1"}
+    config = {"protocol": "phase0", "backend": "mock-engineering-v2"}
     result = payload["episode_result"]
 
     manifest = build_run_manifest(
         run_id="test-run-1",
         algorithm="random_search",
-        backend_id="mock-engineering-v1",
+        backend_id="mock-engineering-v2",
         seed=1,
         config=config,
         task_manifest_hash=manifest_hash([task_to_manifest_entry(task)]),
         genome_hash=genome_hash(g),
-        environment_version="aes-tool-world-v1",
-        evaluator_version="aes-evaluator-v1",
+        environment_version="aes-tool-world-v2",
+        evaluator_version="aes-evaluator-v2",
         generator_version=task.generator_version,
         max_steps=task.runtime.max_steps,
         episodes=[tr],

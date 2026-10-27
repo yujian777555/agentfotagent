@@ -4,15 +4,19 @@ Both RandomSearch and ConventionalEA call ``shared_evaluate_genome`` which uses
 the same normalized genome space, the same environment, the same evaluator and
 the same max-step budget.
 
-Phase-0-R1: actual EpisodeTrace objects are retained per evaluation so run
+Phase-0-R1/R2: actual EpisodeTrace objects are retained per evaluation so run
 artifacts can be serialized, reloaded and used to reconstruct every score.
+Run-scoped state is reset when a new run begins so sequential runs cannot mix
+traces or accounting counters.
 """
 from __future__ import annotations
 
+import subprocess
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Tuple
 
 from ..environments.tool_world import ToolWorld, TOOL_WORLD_VERSION
+from ..evaluation.evaluator import EVALUATOR_VERSION
 from ..evaluation.evaluator import StateBasedEvaluator
 from ..evaluation.provenance import (
     EpisodeTrace,
@@ -26,7 +30,20 @@ from ..runtime.cache import EvaluationCache, make_cache_key
 from ..runtime.mock_backend import MOCK_BACKEND_ID, run_episode
 
 
-EVALUATOR_VERSION = "aes-evaluator-v1"
+def _source_commit_sha() -> str:
+    try:
+        out = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+            check=False,
+        )
+        if out.returncode == 0:
+            return out.stdout.strip()
+    except Exception:
+        pass
+    return "unknown"
 
 
 @dataclass
@@ -38,6 +55,13 @@ class EvaluationAccounting:
     cache_hits: int = 0
     actual_episode_executions: int = 0
     task_evaluations: int = 0
+
+    def reset(self) -> None:
+        self.candidate_proposals = 0
+        self.unique_genomes = 0
+        self.cache_hits = 0
+        self.actual_episode_executions = 0
+        self.task_evaluations = 0
 
     def to_dict(self) -> Dict[str, int]:
         return {
@@ -58,10 +82,23 @@ class BaselineHarness:
     config: Mapping[str, Any] = field(default_factory=dict)
     cache: EvaluationCache = field(default_factory=EvaluationCache)
     backend_id: str = MOCK_BACKEND_ID
+    # Run-scoped state: reset by begin_run().
     accounting: EvaluationAccounting = field(default_factory=EvaluationAccounting)
-    # key -> actual EpisodeTrace (never a synthetic stand-in)
     trace_store: Dict[str, EpisodeTrace] = field(default_factory=dict)
     _seen_genome_hashes: set = field(default_factory=set)
+    _last_records: List[SearchRecord] = field(default_factory=list)
+    _run_id: str = ""
+    _source_sha: str = ""
+
+    def begin_run(self, run_id: str = "") -> str:
+        """Reset run-scoped traces and accounting (R1-05 isolation)."""
+        self.accounting.reset()
+        self.trace_store = {}
+        self._seen_genome_hashes = set()
+        self._last_records = []
+        self._run_id = run_id or "run"
+        self._source_sha = _source_commit_sha()
+        return self._run_id
 
     def config_hash(self) -> str:
         return config_hash(self.config)
@@ -73,6 +110,8 @@ class BaselineHarness:
 
     def evaluate_genome(self, genome: Genome | Mapping[str, Any]) -> SearchRecord:
         """The single shared evaluator path used by every baseline algorithm."""
+        if not self._run_id:
+            self.begin_run("adhoc")
         g = normalize_genome(genome)
         gh = genome_hash(g)
         self.accounting.candidate_proposals += 1
@@ -94,6 +133,10 @@ class BaselineHarness:
             cached = self.cache.get(key, expected_split=task.split)
             if cached is not None:
                 self.accounting.cache_hits += 1
+                # Cache hits still require a real trace in the run artifact.
+                cached_trace = self.cache.get_trace(key)
+                if cached_trace is not None and key not in self.trace_store:
+                    self.trace_store[key] = cached_trace
                 results.append(cached)
                 continue
 
@@ -108,7 +151,6 @@ class BaselineHarness:
                 evaluator=ev,
             )
             result: EpisodeResult = payload["episode_result"]
-            # Retain the actual trace (not a synthetic replacement).
             self.trace_store[key] = trace
             self.cache.put(
                 key,
@@ -119,7 +161,9 @@ class BaselineHarness:
                     "genome_hash": gh,
                     "backend_id": self.backend_id,
                     "trace_key": key,
+                    "run_id": self._run_id,
                 },
+                trace=trace,
             )
             self.accounting.actual_episode_executions += 1
             results.append(result)
@@ -138,14 +182,16 @@ class BaselineHarness:
         )
 
     def run_algorithm(self, algorithm, budget: int) -> List[SearchRecord]:
-        return algorithm.run(self.evaluate_genome, budget)
+        self.begin_run(f"{algorithm.name}-{algorithm.seed}")
+        records = algorithm.run(self.evaluate_genome, budget)
+        self._last_records = records
+        return records
 
     def actual_traces(self) -> List[EpisodeTrace]:
         return list(self.trace_store.values())
 
     def build_manifest(self, algorithm_name: str, seed: int, records: Sequence[SearchRecord]) -> RunManifest:
-        """Build a run manifest from actual traces produced by evaluations."""
-        # Representative genome: the best-scoring record (not merely the first).
+        """Build a run manifest from actual traces produced by this run's evaluations."""
         if records:
             best = max(records, key=lambda r: (r.success_rate, r.successes, r.genome_hash))
             rep_hash = best.genome_hash
@@ -162,7 +208,6 @@ class BaselineHarness:
                     continue
                 seen_task_genome.add(pair)
                 results.append(er)
-                # Locate the actual trace for this evaluation.
                 for key, tr in self.trace_store.items():
                     if tr.task_id == er.task_id and tr.genome_hash == er.genome_hash:
                         episodes.append(tr)
@@ -185,22 +230,28 @@ class BaselineHarness:
             results=results,
             engineering_only=True,
             accounting=self.accounting.to_dict(),
+            source_commit_sha=self._source_sha or _source_commit_sha(),
         )
 
     def serialize_run_artifacts(self, algorithm_name: str, seed: int) -> Dict[str, Any]:
-        """Serializable run artifact: manifest + actual traces + task map."""
-        records = getattr(self, "_last_records", [])
+        """Serializable run artifact: manifest + this run's actual traces + accounting."""
+        records = self._last_records
         manifest = self.build_manifest(algorithm_name, seed, records)
         return {
             "manifest": manifest.to_dict(),
             "traces": [t.to_dict() for t in self.actual_traces()],
             "accounting": self.accounting.to_dict(),
             "task_manifest_hash": self.task_manifest_hash(),
+            "run_id": self._run_id,
+            "source_commit_sha": self._source_sha or _source_commit_sha(),
+            "environment_version": TOOL_WORLD_VERSION,
+            "evaluator_version": EVALUATOR_VERSION,
+            "backend_id": self.backend_id,
         }
 
     def run_and_collect(self, algorithm, budget: int) -> Dict[str, Any]:
         """Run an algorithm and return serializable artifacts from actual traces."""
-        self._last_records = algorithm.run(self.evaluate_genome, budget)
+        self.run_algorithm(algorithm, budget)
         return self.serialize_run_artifacts(algorithm.name, algorithm.seed)
 
 
