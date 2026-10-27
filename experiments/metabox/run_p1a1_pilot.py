@@ -43,6 +43,7 @@ from experiments.metabox.controlled_de import run_controlled_de  # noqa: E402
 from experiments.metabox.p1a1_agent_controller import (  # noqa: E402
     AgentAPIError,
     BudgetExceeded,
+    HintOnlyController,
     LLMBackend,
     LLMStats,
     P1A1AgentController,
@@ -100,6 +101,7 @@ def build_methods(llm_available: bool):
     methods.append(("fixed_explore_de", "controlled", ctrl_b))
     methods.append(("stagnation_heuristic", "controlled", StagnationHeuristicController()))
     methods.append(("random_valid_controller", "controlled", RandomValidController(7)))
+    methods.append(("hint_only", "controlled", HintOnlyController()))
     if llm_available:
         methods.append(("llm_agent", "controlled", "LLM"))
     return methods
