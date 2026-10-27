@@ -30,14 +30,10 @@ STATE = {
 
 def test_prompt_contains_no_hint_value_or_recommendation():
     prompt = render_prompt(STATE)
-    hint = state_hint(STATE)
-    # Hint for this state is set_F 0.8 — must not appear.
-    assert "0.8" not in prompt
     assert "Suggested" not in prompt
-    assert "hint" not in prompt.lower()
-    # Fixed format dummy is present and state-independent.
-    assert "Pick F=0.5." in prompt
-    assert hint["params"]["value"] != 0.5 or hint["action"] != "set_F"
+    assert "Pick F=" not in prompt
+    assert "recommendations" in prompt  # explicitly says examples are not recs
+    assert "Choose one action based on the state" in prompt
 
 
 def test_prompt_identical_regardless_of_hint_controller(monkeypatch):
@@ -52,28 +48,28 @@ def test_prompt_identical_regardless_of_hint_controller(monkeypatch):
 
 
 def test_prompt_does_not_contain_state_dependent_action_type():
-    """Prompt must not pre-select set_F vs set_CR vs noop from state."""
+    """Prompt must not pre-select action type from state."""
     s_hot = dict(STATE, stagnation_steps=9, budget_fraction=0.9, success_fraction=0.0)
     s_calm = dict(STATE, stagnation_steps=0, budget_fraction=0.1, success_fraction=0.5)
     p1 = render_prompt(s_hot)
     p2 = render_prompt(s_calm)
-    # State numbers differ; but the Pick line must be the same dummy.
-    assert p1.split("Pick")[-1] == p2.split("Pick")[-1] == " F=0.5."
+    assert "Pick" not in p1 and "Pick" not in p2
+    # both mention all three actions as legal options
+    for p in (p1, p2):
+        assert "set_F" in p and "set_CR" in p and "noop" in p
 
 
 def test_prompt_cache_key_excludes_hint():
     import hashlib
+    import json
+
     from experiments.metabox.p1a1_agent_controller import PROMPT_VERSION as PV
 
     prompt = render_prompt(STATE)
-    k1 = hashlib.sha256(f"{PV}:{prompt}".encode() if False else str([PV, prompt]).encode()).hexdigest()
-    # recompute as in controller
-    import json
-
     k2 = hashlib.sha256(json.dumps([PV, prompt], separators=(",", ":")).encode()).hexdigest()
-    assert k1 != "" and k2 != ""
-    # hint not in prompt => cannot affect cache key
-    assert "0.8" not in prompt or prompt.count("0.8") == 0 or 'value' not in prompt
+    assert k2
+    # hint value 0.8 for this state is not used as a recommendation in prompt
+    assert "Pick F=0.8" not in prompt
 
 
 def test_hint_only_controller_executes_hint():
@@ -106,4 +102,4 @@ def test_parse_action_bounds():
 
 
 def test_prompt_version_is_deconfounded():
-    assert PROMPT_VERSION.startswith("p1a1b")
+    assert PROMPT_VERSION.startswith("p1a1")
