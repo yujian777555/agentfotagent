@@ -59,3 +59,12 @@
 ## D-017 — R3 test reproduction passes, but environment remains unaccepted
 
 2026-10-27. Independent GitHub Actions run 40459330792 checked out exact R3 candidate source `cd07249a1b4675354b01f9d5ac09ab2ffe4d2033` and reproduced 162 passing tests in 0.87s on Python 3.10.22. Further probes found that integer `success=1` is accepted in place of boolean true, unknown score fields are accepted, and key_crate can succeed with missing crate/surface locations. The original counterexample probe also masks failures for R3-01/R3-04 by treating generic exceptions/assertions as PASS. Phase-0 remains REQUEST CHANGES. Fix R3-05..R3-08, add regression tests, reproduce and seek independent review. No live API, GPU, MetaBox or scientific experiments are authorized.
+
+
+## D-018 — R4 candidate accepted for engineering gate only
+
+2026-10-27. Independent static review of `phase0-r4-fixes@3e48bf5305ba667490358c140dad556f1ebf84e2` plus hosted CI run 40462185561 confirms 189 full-suite tests, 62 targeted tests, and 7/7 adversarial probes pass. R4-01 strict bool, R4-02 closed score schema, R4-03 key_crate location contract and R4-04 probe failure semantics are accepted for the engineering gate. The candidate is not yet merged into main. This does not establish Agent capability or scientific validity. Review: `docs/PHASE0_R4_INDEPENDENT_REVIEW_2026-10-27.md`.
+
+## D-019 — Saturated surrogate transfer pilot is NO-GO; return to MetaBox source-domain validation
+
+2026-10-27. The Phase-1 debug pilot reaches 1.0 best success rate in all arms; all 16 genotypes solve all six small train tasks. Mean steps differ, but the EA selection objective does not optimize that secondary metric. The source allele prior is hand-written and is not MetaBox output or Agent-generated strategy knowledge. Do not scale this pilot or claim transfer benefit. Next, validate an Agent-generated constrained controller on MetaBox-v2 against strong EC/LLM-assisted baselines and held-out tasks. Only if that gate passes should the same explicit controller be transferred to AES; bidirectional feedback remains conditional on positive transfer evidence. No live API calls without explicit budget approval.

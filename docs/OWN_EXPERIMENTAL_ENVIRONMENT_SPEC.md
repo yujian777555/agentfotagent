@@ -290,3 +290,12 @@ The candidate is **REQUEST CHANGES / NOT ACCEPTED** due to uncovered cases:
 - `tests/probe_r2_counterexamples.py` catches generic exceptions and assertion errors as PASS, making its R3-01 and R3-04 results false-positive-prone.
 
 See `docs/PHASE0_R3_INDEPENDENT_REVIEW_2026-10-27.md` and `docs/PHASE0_R3_TEST_REPRODUCTION_2026-10-27.md`. The next corrective pass must add strict schema validation, location validation, and a tested probe harness. No live API, GPU, MetaBox, transfer or scientific baseline experiment is authorized before acceptance.
+
+
+### 8.7 Independent Phase-0-R4 review (2026-10-27)
+
+The R4 candidate at `3e48bf5305ba667490358c140dad556f1ebf84e2` passed hosted CI run 40462185561: 189 tests passed in 0.64s, 62 targeted tests passed in 0.25s, and all 7 counterexample probes passed. Independent source review accepts the candidate for the engineering gate only. See `docs/PHASE0_R4_INDEPENDENT_REVIEW_2026-10-27.md`.
+
+This acceptance is limited to the mock-backed environment, phenotype execution path, evaluator and trace/score reconstruction. It is not Agent capability evidence or scientific validation. The candidate remains on `phase0-r4-fixes` pending controlled integration into main; preserve all R1–R3 audit records. A non-blocking recommendation is to strengthen the probe harness test by substituting a genuinely vulnerable evaluator in the test and invoking the real probe end-to-end.
+
+The pre-acceptance Phase-1 transfer pilot is `NO_GO_OR_PIVOT`: success rate is saturated across all 16 genotypes on six small tasks, and its source prior is a hand-coded surrogate rather than MetaBox or Agent-generated knowledge. Do not expand that pilot. Follow the project charter order: first validate Agent-assisted EC on MetaBox-v2, then test transfer of the same explicit controller object to AES only if the source-domain gate passes. No live API calls until budget and scope are approved.

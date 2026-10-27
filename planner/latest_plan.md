@@ -169,3 +169,14 @@ Required next pass:
 Exact R3 candidate source `cd07249a1b4675354b01f9d5ac09ab2ffe4d2033` was independently tested in GitHub Actions run 40459330792: **162 passed in 0.87s** on Python 3.10.22. The candidate remains **REQUEST CHANGES / NOT ACCEPTED** because independent adversarial probes found: (1) persisted `success=True` changed to integer `1` is accepted by reconstruction; (2) unknown score fields are accepted; (3) key_crate succeeds when crate/surface location fields are missing. In addition, `tests/probe_r2_counterexamples.py` falsely reports PASS for both vulnerable and correct outcomes on R3-01 and R3-04 due to its exception handler. Details: `docs/PHASE0_R3_INDEPENDENT_REVIEW_2026-10-27.md`.
 
 Next: fix R3-05 through R3-08, add regression tests including a self-test of the probe harness, rerun the full suite and independent review. Do not merge to main or start scientific experiments.
+
+
+## Phase-0-R4 independent review and Phase-1 pivot — 2026-10-27
+
+The exact candidate `3e48bf5305ba667490358c140dad556f1ebf84e2` on `phase0-r4-fixes` passed hosted CI run 40462185561: 189 tests passed in 0.64s; 62 targeted tests passed in 0.25s; original/R4 counterexample probes 7/7 PASS. Independent static review accepts this candidate for the **engineering gate only**. The source has not been merged into main; integrate it while preserving the R1–R3 audit trail. Review: `docs/PHASE0_R4_INDEPENDENT_REVIEW_2026-10-27.md`.
+
+The Phase-1 pilot is **NO_GO_OR_PIVOT** for the current transfer setup: all 16 genotypes solved all six small train tasks, the primary success metric is saturated, and the source prior is a hand-written surrogate rather than MetaBox or an Agent-generated controller. Do not scale this pilot.
+
+Next sequence: (1) integrate R4 to main; (2) define and review Phase-1A on MetaBox-v2 where an Agent diagnoses real evolutionary trajectories and proposes constrained controller changes; (3) compare to strong EC and LLM-assisted baselines on held-out tasks; (4) only if Phase-1A is positive, test transfer of the same explicit controller to AES; (5) only if transfer is reproducible, test bidirectional feedback. The pilot review is `docs/PHASE1_PILOT_REVIEW_2026-10-27.md`.
+
+No live LLM API calls until a call/token/cost budget is explicitly approved. Do not use mock results as scientific evidence.
