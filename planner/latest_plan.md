@@ -216,3 +216,10 @@ Blocking follow-up is documented in `docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.m
 During source-level review, a blocking loader defect was found in `experiments/metabox/adapter.py::load_function`: it calls the pinned MetaBox factory with `difficulty="all"`, which ignores the passed user function-ID lists and returns all 24 BBOB functions; the adapter then selects `train_set[0]` (F1) but records the requested ID. The reported F6 runs are therefore mislabeled F1 runs. The 1,500-FE accounting and same-seed reproducibility remain useful generic DE smoke evidence, but no function-specific score or split claim is accepted.
 
 The P0 review was updated in `docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.md`. **P0 is REQUEST CHANGES; P1A-1 is blocked.** First correct the selector and test actual F1/F6/F24 identity, then regenerate all artifacts. Next correct misleading range action semantics, implement or remove unsupported dynamic actions, version the split without overwriting the invalidated split-v1 artifacts, complete environment provenance, and add exact-SHA CI. No Agent API or AES transfer experiment until re-review.
+
+## Phase-1A P0-R1 corrective pass — 2026-10-27
+
+Branch \phase1a-p0-r1\. Fixed P0-R1-00 function identity (explicit user-list loader + class-name verification), P0-R1-01 scalar F/CR actions (DSL v2), P0-R1-02 live trajectory controller hooks in controlled_de, P0-R1-03 fail-closed unsupported actions, P0-R1-04 stratified split_v2 (difficult 4/2/2), P0-R1-05 full freeze lock, P0-R1-06 CI workflow. Old F6 artifact marked INVALIDATED. Response: docs/PHASE1A_P0_R1_REVIEW_RESPONSE.md.
+
+**Status: P0-R1 FIXES IMPLEMENTED.** Awaiting Planner re-review. P1A-1 blocked.
+

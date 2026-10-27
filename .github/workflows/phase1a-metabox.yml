@@ -1,0 +1,58 @@
+name: phase1a-metabox
+
+on:
+  push:
+    branches: ["phase1a-p0-r1", "phase1a-metabox-smoke"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git ref/SHA to test"
+        required: false
+        default: ""
+
+jobs:
+  project-suite:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Record SHA
+        run: |
+          echo "Testing commit: $(git rev-parse HEAD)"
+      - name: Install pytest
+        run: python -m pip install pytest
+      - name: Project unit tests (DSL etc)
+        run: python -m pytest tests/test_controller_dsl.py tests/test_p0r1_metabox_fixes.py -o addopts='' -q -ra
+
+  metabox-integration:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.sha }}
+      - name: Record SHA
+        run: |
+          echo "Testing commit: $(git rev-parse HEAD)"
+      - name: Install uv
+        run: pip install uv
+      - name: Create MetaBox venv (pinned)
+        run: |
+          uv venv metabox-env --python 3.11
+          uv pip install --python metabox-env/Scripts/python.exe metaevobox==2.0.2
+          uv pip install --python metabox-env/Scripts/python.exe pytest
+      - name: Integration tests
+        run: |
+          metabox-env/Scripts/python.exe -m pytest tests/test_metabox_integration.py tests/test_p0r1_metabox_fixes.py tests/test_controller_dsl.py -o addopts='' -q -ra
+      - name: Upload smoke manifest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase1a-smoke-manifest
+          path: results/phase1a_smoke/
+          if-no-files-found: ignore

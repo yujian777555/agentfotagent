@@ -1,0 +1,16 @@
+﻿{
+  "phase": "phase1a-metabox-smoke",
+  "optimizer": "DE",
+  "problem_suite": "bbob-10D",
+  "function_id": 6,
+  "max_fes": 1500,
+  "seeds": [11, 22, 33],
+  "controllers": ["fixed_classic_de", "fixed_explore_de"],
+  "objective_direction": "minimize",
+  "split": {
+    "train_functions": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "val_functions": [13, 14, 15, 16, 17, 18],
+    "held_out_functions": [19, 20, 21, 22, 23, 24]
+  },
+  "notes": "Engineering smoke only. No LLM API. No scientific claims."
+}

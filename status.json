@@ -4,8 +4,8 @@
   "default_branch": "main",
   "last_updated": "2026-10-27",
   "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
-  "current_phase": "Phase-1A P0 requires critical function-loader correction and controller-semantic fixes",
-  "phase_status": "P0_REQUEST_CHANGES_CRITICAL_FUNCTION_ID_BUG; P1A1_BLOCKED; NO_LIVE_API",
+  "current_phase": "Phase-1A P0-R1: MetaBox function identity and controller semantics fixes",
+  "phase_status": "P0_R1_FIXES_IMPLEMENTED; AWAITING_PLANNER_REVIEW; P1A1_BLOCKED",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
@@ -36,7 +36,9 @@
     "phase1A": "NOT_STARTED; next gate is Agent-assisted EC on MetaBox-v2 with explicit controller object, strong baselines, validation/test separation and approved API budget",
     "phase1a_p0_planner_review": "REQUEST CHANGES. Critical source-audit finding: load_function(function_id) passes difficulty='all'; pinned MetaBox BBOB factory ignores user function lists in this branch and returns all 24 functions; adapter selects train_set[0]=F1 but labels it with requested ID. Reported F6 runs are actually F1. FE counts/reproducibility remain generic smoke evidence only. See docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.md.",
     "phase1a_smoke": "Executor reports 198 passed/1 skipped locally, plus 15 targeted tests. No Actions run found for feature branch. Existing tests do not verify actual underlying BBOB function identity; loader bug means function-specific results are invalidated.",
-    "phase1a": "P0-R1 required, first fix actual function ID selection and add F1/F6/F24 identity regression tests; then correct action semantics, add real trace-conditioned hooks or narrow DSL, preserve split_v1 and verify stratified split_v2, complete environment lock and add exact-SHA CI. P1A-1 Agent pilot BLOCKED."
+    "phase1a": "P0-R1 required, first fix actual function ID selection and add F1/F6/F24 identity regression tests; then correct action semantics, add real trace-conditioned hooks or narrow DSL, preserve split_v1 and verify stratified split_v2, complete environment lock and add exact-SHA CI. P1A-1 Agent pilot BLOCKED.",
+    "metabox_integration": "metaevobox 2.0.2 SHA 5565a281; function identity verified via class name F{id}; split_v2 stratified 12/6/6 difficult 4/2/2; controlled_de live trajectory hooks; official DE baseline unchanged",
+    "phase1a_tests": "metabox-env 208 passed; project py 189 passed + 1 skip"
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
@@ -53,12 +55,9 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Fix load_function so difficulty='all' does not override the requested function ID; verify underlying F1/F6/F24 identities directly against pinned MetaBox",
-    "Regenerate smoke artifacts under a new run ID and add regression tests that prevent mislabeled problem instances",
-    "Correct F/CR range semantics; add actual trajectory-conditioned controller hooks or restrict actions to those supported end-to-end",
-    "Preserve split_v1, verify and freeze stratified split_v2 before any Agent proposal",
-    "Complete environment lock/provenance and add exact-SHA CI for the MetaBox runtime and full project suite",
-    "Request Planner re-review; do not start Agent API pilot, MetaBBO meta-training, or AES transfer"
+    "Planner re-review of phase1a-p0-r1 (function identity, controller live hooks, split_v2, lock, CI)",
+    "P1A-1 Agent pilot remains BLOCKED until acceptance",
+    "No LLM API / MetaBBO meta-training / AES transfer"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -83,11 +82,12 @@
     "phase1_pilot_review": "docs/PHASE1_PILOT_REVIEW_2026-10-27.md",
     "phase0_r4_audit_response": "docs/PHASE0_R4_AUDIT_RESPONSE.md",
     "phase1a_metabox_protocol": "docs/PHASE1A_METABOX_PROTOCOL.md",
-    "phase1a_p0_planner_review": "docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.md"
+    "phase1a_p0_planner_review": "docs/PHASE1A_P0_PLANNER_REVIEW_2026-10-27.md",
+    "phase1a_p0_r1_review_response": "docs/PHASE1A_P0_R1_REVIEW_RESPONSE.md"
   },
   "corrective_pass_commit": "1776e0f9f4cc606ae66eaeca20c833d72e3b7ab0",
   "current_reviewed_source_commit": "3e48bf5305ba667490358c140dad556f1ebf84e2",
-  "work_branch": "phase0-r4-fixes",
+  "work_branch": "phase1a-p0-r1",
   "reviewed_r3_source": "cd07249a1b4675354b01f9d5ac09ab2ffe4d2033",
   "reviewed_r4_source": "3e48bf5305ba667490358c140dad556f1ebf84e2",
   "integration_branch": "phase0-r4-integration",

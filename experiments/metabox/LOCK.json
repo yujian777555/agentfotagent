@@ -1,0 +1,23 @@
+{
+  "platform": "metaevobox",
+  "pypi_name": "metaevobox",
+  "version": "2.0.2",
+  "git_repo": "https://github.com/MetaEvo/MetaBox.git",
+  "git_ref": "v2.0.0",
+  "git_sha": "5565a281ce4e03efc1f6a41230507d5b66637ace",
+  "python": "3.11.15",
+  "venv": "D:/metabox-env",
+  "install_commands": [
+    "uv venv D:/metabox-env --python 3.11",
+    "uv pip install --python D:/metabox-env/Scripts/python.exe metaevobox==2.0.2",
+    "uv pip install --python D:/metabox-env/Scripts/python.exe --reinstall torch",
+    "uv pip install --python D:/metabox-env/Scripts/python.exe pytest",
+    "uv pip freeze --python D:/metabox-env/Scripts/python.exe > experiments/metabox/requirements-freeze.txt"
+  ],
+  "resolved_dependencies": "experiments/metabox/requirements-freeze.txt",
+  "objective_direction": "minimize",
+  "reported_cost_semantics": "official DE subtracts problem.optimum when present; cost curve is regret-like (objective - optimum) for biased BBOB",
+  "fe_accounting": "optimizer result['fes'] counts each individual eval; adapter independently wraps problem.eval",
+  "function_identity": "verified from loaded class name (F{id}); difficulty=None + user lists required (difficulty='all' ignores lists)",
+  "notes": "Official Config.init_config overwrites maxFEs by suite (bbob-10D -> 20000). Adapter sets maxFEs AFTER Config() for the experiment budget."
+}
