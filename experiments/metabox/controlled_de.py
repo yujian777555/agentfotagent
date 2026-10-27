@@ -70,6 +70,8 @@ def _features(
     diversity: float,
     prev_success_fraction: float,
     budget_fraction: float,
+    cur_F: float = 0.5,
+    cur_Cr: float = 0.5,
 ) -> Dict[str, float]:
     if len(best_history) >= 2 and abs(best_history[-2]) > 1e-12:
         improvement_rate = max(0.0, (best_history[-2] - best_history[-1]) / abs(best_history[-2]))
@@ -89,6 +91,9 @@ def _features(
         "population_diversity": float(diversity),
         "success_fraction": float(prev_success_fraction),
         "budget_fraction": float(budget_fraction),
+        "best": float(best_history[-1]),
+        "F": float(cur_F),
+        "CR": float(cur_Cr),
     }
 
 
@@ -172,6 +177,8 @@ def run_controlled_de(
                 diversity=_diversity(pop),
                 prev_success_fraction=prev_success_fraction,
                 budget_fraction=budget_fraction,
+                cur_F=cur_F,
+                cur_Cr=cur_Cr,
             )
             action = controller.select_action(state)
             effect = _apply_to_state(action)

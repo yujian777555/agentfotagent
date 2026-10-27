@@ -1,31 +1,27 @@
 import os, json, urllib.request
 
-def try_model(model, max_tokens, extra=None):
-    key = os.environ["DEEPSEEK_API_KEY"]
-    body = {
+key = os.environ["DEEPSEEK_API_KEY"]
+
+def call(model, prompt, max_tokens=256):
+    body = json.dumps({
         "model": model,
-        "messages": [{"role": "user", "content": "Return ONLY compact JSON {\"action\":\"set_F\",\"params\":{\"value\":0.7}} without any other text."}],
+        "messages": [{"role": "user", "content": prompt}],
         "max_tokens": max_tokens,
         "temperature": 0.0,
-    }
-    if extra:
-        body.update(extra)
+    }).encode()
     req = urllib.request.Request(
         "https://api.deepseek.com/v1/chat/completions",
-        data=json.dumps(body).encode(),
+        data=body,
         headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"},
         method="POST",
     )
-    try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            d = json.loads(r.read())
-        ch = d["choices"][0]["message"]
-        print(model, "max", max_tokens, "content=", repr(ch.get("content"))[:120],
-              "usage=", d.get("usage", {}).get("completion_tokens_details"))
-    except Exception as e:
-        print(model, "ERR", e)
+    with urllib.request.urlopen(req, timeout=45) as r:
+        d = json.loads(r.read())
+    msg = d["choices"][0]["message"]
+    print("MODEL", model, "MT", max_tokens)
+    print("  content", repr(msg.get("content"))[:250])
+    print("  usage", d.get("usage", {}).get("completion_tokens_details"))
 
-try_model("deepseek-flash", 128)
-try_model("deepseek-flash", 256)
-try_model("deepseek-v4-pro", 128)
-try_model("deepseek-v4-pro", 128, {"reasoning_effort": "low"})
+call("deepseek-v4-pro", "2+2=?", 64)
+call("deepseek-flash", "2+2=?", 64)
+call("deepseek-v4-pro", 'You are a controller. User gives state. You reply ONLY {"action":"set_F","params":{"value":V}}. State: gen=1 F=0.5 CR=0.5 stagn=3. Pick F=0.8.', 128)

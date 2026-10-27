@@ -173,6 +173,9 @@ def test_controller_state_has_no_hidden_optimum():
             "population_diversity",
             "success_fraction",
             "budget_fraction",
+            "best",
+            "F",
+            "CR",
         }
         assert "optimum" not in ev["state"]
         blob = str(ev["state"])

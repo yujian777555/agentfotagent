@@ -17,17 +17,15 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from .controller_dsl import DSL_VERSION, compile_controller, validate_controller_spec
 
-PROMPT_VERSION = "p1a1-agent-v2"
-MAX_OUTPUT_TOKENS = 256  # headroom for reasoning tokens; content kept short
+PROMPT_VERSION = "p1a1-agent-v3"
+MAX_OUTPUT_TOKENS = 192  # content is one JSON line; headroom for short reasoning
 MAX_REQUESTS = 100
 MAX_RETRIES = 1
 
-PROMPT_TEMPLATE = """Set DE params. JSON only, no markdown, no prose.
-Actions: set_F (0.1-1.0), set_CR (0.0-1.0), noop.
-State: {state}
-F={cur_F} CR={cur_Cr}
-Output exactly one JSON object like {{"action":"set_F","params":{{"value":0.6}}}}
-"""
+PROMPT_TEMPLATE = """You are a DE parameter controller. Reply ONLY with one JSON object, no markdown.
+Allowed: set_F value in [0.1,1.0], set_CR value in [0.0,1.0], or noop.
+State: gen={gen} F={cur_F} CR={cur_Cr} best={best} improve={imp} stag={stag} succ={succ} budget={budget} div={div}
+Pick a reasonable next parameter action."""
 
 
 class AgentAPIError(RuntimeError):
@@ -151,9 +149,15 @@ class P1A1AgentController:
     def select_action(self, state: MappingLike) -> Dict[str, Any]:
         state_d = dict(state)
         prompt = PROMPT_TEMPLATE.format(
-            state=json.dumps(state_d, separators=(",", ":")),
-            cur_F=state_d.get("F", "?"),
-            cur_Cr=state_d.get("CR", "?"),
+            gen=state_d.get("generation", 0),
+            cur_F=state_d.get("F", state_d.get("cur_F", 0.5)),
+            cur_Cr=state_d.get("CR", state_d.get("cur_Cr", 0.5)),
+            best=round(float(state_d.get("best", state_d.get("best_after", 0)) or 0), 4),
+            imp=round(float(state_d.get("improvement_rate", 0) or 0), 5),
+            stag=int(float(state_d.get("stagnation_steps", 0) or 0)),
+            succ=round(float(state_d.get("success_fraction", 0) or 0), 3),
+            budget=round(float(state_d.get("budget_fraction", 0) or 0), 3),
+            div=round(float(state_d.get("population_diversity", 0) or 0), 3),
         )
         cache_key = hashlib.sha256(
             json.dumps([PROMPT_VERSION, state_d], sort_keys=True, default=str).encode()
