@@ -124,7 +124,7 @@ def main() -> int:
 
     api_key = os.environ.get("DEEPSEEK_API_KEY") or ""
     llm_available = bool(api_key)
-    backend = LLMBackend(api_key=api_key, model="deepseek-flash") if llm_available else None
+    backend = LLMBackend(api_key=api_key, model="deepseek-v4-pro") if llm_available else None
     llm_status = "AVAILABLE" if llm_available else "LLM_EXPERIMENT_BLOCKED"
 
     methods = build_methods(llm_available)

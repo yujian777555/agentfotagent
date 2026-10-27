@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 import time
 import urllib.error
@@ -17,15 +18,35 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from .controller_dsl import DSL_VERSION, compile_controller, validate_controller_spec
 
-PROMPT_VERSION = "p1a1-agent-v3"
-MAX_OUTPUT_TOKENS = 192  # content is one JSON line; headroom for short reasoning
+PROMPT_VERSION = "p1a1-agent-v4"
+MAX_OUTPUT_TOKENS = 128
 MAX_REQUESTS = 100
 MAX_RETRIES = 1
 
-PROMPT_TEMPLATE = """You are a DE parameter controller. Reply ONLY with one JSON object, no markdown.
-Allowed: set_F value in [0.1,1.0], set_CR value in [0.0,1.0], or noop.
-State: gen={gen} F={cur_F} CR={cur_Cr} best={best} improve={imp} stag={stag} succ={succ} budget={budget} div={div}
-Pick a reasonable next parameter action."""
+PROMPT_TEMPLATE = (
+    "You are a DE parameter controller. "
+    'You reply ONLY one JSON object: {{"action":"set_F","params":{{"value":V}}}} '
+    'or {{"action":"set_CR","params":{{"value":V}}}} or {{"action":"noop","params":{{}}}}. '
+    "State: gen={gen} F={cur_F} CR={cur_Cr} stag={stag} succ={succ} budget={budget}. "
+    "Suggested action: {hint}. You may keep it or pick another valid action. Decide now."
+)
+
+
+def _state_hint(state_d: MappingLike) -> str:
+    """Deterministic suggestion used only as prompt scaffolding.
+
+    The model still emits the executed action; hint-vs-output divergence is logged.
+    """
+    stag = float(state_d.get("stagnation_steps", 0) or 0)
+    budget = float(state_d.get("budget_fraction", 0) or 0)
+    succ = float(state_d.get("success_fraction", 0) or 0)
+    if stag >= 5:
+        return '{"action":"set_F","params":{"value":0.8}}'
+    if budget >= 0.8:
+        return '{"action":"set_CR","params":{"value":0.3}}'
+    if succ <= 0.05:
+        return '{"action":"set_F","params":{"value":0.7}}'
+    return '{"action":"set_F","params":{"value":0.5}}'
 
 
 class AgentAPIError(RuntimeError):
@@ -65,7 +86,7 @@ class LLMStats:
 class LLMBackend:
     api_key: str
     base_url: str = "https://api.deepseek.com/v1"
-    model: str = "deepseek-flash"
+    model: str = "deepseek-v4-pro"
     stats: LLMStats = field(default_factory=LLMStats)
     cache: Dict[str, str] = field(default_factory=dict)
     log: List[Dict[str, Any]] = field(default_factory=list)
@@ -148,16 +169,19 @@ class P1A1AgentController:
 
     def select_action(self, state: MappingLike) -> Dict[str, Any]:
         state_d = dict(state)
+        # Compact numeric line — huge raw objectives are log-compressed so the
+        # reasoning model does not burn the token budget on long digits.
+        best_raw = float(state_d.get("best", 0) or 0)
+        best_log = round(math.log10(abs(best_raw) + 1.0), 3)
+        hint = _state_hint(state_d)
         prompt = PROMPT_TEMPLATE.format(
             gen=state_d.get("generation", 0),
             cur_F=state_d.get("F", state_d.get("cur_F", 0.5)),
             cur_Cr=state_d.get("CR", state_d.get("cur_Cr", 0.5)),
-            best=round(float(state_d.get("best", state_d.get("best_after", 0)) or 0), 4),
-            imp=round(float(state_d.get("improvement_rate", 0) or 0), 5),
             stag=int(float(state_d.get("stagnation_steps", 0) or 0)),
             succ=round(float(state_d.get("success_fraction", 0) or 0), 3),
             budget=round(float(state_d.get("budget_fraction", 0) or 0), 3),
-            div=round(float(state_d.get("population_diversity", 0) or 0), 3),
+            hint=hint,
         )
         cache_key = hashlib.sha256(
             json.dumps([PROMPT_VERSION, state_d], sort_keys=True, default=str).encode()
@@ -172,11 +196,13 @@ class P1A1AgentController:
                 {
                     "state": state_d,
                     "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
+                    "hint": _state_hint(state_d),
                     "raw_response": raw,
                     "action": action,
                     "meta": meta,
                     "valid": True,
                     "error": None,
+                    "deviates_from_hint": action != _parse_action(_state_hint(state_d)) if _state_hint(state_d).startswith("{") else None,
                 }
             )
             return action
