@@ -4,6 +4,7 @@ from .provenance import (
     EpisodeTrace,
     build_run_manifest,
     reconstruct_scores,
+    reconstruct_from_artifacts,
     config_hash,
 )
 
@@ -14,5 +15,6 @@ __all__ = [
     "EpisodeTrace",
     "build_run_manifest",
     "reconstruct_scores",
+    "reconstruct_from_artifacts",
     "config_hash",
 ]
