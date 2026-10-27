@@ -93,15 +93,13 @@ def test_normal_json_still_parses():
 
 
 def test_illegal_and_bounds_still_rejected():
+    import pytest
+
     from experiments.metabox.p1a1_agent_controller import parse_action
 
-    for bad in (
-        '{"action":"exec","params":{}}',
-        '{"action":"set_F","params":{"value":9}}',
-        '{"action":"set_CR","params":{"value":-1}}',
-    ):
-        try:
-            parse_action(bad)
-            raise AssertionError("should reject " + bad)
-        except Exception:
-            pass
+    with pytest.raises(Exception):
+        parse_action('{"action":"exec","params":{}}')
+    with pytest.raises(Exception):
+        parse_action('{"action":"set_F","params":{"value":9}}')
+    with pytest.raises(Exception):
+        parse_action('{"action":"set_CR","params":{"value":-1}}')

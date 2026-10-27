@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Mapping, Optional, Tuple
 
 from .controller_dsl import DSL_VERSION, validate_controller_spec
 
-PROMPT_VERSION = "p1a1d-agent-v1"
+PROMPT_VERSION = "p1a1d-agent-v1-flash"
 MAX_OUTPUT_TOKENS = 256
 MAX_REQUESTS = 140
 MAX_RETRIES = 1
@@ -80,7 +80,7 @@ class LLMStats:
 class LLMBackend:
     api_key: str
     base_url: str = "https://api.deepseek.com/v1"
-    model: str = "deepseek-v4-pro"
+    model: str = "deepseek-flash"
     stats: LLMStats = field(default_factory=LLMStats)
     cache: Dict[str, str] = field(default_factory=dict)
 
@@ -225,7 +225,7 @@ class P1A1AgentController:
         state_d = dict(state)
         prompt = render_prompt(state_d)
         cache_key = hashlib.sha256(
-            json.dumps([PROMPT_VERSION, prompt], separators=(",", ":")).encode()
+            json.dumps([PROMPT_VERSION, self.model, prompt], separators=(",", ":")).encode()
         ).hexdigest()
         raw = ""
         meta: Dict[str, Any] = {}
