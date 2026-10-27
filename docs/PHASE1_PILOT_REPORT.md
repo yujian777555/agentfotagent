@@ -36,5 +36,10 @@ transfer matrix on the saturated suite.
 ## Limitations
 
 - Pilot only; 3 seeds; mock policy; surrogate source (not MetaBox-v2).
-- Phase-0 remains NOT ACCEPTED pending R4 independent review.
+- Phase-0 R4 engineering gate has since been accepted and merged (PR #2; merge commit `9e59401dd78f4be830c45634767bd3f65fb4b4ed`). This does not upgrade the pilot to scientific evidence.
 - This is not Agent capability evidence and not a scientific result.
+
+
+## Follow-up decision
+
+The recorded pilot decision remains `NO_GO_OR_PIVOT`. Do not scale the hand-written surrogate transfer arm on the saturated task set. Next is Agent-assisted EC on MetaBox-v2; only a reproducible source-domain improvement justifies returning to cross-domain transfer.
