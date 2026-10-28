@@ -47,14 +47,12 @@ def test_immigrants_replace_without_shrink():
 
 
 def test_matched_schedule_independent_of_state():
-    # state event log with fires at gens 5,12
-    events = [{"gen": i, "fired": i in (5, 12)} for i in range(20)]
-    from experiments.metabox.agent_assisted_ec.run_phase1a4r_pilot import matched_schedule
+    from experiments.metabox.agent_assisted_ec.run_phase1a4r_pilot import matched_fe_schedule
 
-    sched, target = matched_schedule(events, seed=3, max_gen=20)
-    assert target == 2
-    assert len(sched) == 2 or len(sched) < 2  # cooldown may reduce
-    # schedule gens not derived from stall/div (no such fields used)
+    sched = matched_fe_schedule(3, seed=3, max_fes=500)
+    assert len(sched) == 3
+    assert all(s < 500 for s in sched)
+    # FE-based: independent of stall/diversity fields
 
 
 def test_state_trigger_logging_fields():

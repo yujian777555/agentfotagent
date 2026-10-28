@@ -30,21 +30,18 @@ def run_state(fid, seed, M, N, I):
     )
 
 
-def matched_schedule(state_events, seed, max_gen):
-    """Sample intervention generations matching state-fired count; no state reads."""
-    target = sum(1 for e in state_events if e.get("fired"))
+def matched_fe_schedule(target: int, seed: int, max_fes: int, cooldown_fe: int = 80):
+    """FE-based intervention schedule, independent of search state.
+
+    Samples FE thresholds from [init_N, max_fes) with cooldown in FE units so
+    the schedule is reachable under any generation trajectory.
+    """
     rng = random.Random(seed * 991 + 17)
-    candidates = list(range(COOLDOWN, max_gen - 1))
-    # enforce cooldown by sequential sampling
-    picks = []
-    cand = candidates[:]
-    while len(picks) < target and cand:
-        i = rng.randrange(len(cand))
-        g = cand.pop(i)
-        if picks and g - picks[-1] < COOLDOWN:
-            continue
-        picks.append(g)
-    return sorted(picks), target
+    lo, hi = NP + cooldown_fe, max_fes - 5
+    candidates = list(range(lo, hi, cooldown_fe))
+    rng.shuffle(candidates)
+    picks = sorted(candidates[:target])
+    return picks
 
 
 def main():
@@ -89,13 +86,13 @@ def main():
                     "primary": res.primary_metric, "fes": res.fes, "indep": res.independent_fes,
                     "n_fires": sum(1 for e in res.events if e.get("fired")), "status": "ok",
                 })
-            # matched random timing (count-matched to state full)
-            sched, target = matched_schedule(full.events, seed, max_gen=len(full.events))
+            # matched random timing (FE-based, count-matched to state full)
+            fe_sched = matched_fe_schedule(n_state, seed, MAX_FES)
             p = load_function(fid)
             mr = run_dpr_shade_like(
                 p._problem, max_fes=MAX_FES, seed=seed, np_init=NP,
                 use_M=True, use_N=True, use_I=True,
-                trigger_mode="matched", trigger_schedule=sched,
+                trigger_mode="matched_fe", trigger_fe_schedule=fe_sched,
                 gen_reset_min=COOLDOWN,
             )
             rows.append({
@@ -103,7 +100,9 @@ def main():
                 "metric": mr.best_regret if mr.best_regret is not None else mr.best_raw,
                 "primary": mr.primary_metric, "fes": mr.fes, "indep": mr.independent_fes,
                 "n_fires": sum(1 for e in mr.events if e.get("fired")),
-                "target_fires": target, "schedule": sched, "status": "ok",
+                "target_fires": n_state, "fe_schedule": fe_sched,
+                "schedule_match_ok": sum(1 for e in mr.events if e.get("fired")) == n_state,
+                "status": "ok",
             })
             # external baselines
             for name, opt in (("official_meta_de", "DE"), ("SHADE", "SHADE")):

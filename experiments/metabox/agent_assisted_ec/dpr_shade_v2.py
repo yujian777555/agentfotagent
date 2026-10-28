@@ -79,6 +79,7 @@ def run_dpr_shade_like(
     use_I: bool = True,
     trigger_mode: str = "state",
     trigger_schedule: Optional[Sequence[int]] = None,
+    trigger_fe_schedule: Optional[Sequence[int]] = None,
     theta_s: float = 0.05,
     stall_len: int = 5,
     quantile_window: int = 20,
@@ -117,6 +118,8 @@ def run_dpr_shade_like(
     k_pos = 0
 
     schedule = set(trigger_schedule or [])
+    fe_schedule = sorted(trigger_fe_schedule or [])
+    fe_ptr = 0
 
     try:
         pop = rng.uniform(lb, ub, size=(N, dim))
@@ -194,6 +197,13 @@ def run_dpr_shade_like(
                 fire = (stall_fire or div_fire) and cooldown_ok
             elif trigger_mode == "schedule":
                 fire = gen in schedule and cooldown_ok
+            elif trigger_mode == "matched_fe":
+                # FE-based timing: reachable under any generation trajectory.
+                fired_by_fe = False
+                while fe_ptr < len(fe_schedule) and fes >= fe_schedule[fe_ptr]:
+                    fe_ptr += 1
+                    fired_by_fe = True
+                fire = fired_by_fe and cooldown_ok
             elif trigger_mode == "matched":
                 fire = gen in schedule and cooldown_ok
             else:
