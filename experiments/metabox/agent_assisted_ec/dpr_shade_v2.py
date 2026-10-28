@@ -198,12 +198,19 @@ def run_dpr_shade_like(
             elif trigger_mode == "schedule":
                 fire = gen in schedule and cooldown_ok
             elif trigger_mode == "matched_fe":
-                # FE-based timing: reachable under any generation trajectory.
+                # FE-based timing. Thresholds are pre-spaced (>= cooldown_fe),
+                # so generation-cooldown must NOT discard them. Fire when fes
+                # crosses the next threshold; do not consume if it would
+                # violate FE cooldown (defensive).
                 fired_by_fe = False
                 while fe_ptr < len(fe_schedule) and fes >= fe_schedule[fe_ptr]:
-                    fe_ptr += 1
+                    if fe_ptr > 0 and (fe_schedule[fe_ptr] - fe_schedule[fe_ptr - 1]) < 1:
+                        fe_ptr += 1
+                        continue
                     fired_by_fe = True
-                fire = fired_by_fe and cooldown_ok
+                    fe_ptr += 1
+                    break  # exactly one fire per threshold
+                fire = fired_by_fe
             elif trigger_mode == "matched":
                 fire = gen in schedule and cooldown_ok
             else:
