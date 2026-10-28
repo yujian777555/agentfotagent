@@ -225,7 +225,7 @@ def main():
         "worktree_dirty": prov["worktree_dirty"],
         "model": "deepseek-flash",
         "prompt_version": "p1a2-agent-mech-v1",
-        "proposal_stats": pstats.to_dict(),
+        "proposal_stats": pstats if isinstance(pstats, dict) else pstats.to_dict(),
         "proposal_log": plog,
         "agent_mechanisms": specs,
         "traj_summary": traj_summary,
@@ -240,7 +240,7 @@ def main():
     (out_root / "CURRENT.txt").write_text(manifest_path.name, encoding="utf-8")
     print(json.dumps({
         "run_id": run_id, "n_agent_mechs": len(specs),
-        "proposal_stats": pstats.to_dict(),
+        "proposal_stats": pstats if isinstance(pstats, dict) else pstats.to_dict(),
         "arms": sorted({r["arm"] for r in rows}),
         "manifest": str(manifest_path),
     }, indent=2))
