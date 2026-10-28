@@ -1,0 +1,172 @@
+{
+  "rows": [
+    {
+      "arm": "fixed_classic",
+      "fid": 13,
+      "seed": 11,
+      "metric": 12516.22881914511,
+      "fes": 300
+    },
+    {
+      "arm": "deterministic",
+      "fid": 13,
+      "seed": 11,
+      "metric": 8687.018461002497,
+      "fes": 300
+    },
+    {
+      "arm": "agent_mech_3",
+      "fid": 13,
+      "seed": 11,
+      "metric": 6422.596666520554,
+      "fes": 300
+    },
+    {
+      "arm": "random_mech",
+      "fid": 13,
+      "seed": 11,
+      "metric": 10349.79166645104,
+      "fes": 300
+    },
+    {
+      "arm": "fixed_classic",
+      "fid": 13,
+      "seed": 22,
+      "metric": 13948.812305620584,
+      "fes": 300
+    },
+    {
+      "arm": "deterministic",
+      "fid": 13,
+      "seed": 22,
+      "metric": 9189.942001097867,
+      "fes": 300
+    },
+    {
+      "arm": "agent_mech_3",
+      "fid": 13,
+      "seed": 22,
+      "metric": 10942.438750742029,
+      "fes": 300
+    },
+    {
+      "arm": "random_mech",
+      "fid": 13,
+      "seed": 22,
+      "metric": 6080.733495947505,
+      "fes": 300
+    },
+    {
+      "arm": "fixed_classic",
+      "fid": 16,
+      "seed": 11,
+      "metric": 23.79103762057798,
+      "fes": 300
+    },
+    {
+      "arm": "deterministic",
+      "fid": 16,
+      "seed": 11,
+      "metric": 12.354084788437603,
+      "fes": 300
+    },
+    {
+      "arm": "agent_mech_3",
+      "fid": 16,
+      "seed": 11,
+      "metric": 21.187385029518964,
+      "fes": 300
+    },
+    {
+      "arm": "random_mech",
+      "fid": 16,
+      "seed": 11,
+      "metric": 20.84416065508435,
+      "fes": 300
+    },
+    {
+      "arm": "fixed_classic",
+      "fid": 16,
+      "seed": 22,
+      "metric": 24.963985770008094,
+      "fes": 300
+    },
+    {
+      "arm": "deterministic",
+      "fid": 16,
+      "seed": 22,
+      "metric": 20.820902264867755,
+      "fes": 300
+    },
+    {
+      "arm": "agent_mech_3",
+      "fid": 16,
+      "seed": 22,
+      "metric": 21.653804657589717,
+      "fes": 300
+    },
+    {
+      "arm": "random_mech",
+      "fid": 16,
+      "seed": 22,
+      "metric": 25.116019049040005,
+      "fes": 300
+    },
+    {
+      "arm": "fixed_classic",
+      "fid": 22,
+      "seed": 11,
+      "metric": 86.56540113878691,
+      "fes": 300
+    },
+    {
+      "arm": "deterministic",
+      "fid": 22,
+      "seed": 11,
+      "metric": 86.56540113878691,
+      "fes": 300
+    },
+    {
+      "arm": "agent_mech_3",
+      "fid": 22,
+      "seed": 11,
+      "metric": 86.56540113878691,
+      "fes": 300
+    },
+    {
+      "arm": "random_mech",
+      "fid": 22,
+      "seed": 11,
+      "metric": 86.56540113878691,
+      "fes": 300
+    },
+    {
+      "arm": "fixed_classic",
+      "fid": 22,
+      "seed": 22,
+      "metric": 86.56540113878691,
+      "fes": 300
+    },
+    {
+      "arm": "deterministic",
+      "fid": 22,
+      "seed": 22,
+      "metric": 86.56540113878691,
+      "fes": 300
+    },
+    {
+      "arm": "agent_mech_3",
+      "fid": 22,
+      "seed": 22,
+      "metric": 86.56540113878691,
+      "fes": 300
+    },
+    {
+      "arm": "random_mech",
+      "fid": 22,
+      "seed": 22,
+      "metric": 86.56540113878691,
+      "fes": 300
+    }
+  ]
+}

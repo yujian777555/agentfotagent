@@ -1,0 +1,1373 @@
+{
+  "experiment": "PHASE1A_AGENT_ASSISTED_EC",
+  "run_id": "a2-1fc40335619e-clean-20261028T111308",
+  "git_sha": "1fc40335619e51693ba048b8accdd0ab8e6a8479",
+  "worktree_dirty": "false",
+  "model": "deepseek-flash",
+  "prompt_version": "p1a2-agent-mech-v1",
+  "proposal_stats": {
+    "requests": 9,
+    "retries": 0,
+    "prompt_tokens": 16461,
+    "completion_tokens": 4048,
+    "cache_hits": 0,
+    "invalid": 6,
+    "api_failures": 0
+  },
+  "proposal_log": [
+    {
+      "raw": "{\"mechanism_id\": \"agent_mech_1\", \"description\": \"Diagnosis: premature convergence / stagnation under a fixed rand/1/bin with F=0.5. Evidence: across all six runs success_fraction stays moderate (0.2-0.55) yet improvement_rate is ~0.0 and stagnation_steps grows large (up to 160), while population_diversity collapses from ~56 to ~22-47; the fixed operator/F never adapts, so once the population contr",
+      "error": "rules[1].then.params"
+    },
+    {
+      "raw": "{\"mechanism_id\": \"agent_mech_1\", \"description\": \"Diagnosis: premature convergence/stagnation under a fixed rand/1/bin with F=0.5. Evidence: across all six runs success_fraction stays moderate (0.2-0.55) yet improvement_rate is ~0.0000 and stagnation_steps climbs to 47-160 while diversity decays from ~55-58 to ~22-48; the population keeps generating accepted-but-non-improving moves, so it is drifting/contracting rather than exploiting. Failure mode: loss of directional selection pressure (rand/1/bin is too undirected) combined with shrinking diversity, so no progress is made even though trials 'succeed'. Proposed mechanism: escalate operator strength and diversity injection as stagnation grows, and raise F when diversity collapses. Falsifiable prediction: on these same seeds/functions, swit",
+      "mechanism_id": "agent_mech_1",
+      "hash": "ad956e49c7c5"
+    },
+    {
+      "raw": "{\"mechanism_id\": \"agent_mech_1\", \"description\": \"Diagnosis: premature convergence/stagnation under a fixed rand/1/bin with F=0.5. Evidence: success_fraction stays moderate (0.2-0.55) while improvement_rate is ~0 across all runs, stagnation_steps grows large (up to 160), and population_diversity collapses from ~56 to ~22-47. Failure mode: the fixed operator/F/CR cannot exploit when diversity is sti",
+      "error": "rules[3].then.params"
+    },
+    {
+      "raw": "{\n  \"mechanism_id\": \"agent_mech_1\",\n  \"description\": \"Diagnosis: premature convergence and stagnation due to low diversity and lack of progress. Evidence: all runs show high initial diversity (55-58) dropping to 22-47, with stagnation steps reaching 19-160 and improvement rate near zero. Success fraction is moderate (0.2-0.55) but does not lead to improvement, indicating exploration without exploitation. Failure mode: rand/1/bin with F=0.5 fails to generate improving solutions, likely because the population converges to a local optimum and the mutation strategy lacks adaptive diversity injection. Falsifiable prediction: if diversity is injected when stagnation exceeds 5 steps, then improvement rate will increase and stagnation steps will decrease in subsequent generations compared to basel",
+      "mechanism_id": "agent_mech_2",
+      "hash": "0968aa146399"
+    },
+    {
+      "raw": "{\"mechanism_id\": \"agent_mech_1\", \"description\": \"Diagnosis: premature convergence/stagnation with diversity collapse. Evidence: all runs show div_start ~55-58 falling to ~22-48 while stag_max reaches 47-160 and imp_mean ~0; success_fraction stays moderate (0.2-0.45) yet yields no improvement, indicating the population keeps sampling but cannot make progress (rand/1/bin with F=0.5 is too exploitati",
+      "error": "rules[2].then.params"
+    },
+    {
+      "raw": "{\"mechanism_id\": \"agent_mech_1\", \"description\": \"Diagnosis: premature convergence/stagnation. Evidence: diversity collapses from ~56 to ~22-47 while stagnation_steps grows large (up to 160) and improvement_rate is ~0 across all runs; success_fraction stays moderate (~0.2-0.45) but yields no fitness gains, indicating the population keeps sampling near-duplicate low-diversity points and rand/1/bin w",
+      "error": "rules[2].then.params"
+    },
+    {
+      "raw": "{\"mechanism_id\": \"agent_mech_1\", \"description\": \"Diagnosis: premature convergence / stagnation with diversity collapse. Evidence: all runs show div_start ~55-58 falling to div_end ~22-47 while improvement_rate is ~0.0000 and stagnation_steps grows large (up to 160); success_fraction stays moderate (~0.2-0.55) yet yields no fitness improvement, indicating the population keeps generating accepted-bu",
+      "error": "rules[3].then.params"
+    },
+    {
+      "raw": "{\"mechanism_id\": \"agent_mech_1\", \"description\": \"Diagnosis: premature convergence with persistent stagnation. Evidence: across all six runs diversity collapses from ~56-58 to 22-48 while improvement_rate stays ~0.0000 and stagnation_steps reach 47-160; success_fraction remains moderate (0.2-0.55) but yields no fitness gain, indicating the population keeps sampling near-duplicate low-quality region",
+      "error": "rules[1].then.params"
+    },
+    {
+      "raw": "{\n  \"mechanism_id\": \"agent_mech_1\",\n  \"description\": \"Diagnosis: Premature convergence with persistent stagnation (stag_max up to 160) and low success fraction (mean ~0.2-0.45) despite high initial diversity. Evidence: improvement_rate is near zero across all runs, diversity declines steadily (e.g., 55.57 to 22.42), and stagnation_steps exceed 5 frequently. Failure mode: rand/1/bin with F=0.5 lacks sufficient exploration pressure; once diversity drops, the population cannot escape local optima. Falsifiable prediction: Switching to rand/2/bin when stagnation_steps >= 5 will increase success_fraction and reduce stagnation_steps in subsequent generations compared to the baseline rand/1/bin policy.\",\n  \"rules\": [\n    {\n      \"when\": {\"stagnation_steps\": {\"op\": \">=\", \"value\": 5.0}},\n      \"then",
+      "mechanism_id": "agent_mech_3",
+      "hash": "8570fff79f78"
+    }
+  ],
+  "agent_mechanisms": [
+    {
+      "schema_version": "aes-mech-dsl-v1",
+      "mechanism_id": "agent_mech_1",
+      "description": "Diagnosis: premature convergence/stagnation under a fixed rand/1/bin with F=0.5. Evidence: across all six runs success_fraction stays moderate (0.2-0.55) yet improvement_rate is ~0.0000 and stagnation_steps climbs to 47-160 while diversity decays from ~55-58 to ~22-48; the population keeps generating accepted-but-non-improving moves, so it is drifting/contracting rather than exploiting. Failure mode: loss of directional selection pressure (rand/1/bin is too undirected) combined with shrinking diversity, so no progress is made even though trials 'succeed'. Proposed mechanism: escalate operator strength and diversity injection as stagnation grows, and raise F when diversity collapses. Falsifiable prediction: on these same seeds/functions, switching to rand/2/bin (and current-to-best/1/bin at high stagnation) plus diversity injection when diversity<30 should reduce stag_max and produce nonzero improvement_rate within the 300-FE budget compared to the fixed rand/1/bin baseline.",
+      "rules": [
+        {
+          "when": {
+            "stagnation_steps": {
+              "op": ">=",
+              "value": 5.0
+            }
+          },
+          "then": {
+            "action": "set_operator",
+            "params": {
+              "operator": "rand/2/bin"
+            }
+          }
+        },
+        {
+          "when": {
+            "stagnation_steps": {
+              "op": ">=",
+              "value": 20.0
+            }
+          },
+          "then": {
+            "action": "set_operator",
+            "params": {
+              "operator": "current-to-best/1/bin"
+            }
+          }
+        },
+        {
+          "when": {
+            "population_diversity": {
+              "op": "<",
+              "value": 30.0
+            }
+          },
+          "then": {
+            "action": "inject_diversity",
+            "params": {}
+          }
+        },
+        {
+          "when": {
+            "success_fraction": {
+              "op": "<",
+              "value": 0.15
+            }
+          },
+          "then": {
+            "action": "set_F",
+            "params": {
+              "value": 0.8
+            }
+          }
+        }
+      ],
+      "default": {
+        "action": "set_operator",
+        "params": {
+          "operator": "rand/1/bin"
+        }
+      }
+    },
+    {
+      "schema_version": "aes-mech-dsl-v1",
+      "mechanism_id": "agent_mech_2",
+      "description": "Diagnosis: premature convergence and stagnation due to low diversity and lack of progress. Evidence: all runs show high initial diversity (55-58) dropping to 22-47, with stagnation steps reaching 19-160 and improvement rate near zero. Success fraction is moderate (0.2-0.55) but does not lead to improvement, indicating exploration without exploitation. Failure mode: rand/1/bin with F=0.5 fails to generate improving solutions, likely because the population converges to a local optimum and the mutation strategy lacks adaptive diversity injection. Falsifiable prediction: if diversity is injected when stagnation exceeds 5 steps, then improvement rate will increase and stagnation steps will decrease in subsequent generations compared to baseline.",
+      "rules": [
+        {
+          "when": {
+            "stagnation_steps": {
+              "op": ">=",
+              "value": 5.0
+            }
+          },
+          "then": {
+            "action": "inject_diversity",
+            "params": {}
+          }
+        },
+        {
+          "when": {
+            "population_diversity": {
+              "op": "<=",
+              "value": 30.0
+            }
+          },
+          "then": {
+            "action": "set_operator",
+            "params": {
+              "operator": "rand/2/bin"
+            }
+          }
+        }
+      ],
+      "default": {
+        "action": "set_operator",
+        "params": {
+          "operator": "rand/1/bin"
+        }
+      }
+    },
+    {
+      "schema_version": "aes-mech-dsl-v1",
+      "mechanism_id": "agent_mech_3",
+      "description": "Diagnosis: Premature convergence with persistent stagnation (stag_max up to 160) and low success fraction (mean ~0.2-0.45) despite high initial diversity. Evidence: improvement_rate is near zero across all runs, diversity declines steadily (e.g., 55.57 to 22.42), and stagnation_steps exceed 5 frequently. Failure mode: rand/1/bin with F=0.5 lacks sufficient exploration pressure; once diversity drops, the population cannot escape local optima. Falsifiable prediction: Switching to rand/2/bin when stagnation_steps >= 5 will increase success_fraction and reduce stagnation_steps in subsequent generations compared to the baseline rand/1/bin policy.",
+      "rules": [
+        {
+          "when": {
+            "stagnation_steps": {
+              "op": ">=",
+              "value": 5.0
+            }
+          },
+          "then": {
+            "action": "set_operator",
+            "params": {
+              "operator": "rand/2/bin"
+            }
+          }
+        },
+        {
+          "when": {
+            "population_diversity": {
+              "op": "<=",
+              "value": 30.0
+            }
+          },
+          "then": {
+            "action": "inject_diversity",
+            "params": {}
+          }
+        }
+      ],
+      "default": {
+        "action": "set_operator",
+        "params": {
+          "operator": "rand/1/bin"
+        }
+      }
+    }
+  ],
+  "traj_summary": "- func=1 seed=11 gens=14 stag_max=47 succ_mean=0.454 imp_mean=0.0000 div_start=55.57 div_end=22.42 fes=300\n    gen=0 stag=0.0 succ=0.55 imp=0.0000 div=55.57 budget=0.07 op=rand/1/bin F=0.5\n    gen=1 stag=3.0 succ=0.45 imp=0.0000 div=54.34 budget=0.13 op=rand/1/bin F=0.5\n    gen=2 stag=4.0 succ=0.45 imp=0.0000 div=52.22 budget=0.20 op=rand/1/bin F=0.5\n    gen=12 stag=33.0 succ=0.45 imp=0.0000 div=24.96 budget=0.87 op=rand/1/bin F=0.5\n    gen=13 stag=19.0 succ=0.55 imp=0.0000 div=22.42 budget=0.93 op=rand/1/bin F=0.5\n- func=1 seed=22 gens=14 stag_max=68 succ_mean=0.421 imp_mean=0.0207 div_start=57.75 div_end=25.86 fes=300\n    gen=0 stag=0.0 succ=0.5 imp=0.0000 div=57.75 budget=0.07 op=rand/1/bin F=0.5\n    gen=1 stag=3.0 succ=0.6 imp=0.0000 div=58.35 budget=0.13 op=rand/1/bin F=0.5\n    gen=2 stag=23.0 succ=0.4 imp=0.0000 div=53.55 budget=0.20 op=rand/1/bin F=0.5\n    gen=12 stag=48.0 succ=0.4 imp=0.0000 div=28.12 budget=0.87 op=rand/1/bin F=0.5\n    gen=13 stag=68.0 succ=0.2 imp=0.0000 div=25.86 budget=0.93 op=rand/1/bin F=0.5\n- func=10 seed=11 gens=14 stag_max=130 succ_mean=0.214 imp_mean=0.0000 div_start=55.57 div_end=43.08 fes=300\n    gen=0 stag=0.0 succ=0.5 imp=0.0000 div=55.57 budget=0.07 op=rand/1/bin F=0.5\n    gen=1 stag=7.0 succ=0.35 imp=0.0000 div=55.15 budget=0.13 op=rand/1/bin F=0.5\n    gen=2 stag=1.0 succ=0.15 imp=0.0000 div=51.67 budget=0.20 op=rand/1/bin F=0.5\n    gen=12 stag=130.0 succ=0.25 imp=0.0000 div=42.81 budget=0.87 op=rand/1/bin F=0.5\n    gen=13 stag=10.0 succ=0.05 imp=0.0000 div=43.08 budget=0.93 op=rand/1/bin F=0.5\n- func=10 seed=22 gens=14 stag_max=90 succ_mean=0.229 imp_mean=0.0000 div_start=57.75 div_end=47.52 fes=300\n    gen=0 stag=0.0 succ=0.35 imp=0.0000 div=57.75 budget=0.07 op=rand/1/bin F=0.5\n    gen=1 stag=20.0 succ=0.5 imp=0.0000 div=57.66 budget=0.13 op=rand/1/bin F=0.5\n    gen=2 stag=10.0 succ=0.45 imp=0.0000 div=56.10 budget=0.20 op=rand/1/bin F=0.5\n    gen=12 stag=38.0 succ=0.1 imp=0.0000 div=48.96 budget=0.87 op=rand/1/bin F=0.5\n    gen=13 stag=58.0 succ=0.05 imp=0.0000 div=47.52 budget=0.93 op=rand/1/bin F=0.5\n- func=20 seed=11 gens=14 stag_max=160 succ_mean=0.314 imp_mean=0.0000 div_start=55.57 div_end=37.36 fes=300\n    gen=0 stag=0.0 succ=0.4 imp=0.0000 div=55.57 budget=0.07 op=rand/1/bin F=0.5\n    gen=1 stag=20.0 succ=0.4 imp=0.0000 div=55.08 budget=0.13 op=rand/1/bin F=0.5\n    gen=2 stag=40.0 succ=0.3 imp=0.0000 div=54.33 budget=0.20 op=rand/1/bin F=0.5\n    gen=12 stag=7.0 succ=0.15 imp=0.0000 div=37.25 budget=0.87 op=rand/1/bin F=0.5\n    gen=13 stag=27.0 succ=0.3 imp=0.0000 div=37.36 budget=0.93 op=rand/1/bin F=0.5\n- func=20 seed=22 gens=14 stag_max=116 succ_mean=0.396 imp_mean=0.0000 div_start=57.75 div_end=35.58 fes=300\n    gen=0 stag=0.0 succ=0.65 imp=0.0000 div=57.75 budget=0.07 op=rand/1/bin F=0.5\n    gen=1 stag=20.0 succ=0.35 imp=0.0000 div=59.13 budget=0.13 op=rand/1/bin F=0.5\n    gen=2 stag=40.0 succ=0.4 imp=0.0000 div=58.34 budget=0.20 op=rand/1/bin F=0.5\n    gen=12 stag=36.0 succ=0.25 imp=0.0000 div=37.86 budget=0.87 op=rand/1/bin F=0.5\n    gen=13 stag=56.0 succ=0.4 imp=0.0000 div=35.58 budget=0.93 op=rand/1/bin F=0.5",
+  "protocol": {
+    "train_functions": [
+      1,
+      10,
+      20
+    ],
+    "val_functions": [
+      13,
+      16,
+      22
+    ],
+    "seeds": [
+      11,
+      22
+    ],
+    "max_fes": 300,
+    "np_size": 20,
+    "dim": 10,
+    "direction": "minimize",
+    "split": {
+      "split_version": "split_v2",
+      "suite": "bbob-10D",
+      "generator": "metaevobox BBOB_Dataset.get_datasets",
+      "split_policy": "function-identity disjoint; family-stratified; difficult counts 4/2/2",
+      "train_functions": [
+        1,
+        2,
+        4,
+        6,
+        7,
+        10,
+        11,
+        12,
+        15,
+        18,
+        20,
+        21
+      ],
+      "val_functions": [
+        3,
+        8,
+        13,
+        16,
+        22,
+        23
+      ],
+      "held_out_functions": [
+        5,
+        9,
+        14,
+        17,
+        19,
+        24
+      ],
+      "train_entries": [
+        {
+          "function_id": 1,
+          "family": "separable",
+          "metabox_difficulty": "difficult"
+        },
+        {
+          "function_id": 2,
+          "family": "separable",
+          "metabox_difficulty": "difficult"
+        },
+        {
+          "function_id": 4,
+          "family": "separable",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 6,
+          "family": "low_or_mod_conditioning",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 7,
+          "family": "low_or_mod_conditioning",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 10,
+          "family": "high_conditioning_unimodal",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 11,
+          "family": "high_conditioning_unimodal",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 12,
+          "family": "high_conditioning_unimodal",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 15,
+          "family": "multimodal_adequate_global",
+          "metabox_difficulty": "difficult"
+        },
+        {
+          "function_id": 18,
+          "family": "multimodal_adequate_global",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 20,
+          "family": "multimodal_weak_global",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 21,
+          "family": "multimodal_weak_global",
+          "metabox_difficulty": "difficult"
+        }
+      ],
+      "val_entries": [
+        {
+          "function_id": 3,
+          "family": "separable",
+          "metabox_difficulty": "difficult"
+        },
+        {
+          "function_id": 8,
+          "family": "low_or_mod_conditioning",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 13,
+          "family": "high_conditioning_unimodal",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 16,
+          "family": "multimodal_adequate_global",
+          "metabox_difficulty": "difficult"
+        },
+        {
+          "function_id": 22,
+          "family": "multimodal_weak_global",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 23,
+          "family": "multimodal_weak_global",
+          "metabox_difficulty": "easy"
+        }
+      ],
+      "held_out_entries": [
+        {
+          "function_id": 5,
+          "family": "separable",
+          "metabox_difficulty": "difficult"
+        },
+        {
+          "function_id": 9,
+          "family": "low_or_mod_conditioning",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 14,
+          "family": "high_conditioning_unimodal",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 17,
+          "family": "multimodal_adequate_global",
+          "metabox_difficulty": "difficult"
+        },
+        {
+          "function_id": 19,
+          "family": "multimodal_adequate_global",
+          "metabox_difficulty": "easy"
+        },
+        {
+          "function_id": 24,
+          "family": "multimodal_weak_global",
+          "metabox_difficulty": "easy"
+        }
+      ],
+      "metabox_difficult_set": [
+        1,
+        2,
+        3,
+        5,
+        15,
+        16,
+        17,
+        21
+      ],
+      "difficult_counts": {
+        "train": 4,
+        "val": 2,
+        "held_out": 2
+      },
+      "metabox_git_sha": "5565a281ce4e03efc1f6a41230507d5b66637ace",
+      "manifest_hash": "1e605fb9873bd5997afa7026e44f68c8bd83def751c8ba067fed9edb0982717b"
+    }
+  },
+  "rows": [
+    {
+      "arm": "official_meta_de",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 6065.805702833966,
+      "primary": "regret_like",
+      "fes": 300,
+      "status": "ok"
+    },
+    {
+      "arm": "SHADE",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 5657.295966439365,
+      "primary": "regret_like",
+      "fes": 300,
+      "status": "ok"
+    },
+    {
+      "arm": "fixed_classic_de",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 1010.7984418112026,
+      "primary": "regret",
+      "best_raw": 1710.7984418112026,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "dd394acd63f9140724dbc2c8385e83d1eb63c0c91761791cd76995f608173161",
+      "wall": 0.025,
+      "status": "ok"
+    },
+    {
+      "arm": "deterministic_heuristic",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 1916.5185718847151,
+      "primary": "regret",
+      "best_raw": 2616.518571884715,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "f26104289815d5e07bfb6c82c0026d953b176b9fd2d8d5b800a0f71c95174ca3",
+      "wall": 0.022,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_1",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 6044.157652616395,
+      "primary": "regret",
+      "best_raw": 6744.157652616395,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "aa1467d978b17eeea8c20fd8638efe2b3b1fa720f5997a82bcba5919d6fe0762",
+      "wall": 0.032,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_2",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 1666.685831866927,
+      "primary": "regret",
+      "best_raw": 2366.685831866927,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "2005e98f03bd72e13673b26f789bcedcbb8cc8db87c411d99205bed2fc7a5867",
+      "wall": 0.03,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_3",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 2056.5443941557005,
+      "primary": "regret",
+      "best_raw": 2756.5443941557005,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "8008f05085bd11f2bb0d4b92b0df8368cc70d1632a988f7e9882e56a36acb29a",
+      "wall": 0.032,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_1",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 1010.7984418112026,
+      "primary": "regret",
+      "best_raw": 1710.7984418112026,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "6f9d4075648438ed6e2b69d0bb243f845b6f41b05a502a6d7a8ac42ad41a0e56",
+      "wall": 0.028,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_2",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 2292.6372173786062,
+      "primary": "regret",
+      "best_raw": 2992.6372173786062,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "69abfcc36727d89c0b54c7a7397f4e46fccfbd9ad1195c9ac39824d3bbc6f6c6",
+      "wall": 0.02,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_3",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 1356.9668147858029,
+      "primary": "regret",
+      "best_raw": 2056.966814785803,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "d75ae93be95508bb87ef2e334e27bfc89d2cda3240a75c124fbd8f8f389b770c",
+      "wall": 0.03,
+      "status": "ok"
+    },
+    {
+      "arm": "ablate_no_stag",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 3555.23577164619,
+      "primary": "regret",
+      "best_raw": 4255.23577164619,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "ffe8611bfb49085cd35d9ce70d798c81c9944e329366ff8d2340971c60cc167d",
+      "wall": 0.019,
+      "status": "ok"
+    },
+    {
+      "arm": "ablate_no_div",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 6044.157652616395,
+      "primary": "regret",
+      "best_raw": 6744.157652616395,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "25d2c77c74e86ce1df416fb8538fb757b3d67adcf852822267f5b39b4d34abaa",
+      "wall": 0.038,
+      "status": "ok"
+    },
+    {
+      "arm": "shuffled_map",
+      "function_id": 1,
+      "seed": 11,
+      "metric": 4682.726823489073,
+      "primary": "regret",
+      "best_raw": 5382.726823489073,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "840ac619fef75fa13a8f153f49ce46edb58f4786374a0b41ae3b66c5f1627a69",
+      "wall": 0.028,
+      "status": "ok"
+    },
+    {
+      "arm": "official_meta_de",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 8665.607232437733,
+      "primary": "regret_like",
+      "fes": 300,
+      "status": "ok"
+    },
+    {
+      "arm": "SHADE",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 7924.269362406496,
+      "primary": "regret_like",
+      "fes": 300,
+      "status": "ok"
+    },
+    {
+      "arm": "fixed_classic_de",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 3197.470565911672,
+      "primary": "regret",
+      "best_raw": 3897.470565911672,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "dd394acd63f9140724dbc2c8385e83d1eb63c0c91761791cd76995f608173161",
+      "wall": 0.028,
+      "status": "ok"
+    },
+    {
+      "arm": "deterministic_heuristic",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 2683.52528335927,
+      "primary": "regret",
+      "best_raw": 3383.52528335927,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "f26104289815d5e07bfb6c82c0026d953b176b9fd2d8d5b800a0f71c95174ca3",
+      "wall": 0.035,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_1",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 6925.594397505201,
+      "primary": "regret",
+      "best_raw": 7625.594397505201,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "aa1467d978b17eeea8c20fd8638efe2b3b1fa720f5997a82bcba5919d6fe0762",
+      "wall": 0.034,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_2",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 3315.6931489952212,
+      "primary": "regret",
+      "best_raw": 4015.6931489952212,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "2005e98f03bd72e13673b26f789bcedcbb8cc8db87c411d99205bed2fc7a5867",
+      "wall": 0.03,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_3",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 772.0298635590507,
+      "primary": "regret",
+      "best_raw": 1472.0298635590507,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "8008f05085bd11f2bb0d4b92b0df8368cc70d1632a988f7e9882e56a36acb29a",
+      "wall": 0.023,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_1",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 3197.470565911672,
+      "primary": "regret",
+      "best_raw": 3897.470565911672,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "6f9d4075648438ed6e2b69d0bb243f845b6f41b05a502a6d7a8ac42ad41a0e56",
+      "wall": 0.037,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_2",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 5116.126878056941,
+      "primary": "regret",
+      "best_raw": 5816.126878056941,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "69abfcc36727d89c0b54c7a7397f4e46fccfbd9ad1195c9ac39824d3bbc6f6c6",
+      "wall": 0.025,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_3",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 1418.8236803690897,
+      "primary": "regret",
+      "best_raw": 2118.8236803690897,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "d75ae93be95508bb87ef2e334e27bfc89d2cda3240a75c124fbd8f8f389b770c",
+      "wall": 0.037,
+      "status": "ok"
+    },
+    {
+      "arm": "ablate_no_stag",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 6169.823404140421,
+      "primary": "regret",
+      "best_raw": 6869.823404140421,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "ffe8611bfb49085cd35d9ce70d798c81c9944e329366ff8d2340971c60cc167d",
+      "wall": 0.033,
+      "status": "ok"
+    },
+    {
+      "arm": "ablate_no_div",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 6925.594397505201,
+      "primary": "regret",
+      "best_raw": 7625.594397505201,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "25d2c77c74e86ce1df416fb8538fb757b3d67adcf852822267f5b39b4d34abaa",
+      "wall": 0.034,
+      "status": "ok"
+    },
+    {
+      "arm": "shuffled_map",
+      "function_id": 1,
+      "seed": 22,
+      "metric": 5979.167174397045,
+      "primary": "regret",
+      "best_raw": 6679.167174397045,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "840ac619fef75fa13a8f153f49ce46edb58f4786374a0b41ae3b66c5f1627a69",
+      "wall": 0.039,
+      "status": "ok"
+    },
+    {
+      "arm": "official_meta_de",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 83555876.57365076,
+      "primary": "regret_like",
+      "fes": 300,
+      "status": "ok"
+    },
+    {
+      "arm": "SHADE",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 76249013.54015666,
+      "primary": "regret_like",
+      "fes": 300,
+      "status": "ok"
+    },
+    {
+      "arm": "fixed_classic_de",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 27582593.440615375,
+      "primary": "regret",
+      "best_raw": 27583193.440615375,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "dd394acd63f9140724dbc2c8385e83d1eb63c0c91761791cd76995f608173161",
+      "wall": 0.033,
+      "status": "ok"
+    },
+    {
+      "arm": "deterministic_heuristic",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 27476495.820130568,
+      "primary": "regret",
+      "best_raw": 27477095.820130568,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "f26104289815d5e07bfb6c82c0026d953b176b9fd2d8d5b800a0f71c95174ca3",
+      "wall": 0.035,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_1",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 50773634.57576154,
+      "primary": "regret",
+      "best_raw": 50774234.57576154,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "aa1467d978b17eeea8c20fd8638efe2b3b1fa720f5997a82bcba5919d6fe0762",
+      "wall": 0.035,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_2",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 23807433.434674468,
+      "primary": "regret",
+      "best_raw": 23808033.434674468,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "2005e98f03bd72e13673b26f789bcedcbb8cc8db87c411d99205bed2fc7a5867",
+      "wall": 0.032,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_3",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 15236392.246554725,
+      "primary": "regret",
+      "best_raw": 15236992.246554725,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "8008f05085bd11f2bb0d4b92b0df8368cc70d1632a988f7e9882e56a36acb29a",
+      "wall": 0.046,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_1",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 27582593.440615375,
+      "primary": "regret",
+      "best_raw": 27583193.440615375,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "6f9d4075648438ed6e2b69d0bb243f845b6f41b05a502a6d7a8ac42ad41a0e56",
+      "wall": 0.038,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_2",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 50710383.38809612,
+      "primary": "regret",
+      "best_raw": 50710983.38809612,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "69abfcc36727d89c0b54c7a7397f4e46fccfbd9ad1195c9ac39824d3bbc6f6c6",
+      "wall": 0.035,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_3",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 31345336.47138171,
+      "primary": "regret",
+      "best_raw": 31345936.47138171,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "d75ae93be95508bb87ef2e334e27bfc89d2cda3240a75c124fbd8f8f389b770c",
+      "wall": 0.033,
+      "status": "ok"
+    },
+    {
+      "arm": "ablate_no_stag",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 41658500.469609246,
+      "primary": "regret",
+      "best_raw": 41659100.469609246,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "ffe8611bfb49085cd35d9ce70d798c81c9944e329366ff8d2340971c60cc167d",
+      "wall": 0.037,
+      "status": "ok"
+    },
+    {
+      "arm": "ablate_no_div",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 50773634.57576154,
+      "primary": "regret",
+      "best_raw": 50774234.57576154,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "25d2c77c74e86ce1df416fb8538fb757b3d67adcf852822267f5b39b4d34abaa",
+      "wall": 0.041,
+      "status": "ok"
+    },
+    {
+      "arm": "shuffled_map",
+      "function_id": 10,
+      "seed": 11,
+      "metric": 45062816.751104176,
+      "primary": "regret",
+      "best_raw": 45063416.751104176,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "840ac619fef75fa13a8f153f49ce46edb58f4786374a0b41ae3b66c5f1627a69",
+      "wall": 0.042,
+      "status": "ok"
+    },
+    {
+      "arm": "official_meta_de",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 57519448.84619863,
+      "primary": "regret_like",
+      "fes": 300,
+      "status": "ok"
+    },
+    {
+      "arm": "SHADE",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 77456248.50642098,
+      "primary": "regret_like",
+      "fes": 300,
+      "status": "ok"
+    },
+    {
+      "arm": "fixed_classic_de",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 33089610.846534915,
+      "primary": "regret",
+      "best_raw": 33090210.846534915,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "dd394acd63f9140724dbc2c8385e83d1eb63c0c91761791cd76995f608173161",
+      "wall": 0.036,
+      "status": "ok"
+    },
+    {
+      "arm": "deterministic_heuristic",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 25004122.428047836,
+      "primary": "regret",
+      "best_raw": 25004722.428047836,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "f26104289815d5e07bfb6c82c0026d953b176b9fd2d8d5b800a0f71c95174ca3",
+      "wall": 0.034,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_1",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 99957379.68595685,
+      "primary": "regret",
+      "best_raw": 99957979.68595685,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "aa1467d978b17eeea8c20fd8638efe2b3b1fa720f5997a82bcba5919d6fe0762",
+      "wall": 0.033,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_2",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 52265833.29856826,
+      "primary": "regret",
+      "best_raw": 52266433.29856826,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "2005e98f03bd72e13673b26f789bcedcbb8cc8db87c411d99205bed2fc7a5867",
+      "wall": 0.038,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_3",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 25771995.127373114,
+      "primary": "regret",
+      "best_raw": 25772595.127373114,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "8008f05085bd11f2bb0d4b92b0df8368cc70d1632a988f7e9882e56a36acb29a",
+      "wall": 0.037,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_1",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 33089610.846534915,
+      "primary": "regret",
+      "best_raw": 33090210.846534915,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "6f9d4075648438ed6e2b69d0bb243f845b6f41b05a502a6d7a8ac42ad41a0e56",
+      "wall": 0.032,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_2",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 52265833.29856826,
+      "primary": "regret",
+      "best_raw": 52266433.29856826,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "69abfcc36727d89c0b54c7a7397f4e46fccfbd9ad1195c9ac39824d3bbc6f6c6",
+      "wall": 0.037,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_3",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 23404289.723420408,
+      "primary": "regret",
+      "best_raw": 23404889.723420408,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "d75ae93be95508bb87ef2e334e27bfc89d2cda3240a75c124fbd8f8f389b770c",
+      "wall": 0.045,
+      "status": "ok"
+    },
+    {
+      "arm": "ablate_no_stag",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 63267611.02264417,
+      "primary": "regret",
+      "best_raw": 63268211.02264417,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "ffe8611bfb49085cd35d9ce70d798c81c9944e329366ff8d2340971c60cc167d",
+      "wall": 0.047,
+      "status": "ok"
+    },
+    {
+      "arm": "ablate_no_div",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 99957379.68595685,
+      "primary": "regret",
+      "best_raw": 99957979.68595685,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "25d2c77c74e86ce1df416fb8538fb757b3d67adcf852822267f5b39b4d34abaa",
+      "wall": 0.042,
+      "status": "ok"
+    },
+    {
+      "arm": "shuffled_map",
+      "function_id": 10,
+      "seed": 22,
+      "metric": 22574932.643151842,
+      "primary": "regret",
+      "best_raw": 22575532.643151842,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "840ac619fef75fa13a8f153f49ce46edb58f4786374a0b41ae3b66c5f1627a69",
+      "wall": 0.04,
+      "status": "ok"
+    },
+    {
+      "arm": "official_meta_de",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 463965.6491641505,
+      "primary": "regret_like",
+      "fes": 300,
+      "status": "ok"
+    },
+    {
+      "arm": "SHADE",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 470127.1828617488,
+      "primary": "regret_like",
+      "fes": 300,
+      "status": "ok"
+    },
+    {
+      "arm": "fixed_classic_de",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 195198.54052568373,
+      "primary": "regret",
+      "best_raw": 197298.54052568373,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "dd394acd63f9140724dbc2c8385e83d1eb63c0c91761791cd76995f608173161",
+      "wall": 0.048,
+      "status": "ok"
+    },
+    {
+      "arm": "deterministic_heuristic",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 0.1772000227197168,
+      "primary": "regret",
+      "best_raw": 2100.1772000227197,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "f26104289815d5e07bfb6c82c0026d953b176b9fd2d8d5b800a0f71c95174ca3",
+      "wall": 0.052,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_1",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 1007574.6431258182,
+      "primary": "regret",
+      "best_raw": 1009674.6431258182,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "aa1467d978b17eeea8c20fd8638efe2b3b1fa720f5997a82bcba5919d6fe0762",
+      "wall": 0.057,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_2",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 89764.51245214962,
+      "primary": "regret",
+      "best_raw": 91864.51245214962,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "2005e98f03bd72e13673b26f789bcedcbb8cc8db87c411d99205bed2fc7a5867",
+      "wall": 0.051,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_3",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 2.7621975708443642,
+      "primary": "regret",
+      "best_raw": 2102.7621975708444,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "8008f05085bd11f2bb0d4b92b0df8368cc70d1632a988f7e9882e56a36acb29a",
+      "wall": 0.061,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_1",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 195198.54052568373,
+      "primary": "regret",
+      "best_raw": 197298.54052568373,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "6f9d4075648438ed6e2b69d0bb243f845b6f41b05a502a6d7a8ac42ad41a0e56",
+      "wall": 0.057,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_2",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 89764.51245214962,
+      "primary": "regret",
+      "best_raw": 91864.51245214962,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "69abfcc36727d89c0b54c7a7397f4e46fccfbd9ad1195c9ac39824d3bbc6f6c6",
+      "wall": 0.044,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_3",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 5.698369079881104,
+      "primary": "regret",
+      "best_raw": 2105.698369079881,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "d75ae93be95508bb87ef2e334e27bfc89d2cda3240a75c124fbd8f8f389b770c",
+      "wall": 0.059,
+      "status": "ok"
+    },
+    {
+      "arm": "ablate_no_stag",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 1570182.9428281868,
+      "primary": "regret",
+      "best_raw": 1572282.9428281868,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "ffe8611bfb49085cd35d9ce70d798c81c9944e329366ff8d2340971c60cc167d",
+      "wall": 0.061,
+      "status": "ok"
+    },
+    {
+      "arm": "ablate_no_div",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 1007574.6431258182,
+      "primary": "regret",
+      "best_raw": 1009674.6431258182,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "25d2c77c74e86ce1df416fb8538fb757b3d67adcf852822267f5b39b4d34abaa",
+      "wall": 0.059,
+      "status": "ok"
+    },
+    {
+      "arm": "shuffled_map",
+      "function_id": 20,
+      "seed": 11,
+      "metric": 95619.34296728442,
+      "primary": "regret",
+      "best_raw": 97719.34296728442,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "840ac619fef75fa13a8f153f49ce46edb58f4786374a0b41ae3b66c5f1627a69",
+      "wall": 0.056,
+      "status": "ok"
+    },
+    {
+      "arm": "official_meta_de",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 304316.04819409584,
+      "primary": "regret_like",
+      "fes": 300,
+      "status": "ok"
+    },
+    {
+      "arm": "SHADE",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 865920.1634903317,
+      "primary": "regret_like",
+      "fes": 300,
+      "status": "ok"
+    },
+    {
+      "arm": "fixed_classic_de",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 507183.19048432575,
+      "primary": "regret",
+      "best_raw": 509283.19048432575,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "dd394acd63f9140724dbc2c8385e83d1eb63c0c91761791cd76995f608173161",
+      "wall": 0.1,
+      "status": "ok"
+    },
+    {
+      "arm": "deterministic_heuristic",
+      "function_id": 20,
+      "seed": 22,
+      "metric": -9.758324647789777,
+      "primary": "regret",
+      "best_raw": 2090.24167535221,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "f26104289815d5e07bfb6c82c0026d953b176b9fd2d8d5b800a0f71c95174ca3",
+      "wall": 0.083,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_1",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 872742.4042512943,
+      "primary": "regret",
+      "best_raw": 874842.4042512943,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "aa1467d978b17eeea8c20fd8638efe2b3b1fa720f5997a82bcba5919d6fe0762",
+      "wall": 0.075,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_2",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 243177.98758375132,
+      "primary": "regret",
+      "best_raw": 245277.98758375132,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "2005e98f03bd72e13673b26f789bcedcbb8cc8db87c411d99205bed2fc7a5867",
+      "wall": 0.061,
+      "status": "ok"
+    },
+    {
+      "arm": "agent_mech_3",
+      "function_id": 20,
+      "seed": 22,
+      "metric": -11.366224809945379,
+      "primary": "regret",
+      "best_raw": 2088.6337751900546,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "8008f05085bd11f2bb0d4b92b0df8368cc70d1632a988f7e9882e56a36acb29a",
+      "wall": 0.062,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_1",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 507183.19048432575,
+      "primary": "regret",
+      "best_raw": 509283.19048432575,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "6f9d4075648438ed6e2b69d0bb243f845b6f41b05a502a6d7a8ac42ad41a0e56",
+      "wall": 0.074,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_2",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 581805.7977577144,
+      "primary": "regret",
+      "best_raw": 583905.7977577144,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "69abfcc36727d89c0b54c7a7397f4e46fccfbd9ad1195c9ac39824d3bbc6f6c6",
+      "wall": 0.065,
+      "status": "ok"
+    },
+    {
+      "arm": "random_mech_3",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 11.992559318897747,
+      "primary": "regret",
+      "best_raw": 2111.9925593188977,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "d75ae93be95508bb87ef2e334e27bfc89d2cda3240a75c124fbd8f8f389b770c",
+      "wall": 0.051,
+      "status": "ok"
+    },
+    {
+      "arm": "ablate_no_stag",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 1140171.7592176518,
+      "primary": "regret",
+      "best_raw": 1142271.7592176518,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "ffe8611bfb49085cd35d9ce70d798c81c9944e329366ff8d2340971c60cc167d",
+      "wall": 0.07,
+      "status": "ok"
+    },
+    {
+      "arm": "ablate_no_div",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 872742.4042512943,
+      "primary": "regret",
+      "best_raw": 874842.4042512943,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "25d2c77c74e86ce1df416fb8538fb757b3d67adcf852822267f5b39b4d34abaa",
+      "wall": 0.062,
+      "status": "ok"
+    },
+    {
+      "arm": "shuffled_map",
+      "function_id": 20,
+      "seed": 22,
+      "metric": 432005.24985306774,
+      "primary": "regret",
+      "best_raw": 434105.24985306774,
+      "fes": 300,
+      "indep_fes": 300,
+      "mech_hash": "840ac619fef75fa13a8f153f49ce46edb58f4786374a0b41ae3b66c5f1627a69",
+      "wall": 0.051,
+      "status": "ok"
+    }
+  ]
+}
