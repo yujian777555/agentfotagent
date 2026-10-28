@@ -1,0 +1,8 @@
+{
+  "n_generations": 840,
+  "raw_succ_by_op": {
+    "rand/1/bin": 0.4419230769230769,
+    "rand/2/bin": 0.26059859154929577
+  },
+  "note": "descriptive only; operator assignment is policy-triggered, not randomized"
+}
