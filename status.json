@@ -4,8 +4,8 @@
   "default_branch": "main",
   "last_updated": "2026-10-28",
   "baseline_commit": "ebd3d996599953c7ab24f61b6ca2ba8b728bc8c9",
-  "current_phase": "Phase-1A-2 Agent-assisted EC mechanism experiment",
-  "phase_status": "P1A2_COMPLETE; VALIDATION_NO_BENEFIT; NOT_PROCEEDING_TO_PHASE1B",
+  "current_phase": "Phase-1A-2R corrective reproduction",
+  "phase_status": "A2R_COMPLETE; NO_BENEFIT_CONFIRMED; MECHANISM_HYPOTHESIS_STOPPED",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
@@ -44,7 +44,8 @@
     "p1a1c_preflight": "3/3 valid JSON after thinking=disabled + json_object; but 1/3 action signatures (echo set_F=0.35); LLM_POLICY_DEGENERATE; formal 42-run not started; requests 3/140",
     "p1a1d_preflight": "no-example prompt p1a1d-agent-v1; 3/3 valid JSON but 1 signature set_F=0.7 across A/B/C single-variable states; GATE2+GATE3 FAIL; requests 3/140; LLM_POLICY_DEGENERATE",
     "p1a1e_preflight": "deepseek-flash available; 3/3 valid JSON; all states set_F=0.7; GATE2+GATE3 FAIL; same attractor as v4-pro; requests 3/140",
-    "p1a2_agent_ec": "3 agent mechs (9 req deepseek-flash); train agent_mech_3 vs official/SHADE 6-0, vs fixed 5-1, vs det 3-3; validation vs det 1-3, vs random 2-2 -> NO_BENEFIT; no Phase-1B"
+    "p1a2_agent_ec": "3 agent mechs (9 req deepseek-flash); train agent_mech_3 vs official/SHADE 6-0, vs fixed 5-1, vs det 3-3; validation vs det 1-3, vs random 2-2 -> NO_BENEFIT; no Phase-1B",
+    "a2r_repro": "1680 runs 12x5; FE exact; mech_3 vs fixed 17-38-5, vs det 1-4-55, vs random 7/20; inject fired 5x; NO_BENEFIT"
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
@@ -61,9 +62,8 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Harden mechanism thresholds / more seeds or stop H1-H2 if validation keeps failing",
-    "Do NOT start Phase-1B until validation shows reproducible benefit vs deterministic + random",
-    "No MetaBBO / AES transfer / test-split access"
+    "Stop H1/H2 mechanism hypothesis on current DE-control design",
+    "No Phase-1B; no untouched confirmation run; do not retune on these results"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -98,7 +98,8 @@
     "phase1a_p1a1_c_preflight_report": "docs/PHASE1A_P1A1_C_PREFLIGHT_REPORT.md",
     "phase1a_p1a1_d_preflight_report": "docs/PHASE1A_P1A1_D_PREFLIGHT_REPORT.md",
     "phase1a_p1a1_e_flash_preflight_report": "docs/PHASE1A_P1A1_E_FLASH_PREFLIGHT_REPORT.md",
-    "phase1a_agent_assisted_ec_report": "docs/PHASE1A_AGENT_ASSISTED_EC_REPORT.md"
+    "phase1a_agent_assisted_ec_report": "docs/PHASE1A_AGENT_ASSISTED_EC_REPORT.md",
+    "phase1a_a2_corrective_repro_report": "docs/PHASE1A_A2_CORRECTIVE_REPRO_REPORT.md"
   },
   "corrective_pass_commit": "1776e0f9f4cc606ae66eaeca20c833d72e3b7ab0",
   "current_reviewed_source_commit": "3e48bf5305ba667490358c140dad556f1ebf84e2",
