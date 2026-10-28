@@ -1,12 +1,15 @@
-"""Multi-operator DE with mechanism hooks (Phase-1A-2).
+"""Corrected multi-operator DE (Phase-1A-2R).
 
-Operators: rand/1/bin, current-to-best/1/bin, rand/2/bin, best/1/bin.
-All share FE counting and population update. Mechanism selects operator/F/CR
-per generation from public state.
+- Standard rand/2/bin: v = x_r1 + F(x_r2-x_r3) + F(x_r4-x_r5), 5 distinct
+  indices, none equal to the target index i.
+- first-match rule semantics preserved.
+- Diversity injection is FE-safe (never exceeds max_fes).
+- Full per-evaluation / per-generation traces for audit.
 """
 from __future__ import annotations
 
-import random
+import hashlib
+import json
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
@@ -22,6 +25,8 @@ class MultiDEResult:
     init_fes: int
     max_fes: int
     action_events: List[Dict[str, Any]]
+    operator_counts: Dict[str, int]
+    inject_events: List[Dict[str, Any]]
     best_raw_objective: float
     best_regret: Optional[float]
     primary_metric: str = "raw_objective"
@@ -36,6 +41,8 @@ class MultiDEResult:
             "init_fes": self.init_fes,
             "max_fes": self.max_fes,
             "action_events": self.action_events,
+            "operator_counts": self.operator_counts,
+            "inject_events": self.inject_events,
             "best_raw_objective": self.best_raw_objective,
             "best_regret": self.best_regret,
             "primary_metric": self.primary_metric,
@@ -43,7 +50,35 @@ class MultiDEResult:
         }
 
 
-def _features(generation, best_history, diversity, prev_succ, budget_frac, op, F, CR):
+def mutate(op: str, pop: np.ndarray, i: int, rng_np, F: float, best_idx: int) -> np.ndarray:
+    """Standard DE mutation. Raises if not enough distinct indices (no silent reuse)."""
+    n = pop.shape[0]
+    others = [j for j in range(n) if j != i]
+    if op == "rand/1/bin":
+        if len(others) < 3:
+            raise ValueError("rand/1/bin requires >=3 other individuals")
+        a, b, c = rng_np.choice(others, size=3, replace=False)
+        return pop[a] + F * (pop[b] - pop[c])
+    if op == "current-to-best/1/bin":
+        if len(others) < 2:
+            raise ValueError("current-to-best/1/bin requires >=2 other individuals")
+        a, b = rng_np.choice(others, size=2, replace=False)
+        return pop[i] + F * (pop[best_idx] - pop[i]) + F * (pop[a] - pop[b])
+    if op == "rand/2/bin":
+        # STANDARD: 5 distinct indices, none equal to i.
+        if len(others) < 5:
+            raise ValueError("rand/2/bin requires >=5 other individuals")
+        r1, r2, r3, r4, r5 = rng_np.choice(others, size=5, replace=False)
+        return pop[r1] + F * (pop[r2] - pop[r3]) + F * (pop[r4] - pop[r5])
+    if op == "best/1/bin":
+        if len(others) < 2:
+            raise ValueError("best/1/bin requires >=2 other individuals")
+        a, b = rng_np.choice(others, size=2, replace=False)
+        return pop[best_idx] + F * (pop[a] - pop[b])
+    raise ValueError(f"unknown operator {op}")
+
+
+def _features(gen, best_history, diversity, prev_succ, budget_frac, op, F, CR):
     if len(best_history) >= 2 and abs(best_history[-2]) > 1e-12:
         imp = max(0.0, (best_history[-2] - best_history[-1]) / abs(best_history[-2]))
     elif len(best_history) >= 2:
@@ -56,7 +91,7 @@ def _features(generation, best_history, diversity, prev_succ, budget_frac, op, F
             break
         stag += 1
     return {
-        "generation": float(generation),
+        "generation": float(gen),
         "improvement_rate": float(imp),
         "stagnation_steps": float(stag),
         "population_diversity": float(diversity),
@@ -69,26 +104,9 @@ def _features(generation, best_history, diversity, prev_succ, budget_frac, op, F
     }
 
 
-def _mutate(op, pop, i, rng_np, F, best_idx):
-    n = pop.shape[0]
-    idxs = [j for j in range(n) if j != i]
-    if op == "rand/1/bin":
-        a, b, c = rng_np.choice(idxs, size=3, replace=False)
-        return pop[a] + F * (pop[b] - pop[c])
-    if op == "current-to-best/1/bin":
-        a, b = rng_np.choice(idxs, size=2, replace=False)
-        return pop[i] + F * (pop[best_idx] - pop[i]) + F * (pop[a] - pop[b])
-    if op == "rand/2/bin":
-        a, b, c, d = rng_np.choice(idxs, size=4, replace=False)
-        return pop[a] + F * (pop[b] - pop[c]) + F * (pop[d] - pop[a])
-    if op == "best/1/bin":
-        a, b = rng_np.choice(idxs, size=2, replace=False)
-        return pop[best_idx] + F * (pop[a] - pop[b])
-    raise ValueError(op)
-
-
 def run_multi_de(problem, mechanism, *, max_fes: int, seed: int, np_size: int = 20,
-                 F: float = 0.5, Cr: float = 0.5) -> MultiDEResult:
+                 F: float = 0.5, Cr: float = 0.9) -> MultiDEResult:
+    """Fixed Classic base config: F=0.5, CR=0.9 (protocol, not library default)."""
     if max_fes < np_size:
         raise ValueError("max_fes < np_size")
     rng_np = np.random.RandomState(seed)
@@ -121,15 +139,40 @@ def run_multi_de(problem, mechanism, *, max_fes: int, seed: int, np_size: int = 
         init_fes = np_size
         best_history = [float(np.min(fitness))]
         events: List[Dict[str, Any]] = []
-        cur_F, cur_Cr, cur_op = F, Cr, "rand/1/bin"
+        inject_events: List[Dict[str, Any]] = []
+        op_counts: Dict[str, int] = {}
+        cur_F, cur_Cr, cur_op = float(F), float(Cr), "rand/1/bin"
         prev_succ = 0.0
         gen = 0
         while fes < max_fes:
             budget_frac = fes / float(max_fes)
             state = _features(gen, best_history, float(np.mean(np.std(pop, axis=0))),
                               prev_succ, budget_frac, cur_op, cur_F, cur_Cr)
-            act = mechanism.select(state)
-            effect = {"applied": act["action"]}
+            # first-match semantics
+            matched_rule_idx = None
+            act = dict(mechanism.spec["default"])
+            for ri, rule in enumerate(mechanism.spec["rules"]):
+                ok = True
+                for feat, cond in rule["when"].items():
+                    v = float(state.get(feat, 0) or 0)
+                    thr = float(cond["value"])
+                    op = cond["op"]
+                    if op == "<" and not v < thr:
+                        ok = False
+                    elif op == "<=" and not v <= thr:
+                        ok = False
+                    elif op == ">" and not v > thr:
+                        ok = False
+                    elif op == ">=" and not v >= thr:
+                        ok = False
+                    elif op == "==" and not v == thr:
+                        ok = False
+                if ok:
+                    matched_rule_idx = ri
+                    act = dict(rule["then"])
+                    break  # first-match only
+
+            effect: Dict[str, Any] = {"applied": act["action"], "rule_index": matched_rule_idx}
             if act["action"] == "set_operator":
                 cur_op = act["params"]["operator"]
                 effect["operator"] = cur_op
@@ -138,23 +181,40 @@ def run_multi_de(problem, mechanism, *, max_fes: int, seed: int, np_size: int = 
             elif act["action"] == "set_CR":
                 cur_Cr = float(act["params"]["value"]); effect["CR"] = cur_Cr
             elif act["action"] == "inject_diversity":
-                # re-sample worst 20%
-                order = np.argsort(fitness)
                 k = max(1, np_size // 5)
-                for j in order[-k:]:
-                    pop[j] = rng_np.uniform(lb, ub, size=dim)
-                    fitness[j] = float(counting(pop[j]))
-                    fes += 1
-                effect["resampled"] = int(k)
+                remaining = max_fes - fes
+                planned = k
+                if remaining < k:
+                    k = remaining  # FE-safe: partial or skip
+                resampled = 0
+                rejected_reason = None
+                if k <= 0:
+                    rejected_reason = "insufficient_FE"
+                else:
+                    order = np.argsort(fitness)
+                    for j in order[-k:]:
+                        if fes >= max_fes:
+                            rejected_reason = "FE_exhausted_mid_inject"
+                            break
+                        pop[j] = rng_np.uniform(lb, ub, size=dim)
+                        fitness[j] = float(counting(pop[j]))
+                        fes += 1
+                        resampled += 1
+                effect.update({"planned": planned, "resampled": resampled,
+                               "rejected_reason": rejected_reason})
+                inject_events.append({"gen": gen, "planned": planned,
+                                      "resampled": resampled, "reason": rejected_reason,
+                                      "fes_after": fes})
             events.append({"step": gen, "state": state, "action": act, "effect": effect,
-                           "operator": cur_op, "F": cur_F, "CR": cur_Cr})
+                           "operator": cur_op, "F": cur_F, "CR": cur_Cr,
+                           "matched_rule": matched_rule_idx})
             successes = 0
             attempted = 0
             best_idx = int(np.argmin(fitness))
             for i in range(np_size):
                 if fes >= max_fes:
                     break
-                mutant = _mutate(cur_op, pop, i, rng_np, cur_F, best_idx)
+                mutant = mutate(cur_op, pop, i, rng_np, cur_F, best_idx)
                 mutant = np.clip(mutant, lb, ub)
                 cross = rng_np.rand(dim) < cur_Cr
                 cross[rng_np.randint(dim)] = True
@@ -162,16 +222,15 @@ def run_multi_de(problem, mechanism, *, max_fes: int, seed: int, np_size: int = 
                 tf = float(counting(trial))
                 fes += 1
                 attempted += 1
+                op_counts[cur_op] = op_counts.get(cur_op, 0) + 1
                 if tf < fitness[i]:
                     pop[i] = trial
                     fitness[i] = tf
                     successes += 1
                 best_history.append(float(min(best_history[-1], np.min(fitness))))
             prev_succ = successes / attempted if attempted else 0.0
-            events[-1]["successes"] = successes
-            events[-1]["attempted"] = attempted
-            events[-1]["success_fraction_this_gen"] = prev_succ
-            events[-1]["fes_after"] = fes
+            events[-1].update({"successes": successes, "attempted": attempted,
+                               "success_fraction_this_gen": prev_succ, "fes_after": fes})
             gen += 1
 
         raw_best = float(best_history[-1])
@@ -185,8 +244,14 @@ def run_multi_de(problem, mechanism, *, max_fes: int, seed: int, np_size: int = 
         return MultiDEResult(
             cost_curve=best_history, regret_curve=regret, fes=fes,
             independent_fes=indep["n"], init_fes=init_fes, max_fes=max_fes,
-            action_events=events, best_raw_objective=raw_best, best_regret=best_regret,
+            action_events=events, operator_counts=op_counts,
+            inject_events=inject_events,
+            best_raw_objective=raw_best, best_regret=best_regret,
             primary_metric=primary, optimum=optimum,
         )
     finally:
         problem.eval = raw_eval  # type: ignore
+
+
+def trace_sha256(obj: Dict[str, Any]) -> str:
+    return hashlib.sha256(json.dumps(obj, sort_keys=True, default=str).encode()).hexdigest()
