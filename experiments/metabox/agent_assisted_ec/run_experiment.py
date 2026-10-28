@@ -82,7 +82,9 @@ def random_mechanism(rng: random.Random, mid: str):
 def run_mech(problem, spec, seed, max_fes=MAX_FES):
     mech = compile_mechanism(spec)
     t0 = time.time()
-    res = run_multi_de(problem, mech, max_fes=max_fes, seed=seed, np_size=NP_SIZE)
+    # Accept ProblemHandle or raw BBOB problem.
+    raw = getattr(problem, "_problem", problem)
+    res = run_multi_de(raw, mech, max_fes=max_fes, seed=seed, np_size=NP_SIZE)
     return res, mech, time.time() - t0
 
 
@@ -123,10 +125,23 @@ def main():
     traj_summary = summarize_trajectories(traj_traces)
 
     # --- Step 2-3: Agent proposals (max 12 API requests total) ---
-    specs, pstats, plog = propose_mechanisms(traj_summary, n=3)
+    # Reuse saved proposals if present to avoid extra API spend.
+    prev = sorted(out_root.glob("manifest_a2-*.json"), key=lambda p: p.stat().st_mtime)
+    specs, pstats, plog = [], None, []
+    if prev:
+        old = json.loads(prev[-1].read_text(encoding="utf-8"))
+        if old.get("agent_mechanisms"):
+            specs = old["agent_mechanisms"]
+            pstats = old.get("proposal_stats", {})
+            plog = old.get("proposal_log", [])
+            for s in specs:
+                validate_mechanism(s)  # re-validate
     if len(specs) < 3:
-        # still run what we have but mark insufficient
-        pass
+        specs2, pstats2, plog2 = propose_mechanisms(traj_summary, n=3)
+        if specs2:
+            specs = specs2
+            pstats = pstats2.to_dict() if hasattr(pstats2, "to_dict") else pstats2
+            plog = plog2
 
     # --- Step 4: comparison arms ---
     rng = random.Random(7)
