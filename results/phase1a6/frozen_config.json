@@ -1,0 +1,55 @@
+{
+  "phase": "PHASE1A6_BASELINE_REBUILD",
+  "algorithm": "lshade-canonical-reimpl",
+  "provenance": "canonical_reimplementation; not official code",
+  "suite": "bbob-10D",
+  "functions": [
+    1,
+    2,
+    4,
+    6,
+    7,
+    10,
+    11,
+    12,
+    15,
+    18,
+    20,
+    21
+  ],
+  "seeds": [
+    11,
+    22,
+    33
+  ],
+  "max_fes": 5000,
+  "n_init": 100,
+  "n_min": 4,
+  "h_memory": 5,
+  "p_best": 0.1,
+  "interventions": "NONE",
+  "llm_calls": 0,
+  "expected_runs": 36,
+  "split_manifest_hash": "1e605fb9873bd5997afa7026e44f68c8bd83def751c8ba067fed9edb0982717b",
+  "split_train_functions": [
+    1,
+    2,
+    4,
+    6,
+    7,
+    10,
+    11,
+    12,
+    15,
+    18,
+    20,
+    21
+  ],
+  "code_sha256": {
+    "lshade_canonical.py": "8f48ce553eff93bb43392bb3f182546725c2049552450fcc0de05b791a43d32c",
+    "adapter.py": "00169be00b7d55ec6f07222430d0709086403974fe07f0190120af355de4fa0f",
+    "tests": "5a6db99514f7e5137bebbafec5487eb231aca0a746d6e90fda214886076a194f"
+  },
+  "metabox_version": "2.0.2",
+  "metabox_git_sha": "5565a281ce4e03efc1f6a41230507d5b66637ace"
+}
