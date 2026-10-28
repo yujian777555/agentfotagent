@@ -1,0 +1,6101 @@
+{
+  "config": {
+    "horizon": 600,
+    "n_ops": 3,
+    "seeds": [
+      11,
+      22,
+      33,
+      44,
+      55,
+      66,
+      77,
+      88,
+      99,
+      110
+    ],
+    "beta": 1.0,
+    "clip": 10.0,
+    "eps": 0.08,
+    "noise_std": 0.08,
+    "scenario_defs": {
+      "A_no_confounding": {
+        "means": [
+          0.35,
+          0.25,
+          0.15
+        ],
+        "assignment": "uniform_soft"
+      },
+      "B_state_difficulty": {
+        "means_b0": [
+          0.3,
+          0.28,
+          0.2
+        ],
+        "means_b1": [
+          0.12,
+          0.22,
+          0.1
+        ],
+        "assignment": "uniform_soft"
+      },
+      "C_endogenous_quality": {
+        "formula": "0.10+0.6q+delta",
+        "delta": [
+          0.05,
+          0.02,
+          0.0
+        ],
+        "assignment": "quality_dependent"
+      },
+      "D_near_tie": {
+        "means": [
+          0.3,
+          0.302,
+          0.298
+        ],
+        "assignment": "uniform_soft"
+      },
+      "E_no_support": {
+        "means": [
+          0.35,
+          0.25,
+          0.15
+        ],
+        "assignment": "zero_cell"
+      },
+      "F_drift": {
+        "means_before": [
+          0.35,
+          0.25,
+          0.15
+        ],
+        "means_after": [
+          0.15,
+          0.25,
+          0.35
+        ],
+        "t_switch": 300,
+        "assignment": "uniform_soft"
+      }
+    }
+  },
+  "config_hash": "4781d8216fe092cc",
+  "code_note": "single frozen run; no post-hoc parameter changes",
+  "freq_check_C": {
+    "empirical": {
+      "0": 0.3883333333333333,
+      "1": 0.365,
+      "2": 0.24666666666666667
+    },
+    "expected_from_propensity": {
+      "0": 0.38771555555555576,
+      "1": 0.3632025396825355,
+      "2": 0.2490819047619051
+    },
+    "max_abs_diff": 0.0024152380952384145
+  },
+  "rows": [
+    {
+      "scenario": "A_no_confounding",
+      "seed": 11,
+      "learner": "random",
+      "regret": 58.80000000000039,
+      "opt_id_rate": 0.35,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 11,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 11,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 11,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 11,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 11,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 11,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 11,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 11,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 11,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 22,
+      "learner": "random",
+      "regret": 58.00000000000037,
+      "opt_id_rate": 0.355,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 22,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 22,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 22,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 22,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 22,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 22,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 22,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 22,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 22,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 33,
+      "learner": "random",
+      "regret": 59.00000000000041,
+      "opt_id_rate": 0.33166666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 33,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 33,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 33,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 33,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 33,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 33,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 33,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 33,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 33,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 44,
+      "learner": "random",
+      "regret": 59.000000000000405,
+      "opt_id_rate": 0.3383333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 44,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 44,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 44,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 44,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 44,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 44,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 44,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 44,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 44,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 55,
+      "learner": "random",
+      "regret": 62.80000000000044,
+      "opt_id_rate": 0.29833333333333334,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 55,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 55,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 55,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 55,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 55,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 55,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 55,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 55,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 55,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 66,
+      "learner": "random",
+      "regret": 61.60000000000042,
+      "opt_id_rate": 0.31833333333333336,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 66,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 66,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 66,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 66,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 66,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 66,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 66,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 66,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 66,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 77,
+      "learner": "random",
+      "regret": 60.9000000000004,
+      "opt_id_rate": 0.32666666666666666,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 77,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 77,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 77,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 77,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 77,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 77,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 77,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 77,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 77,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 88,
+      "learner": "random",
+      "regret": 60.30000000000043,
+      "opt_id_rate": 0.315,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 88,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 88,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 88,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 88,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 88,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 88,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 88,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 88,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 88,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 99,
+      "learner": "random",
+      "regret": 57.200000000000365,
+      "opt_id_rate": 0.36333333333333334,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 99,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 99,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 99,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 99,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 99,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 99,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 99,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 99,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 99,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 110,
+      "learner": "random",
+      "regret": 55.50000000000035,
+      "opt_id_rate": 0.38,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 110,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 110,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 110,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 110,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 110,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 110,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 110,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 110,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "A_no_confounding",
+      "seed": 110,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 11,
+      "learner": "random",
+      "regret": 34.900000000000134,
+      "opt_id_rate": 0.31833333333333336,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 11,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 11,
+      "learner": "raw_ucb",
+      "regret": 5.899999999999961,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 11,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 11,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 11,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 11,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 11,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 11,
+      "learner": "dr_known_e",
+      "regret": 4.1,
+      "opt_id_rate": 0.6583333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 11,
+      "learner": "dr_shuffled_e",
+      "regret": 5.799999999999963,
+      "opt_id_rate": 0.5166666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 22,
+      "learner": "random",
+      "regret": 34.24000000000015,
+      "opt_id_rate": 0.3433333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 22,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 22,
+      "learner": "raw_ucb",
+      "regret": 5.899999999999961,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 22,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 22,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 22,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 22,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 22,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 22,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 22,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 33,
+      "learner": "random",
+      "regret": 33.440000000000104,
+      "opt_id_rate": 0.32666666666666666,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 33,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 33,
+      "learner": "raw_ucb",
+      "regret": 5.899999999999961,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 33,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 33,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 33,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 33,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 33,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 33,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 33,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 44,
+      "learner": "random",
+      "regret": 34.76000000000015,
+      "opt_id_rate": 0.30833333333333335,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 44,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 44,
+      "learner": "raw_ucb",
+      "regret": 5.899999999999961,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 44,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 44,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 44,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 44,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 44,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 44,
+      "learner": "dr_known_e",
+      "regret": 20.200000000000017,
+      "opt_id_rate": 0.6633333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 44,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 55,
+      "learner": "random",
+      "regret": 34.56000000000013,
+      "opt_id_rate": 0.31666666666666665,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 55,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 55,
+      "learner": "raw_ucb",
+      "regret": 5.899999999999961,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 55,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 55,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 55,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 55,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 55,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 55,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 55,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 66,
+      "learner": "random",
+      "regret": 34.04000000000012,
+      "opt_id_rate": 0.3383333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 66,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 66,
+      "learner": "raw_ucb",
+      "regret": 5.899999999999961,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 66,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 66,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 66,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 66,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 66,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 66,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 66,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 77,
+      "learner": "random",
+      "regret": 34.30000000000012,
+      "opt_id_rate": 0.3383333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 77,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 77,
+      "learner": "raw_ucb",
+      "regret": 5.899999999999961,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 77,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 77,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 77,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 77,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 77,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 77,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 77,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 88,
+      "learner": "random",
+      "regret": 32.4000000000001,
+      "opt_id_rate": 0.35833333333333334,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 88,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 88,
+      "learner": "raw_ucb",
+      "regret": 5.899999999999961,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 88,
+      "learner": "bucket_ucb",
+      "regret": 5.879999999999962,
+      "opt_id_rate": 0.51,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 88,
+      "learner": "quality_residual",
+      "regret": 5.799999999999963,
+      "opt_id_rate": 0.5166666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 88,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 5.819999999999963,
+      "opt_id_rate": 0.515,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 88,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 88,
+      "learner": "ipw_shuffled_e",
+      "regret": 5.219999999999976,
+      "opt_id_rate": 0.565,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 88,
+      "learner": "dr_known_e",
+      "regret": 5.899999999999961,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 88,
+      "learner": "dr_shuffled_e",
+      "regret": 5.899999999999961,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 99,
+      "learner": "random",
+      "regret": 32.220000000000105,
+      "opt_id_rate": 0.38166666666666665,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 99,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 99,
+      "learner": "raw_ucb",
+      "regret": 5.899999999999961,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 99,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 99,
+      "learner": "quality_residual",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 99,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 99,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 99,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 99,
+      "learner": "dr_known_e",
+      "regret": 29.000000000000142,
+      "opt_id_rate": 0.5166666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 99,
+      "learner": "dr_shuffled_e",
+      "regret": 29.300000000000146,
+      "opt_id_rate": 0.5116666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 110,
+      "learner": "random",
+      "regret": 32.46000000000013,
+      "opt_id_rate": 0.385,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 110,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 110,
+      "learner": "raw_ucb",
+      "regret": 5.899999999999961,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 110,
+      "learner": "bucket_ucb",
+      "regret": 5.879999999999962,
+      "opt_id_rate": 0.51,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 110,
+      "learner": "quality_residual",
+      "regret": 5.879999999999962,
+      "opt_id_rate": 0.51,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 110,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 5.879999999999962,
+      "opt_id_rate": 0.51,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 110,
+      "learner": "ipw_known_e",
+      "regret": 5.8399999999999626,
+      "opt_id_rate": 0.5133333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 110,
+      "learner": "ipw_shuffled_e",
+      "regret": 5.899999999999961,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 110,
+      "learner": "dr_known_e",
+      "regret": 24.900000000000084,
+      "opt_id_rate": 0.585,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "B_state_difficulty",
+      "seed": 110,
+      "learner": "dr_shuffled_e",
+      "regret": 1.2599999999999996,
+      "opt_id_rate": 0.895,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 11,
+      "learner": "random",
+      "regret": 15.660000000000007,
+      "opt_id_rate": 0.35,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 11,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 11,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 11,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 11,
+      "learner": "quality_residual",
+      "regret": 0.10000000000000006,
+      "opt_id_rate": 0.9966666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 11,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 11,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 11,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 11,
+      "learner": "dr_known_e",
+      "regret": 14.35000000000007,
+      "opt_id_rate": 0.5216666666666666,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 11,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 22,
+      "learner": "random",
+      "regret": 15.470000000000002,
+      "opt_id_rate": 0.355,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 22,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 22,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 22,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 22,
+      "learner": "quality_residual",
+      "regret": 26.550000000000242,
+      "opt_id_rate": 0.115,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 22,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 22,
+      "learner": "ipw_known_e",
+      "regret": 7.8900000000000325,
+      "opt_id_rate": 0.5616666666666666,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 22,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 22,
+      "learner": "dr_known_e",
+      "regret": 15.250000000000083,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 22,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 33,
+      "learner": "random",
+      "regret": 15.810000000000006,
+      "opt_id_rate": 0.33166666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 33,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 33,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 33,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 33,
+      "learner": "quality_residual",
+      "regret": 22.980000000000164,
+      "opt_id_rate": 0.04,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 33,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 33,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 33,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 33,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 33,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 44,
+      "learner": "random",
+      "regret": 15.770000000000005,
+      "opt_id_rate": 0.3383333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 44,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 44,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 44,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 44,
+      "learner": "quality_residual",
+      "regret": 29.90000000000029,
+      "opt_id_rate": 0.0033333333333333335,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 44,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 44,
+      "learner": "ipw_known_e",
+      "regret": 11.250000000000027,
+      "opt_id_rate": 0.625,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 44,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 44,
+      "learner": "dr_known_e",
+      "regret": 14.750000000000076,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 44,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 55,
+      "learner": "random",
+      "regret": 16.770000000000017,
+      "opt_id_rate": 0.29833333333333334,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 55,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 55,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 55,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 55,
+      "learner": "quality_residual",
+      "regret": 29.10000000000028,
+      "opt_id_rate": 0.03,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 55,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 55,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 55,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 55,
+      "learner": "dr_known_e",
+      "regret": 14.900000000000079,
+      "opt_id_rate": 0.5033333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 55,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 66,
+      "learner": "random",
+      "regret": 16.410000000000014,
+      "opt_id_rate": 0.31833333333333336,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 66,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 66,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 66,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 66,
+      "learner": "quality_residual",
+      "regret": 26.060000000000237,
+      "opt_id_rate": 0.12333333333333334,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 66,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 66,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 66,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 66,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 66,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 77,
+      "learner": "random",
+      "regret": 16.219999999999995,
+      "opt_id_rate": 0.32666666666666666,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 77,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 77,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 77,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 77,
+      "learner": "quality_residual",
+      "regret": 3.049999999999998,
+      "opt_id_rate": 0.8983333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 77,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 77,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 77,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 77,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 77,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 88,
+      "learner": "random",
+      "regret": 16.17000000000001,
+      "opt_id_rate": 0.315,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 88,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 88,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 88,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 88,
+      "learner": "quality_residual",
+      "regret": 28.130000000000265,
+      "opt_id_rate": 0.055,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 88,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 88,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 88,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 88,
+      "learner": "dr_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 88,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 99,
+      "learner": "random",
+      "regret": 15.26000000000001,
+      "opt_id_rate": 0.36333333333333334,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 99,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 99,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 99,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 99,
+      "learner": "quality_residual",
+      "regret": 14.550000000000074,
+      "opt_id_rate": 0.515,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 99,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 99,
+      "learner": "ipw_known_e",
+      "regret": 17.999999999999932,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 99,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 99,
+      "learner": "dr_known_e",
+      "regret": 15.100000000000081,
+      "opt_id_rate": 0.49666666666666665,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 99,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 110,
+      "learner": "random",
+      "regret": 14.820000000000006,
+      "opt_id_rate": 0.38,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 110,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 110,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 110,
+      "learner": "bucket_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 110,
+      "learner": "quality_residual",
+      "regret": 29.85000000000029,
+      "opt_id_rate": 0.005,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 110,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 110,
+      "learner": "ipw_known_e",
+      "regret": 8.850000000000014,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 110,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 110,
+      "learner": "dr_known_e",
+      "regret": 14.500000000000073,
+      "opt_id_rate": 0.5166666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "C_endogenous_quality",
+      "seed": 110,
+      "learner": "dr_shuffled_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 11,
+      "learner": "random",
+      "regret": 1.212000000000001,
+      "opt_id_rate": 0.32,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 11,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 11,
+      "learner": "raw_ucb",
+      "regret": 2.398000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 11,
+      "learner": "bucket_ucb",
+      "regret": 2.388000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 11,
+      "learner": "quality_residual",
+      "regret": 2.394000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 11,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 2.396000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 11,
+      "learner": "ipw_known_e",
+      "regret": 1.7900000000000016,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 11,
+      "learner": "ipw_shuffled_e",
+      "regret": 1.7900000000000016,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 11,
+      "learner": "dr_known_e",
+      "regret": 2.1460000000000017,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 11,
+      "learner": "dr_shuffled_e",
+      "regret": 1.7820000000000016,
+      "opt_id_rate": 0.0033333333333333335,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 22,
+      "learner": "random",
+      "regret": 1.198000000000001,
+      "opt_id_rate": 0.3233333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 22,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 22,
+      "learner": "raw_ucb",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 22,
+      "learner": "bucket_ucb",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 22,
+      "learner": "quality_residual",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 22,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 22,
+      "learner": "ipw_known_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 22,
+      "learner": "ipw_shuffled_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 22,
+      "learner": "dr_known_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 22,
+      "learner": "dr_shuffled_e",
+      "regret": 2.396000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 33,
+      "learner": "random",
+      "regret": 1.154000000000001,
+      "opt_id_rate": 0.35333333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 33,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 33,
+      "learner": "raw_ucb",
+      "regret": 2.396000000000002,
+      "opt_id_rate": 0.0016666666666666668,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 33,
+      "learner": "bucket_ucb",
+      "regret": 2.390000000000002,
+      "opt_id_rate": 0.0033333333333333335,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 33,
+      "learner": "quality_residual",
+      "regret": 2.380000000000002,
+      "opt_id_rate": 0.008333333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 33,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 2.392000000000002,
+      "opt_id_rate": 0.0033333333333333335,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 33,
+      "learner": "ipw_known_e",
+      "regret": 0.5900000000000005,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 33,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.5900000000000005,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 33,
+      "learner": "dr_known_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 33,
+      "learner": "dr_shuffled_e",
+      "regret": 1.176000000000001,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 44,
+      "learner": "random",
+      "regret": 1.178000000000001,
+      "opt_id_rate": 0.34,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 44,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 44,
+      "learner": "raw_ucb",
+      "regret": 2.398000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 44,
+      "learner": "bucket_ucb",
+      "regret": 2.396000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 44,
+      "learner": "quality_residual",
+      "regret": 2.398000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 44,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 2.398000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 44,
+      "learner": "ipw_known_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 44,
+      "learner": "ipw_shuffled_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 44,
+      "learner": "dr_known_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 44,
+      "learner": "dr_shuffled_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 55,
+      "learner": "random",
+      "regret": 1.186000000000001,
+      "opt_id_rate": 0.3566666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 55,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 55,
+      "learner": "raw_ucb",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 55,
+      "learner": "bucket_ucb",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 55,
+      "learner": "quality_residual",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 55,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 55,
+      "learner": "ipw_known_e",
+      "regret": 1.8160000000000016,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 55,
+      "learner": "ipw_shuffled_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 55,
+      "learner": "dr_known_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 55,
+      "learner": "dr_shuffled_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 66,
+      "learner": "random",
+      "regret": 1.210000000000001,
+      "opt_id_rate": 0.33666666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 66,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 66,
+      "learner": "raw_ucb",
+      "regret": 2.392000000000002,
+      "opt_id_rate": 0.0033333333333333335,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 66,
+      "learner": "bucket_ucb",
+      "regret": 2.386000000000002,
+      "opt_id_rate": 0.005,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 66,
+      "learner": "quality_residual",
+      "regret": 2.386000000000002,
+      "opt_id_rate": 0.005,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 66,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 2.382000000000002,
+      "opt_id_rate": 0.006666666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 66,
+      "learner": "ipw_known_e",
+      "regret": 0.5900000000000005,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 66,
+      "learner": "ipw_shuffled_e",
+      "regret": 0.5900000000000005,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 66,
+      "learner": "dr_known_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 66,
+      "learner": "dr_shuffled_e",
+      "regret": 2.376000000000002,
+      "opt_id_rate": 0.01,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 77,
+      "learner": "random",
+      "regret": 1.212000000000001,
+      "opt_id_rate": 0.33166666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 77,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 77,
+      "learner": "raw_ucb",
+      "regret": 2.398000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 77,
+      "learner": "bucket_ucb",
+      "regret": 2.396000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 77,
+      "learner": "quality_residual",
+      "regret": 2.394000000000002,
+      "opt_id_rate": 0.0016666666666666668,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 77,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 2.396000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 77,
+      "learner": "ipw_known_e",
+      "regret": 1.8040000000000016,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 77,
+      "learner": "ipw_shuffled_e",
+      "regret": 1.8100000000000016,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 77,
+      "learner": "dr_known_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 77,
+      "learner": "dr_shuffled_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 88,
+      "learner": "random",
+      "regret": 1.146000000000001,
+      "opt_id_rate": 0.365,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 88,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 88,
+      "learner": "raw_ucb",
+      "regret": 2.380000000000002,
+      "opt_id_rate": 0.008333333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 88,
+      "learner": "bucket_ucb",
+      "regret": 2.352000000000002,
+      "opt_id_rate": 0.02,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 88,
+      "learner": "quality_residual",
+      "regret": 2.384000000000002,
+      "opt_id_rate": 0.006666666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 88,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 2.388000000000002,
+      "opt_id_rate": 0.005,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 88,
+      "learner": "ipw_known_e",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 88,
+      "learner": "ipw_shuffled_e",
+      "regret": 1.148000000000001,
+      "opt_id_rate": 0.5216666666666666,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 88,
+      "learner": "dr_known_e",
+      "regret": 1.220000000000001,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 88,
+      "learner": "dr_shuffled_e",
+      "regret": 1.220000000000001,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 99,
+      "learner": "random",
+      "regret": 1.196000000000001,
+      "opt_id_rate": 0.32,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 99,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 99,
+      "learner": "raw_ucb",
+      "regret": 2.398000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 99,
+      "learner": "bucket_ucb",
+      "regret": 1.180000000000001,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 99,
+      "learner": "quality_residual",
+      "regret": 1.180000000000001,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 99,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 1.180000000000001,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 99,
+      "learner": "ipw_known_e",
+      "regret": 1.180000000000001,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 99,
+      "learner": "ipw_shuffled_e",
+      "regret": 1.186000000000001,
+      "opt_id_rate": 0.5033333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 99,
+      "learner": "dr_known_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 99,
+      "learner": "dr_shuffled_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 110,
+      "learner": "random",
+      "regret": 1.188000000000001,
+      "opt_id_rate": 0.315,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 110,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 110,
+      "learner": "raw_ucb",
+      "regret": 2.396000000000002,
+      "opt_id_rate": 0.0016666666666666668,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 110,
+      "learner": "bucket_ucb",
+      "regret": 2.396000000000002,
+      "opt_id_rate": 0.0016666666666666668,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 110,
+      "learner": "quality_residual",
+      "regret": 2.396000000000002,
+      "opt_id_rate": 0.0016666666666666668,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 110,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 2.396000000000002,
+      "opt_id_rate": 0.0016666666666666668,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 110,
+      "learner": "ipw_known_e",
+      "regret": 1.220000000000001,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 110,
+      "learner": "ipw_shuffled_e",
+      "regret": 2.380000000000002,
+      "opt_id_rate": 0.006666666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 110,
+      "learner": "dr_known_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "D_near_tie",
+      "seed": 110,
+      "learner": "dr_shuffled_e",
+      "regret": 2.400000000000002,
+      "opt_id_rate": 0.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 11,
+      "learner": "random",
+      "regret": 58.80000000000039,
+      "opt_id_rate": 0.35,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 11,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 11,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 11,
+      "learner": "bucket_ucb",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 11,
+      "learner": "quality_residual",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 11,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 11,
+      "learner": "ipw_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 11,
+      "learner": "ipw_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 11,
+      "learner": "dr_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 11,
+      "learner": "dr_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 22,
+      "learner": "random",
+      "regret": 58.00000000000037,
+      "opt_id_rate": 0.355,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 22,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 22,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 22,
+      "learner": "bucket_ucb",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 22,
+      "learner": "quality_residual",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 22,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 22,
+      "learner": "ipw_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 22,
+      "learner": "ipw_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 22,
+      "learner": "dr_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 22,
+      "learner": "dr_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 33,
+      "learner": "random",
+      "regret": 59.00000000000041,
+      "opt_id_rate": 0.33166666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 33,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 33,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 33,
+      "learner": "bucket_ucb",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 33,
+      "learner": "quality_residual",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 33,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 33,
+      "learner": "ipw_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 33,
+      "learner": "ipw_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 33,
+      "learner": "dr_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 33,
+      "learner": "dr_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 44,
+      "learner": "random",
+      "regret": 59.000000000000405,
+      "opt_id_rate": 0.3383333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 44,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 44,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 44,
+      "learner": "bucket_ucb",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 44,
+      "learner": "quality_residual",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 44,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 44,
+      "learner": "ipw_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 44,
+      "learner": "ipw_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 44,
+      "learner": "dr_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 44,
+      "learner": "dr_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 55,
+      "learner": "random",
+      "regret": 62.80000000000044,
+      "opt_id_rate": 0.29833333333333334,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 55,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 55,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 55,
+      "learner": "bucket_ucb",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 55,
+      "learner": "quality_residual",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 55,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 55,
+      "learner": "ipw_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 55,
+      "learner": "ipw_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 55,
+      "learner": "dr_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 55,
+      "learner": "dr_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 66,
+      "learner": "random",
+      "regret": 61.60000000000042,
+      "opt_id_rate": 0.31833333333333336,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 66,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 66,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 66,
+      "learner": "bucket_ucb",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 66,
+      "learner": "quality_residual",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 66,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 66,
+      "learner": "ipw_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 66,
+      "learner": "ipw_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 66,
+      "learner": "dr_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 66,
+      "learner": "dr_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 77,
+      "learner": "random",
+      "regret": 60.9000000000004,
+      "opt_id_rate": 0.32666666666666666,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 77,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 77,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 77,
+      "learner": "bucket_ucb",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 77,
+      "learner": "quality_residual",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 77,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 77,
+      "learner": "ipw_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 77,
+      "learner": "ipw_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 77,
+      "learner": "dr_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 77,
+      "learner": "dr_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 88,
+      "learner": "random",
+      "regret": 60.30000000000043,
+      "opt_id_rate": 0.315,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 88,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 88,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 88,
+      "learner": "bucket_ucb",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 88,
+      "learner": "quality_residual",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 88,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 88,
+      "learner": "ipw_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 88,
+      "learner": "ipw_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 88,
+      "learner": "dr_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 88,
+      "learner": "dr_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 99,
+      "learner": "random",
+      "regret": 57.200000000000365,
+      "opt_id_rate": 0.36333333333333334,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 99,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 99,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 99,
+      "learner": "bucket_ucb",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 99,
+      "learner": "quality_residual",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 99,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 99,
+      "learner": "ipw_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 99,
+      "learner": "ipw_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 99,
+      "learner": "dr_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 99,
+      "learner": "dr_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 110,
+      "learner": "random",
+      "regret": 55.50000000000035,
+      "opt_id_rate": 0.38,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 110,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 110,
+      "learner": "raw_ucb",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 110,
+      "learner": "bucket_ucb",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 110,
+      "learner": "quality_residual",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 110,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 110,
+      "learner": "ipw_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 110,
+      "learner": "ipw_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 110,
+      "learner": "dr_known_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "E_no_support",
+      "seed": 110,
+      "learner": "dr_shuffled_e",
+      "regret": 61.00000000000033,
+      "opt_id_rate": 0.49166666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 11,
+      "learner": "random",
+      "regret": 57.400000000000375,
+      "opt_id_rate": 0.3616666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 11,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 11,
+      "learner": "raw_ucb",
+      "regret": 59.60000000000031,
+      "opt_id_rate": 0.5033333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 11,
+      "learner": "bucket_ucb",
+      "regret": 59.0000000000003,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 11,
+      "learner": "quality_residual",
+      "regret": 59.30000000000031,
+      "opt_id_rate": 0.505,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 11,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 59.30000000000031,
+      "opt_id_rate": 0.505,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 11,
+      "learner": "ipw_known_e",
+      "regret": 51.30000000000019,
+      "opt_id_rate": 0.5333333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 11,
+      "learner": "ipw_shuffled_e",
+      "regret": 56.30000000000027,
+      "opt_id_rate": 0.53,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 11,
+      "learner": "dr_known_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 11,
+      "learner": "dr_shuffled_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 22,
+      "learner": "random",
+      "regret": 60.20000000000041,
+      "opt_id_rate": 0.33666666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 22,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 22,
+      "learner": "raw_ucb",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 22,
+      "learner": "bucket_ucb",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 22,
+      "learner": "quality_residual",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 22,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 22,
+      "learner": "ipw_known_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 22,
+      "learner": "ipw_shuffled_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 22,
+      "learner": "dr_known_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 22,
+      "learner": "dr_shuffled_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 33,
+      "learner": "random",
+      "regret": 59.60000000000041,
+      "opt_id_rate": 0.32666666666666666,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 33,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 33,
+      "learner": "raw_ucb",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 33,
+      "learner": "bucket_ucb",
+      "regret": 59.80000000000031,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 33,
+      "learner": "quality_residual",
+      "regret": 59.80000000000031,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 33,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 59.80000000000031,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 33,
+      "learner": "ipw_known_e",
+      "regret": 61.500000000000405,
+      "opt_id_rate": 0.23333333333333334,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 33,
+      "learner": "ipw_shuffled_e",
+      "regret": 63.000000000000355,
+      "opt_id_rate": 0.475,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 33,
+      "learner": "dr_known_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 33,
+      "learner": "dr_shuffled_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 44,
+      "learner": "random",
+      "regret": 60.00000000000042,
+      "opt_id_rate": 0.33,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 44,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 44,
+      "learner": "raw_ucb",
+      "regret": 59.80000000000031,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 44,
+      "learner": "bucket_ucb",
+      "regret": 59.60000000000031,
+      "opt_id_rate": 0.5033333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 44,
+      "learner": "quality_residual",
+      "regret": 59.80000000000031,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 44,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 59.80000000000031,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 44,
+      "learner": "ipw_known_e",
+      "regret": 59.0000000000003,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 44,
+      "learner": "ipw_shuffled_e",
+      "regret": 55.60000000000025,
+      "opt_id_rate": 0.5366666666666666,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 44,
+      "learner": "dr_known_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 44,
+      "learner": "dr_shuffled_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 55,
+      "learner": "random",
+      "regret": 58.60000000000037,
+      "opt_id_rate": 0.3333333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 55,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 55,
+      "learner": "raw_ucb",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 55,
+      "learner": "bucket_ucb",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 55,
+      "learner": "quality_residual",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 55,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 55,
+      "learner": "ipw_known_e",
+      "regret": 58.20000000000029,
+      "opt_id_rate": 0.515,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 55,
+      "learner": "ipw_shuffled_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 55,
+      "learner": "dr_known_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 55,
+      "learner": "dr_shuffled_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 66,
+      "learner": "random",
+      "regret": 60.400000000000404,
+      "opt_id_rate": 0.3283333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 66,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 66,
+      "learner": "raw_ucb",
+      "regret": 59.60000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 66,
+      "learner": "bucket_ucb",
+      "regret": 59.30000000000031,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 66,
+      "learner": "quality_residual",
+      "regret": 59.50000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 66,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 59.60000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 66,
+      "learner": "ipw_known_e",
+      "regret": 61.500000000000405,
+      "opt_id_rate": 0.23333333333333334,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 66,
+      "learner": "ipw_shuffled_e",
+      "regret": 59.500000000000576,
+      "opt_id_rate": 0.008333333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 66,
+      "learner": "dr_known_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 66,
+      "learner": "dr_shuffled_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 77,
+      "learner": "random",
+      "regret": 59.30000000000038,
+      "opt_id_rate": 0.34,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 77,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 77,
+      "learner": "raw_ucb",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 77,
+      "learner": "bucket_ucb",
+      "regret": 59.80000000000031,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 77,
+      "learner": "quality_residual",
+      "regret": 59.80000000000031,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 77,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 59.80000000000031,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 77,
+      "learner": "ipw_known_e",
+      "regret": 54.600000000000236,
+      "opt_id_rate": 0.545,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 77,
+      "learner": "ipw_shuffled_e",
+      "regret": 59.60000000000031,
+      "opt_id_rate": 0.5033333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 77,
+      "learner": "dr_known_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 77,
+      "learner": "dr_shuffled_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 88,
+      "learner": "random",
+      "regret": 59.10000000000041,
+      "opt_id_rate": 0.325,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 88,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 88,
+      "learner": "raw_ucb",
+      "regret": 59.90000000000032,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 88,
+      "learner": "bucket_ucb",
+      "regret": 59.80000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 88,
+      "learner": "quality_residual",
+      "regret": 59.90000000000032,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 88,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 59.90000000000032,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 88,
+      "learner": "ipw_known_e",
+      "regret": 57.500000000000284,
+      "opt_id_rate": 0.5166666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 88,
+      "learner": "ipw_shuffled_e",
+      "regret": 58.000000000000284,
+      "opt_id_rate": 0.5083333333333333,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 88,
+      "learner": "dr_known_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 88,
+      "learner": "dr_shuffled_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 99,
+      "learner": "random",
+      "regret": 64.00000000000045,
+      "opt_id_rate": 0.30666666666666664,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 99,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 99,
+      "learner": "raw_ucb",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 99,
+      "learner": "bucket_ucb",
+      "regret": 59.80000000000031,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 99,
+      "learner": "quality_residual",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 99,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 99,
+      "learner": "ipw_known_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 99,
+      "learner": "ipw_shuffled_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 99,
+      "learner": "dr_known_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 99,
+      "learner": "dr_shuffled_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 110,
+      "learner": "random",
+      "regret": 59.70000000000041,
+      "opt_id_rate": 0.345,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 110,
+      "learner": "oracle",
+      "regret": 0.0,
+      "opt_id_rate": 1.0,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 110,
+      "learner": "raw_ucb",
+      "regret": 59.90000000000032,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 110,
+      "learner": "bucket_ucb",
+      "regret": 59.700000000000315,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 110,
+      "learner": "quality_residual",
+      "regret": 59.80000000000031,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 110,
+      "learner": "quality_residual_shuffled_q",
+      "regret": 59.80000000000031,
+      "opt_id_rate": 0.5016666666666667,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 110,
+      "learner": "ipw_known_e",
+      "regret": 57.00000000000027,
+      "opt_id_rate": 0.525,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 110,
+      "learner": "ipw_shuffled_e",
+      "regret": 57.00000000000027,
+      "opt_id_rate": 0.525,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 110,
+      "learner": "dr_known_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    },
+    {
+      "scenario": "F_drift",
+      "seed": 110,
+      "learner": "dr_shuffled_e",
+      "regret": 60.00000000000031,
+      "opt_id_rate": 0.5,
+      "refused": 0,
+      "unidentifiable": 0,
+      "clips": 0
+    }
+  ]
+}
