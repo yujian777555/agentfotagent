@@ -1,0 +1,27 @@
+L-SHADE F1 seed=11: best_raw=700 regret=0.00024483 fes=5000 N: 100->12->4
+  cost samples: 1.298e+04, 737.1, 700.4, 700, 700, 700, 700, 700, 700
+  final_pop_size=4 gens=210
+L-SHADE F1 seed=22: best_raw=700 regret=3.88577e-05 fes=5000 N: 100->12->4
+  cost samples: 2.402e+04, 784, 701.1, 700, 700, 700, 700, 700, 700
+  final_pop_size=4 gens=210
+L-SHADE F1 seed=33: best_raw=700 regret=9.70781e-05 fes=5000 N: 100->12->4
+  cost samples: 1.555e+04, 807.1, 701.5, 700, 700, 700, 700, 700, 700
+  final_pop_size=4 gens=210
+L-SHADE F10 seed=11: best_raw=34952.7 regret=34352.7 fes=5000 N: 100->12->4
+  cost samples: 2.727e+08, 5.289e+06, 3.15e+05, 8.961e+04, 4.024e+04, 3.912e+04, 3.901e+04, 3.569e+04, 3.495e+04
+  final_pop_size=4 gens=210
+L-SHADE F10 seed=22: best_raw=10542.8 regret=9942.81 fes=5000 N: 100->12->4
+  cost samples: 2.691e+08, 8.7e+06, 9.121e+05, 1.598e+05, 5.021e+04, 2.497e+04, 1.563e+04, 1.054e+04, 1.054e+04
+  final_pop_size=4 gens=210
+L-SHADE F10 seed=33: best_raw=56251 regret=55651 fes=5000 N: 100->12->4
+  cost samples: 2.838e+08, 5.735e+06, 5.076e+05, 8.636e+04, 6.294e+04, 5.8e+04, 5.66e+04, 5.627e+04, 5.625e+04
+  final_pop_size=4 gens=210
+L-SHADE F20 seed=11: best_raw=2049.66 regret=-50.3409 fes=5000 N: 100->12->4
+  cost samples: 1.901e+06, 2072, 2069, 2069, 2066, 2056, 2052, 2052, 2050
+  final_pop_size=4 gens=210
+L-SHADE F20 seed=22: best_raw=2036.14 regret=-63.8565 fes=5000 N: 100->12->4
+  cost samples: 2.362e+06, 2072, 2072, 2064, 2060, 2053, 2049, 2044, 2036
+  final_pop_size=4 gens=210
+L-SHADE F20 seed=33: best_raw=2039.21 regret=-60.7912 fes=5000 N: 100->12->4
+  cost samples: 3.264e+06, 2075, 2065, 2058, 2047, 2047, 2045, 2043, 2039
+  final_pop_size=4 gens=210

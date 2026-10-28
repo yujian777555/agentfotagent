@@ -1,0 +1,68 @@
+[
+  {
+    "review": {
+      "already_covered": true,
+      "closest_work": "Adaptive population sizing in L-SHADE variants is extensively studied: jSO (Brest et al. 2017) uses non-linear/adaptive population reduction; L-SHADE-cnEpSin, L-SHADE-RSP, and especially the 'success-history' family and restart/adaptive-N schemes (e.g., 'Adaptive L-SHADE' papers, Tanabe & Fukunaga's own follow-ups, and the 'population size reduction based on improvement' literature, e.g., APS by Piotrowski). Progress/improvement-driven population reduction is a known idea in the broader DE literature (e.g., dynamic population sizing keyed to fitness stagnation).",
+      "is_renaming": true,
+      "is_just_randomness": false,
+      "simpler_explanation": "The observed defect is a symptom of a fixed FE-budget schedule ignoring convergence state; the minimal fix is to gate N reduction on a stagnation/improvement counter, not to introduce a smoothed relative-improvement exponent alpha_t. The alpha_t formulation is a reparameterization of 'reduce N only when progress stalls' already implicit in stagnation-based schemes.",
+      "minimal_control": "Compare three arms on the same F1 and F10 (and a mid-difficulty function), identical seeds/budget: (A) original linear N(t); (B) simplest stagnation-gated reduction: freeze N when smoothed relative improvement < epsilon for k generations, else linear; (C) the proposed alpha_t schedule. Also include (D) fixed N=N_init and (E) fixed N=4 to bound the effect. Report median+IQM over >=25 runs and check whether C beats B beyond noise; if not, alpha_t adds nothing over the trivial gate.",
+      "verdict": "REJECT",
+      "reason": "Progress-adaptive population reduction is already covered by jSO/APS/stagnation-gated L-SHADE variants; the alpha_t exponent is a renaming/reparameterization of an improvement-gated schedule. The defect evidence is real but does not motivate a new mechanism\u2014a minimal stagnation gate suffices. No pilot warranted until the author shows C strictly outperforms the trivial gate B under matched budget and seeds, and demonstrates the effect is not just delayed reduction on F1."
+    },
+    "usage": {
+      "prompt_tokens": 253,
+      "completion_tokens": 483,
+      "total_tokens": 736,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 253
+    }
+  },
+  {
+    "review": {
+      "already_covered": true,
+      "closest_work": "Adaptive/restart population-size schemes in SHADE/L-SHADE variants (e.g., jSO, L-SHADE-cnEpSin, and population reduction tied to stagnation/improvement rather than pure FE), plus success-history adaptation; also 'population size adaptation' literature (e.g., APOP, and the 'population size reduction based on progress' ideas in differential evolution).",
+      "is_renaming": true,
+      "is_just_randomness": false,
+      "simpler_explanation": "The observed defect is that N is a function of FE budget fraction, not of search progress. Any schedule that makes N a function of measured improvement (or stagnation) will trivially fix both F1 and F10 cases; the smoothed-improvement exponent is an unnecessary complication. A simple stagnation counter or improvement-triggered reduction reproduces the claimed benefit without a new alpha_t mechanism.",
+      "minimal_control": "Compare on the same L-SHADE codebase: (a) original linear N(t), (b) N frozen at N_init, (c) N reduced only on stagnation (no improvement over k generations), (d) the proposed alpha_t schedule. Also include a 'shuffled-improvement' control where alpha_t is driven by a permuted improvement signal to test whether the smoothing actually matters or any progress proxy suffices.",
+      "verdict": "REJECT",
+      "reason": "The defect is real but the proposed mechanism is a renaming/over-engineering of existing progress- or stagnation-driven population reduction. The core claim (progress-adaptive N beats FE-linear N) is already covered by stagnation-based and improvement-based population adaptation in the DE literature, and the alpha_t smoothing adds unvalidated complexity. Without the minimal control (stagnation-only reduction and shuffled-improvement ablation), there is no evidence the specific schedule is necessary rather than any progress proxy. Reject as incremental; would only reconsider if the ablation shows the smoothed exponent materially outperforms simple stagnation-triggered reduction."
+    },
+    "usage": {
+      "prompt_tokens": 253,
+      "completion_tokens": 420,
+      "total_tokens": 673,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 253
+    }
+  },
+  {
+    "review": {
+      "already_covered": true,
+      "closest_work": "Adaptive/restart population reduction schemes in L-SHADE variants (e.g., L-SHADE with population reduction tied to stagnation/improvement, jSO, and adaptive population size methods like those in SHADE variants and IPOP-CMA-ES style restarts); also 'success-history' based population adaptation where N is reduced on stagnation rather than on FE budget.",
+      "is_renaming": false,
+      "is_just_randomness": false,
+      "simpler_explanation": "The observed F1/F10 pathology is consistent with a fixed FE-budget-driven schedule ignoring convergence state; a simpler fix is to gate population reduction on stagnation (no improvement for k generations) rather than introducing a smoothed relative-improvement exponent alpha_t, which adds hyperparameters and smoothing lag.",
+      "minimal_control": "Compare on the same benchmark: (a) original linear N(t), (b) stagnation-gated reduction (reduce N only after k non-improving generations, floor 4), (c) the proposed alpha_t schedule. Hold all else fixed (N_init, memory, F/CR adaptation, seeds). Report FE-to-target and final error across seeds with variance; the alpha_t schedule must beat the simpler stagnation-gated control, not just linear.",
+      "verdict": "REJECT",
+      "reason": "The proposal is a plausible but under-justified complication. The defect (schedule ignores progress) is real, but the minimal remedy is stagnation-gated reduction, which needs no new smoothing parameter or exponent. The alpha_t mechanism introduces extra hyperparameters (smoothing window, alpha mapping) whose benefit is unproven and risks overfitting to the two cited cases (F1, F10). Without evidence that it outperforms the simpler stagnation-gated control across many functions and seeds, it does not clear the bar for a pilot; it should be reframed as a controlled comparison against the simpler mechanism first."
+    },
+    "usage": {
+      "prompt_tokens": 253,
+      "completion_tokens": 410,
+      "total_tokens": 663,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 253
+    }
+  }
+]

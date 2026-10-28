@@ -1,0 +1,77 @@
+[
+  {
+    "response": {
+      "candidate_id": "cand_1",
+      "defect": "Linear population-size reduction N(t) is decoupled from actual progress, causing premature shrinking on multimodal/rugged functions (F10) where stagnation occurs early, and unnecessary slow shrinking on easy functions (F1) where convergence is immediate.",
+      "evidence": "F10 seeds 11/22/33 show cost still improving at 5000 FE (e.g., seed 22: 1.56e4 -> 1.05e4 in last quarter) while N has already collapsed to 4, limiting exploration. F1 seeds reach 700 by ~1500 FE but N continues shrinking linearly, wasting potential diversity. F20 shows steady improvement but N=4 too early to exploit basin.",
+      "patch_location": "Population size update rule after each generation: replace N_{g+1} = round(N_init * (1 - FE/FE_max)) with a progress-gated schedule.",
+      "math": "Let r_g = (f_best(g-1) - f_best(g)) / (|f_best(g-1)| + eps) be relative improvement. Maintain smoothed progress p_g = 0.9 p_{g-1} + 0.1 r_g. Define target N*_g = N_min + (N_init - N_min) * exp(-lambda * p_g * g). Update N_{g+1} = clip(round(N*_g), N_min, N_g) with N_min=4, lambda=0.05. This makes N shrink faster when progress is high (easy functions) and slower when progress stalls (hard functions).",
+      "nearest_paper": "L-SHADE (Tanabe & Fukunaga, 2014) linear population size reduction; also related to success-history based parameter adaptation and adaptive population sizing in jDE-2 / EPSDE.",
+      "difference": "Instead of a fixed linear schedule in FE, N(t) is modulated by a smoothed relative-improvement signal, so reduction rate adapts to observed convergence speed without restart or diversity triggers.",
+      "predicted_behavior": "On F1, N will shrink faster (progress high early), freeing FE for local refinement; on F10, N will remain larger longer, preserving exploration and improving final regret; on F20, moderate shrinkage matching steady progress.",
+      "falsification": "If F10 final regret does not improve by at least 10% across seeds, or if F1/F20 show no degradation (regret increase >5%), the mechanism is falsified.",
+      "ablation": "Compare (a) baseline linear N, (b) progress-gated N with lambda=0.05, (c) progress-gated N with lambda=0.1, (d) progress-gated N with p_g replaced by raw r_g (no smoothing)."
+    },
+    "usage": {
+      "prompt_tokens": 1137,
+      "completion_tokens": 607,
+      "total_tokens": 1744,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 1137
+    },
+    "prompt_sha": "ef2b2526d905d96c"
+  },
+  {
+    "response": {
+      "candidate_id": "cand_1",
+      "defect": "Linear population reduction schedule N(t) is decoupled from actual search progress, causing premature loss of diversity when progress stalls (e.g., F10) and unnecessary slow convergence when progress is fast (e.g., F1).",
+      "evidence": "F10 seeds 11/22/33 show cost still decreasing significantly at 5000 FE (e.g., seed 11: 3.9e4 -> 3.5e4 in last 20% of budget), yet N has already shrunk to 4, limiting exploration. Conversely, F1 converges to 700 by ~2000 FE but continues with N=4 for many generations, wasting evaluations. The fixed linear schedule ignores these differing progress profiles.",
+      "patch_location": "In L-SHADE main loop, replace the linear N(t) update with a progress-sensitive schedule: N_{t+1} = max(4, round(N_init * (1 - t/T)^alpha)), where alpha is adapted online based on the ratio of recent improvement to expected improvement.",
+      "math": "Let r_t = (f_best(t-w) - f_best(t)) / (f_best(t-w) - f_best(t-w-1) + eps) be a smoothed progress ratio over window w=10 generations. Define alpha_t = clip(alpha_{t-1} * exp(-eta * (r_t - 1)), 0.5, 2.0) with eta=0.1. Then N_{t+1} = max(4, round(N_init * (1 - t/T)^{alpha_t})). This makes N decay slower when progress is above expectation (r_t > 1) and faster when below.",
+      "nearest_paper": "L-SHADE with population reduction (Tanabe & Fukunaga, 2014) uses a fixed linear schedule; adaptive population size schemes exist (e.g., AP-SHADE, but based on diversity, not progress).",
+      "difference": "Unlike diversity-based or stagnation-triggered restarts, this mechanism continuously modulates the reduction exponent using a smoothed progress signal, avoiding discrete triggers and preserving the monotonic N decrease.",
+      "predicted_behavior": "On F10, slower N reduction will retain more individuals longer, improving exploration and reducing final regret. On F1, faster reduction will free evaluations earlier, potentially allowing more refinement with small N, though F1 already converges well. Overall, more consistent performance across functions.",
+      "falsification": "If on F10 the final regret does not improve by at least 10% relative to baseline across seeds, or if F1 regret worsens by more than 5%, the mechanism is falsified.",
+      "ablation": "Compare against fixed alpha=1 (linear) and against diversity-based adaptive N (e.g., using population variance) to isolate the effect of progress-based adaptation."
+    },
+    "usage": {
+      "prompt_tokens": 1137,
+      "completion_tokens": 622,
+      "total_tokens": 1759,
+      "prompt_tokens_details": {
+        "cached_tokens": 896
+      },
+      "prompt_cache_hit_tokens": 896,
+      "prompt_cache_miss_tokens": 241
+    },
+    "prompt_sha": "ef2b2526d905d96c"
+  },
+  {
+    "response": {
+      "candidate_id": "cand_1",
+      "defect": "Linear population-size reduction N(t) is decoupled from actual search progress; it can shrink too fast on easy functions (F1) or too slow on hard multimodal functions (F10), wasting evaluations or losing diversity prematurely.",
+      "evidence": "F1 reaches near-optimal by sample 3 (~1500 FE) yet N continues shrinking to 4, wasting ~3500 FE on a converged population. F10 shows slow, steady improvement across all 9 samples with final regret still large (9942\u201355651), indicating N reduction to 4 is too aggressive for hard landscapes. F20 shows steady improvement to the end, suggesting N=4 may be limiting further gains.",
+      "patch_location": "Population-size schedule in L-SHADE main loop: replace linear N(t) with a progress-adaptive schedule driven by the ratio of recent best-fitness improvement to remaining budget.",
+      "math": "Let f_best(t) be best fitness at generation t. Define progress rate r(t) = max(0, (f_best(t-k) - f_best(t)) / (f_best(t-k) - f_target + eps)) over a window k=5 gens, clipped to [0,1]. Set N(t+1) = max(4, round(N(t) * (1 - alpha * r(t)))), with alpha=0.05. If r(t) < r_min=1e-4 for 10 consecutive gens, freeze N (no shrink) until progress resumes. This replaces N(t) = round(N_init * (1 - t/T)) with a feedback-controlled decay.",
+      "nearest_paper": "L-SHADE (Tanabe & Fukunaga, 2014) uses linear N reduction; adaptive population size schemes exist (e.g., jSO, APGSK), but none use online progress-rate feedback to modulate N(t) within L-SHADE.",
+      "difference": "Unlike linear or pre-scheduled N reduction, this mechanism ties population shrinkage to measured improvement, preserving diversity on hard functions (F10) and accelerating shrinkage on easy ones (F1). It is a minimal feedback loop, not a restart or diversity trigger.",
+      "predicted_behavior": "On F1, N will shrink faster after early convergence, freeing evaluations for local refinement (marginal gain). On F10, N will shrink more slowly, maintaining diversity and likely reducing final regret by 10\u201330%. On F20, N will shrink steadily but not below a level that supports continued improvement, possibly yielding slightly better final fitness.",
+      "falsification": "If F10 final regret does not improve by at least 5% across seeds, or if F1/F20 final fitness degrades by more than 1%, the mechanism is falsified.",
+      "ablation": "Compare (a) original linear N, (b) progress-adaptive N with freeze, (c) progress-adaptive N without freeze, (d) fixed N=4. Measure final regret and FE-to-target across F1, F10, F20, 3 seeds each."
+    },
+    "usage": {
+      "prompt_tokens": 1137,
+      "completion_tokens": 663,
+      "total_tokens": 1800,
+      "prompt_tokens_details": {
+        "cached_tokens": 896
+      },
+      "prompt_cache_hit_tokens": 896,
+      "prompt_cache_miss_tokens": 241
+    },
+    "prompt_sha": "ef2b2526d905d96c"
+  }
+]
