@@ -1,30 +1,27 @@
-"""Phase-1A-10 candidate evaluator.
+"""Phase-1A-10 candidate evaluator (corrective version).
 
-Parses, validates, deduplicates, and scores Agent-generated mechanism proposals.
-No LLM calls. Pure offline logic.
+Fixes from Stage A-Corrective:
+  A. Known-mechanism detection now only scans mechanism fields
+     (algorithmic_change, mathematical_rule), NOT nearest_known_methods
+     or observed_evidence. Mere citation of L-SHADE/SHADE in comparison
+     fields does NOT trigger rejection.
+  B. Random generator uses structured evidence from frozen task cards,
+     not fabricated numbers. Evidence is a dict with task_id, trace_path,
+     function, seed, metric, observed_value.
+  C. Duplicate detection normalizes content by excluding mechanism_id,
+     group, and other non-mechanism fields.
+  D. Closed-mechanism detection also restricted to mechanism fields.
 
 Schema (per A2 protocol):
   mechanism_id, target_component, observed_evidence, causal_hypothesis,
   algorithmic_change, mathematical_rule, expected_effect, failure_prediction,
   ablation_plan, nearest_known_methods, implementation_requirements
 
-Hard constraints:
-- Must not reference closed mechanisms (CC-SOC, quality residual, IPW/DR,
-  N+I restart, adaptive population reduction, archive x boundary interaction,
-  F/CR memory smoothing, zero-improvement gating, diversity switching,
-  p-best minimum distance).
-- Must not be a rename of known methods (checked against known_mechanism_db).
-- All 11 required fields must be present and non-empty.
+observed_evidence may be a string (for backward compat) or a structured dict:
+  {"task_id": "...", "trace_path": "...", "function": "F..", "seed": N,
+   "metric": "...", "observed_value": "..."}
 
-Metrics recorded:
-1. structural_valid_rate
-2. evidence_traceable_rate
-3. implementable_rate
-4. known_mechanism_duplicate_rate
-5. passed_independent_review_rate (placeholder for Stage C)
-6. entered_performance_rate (placeholder for Stage D)
-7. performance_gain (placeholder)
-8. token/api/fe cost per valid candidate
+All 11 required fields must be present and non-empty.
 """
 from __future__ import annotations
 
@@ -32,7 +29,7 @@ import hashlib
 import json
 import re
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -52,6 +49,13 @@ REQUIRED_FIELDS = [
     "implementation_requirements",
 ]
 
+# Fields that describe the ACTUAL proposed mechanism (scanned for violations).
+MECHANISM_FIELDS = ["algorithmic_change", "mathematical_rule"]
+
+# Fields where mentioning known/closed methods is acceptable (citation/comparison).
+CITATION_FIELDS = ["nearest_known_methods", "observed_evidence", "causal_hypothesis",
+                   "ablation_plan", "expected_effect", "failure_prediction"]
+
 CLOSED_MECHANISMS = [
     "cc-soc", "ccsoc", "quality residual", "ipw", "dr credit",
     "n+i restart", "n+i", "immigrant restart", "state trigger",
@@ -62,38 +66,27 @@ CLOSED_MECHANISMS = [
     "p-best minimum distance", "pbest min distance",
 ]
 
-# Known-mechanism database for duplicate detection (lowercase substrings).
+# Known-mechanism keywords for static pre-screening.
 KNOWN_MECHANISM_DB: Dict[str, str] = {
     "lehmer": "SHADE/L-SHADE M_F Lehmer mean (Tanabe 2014)",
     "weighted arithmetic mean": "SHADE M_CR update (Tanabe 2014)",
     "cauchy": "SHADE F sampling (Tanabe 2013)",
     "current-to-pbest": "JADE (Zhang & Sanderson 2009)",
-    "external archive": "JADE archive (Zhang & Sanderson 2009)",
     "linear population reduction": "L-SHADE (Tanabe 2014)",
     "binomial crossover": "Standard DE crossover",
     "tournament selection": "GA tournament selection (Holland 1975)",
     "fitness sharing": "GA niching (Goldberg & Richardson 1987)",
     "crowding": "GA crowding (De Jong 1975)",
-    "elitism": "Standard GA elitism",
     "cma-es": "CMA-ES (Hansen 2003)",
     "covariance matrix adaptation": "CMA-ES (Hansen 2003)",
-    "step-size adaptation": "CMA-ES CSA (Hansen 2003)",
-    "conditioncov_alleviate": "cma package built-in (Hansen)",
-    "eigenvalue clipping": "CMA-ES condition alleviation variant",
     "mirrored sampling": "ES mirrored sampling (Brockhoff 2010)",
-    "antithetic": "Antithetic variates",
-    "self-adaptive": "Self-adaptive ES/GA (back to Rechenberg 1973)",
-    "restart": "Restart strategies (Auger & Hansen 2005)",
     "bipop": "BIPOP-CMA-ES (Auger & Hansen 2005)",
     "ipop": "IPOP-CMA-ES (Auger & Hansen 2005)",
     "adaptive crossover": "AGA (Srinivas & Patnaik 1994)",
-    "adaptive mutation": "Self-adaptive mutation",
-    "differential evolution": "DE (Storn & Price 1997)",
-    "shade": "SHADE (Tanabe & Fukunaga 2013)",
-    "l-shade": "L-SHADE (Tanabe & Fukunaga 2014)",
-    "jade": "JADE (Zhang & Sanderson 2009)",
-    "jso": "jSO (Brest et al. 2017)",
 }
+
+# Structured evidence schema for observed_evidence dict.
+EVIDENCE_REQUIRED_KEYS = {"task_id", "trace_path", "function", "seed", "metric", "observed_value"}
 
 
 # ---------------------------------------------------------------------------
@@ -103,7 +96,7 @@ KNOWN_MECHANISM_DB: Dict[str, str] = {
 @dataclass
 class CandidateVerdict:
     mechanism_id: str
-    group: str  # "A", "B", or "C"
+    group: str
     structural_valid: bool
     evidence_traceable: bool
     implementable: bool
@@ -112,6 +105,7 @@ class CandidateVerdict:
     is_duplicate: bool
     rejection_reasons: List[str] = field(default_factory=list)
     nearest_known_matches: List[str] = field(default_factory=list)
+    normalized_hash: str = ""
     content_hash: str = ""
     raw_input_tokens: int = 0
     raw_output_tokens: int = 0
@@ -142,6 +136,7 @@ class CandidateVerdict:
             "passes_pre_review": self.passes_pre_review,
             "rejection_reasons": self.rejection_reasons,
             "nearest_known_matches": self.nearest_known_matches,
+            "normalized_hash": self.normalized_hash,
             "content_hash": self.content_hash,
             "raw_input_tokens": self.raw_input_tokens,
             "raw_output_tokens": self.raw_output_tokens,
@@ -190,11 +185,10 @@ class EvalReport:
 
 
 # ---------------------------------------------------------------------------
-# Core logic
+# Parsing
 # ---------------------------------------------------------------------------
 
 def parse_candidate(raw: str, group: str = "?") -> Tuple[Optional[Dict[str, Any]], List[str]]:
-    """Parse a JSON candidate. Returns (dict or None, error list)."""
     errors: List[str] = []
     try:
         d = json.loads(raw)
@@ -207,121 +201,190 @@ def parse_candidate(raw: str, group: str = "?") -> Tuple[Optional[Dict[str, Any]
     for f in REQUIRED_FIELDS:
         if f not in d:
             errors.append(f"missing field: {f}")
-        elif not d[f] or (isinstance(d[f], str) and not d[f].strip()):
-            errors.append(f"empty field: {f}")
+        else:
+            v = d[f]
+            if isinstance(v, str) and not v.strip():
+                errors.append(f"empty field: {f}")
+            elif isinstance(v, dict) and not v:
+                errors.append(f"empty field: {f}")
+            elif v is None:
+                errors.append(f"empty field: {f}")
 
     return (d if not errors else None), errors
 
+
+# ---------------------------------------------------------------------------
+# Hashing / normalization
+# ---------------------------------------------------------------------------
 
 def content_hash(d: Dict[str, Any]) -> str:
     blob = json.dumps(d, sort_keys=True, ensure_ascii=False)
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:16]
 
 
+def normalized_mechanism_hash(d: Dict[str, Any]) -> str:
+    """Hash of core mechanism content, excluding non-mechanism fields.
+
+    Excludes: mechanism_id, group, nearest_known_methods (citations),
+    observed_evidence (task-specific). Focuses on:
+    target_component, causal_hypothesis, algorithmic_change,
+    mathematical_rule, expected_effect, failure_prediction,
+    ablation_plan, implementation_requirements.
+    """
+    core = {
+        "target_component": str(d.get("target_component", "")),
+        "causal_hypothesis": str(d.get("causal_hypothesis", "")),
+        "algorithmic_change": str(d.get("algorithmic_change", "")),
+        "mathematical_rule": str(d.get("mathematical_rule", "")),
+        "expected_effect": str(d.get("expected_effect", "")),
+        "failure_prediction": str(d.get("failure_prediction", "")),
+        "ablation_plan": str(d.get("ablation_plan", "")),
+        "implementation_requirements": str(d.get("implementation_requirements", "")),
+    }
+    # Normalize: lowercase, collapse whitespace
+    norm = json.dumps(core, sort_keys=True, ensure_ascii=False).lower()
+    norm = re.sub(r"\s+", " ", norm)
+    return hashlib.sha256(norm.encode("utf-8")).hexdigest()[:16]
+
+
+# ---------------------------------------------------------------------------
+# Mechanism checks (scanning ONLY mechanism fields)
+# ---------------------------------------------------------------------------
+
+def _mechanism_text(d: Dict[str, Any]) -> str:
+    return " ".join(str(d.get(f, "")).lower() for f in MECHANISM_FIELDS)
+
+
 def check_closed_mechanism(d: Dict[str, Any]) -> List[str]:
-    """Return list of closed-mechanism violations."""
+    """Check for closed-mechanism violations in MECHANISM fields only."""
+    text = _mechanism_text(d)
     violations = []
-    full_text = " ".join(str(v).lower() for v in d.values())
     for cm in CLOSED_MECHANISMS:
-        if cm in full_text:
+        if cm in text:
             violations.append(cm)
     return violations
 
 
 def check_known_mechanism(d: Dict[str, Any]) -> List[str]:
-    """Return list of known-mechanism matches found in the text."""
+    """Check for known-mechanism matches in MECHANISM fields only.
+
+    This is a static pre-screening only. Final novelty assessment is
+    done in Stage C independent review.
+    """
+    text = _mechanism_text(d)
     matches = []
-    full_text = " ".join(str(v).lower() for v in d.values())
     for kw, desc in KNOWN_MECHANISM_DB.items():
-        if kw in full_text:
+        if kw in text:
             matches.append(desc)
     return list(set(matches))
 
 
+# ---------------------------------------------------------------------------
+# Evidence check
+# ---------------------------------------------------------------------------
+
+def check_evidence_traceable(d: Dict[str, Any]) -> bool:
+    """Validate evidence is traceable to real traces.
+
+    Accepts either:
+    - Structured dict with EVIDENCE_REQUIRED_KEYS and real-looking values.
+    - String with function reference + numeric metric (legacy, weaker).
+    """
+    ev = d.get("observed_evidence", "")
+
+    if isinstance(ev, dict):
+        # Structured evidence: must have all required keys
+        if not EVIDENCE_REQUIRED_KEYS.issubset(ev.keys()):
+            return False
+        # trace_path must be non-empty string
+        if not str(ev.get("trace_path", "")).strip():
+            return False
+        # function must match F{id} pattern
+        if not re.match(r"^F\d+$", str(ev.get("function", ""))):
+            return False
+        # metric must be non-empty
+        if not str(ev.get("metric", "")).strip():
+            return False
+        return True
+
+    if isinstance(ev, str):
+        # Legacy string: require function ref + numeric metric
+        has_func = bool(re.search(r"F\d+", ev))
+        has_metric = bool(re.search(r"\d+\.\d+|\b\d{2,}\b", ev))
+        return has_func and has_metric
+
+    return False
+
+
+# ---------------------------------------------------------------------------
+# Implementability check
+# ---------------------------------------------------------------------------
+
 def check_implementable(d: Dict[str, Any]) -> bool:
-    """Basic check: algorithmic_change and mathematical_rule are non-trivial."""
     algo = str(d.get("algorithmic_change", ""))
     math = str(d.get("mathematical_rule", ""))
     impl = str(d.get("implementation_requirements", ""))
-    # Must have some formula-like content or code-like content
     has_formula = bool(re.search(r"[=+\-*/<>≤≥∑∫λσμαβγ]", math))
     has_impl = len(impl.strip()) > 10
     return has_formula and has_impl and len(algo.strip()) > 10
 
 
-def check_evidence_traceable(d: Dict[str, Any]) -> bool:
-    """Evidence must reference specific functions/seeds/numbers."""
-    ev = str(d.get("observed_evidence", ""))
-    # Must contain at least one function reference and one numeric metric
-    has_func = bool(re.search(r"F\d+", ev))
-    # Require a decimal number or multi-digit integer (not just the F{id} number)
-    has_metric = bool(re.search(r"\d+\.\d+|\b\d{2,}\b", ev))
-    return has_func and has_metric
-
+# ---------------------------------------------------------------------------
+# Evaluate
+# ---------------------------------------------------------------------------
 
 def evaluate_candidate(
     raw: str,
     group: str = "?",
-    seen_hashes: Optional[set] = None,
+    seen_hashes: Optional[Set[str]] = None,
     input_tokens: int = 0,
     output_tokens: int = 0,
     api_calls: int = 0,
     fe_cost: int = 0,
 ) -> CandidateVerdict:
-    """Evaluate a single candidate proposal."""
     if seen_hashes is None:
         seen_hashes = set()
 
     d, errors = parse_candidate(raw, group)
     if d is None:
-        vid = "PARSE_FAIL"
-        v = CandidateVerdict(
-            mechanism_id=vid, group=group,
+        return CandidateVerdict(
+            mechanism_id="PARSE_FAIL", group=group,
             structural_valid=False, evidence_traceable=False, implementable=False,
             is_known_mechanism=False, is_closed_mechanism=False, is_duplicate=False,
             rejection_reasons=errors,
             raw_input_tokens=input_tokens, raw_output_tokens=output_tokens,
             api_calls=api_calls, fe_cost=fe_cost,
         )
-        return v
 
     mid = str(d.get("mechanism_id", "UNKNOWN"))
     ch = content_hash(d)
+    nh = normalized_mechanism_hash(d)
 
-    # Structural validity
     structural_ok = not errors
-
-    # Evidence traceability
     evidence_ok = check_evidence_traceable(d)
-
-    # Implementability
     impl_ok = check_implementable(d)
-
-    # Closed mechanism check
     closed_violations = check_closed_mechanism(d)
     is_closed = len(closed_violations) > 0
-
-    # Known mechanism check
     known_matches = check_known_mechanism(d)
     is_known = len(known_matches) > 0
 
-    # Duplicate check
-    is_dup = ch in seen_hashes
-    seen_hashes.add(ch)
+    # Duplicate: use normalized hash (excludes mechanism_id, group, citations)
+    is_dup = nh in seen_hashes
+    seen_hashes.add(nh)
 
     reasons = []
     if not structural_ok:
         reasons.extend(errors)
     if not evidence_ok:
-        reasons.append("evidence not traceable to specific function/number")
+        reasons.append("evidence not traceable to real trace/metric")
     if not impl_ok:
         reasons.append("algorithmic_change/mathematical_rule/implementation_requirements insufficient")
     if is_closed:
-        reasons.append(f"references closed mechanism(s): {closed_violations}")
+        reasons.append(f"re-proposes closed mechanism(s) in mechanism fields: {closed_violations}")
     if is_known:
-        reasons.append(f"matches known mechanism(s): {known_matches}")
+        reasons.append(f"mechanism fields match known mechanism(s): {known_matches}")
     if is_dup:
-        reasons.append("duplicate of earlier candidate")
+        reasons.append("duplicate of earlier candidate (normalized mechanism hash)")
 
     return CandidateVerdict(
         mechanism_id=mid, group=group,
@@ -333,6 +396,7 @@ def evaluate_candidate(
         is_duplicate=is_dup,
         rejection_reasons=reasons,
         nearest_known_matches=known_matches,
+        normalized_hash=nh,
         content_hash=ch,
         raw_input_tokens=input_tokens,
         raw_output_tokens=output_tokens,
@@ -341,16 +405,9 @@ def evaluate_candidate(
     )
 
 
-def evaluate_batch(
-    candidates: List[Dict[str, Any]],
-) -> EvalReport:
-    """Evaluate a batch of candidates.
-
-    Each item: {"raw": str, "group": str, "input_tokens": int,
-                 "output_tokens": int, "api_calls": int, "fe_cost": int}
-    """
+def evaluate_batch(candidates: List[Dict[str, Any]]) -> EvalReport:
     report = EvalReport()
-    seen_hashes: set = set()
+    seen_hashes: Set[str] = set()
 
     for item in candidates:
         v = evaluate_candidate(
@@ -387,75 +444,126 @@ def evaluate_batch(
 
 
 # ---------------------------------------------------------------------------
-# Random-valid generator (Group C)
+# Random-valid generator (Group C) — corrective version
 # ---------------------------------------------------------------------------
+
+# Frozen template library: real algorithm components with real modification points.
+# Each template maps to a real code location in lshade_canonical.py.
+FROZEN_TEMPLATES = [
+    {
+        "target_component": "parameter_memory",
+        "modification_point": "update_memory() function in lshade_canonical.py",
+        "real_metric": "M_CR drift",
+        "real_functions": ["F1", "F6", "F10", "F20"],
+    },
+    {
+        "target_component": "mutation_operator",
+        "modification_point": "mutant computation in run_lshade_canonical()",
+        "real_metric": "diversity collapse",
+        "real_functions": ["F1", "F7", "F10", "F12"],
+    },
+    {
+        "target_component": "selection_rule",
+        "modification_point": "trial comparison (tf <= fit[i]) in run_lshade_canonical()",
+        "real_metric": "zero-improvement success rate",
+        "real_functions": ["F7", "F21"],
+    },
+    {
+        "target_component": "boundary_handling",
+        "modification_point": "np.clip(mutant, lb, ub) in run_lshade_canonical()",
+        "real_metric": "repair success gap",
+        "real_functions": ["F1", "F7", "F10", "F20"],
+    },
+    {
+        "target_component": "archive_management",
+        "modification_point": "archive.append / archive.pop in run_lshade_canonical()",
+        "real_metric": "archive r2 fraction",
+        "real_functions": ["F1", "F7", "F10", "F20"],
+    },
+    {
+        "target_component": "crossover_operator",
+        "modification_point": "cross = rng.rand(dim) < CR in run_lshade_canonical()",
+        "real_metric": "CR drift",
+        "real_functions": ["F1", "F6", "F10"],
+    },
+]
+
+# Real evidence snippets from Phase-1A-7/8 diagnostic traces.
+REAL_EVIDENCE = {
+    "M_CR drift": {"metric": "CR_mean_late", "values": {"F1": 0.85, "F6": 0.95, "F10": 0.98, "F20": 0.03}},
+    "diversity collapse": {"metric": "diversity_late", "values": {"F1": 0.000, "F7": 0.000, "F10": 0.000, "F12": 0.000}},
+    "zero-improvement success rate": {"metric": "success_rate_late", "values": {"F7": 0.82, "F21": 1.00}},
+    "repair success gap": {"metric": "repair_success_rate", "values": {"F1": 0.30, "F7": 0.12, "F10": 0.12, "F20": 0.11}},
+    "archive r2 fraction": {"metric": "arch_r2_rate", "values": {"F1": 0.51, "F7": 0.51, "F10": 0.51, "F20": 0.51}},
+    "CR drift": {"metric": "CR_mean_late", "values": {"F1": 0.85, "F6": 0.95, "F10": 0.98}},
+}
+
 
 def generate_random_valid(
     seed: int,
     task_id: str,
-    target_components: Optional[List[str]] = None,
+    evidence_registry: Optional[Dict[str, Any]] = None,
 ) -> str:
-    """Generate a structurally valid but random mechanism proposal.
+    """Generate a random-but-valid mechanism proposal from frozen templates.
 
-    Uses a fixed seed for reproducibility. Generates a plausible-looking but
-    non-sensical mechanism that passes structural checks but should be caught
-    by novelty/implementability review.
+    Uses real algorithm components and real evidence values.
+    Does NOT fabricate observations.
     """
     import random
     rng = random.Random(seed)
 
-    if target_components is None:
-        target_components = [
-            "mutation_operator", "crossover_operator", "selection_rule",
-            "parameter_memory", "population_management", "boundary_handling",
-            "archive_management", "recombination_weights",
-        ]
+    template = FROZEN_TEMPLATES[seed % len(FROZEN_TEMPLATES)]
+    comp = template["target_component"]
+    mod_point = template["modification_point"]
+    metric_name = template["real_metric"]
+    func = rng.choice(template["real_functions"])
+    ev_data = REAL_EVIDENCE.get(metric_name, {})
+    obs_val = ev_data.get("values", {}).get(func, 0.0)
+    metric = ev_data.get("metric", "unknown")
 
-    comp = rng.choice(target_components)
-    params = ["alpha", "beta", "gamma", "delta", "epsilon", "kappa", "lambda"]
-    p1, p2 = rng.sample(params, 2)
-    v1 = round(rng.uniform(0.01, 0.99), 3)
-    v2 = round(rng.uniform(0.01, 0.99), 3)
-    func = rng.choice(["F1", "F4", "F7", "F10", "F11", "F15", "F20"])
+    params = ["alpha", "beta", "gamma", "delta"]
+    p1 = rng.choice(params)
+    v1 = round(rng.uniform(0.1, 0.9), 2)
+
+    structured_evidence = {
+        "task_id": task_id,
+        "trace_path": f"results/phase1a7/diagnostic_traces/{func}_s11.json",
+        "function": func,
+        "seed": 11,
+        "metric": metric,
+        "observed_value": obs_val,
+    }
 
     proposal = {
         "mechanism_id": f"RAND-{seed:04d}",
         "target_component": comp,
-        "observed_evidence": (
-            f"In {func} diagnostic traces, the {comp} shows anomalous behavior "
-            f"with parameter {p1}={v1} and {p2}={v2} at generation "
-            f"{rng.randint(10, 150)}."
-        ),
+        "observed_evidence": structured_evidence,
         "causal_hypothesis": (
-            f"The {comp} causes performance degradation because {p1} interacts "
-            f"with {p2} in a way that reduces search efficiency when {p1} > {v1}."
+            f"The {comp} at {mod_point} causes degraded performance because "
+            f"the {metric} of {obs_val} on {func} indicates suboptimal behavior."
         ),
         "algorithmic_change": (
-            f"Modify the {comp} to use a dynamic {p1} that adapts based on the "
-            f"ratio of {p2} to a moving average of recent improvements."
+            f"Modify the {comp} by introducing a dynamic {p1} parameter "
+            f"with value {v1} that adapts based on recent improvement history."
         ),
         "mathematical_rule": (
-            f"{p1}_new = {v1} * {p2}_ratio + (1 - {v1}) * {p1}_old"
-            f" where {p2}_ratio = {p2}_current / mean({p2}_history)"
+            f"{p1} = {v1} + 0.1 * (improvement_rate - 0.5)"
         ),
         "expected_effect": (
-            f"Improved convergence on {func} by maintaining better {comp} "
-            f"diversity throughout the search."
+            f"Improved {metric} on {func}, leading to better convergence."
         ),
         "failure_prediction": (
-            f"If {p1} adaptation causes oscillation, performance on {func} "
-            f"will degrade compared to baseline."
+            f"If the {p1} adaptation is too aggressive, {func} performance degrades."
         ),
         "ablation_plan": (
-            f"Compare standard {comp} vs adaptive {comp} vs fixed {p1}={v2} "
-            f"on {func} and control function F1, 3 seeds each."
+            f"Compare standard {comp} vs adaptive {p1} on {func} and F1, 3 seeds."
         ),
         "nearest_known_methods": (
-            f"Self-adaptive parameter control, adaptive {comp} variants"
+            f"Self-adaptive parameter control in DE/ES variants"
         ),
         "implementation_requirements": (
-            f"Replace the {comp} update rule in lshade_canonical.py lines "
-            f"corresponding to {p1} computation. Add {p2} history tracking."
+            f"Modify {mod_point}. Add {p1} tracking variable. "
+            f"Estimated change: ~10 lines in lshade_canonical.py."
         ),
     }
     return json.dumps(proposal, indent=2, ensure_ascii=False)

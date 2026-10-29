@@ -65,8 +65,11 @@
 
 **task_id**: `TASK-04-repair-success-gap`
 **轨迹来源**: `results/phase1a8/stage_a_traces/F*_s*.json`（boundary 诊断）
-**代码 SHA**: `354b7f9` (lshade_boundary_diag.py)
+**诊断代码 SHA**: `354b7f9` (lshade_boundary_diag.py — 诊断工具)
+**被研究基线**: `lshade_canonical.py` @ `8d5af7f` (Phase-1A-6 核验的标准 L-SHADE)
 **manifest**: `results/phase1a8/stage_a_manifest.json`
+
+**注意**：诊断证据由 `354b7f9` 的 `lshade_boundary_diag.py` 产生（逐位一致已验证），但被研究的算法是 `8d5af7f` 的 `lshade_canonical.py`。候选修改的目标组件是 `lshade_canonical.py` 中的边界处理（`np.clip`）。
 
 **现象**: 全函数全种子一致：修复 trial 成功率低于未修复 trial（F1: 0.30 vs 0.48, F7: 0.12 vs 0.36, F10: 0.12 vs 0.33）。修复位移 cosine ≈ -0.4 至 -0.65（与搜索方向相反）。
 
