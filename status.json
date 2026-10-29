@@ -2,11 +2,11 @@
   "project": "agentfotagent",
   "repository": "https://github.com/yujian777555/agentfotagent",
   "default_branch": "main",
-  "last_updated": "2026-10-28",
+  "last_updated": "2026-10-29",
   "baseline_commit": "ab7d90f2c8f70c212c6408b39699f037f1454e93",
-  "current_phase": "Phase-1A-10 agent design benchmark",
-  "phase_status": "PHASE1A10_STAGE_A; BRANCH phase1a-phase10-agent-design-benchmark",
-  "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
+  "current_phase": "Phase-1A-11 unified research direction and audit",
+  "phase_status": "PHASE1A10_FINAL_NO_GO_AGENT_DESIGN_ADVANTAGE; PHASE1A11_PLAN_RECORDED; TRACK_A_CANDIDATE_AUDIT_PENDING; TRACK_B_AES_READINESS_AUDIT_PENDING; NO_NEW_EXPERIMENT_AUTHORIZED",
+  "research_direction": "Core target: LLM-empowered evolutionary computation is to be applied to improving this repository's own Agent Evolution Sandbox (AES). Track A audits whether LLM/Agent can propose verifiably better EC mechanisms; Track B audits AES readiness and establishes fair EC baselines. Application to Agent is a fixed research objective, but performance benefit and cross-domain transfer remain empirical hypotheses. Bidirectional feedback is conditional on independent evidence for both directions.",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
     "live_llm_api_experiments": "NOT_RUN",
@@ -52,7 +52,10 @@
     "phase1a6_decision": "CONDITIONAL_GO infrastructure repaired; no new algorithm claim",
     "phase1a6_historical_review": "docs/PHASE1A6_HISTORICAL_EVIDENCE_REVIEW.md; 4R3/4R2/4R/5 classified as lshade_reimpl historical data only",
     "phase1a7_decision": "NO_GO_NEW_MECHANISM; 5 candidates all MINOR_VARIANT/ALREADY_KNOWN; 6 diag patterns preserved",
-    "phase1a8_decision": "NO_GO_INTERACTION; 100 runs; archive x boundary repair not consistent"
+    "phase1a8_decision": "NO_GO_INTERACTION; 100 runs; archive x boundary repair not consistent",
+    "phase1a10_final": "NO_GO_AGENT_DESIGN_ADVANTAGE; 24/24 real requests used, deepseek-flash only; A trace pre-screen 5/12, B blind 3/12, C random 12/12; 0/36 candidates passed independent review; Stage D not run; no algorithm performance evidence. See docs/PHASE1A10_DECISION.md and Stage B/C reports.",
+    "phase1a11": "Plan recorded in docs/PHASE1A11_UNIFIED_RESEARCH_DIRECTION.md on branch phase1a-phase11-unified-agent-ec-roadmap from Phase-1A-10 HEAD 3c3c6293aefa4861047b56d2c4d1057feb6a9b7c. No candidate audit, AES readiness audit, API call, or scientific experiment has yet been executed in this phase.",
+    "aes_target_application": "AES remains the required target application for EC-based Agent improvement. Historical pilot saturation (16 genotypes all 1.0 success on six small train tasks; mean steps 9.83-13.0) used hand-written surrogate/mock backend and is not scientific evidence. Re-verify current source/version and repair task/evaluator readiness before scientific experiments."
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
