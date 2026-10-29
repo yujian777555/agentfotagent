@@ -21,7 +21,8 @@ Continue only the prior-art audit of the preliminary EVOTOOL signal:
 - The released 90-generation BFCL demo replay reports 53 Caller-targeted mutations with 5 accepted and no best-selection-score increase, versus 29 Planner-targeted mutations with 20 accepted and all three best-selection-score increases.
 - This is one Qwen3-4B demo run, seed 42, 90/30/30 split; it is not independent replication and does not prove the blame signal is wrong.
 - A simple acceptance-rate controller overlaps classical AOS/credit assignment, LAOS, and LLM4EO. Do not label it novel.
-- Obtain LAOS full text/official code if possible and compare exact credit assignment and update equations. Audit whether a genuinely different Agent-module intervention-utility mechanism is already covered.
+- Initial retrieval attempt on 2026-10-29: official GECCO abstract is accessible, ACM DOI page/PDF returned 403, and GitHub searches found no obvious official LAOS repository; ResearchGate reports no full text. Try an author/institutional accepted manuscript or another primary-source copy if available. If none is accessible, record the exact-equation comparison as unresolved rather than guessing.
+- Then compare the accessible LAOS description with LLM4EO, classical AOS, and causal/counterfactual credit assignment. Audit whether a genuinely different Agent-module intervention-utility mechanism is already covered.
 - If no precise mechanism-level gap survives, record NO-GO for this lead and keep the project paused. Do not create a Phase-1A-19 candidate-generation handoff.
 
 ## Required output
