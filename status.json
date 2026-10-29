@@ -4,9 +4,9 @@
   "default_branch": "main",
   "last_updated": "2026-10-29",
   "baseline_commit": "ab7d90f2c8f70c212c6408b39699f037f1454e93",
-  "current_phase": "Phase-1A-13 complete: FCLE rejected as currently specified; Phase-1A-14 mechanism-gap search",
-  "phase_status": "PHASE1A13_AUDIT_COMPLETE; FCLE_NO_GO_AS_CURRENTLY_SPECIFIED; DIRECT_GENERIC_AGENT_EVOLUTION_NO_GO; TRANSFER_NOT_READY; AES_ENGINEERING_ONLY; NO_API_OR_SCIENTIFIC_EXPERIMENT_AUTHORIZED",
-  "research_direction": "Fixed target remains applying a validated LLM-empowered evolutionary-computation method to improve Agent task performance. Generic Agent-genome evolution is crowded by EvoTool, AgentSquare, AgentSwift, MaAS, PRISM and related work. FCLE was rejected as currently specified because its interaction estimator closely matches Differential Grouping/fitness-based linkage learning and its mixing operator is GOMEA-style. Continue a mechanism-level literature gap search; do not implement aes-genome-v2 or start scientific runs.",
+  "current_phase": "Phase-1A-14 complete: expanded mechanism audit; no candidate survives; Phase-1A-15 research-object comparison",
+  "phase_status": "PHASE1A14_COMPLETE; NO_GO_CANDIDATE_SHORTLIST; FCLE_NO_GO; DIRECT_GENERIC_AGENT_HARNESS_EVOLUTION_CROWDED; TRANSFER_NOT_READY; AES_ENGINEERING_ONLY; NO_API_OR_SCIENTIFIC_EXPERIMENT_AUTHORIZED",
+  "research_direction": "Fixed objective: apply a genuinely useful LLM-empowered evolutionary-computation method to improve Agent task performance. Phase-1A-14 screened recent Agent/harness evolution, semantic-local search, QD, adaptive LLM-EA, weak-feedback verification, runtime adaptation and transfer methods; no candidate currently has a defensible distinct EC update/selection rule. Do not implement or run experiments. Phase-1A-15 must define the research object and audit adjacent non-ADAS EC literature before proposing at most one candidate.",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
     "live_llm_api_experiments": "NOT_RUN",
@@ -64,7 +64,8 @@
     "phase1a11_artifacts": "docs/PHASE1A11_CANDIDATE_AUDIT.md; docs/PHASE1A11_LITERATURE_MATRIX.md; docs/PHASE1A11_AES_READINESS_AUDIT.md; docs/PHASE1A11_DECISION.md; docs/PHASE1A11_UNIFIED_RESEARCH_DIRECTION.md; planner/phase1a11_executor_handoff.md; planner/phase1a12_executor_handoff.md.",
     "phase1a12": "Design documents added: docs/PHASE1A12_PRIOR_WORK_COMPARISON.md, docs/PHASE1A12_GENOME_V2_SPEC.md, docs/PHASE1A12_TASK_DIFFICULTY_SPEC.md, docs/PHASE1A12_FITNESS_AND_BASELINE_CONTRACT.md, docs/PHASE1A12_DECISION.md. No implementation or performance experiment executed in this phase. Direct route DESIGN_ONLY_CONDITIONAL_GO; transfer NOT_READY; AES scientific runs blocked pending design review.",
     "phase1a13": "Targeted primary-source audit added docs/PHASE1A13_LINKAGE_MECHANISM_AUDIT.md and docs/PHASE1A13_RECENT_OVERLAP_ADDENDUM.md. FCLE NO_GO_AS_CURRENTLY_SPECIFIED; exact fitness-based linkage manuscript inspected; recent overlaps include AgentSwift, MaAS, Beyond Prompts/PRISM, AgenticEvolve, Code Evolution for Control, SEVerA, HASP, LK-GOMEA. No code implementation, live API, MetaBox/AES performance experiment, GPU run, or held-out access.",
-    "phase1a14": "Next handoff: planner/phase1a14_executor_handoff.md. Research-only mechanism gap search using 2026 ADAS survey taxonomy and recent Agent/harness evolution papers. No experiments authorized."
+    "phase1a14": "Expanded targeted literature matrix at docs/PHASE1A14_PRIOR_WORK_MATRIX.md; candidate screen docs/PHASE1A14_CANDIDATE_SHORTLIST.md; decision docs/PHASE1A14_DECISION.md. No candidate survives. New sources include GSME, AdaEvolve, ELMER, SeDev, DEI, VERSE, OpenSkill, UCoE, RHO, DemoEvolve, Life-Harness, EvoHarness-RL, Q-Evolve and runtime-policy works. No code implementation, live API, MetaBox/AES run, GPU use, or held-out access.",
+    "phase1a15": "Handoff: planner/phase1a15_executor_handoff.md. Compare research objects and audit adjacent non-ADAS EC literature before candidate generation; no experiments authorized."
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
