@@ -244,3 +244,32 @@ Potential diagnostic questions for the read-only audit—not algorithm proposals
 5. Are any such failures actually caused by EC selection/variation, rather than the base LLM's routing behavior or the harness API?
 
 These are falsifiable questions to investigate in papers/code, not assertions that the methods fail. If source/code inspection does not reveal a concrete gap, close this route. Do not infer a novelty gap merely because two papers use different benchmarks or representations.
+
+
+## 13. MOAE deeper method comparison (partial full-text mirror inspection)
+
+A fuller method description was inspected via the surfaced alphaXiv paper page; the official arXiv HTML endpoint was not accessible in this audit, and no public implementation repository was confirmed. Evidence remains PARTIAL rather than FULL.
+
+Source record: Jiang et al., *MOAE: Multi-Objective Agent Evolution with Pareto-Preserving Search*, arXiv:2609.05992.
+- Official record: https://arxiv.org/abs/2609.05992
+- Method-readable mirror: https://www.alphaxiv.org/abs/2609.05992
+
+Mechanism described in the paper:
+1. The model, tools, and Agent architecture remain fixed; a compact execution policy is revised using complete rollout feedback.
+2. Each rollout is evaluated on task utility, trajectory quality, and safety risk.
+3. An empirical archive keeps non-dominated candidates rather than collapsing all objectives into one weighted score.
+4. Offspring generation is objective-specific: a parent is selected for a target objective, and the mutation model receives diagnostics relevant to that objective.
+5. A task-utility retention guard constrains auxiliary-objective parents to remain near the best archived task utility (the reported main setting uses a 0.02 tolerance).
+6. Deployment uses a constraint-aware preference rule after search; if no offspring meets the constraints, the base rollout remains a fallback.
+7. The reported main configuration uses seven complete rollouts per query, so the search has material evaluation and token cost.
+
+The paper's reported ablation gives Full MOAE a normalized hypervolume gain of 0.52 versus 0.43 without the archive and a joint-improvement rate of 13.9% versus 8.9%; the source also notes overlapping uncertainty intervals in some comparisons. These are author-reported results and have not been independently reproduced by this project.
+
+**Novelty consequence:** any proposal framed as “use EC to evolve Agent policies while maintaining a Pareto archive over task success, behavior/trajectory quality, and safety” is already directly covered. A stage-wise specialist-pool setting is a different experimental regime, but changing the benchmark alone is not an algorithmic contribution. The next audit must ask whether MOAE's per-query fixed-harness search and EVOTOOL's population selection have a specific, demonstrated failure under external capability-pool transitions—and whether that failure can be addressed by a new EC operator rather than merely adding old/new cohort metrics.
+
+The specific difference currently supported is limited:
+- MOAE: per-query optimization of a compact execution policy with a fixed model/tool/architecture setting and multi-objective archive.
+- EVOHARNESSBENCH: outer non-stationarity is the externally supplied harness/capability pool; the reported failure includes previously required specialist calls disappearing after agent-pool expansion.
+- Not established: that MOAE has been tested on the same staged specialist-pool setting, or that it fails there.
+
+Do not convert this difference in evaluation setting into a novelty claim without further primary-source verification and a mechanism-level comparison.
