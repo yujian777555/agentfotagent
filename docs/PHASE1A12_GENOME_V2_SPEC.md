@@ -36,3 +36,9 @@ Trace genotype hash, policy branch, prompt/model/decoding version, proposed and 
 
 ## Gate before implementation
 Resolve whether verification and termination are separable; whether recovery and replanning have disjoint semantics; how uncertainty is computed; whether memory changes information use rather than prompt length; and how every allele gets a diagnostic intervention test. If the effective phenotype space collapses near the current 16 configurations, simplify rather than retaining artificial complexity.
+
+## Updated prior-art gate (2026-10-29)
+
+**Status: NOT APPROVED FOR IMPLEMENTATION AS A RESEARCH METHOD.** The generic modular-genome approach overlaps AgentSquare's Planning/Reasoning/Tool Use/Memory search space and EvoTool's Planner/Selector/Caller/Synthesizer policy evolution with trajectory-grounded blame, targeted LLM mutation, and diversity-aware selection. TTHE and Evoflux also cover executable harness/workflow evolution.
+
+This spec may be retained as an engineering sketch for defining behaviorally testable interventions, but adding the listed genes does not establish novelty. Before implementation, the research plan must name a specific algorithmic mechanism that differs from these nearest methods, define its update/selection rule, and identify a negative control that could falsify the mechanism claim. If the only distinction is a different set of gene names, more task families, or a lexicographic fitness metric, stop this route as a research contribution.
