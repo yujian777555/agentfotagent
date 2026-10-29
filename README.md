@@ -13,7 +13,7 @@
 - agentfotagent 必须拥有自己的 Agent Evolution Sandbox（AES）目标域环境、基因型/表型运行时、评价器、任务划分、实验协议和结果记录。
 - MetaBox-v2 只作为数值优化源域的标准化基础设施，不是论文贡献。
 - NeuroEvoScientist、EvoPareto-Agent 是独立项目，仅可只读参考，不作为本项目的实验环境、代码依赖或结果来源。
-- 当前先搭建环境骨架并通过工程门禁；mock 测试不算 Agent 能力实验，未授权前不调用真实 API。
+- AES 工程骨架已通过 Phase-0 R4 engineering gate，但尚无 Agent 能力或科学有效性结论；历史 mock pilot 已饱和，不能作为科学证据。当前方法发现路线处于暂停状态，只有在出现可复现的具体失败模式且通过机制级新颖性审查后，才考虑重新开放实验。
 
 ## 维护入口
 - [项目章程](docs/PROJECT_CHARTER.md)
@@ -26,4 +26,4 @@
 - [当前计划](planner/latest_plan.md)
 - [机器可读状态](status.json)
 
-当前阶段为 P0-R3：建立本仓库自有的 Agent Evolution Sandbox（AES）实验环境。LAOS 的官方摘要已核验但正文/代码仍未取得；LMCOEA 的论文方法片段与链接代码已静态审查但未复现。迁移对象仍未定义；当前先实现可审计的环境骨架，不启动科学实验。当前仓库尚无研究算法实现；外部项目报告不等同于本仓库独立复现。
+当前研究状态（2026-10-29）：Phase-1A-18 已决定暂停当前 Agent×EC 方法发现路线。跟进的 EVOTOOL 源码与公开 replay 审计发现一个初步 blame-to-intervention mismatch 信号，但仅来自单次 Qwen3-4B BFCL demo run，尚不足以重启方法开发。下一步仅审计 LAOS/AOS/LLM4EO 等相关机制是否已覆盖该问题；不创建 Phase-1A-19 候选生成任务，不进行真实 API、MetaBox/AES 科学实验、GPU 或 held-out 测试。详见 [EVOTOOL 机制审计](docs/PHASE1A18_EVOTOOL_BLAME_ACTIONABILITY_AUDIT.md)、[当前计划](planner/latest_plan.md) 与 [机器可读状态](status.json)。
