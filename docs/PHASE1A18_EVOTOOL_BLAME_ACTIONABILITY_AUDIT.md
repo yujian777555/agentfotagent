@@ -91,6 +91,18 @@ A simple rule such as “mutate modules that had higher past acceptance rates”
 1. Zhang, Y., & Yi, G. (2025). LAOS: Large Language Model-Driven Adaptive Operator Selection for Evolutionary Algorithms. *Proceedings of the Genetic and Evolutionary Computation Conference (GECCO 2025)*, 517–526. https://doi.org/10.1145/3712256.3726450
 2. Liao, R., Qiu, J., Chen, X., & Li, X. (2026). Online Operator Design in Evolutionary Optimization for Flexible Job Shop Scheduling via Large Language Models. arXiv:2511.16485v3. https://arxiv.org/abs/2511.16485
 
+
+### LAOS primary-source availability check (2026-10-29)
+
+A targeted retrieval attempt was made before assigning the next task:
+
+- The official GECCO 2025 proceedings page exposes the LAOS abstract and bibliographic metadata: https://gecco-2025.sigevo.org/display1874
+- The ACM DOI landing page and PDF endpoint returned 403 Forbidden from the available web reader: https://doi.org/10.1145/3712256.3726450
+- GitHub repository searches for the paper title/authors did not find an obvious public official implementation.
+- The accessible ResearchGate record states that no full text is available there: https://www.researchgate.net/publication/393651522_LAOS_Large_Language_Model-Driven_Adaptive_Operator_Selection_for_Evolutionary_Algorithms
+
+Therefore, the abstract supports the high-level overlap claim that LAOS uses LLM-driven AOS and operator credit assignment, but it does not support a precise equation-by-equation comparison. Treat LAOS as a known-overlap warning; keep the exact module-level comparison **UNRESOLVED**, and do not infer unavailable implementation details.
+
 The exact overlap between these methods and an intervention-utility signal at the **Agent-module** level is not fully resolved here. In particular, the LAOS full text and official code were not independently inspected in this pass. Therefore:
 
 **Decision: keep PAUSE_CURRENT_AGENT_EC_METHOD_DISCOVERY_ROUTE. Do not create a Phase-1A-19 candidate-generation handoff.** This is one preliminary lead that earns a narrow prior-art audit, not a reopening of method development.
