@@ -101,3 +101,39 @@ These are **problem statements**, not innovations. Every candidate must name a c
 15. Cemri et al. and the prior project audits also cover adaptive LLM-EA search; see the separate Phase-1A-12 and Phase-1A-13 reports for LAOS/LMCOEA/AdaEvolve overlap details.
 
 This matrix is a targeted mechanism audit, not a systematic review of every paper in ADAS. No candidate has been reproduced, and no novelty or performance claim is made.
+
+
+## 7. Additional primary-source findings from the verifier / weak-feedback branch
+
+These papers were located after the initial matrix draft. They close off several apparently open candidate families.
+
+| Work | Mechanism and evidence | Effect on candidate search |
+|---|---|---|
+| **VERSE: Verified Self-Evolving Optimizer for Agent Harnesses** (Wang et al., arXiv:2610.02616, 2026) | Evolves both the executor harness and the optimizer's own prompts/tools/hooks; includes draft execution, failure replay, single-step perturbation and a training audit. Primary text inspected. | Generic meta-optimization of the harness optimizer, plus verification-aware outer/inner loops, is already covered. |
+| **OpenSkill: Open-World Self-Evolution for LLM Agents** (Yan et al., arXiv:2606.06741, 2026) | Acquires knowledge and verification anchors from public resources; refines skills against self-built virtual tasks without target-task supervision. Primary text inspected. | “No gold verifier” or supervision-free self-evolution is not a clean gap by itself. |
+| **UCoE: Verifier-Harness Co-Evolution** (Xu et al., arXiv:2610.17609, 2026) | Evolves executable verifier programs alongside harness state; tests verifier candidates on response contrasts and selects by weakest-family discrimination (“driving capacity”). Primary text inspected; preprint. | Generic co-evolution of verifier and Agent harness is covered. |
+| **Retrospective Harness Optimization (RHO)** (Pan et al., arXiv, June 2026) | Selects a diverse coreset of past trajectories, re-solves tasks, uses self-validation/self-consistency and pairwise self-preference to choose harness updates without external grading. Primary publication page/abstract inspected; full method not audited here. | Generic verifier-free, past-trajectory self-preference optimization is covered. |
+| **DemoEvolve** (Che et al., arXiv:2605.24539, 2026) | Uses competent demonstrations to guide harness-level diagnosis/editing under sparse, noisy feedback in long-horizon games. Primary text inspected; preprint. | Generic demonstration-bootstrapped harness evolution for sparse feedback is covered. |
+| **Q-Evolve: Self-evolving LLM agents with in-distribution Optimization** (Zhang et al., ICML 2026, PMLR 306) | Learns an in-distribution critic from expert and agent trajectories, derives process rewards, and updates the task policy with behavior-proximal optimization. Primary PMLR page inspected. This is RL/policy optimization, not a direct EC method. | Sparse-reward stepwise credit assignment is already active in RL literature; it cannot be claimed as a novel EC contribution merely by using intermediate feedback. |
+| **Harness Updating Is Not Harness Benefit** (Lin et al., EMNLP 2026) | Separates the ability to create useful harness updates from the executor's ability to activate/follow them; reports that benefit is non-monotonic with base-model capability. Primary publisher page inspected. | “A good edit may not improve the Agent” is already recognized; activation/faithfulness alone is not a novel mechanism. |
+| **HSI: Hierarchical Self-Improvement** (2026 preprint, arXiv:2608.08466) | Hierarchy of task harness, evolver and meta-evolver; explicitly studies feedback-fidelity and backbone-capability bounds. Secondary paper page/abstract inspected. | Generic three-level recursive harness/evolver improvement is covered. |
+| **Verifier-Harness co-evolution and RHO** | Both target open-ended tasks where direct labels/verifiers are weak, with explicit verifier/self-preference mechanisms. | The apparent verifier-free gap must be narrowed to a precise estimator that differs from UCoE, OpenSkill, RHO, DemoEvolve and related preference/critique methods; no such estimator is currently proposed. |
+
+## 8. Updated decision after this supplement
+
+The weak-feedback/verifier-light direction is **not yet a candidate**. UCoE, OpenSkill, RHO and DemoEvolve already cover major approaches to evolving with learned, self-built, preference-based, or demonstration-grounded feedback. The fact that these approaches have limitations is not evidence that a proposed EC replacement is novel.
+
+No candidate is approved for implementation. The next phase should not start experiments. It should either:
+1. derive a mathematically explicit feedback/selection mechanism that differs from these methods and has a falsifiable advantage, or
+2. conclude that the current generic Agent-harness search space is too crowded and pivot to a narrower application setting only if a defensible mechanism gap is found.
+
+## 9. Additional references
+
+16. Wang, Z., Ge, Y., Wang, Z., Wang, H., Xu, Y., Frandsen, J., Fu, S., Wilson, A. C., & Reddy, C. K. (2026). *VERSE: Verified Self-Evolving Optimizer for Agent Harnesses*. arXiv:2610.02616. https://arxiv.org/abs/2610.02616. **Preprint; primary text inspected.**
+17. Yan, Z., Song, D., Zhang, H., Liang, W., Zhang, Y., Dai, Y., He, L., Yu, P. S., Xu, R., Li, X., & Sun, L. (2026). *OpenSkill: Open-World Self-Evolution for LLM Agents*. arXiv:2606.06741. https://arxiv.org/abs/2606.06741. **Preprint; primary text inspected.**
+18. Xu, T., Zhang, Y., Wu, Y., Nguyen, J., Dai, S., Moeinizade, S., Shao, Z., Wu, Q., et al. (2026). *Verifier-Harness Co-Evolution for Training-Free Self-Improvement on Open-Ended Tasks*. arXiv:2610.17609. https://arxiv.org/abs/2610.17609. **Preprint; primary text inspected via author-facing paper page.**
+19. Che, L., Yang, Y., Lin, P., Wang, C., Wang, X., & Su, J. (2026). *DemoEvolve: Overcoming Sparse Feedback in Agentic Harness Evolution with Demonstrations*. arXiv:2605.24539. https://arxiv.org/abs/2605.24539. **Preprint; primary text inspected.**
+20. Zhang, Y., Fang, M., Chen, Z., & Pechenizkiy, M. (2026). Self-evolving LLM agents with in-distribution Optimization. *Proceedings of the 43rd International Conference on Machine Learning*, PMLR 306, 155348–155365. https://proceedings.mlr.press/v306/zhang26au.html.
+21. Pan, W., Liu, S., Lin, C.-Y., Zeng, J., Tang, X., Zhou, X., Lu, Y., & Jia, X. (2026). *Retrospective Harness Optimization: Improving LLM Agents via Self-Preference over Trajectory Rollouts*. arXiv preprint. https://www.microsoft.com/en-us/research/publication/retrospective-harness-optimization-improving-llm-agents-via-self-preference-over-trajectory-rollouts/.
+22. Lin, M., Wu, J., Wang, Z., Shi, Z., Sang, Y., et al. (2026). *Harness Updating Is Not Harness Benefit: Disentangling Evolution Capabilities in Self-Evolving LLM Agents*. Findings of EMNLP 2026. https://github.com/A-EVO-Lab/a-evolve/tree/release/harness-evolution. **Publisher/author publication page inspected.**
+23. *Hierarchical Self-Improvement: A Framework for Task-Specific Evolvable Agent Harnesses*. (2026). arXiv:2608.08466. https://arxiv.org/abs/2608.08466. **Secondary page/abstract inspected; exact author metadata still requires primary-page confirmation.**
