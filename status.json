@@ -4,9 +4,9 @@
   "default_branch": "main",
   "last_updated": "2026-10-29",
   "baseline_commit": "e01e3447dc57d99a28d62d7eb9537894d2cdc0e3",
-  "current_phase": "Phase-1A-18 follow-up: EVOTOOL blame-actionability evidence audit; no route reopening",
-  "phase_status": "PRELIMINARY_SOURCE_GROUNDED_LEAD; NOT_REOPENED; CURRENT_METHOD_DISCOVERY_ROUTE_PAUSED; NO_API_OR_SCIENTIFIC_EXPERIMENT_AUTHORIZED",
-  "research_direction": "Fixed objective remains applying a genuinely useful LLM-empowered EC method to improve Agent task performance. Phase-1A-18 paused speculative candidate generation. A read-only audit of EVOTOOL's official replay data found a preliminary blame-to-intervention mismatch in one Qwen3-4B BFCL demo run; this is not independent replication and does not establish a novel method. Continue only with a narrow prior-art audit of LAOS/AOS/LLM4EO and causal credit assignment; no Phase-1A-19 candidate-generation handoff.",
+  "current_phase": "Phase-1A-18 follow-up: harness-expansion retention/adaptation prior-art audit",
+  "phase_status": "PRIMARY_SOURCE_GROUNDED_RESEARCH_LEAD; NOT_ADMITTED; PHASE1A18_PAUSE_REMAINS; NO_API_OR_SCIENTIFIC_EXPERIMENT_AUTHORIZED",
+  "research_direction": "The supplied historical session prioritizes the measurable failure of previously successful Agent tasks after external tool/skill/specialist-agent pools expand. EvoHarnessBench reports delegation drift and missing previously required specialists; CPE and recent self-evolving-agent work create major overlap warnings. The exact EC-specific mechanism gap remains unproven. EVOTOOL blame-to-intervention mismatch remains a secondary single-run lead. Do not create Phase-1A-19 or start experiments.",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
     "live_llm_api_experiments": "NOT_RUN",
@@ -69,7 +69,9 @@
     "phase1a16": "Completed docs/PHASE1A16_TYPED_CONTRACT_GP_AUDIT.md and docs/PHASE1A16_CANDIDATE_DECISION.md. NO_GO_TYPED_CONTRACT_VARIATION_AS_NEW_METHOD. Typed/grammar constraints, test-guided localized program mutation, proof-guided semantics-preserving transformations, LLM-seeded many-objective grammar-GP, and SMT-based synthesis are existing mechanisms. No code, API, MetaBox/AES run, GPU, or held-out access.",
     "phase1a17": "Completed docs/PHASE1A17_TRANSFER_LITERATURE_MATRIX.md, docs/PHASE1A17_STATE_ACTION_ALIGNMENT.md and docs/PHASE1A17_DECISION.md. Decision: NO_GO_H2_TRANSFER_AS_CURRENTLY_SPECIFIED. No approved source controller exists; candidate shortlist in Phase-1A-14 had zero survivors and Phase-1A-10 had zero blind-review PASS. Proposed state abstraction is generic; action mapping is many-to-many. Targeted sources include a 2025/2026 systematic review of transfer learning in nature-inspired algorithms, MTEA-AST, transfer-learning GP hyper-heuristics, Hyperagents, Harmony Harness, MESH-Harness, Meta-Harness and DyACE. No implementation, live API, MetaBox/AES runs, GPU, or held-out access.",
     "phase1a18": "Completed docs/PHASE1A18_STRATEGIC_FEASIBILITY.md and docs/PHASE1A18_DECISION.md. Decision PAUSE_CURRENT_AGENT_EC_METHOD_DISCOVERY_ROUTE. No candidate survives. Reviewed ACL 2026 EVOTOOL and current preprints HarnessLens (arXiv:2608.27311), HarnessDev (arXiv:2609.01437), Evo-Bench (arXiv:2608.09096), Rethinking Harness Evolution (arXiv:2607.12227), and Code Evolution for Control (arXiv:2601.06845). No code/API/MetaBox/AES experiment/GPU/held-out access. No phase1a19 handoff created.",
-    "phase1a18_evotool_audit": "Read-only audit of EVOTOOL ACL 2026 paper and official repo main@6a82719ea6e22cf23f963078e2527094e50b47f6. replay_data.js blob 977344677c2f9b3d9d99f14c20942bf5f91348ce; 90-generation Qwen3-4B BFCL demo subset (90/30/30, seed 42): Caller 53 proposals/5 accepted/0 best-selection-score increases; Planner 29/20/3. Preliminary single-run signal only; no independent replication, no project experiments, no API/GPU/held-out access. Simple acceptance-rate scheduling overlaps established AOS/LAOS/LLM4EO; exact module-level mechanism gap unresolved."
+    "phase1a18_evotool_audit": "Read-only audit of EVOTOOL ACL 2026 paper and official repo main@6a82719ea6e22cf23f963078e2527094e50b47f6. replay_data.js blob 977344677c2f9b3d9d99f14c20942bf5f91348ce; 90-generation Qwen3-4B BFCL demo subset (90/30/30, seed 42): Caller 53 proposals/5 accepted/0 best-selection-score increases; Planner 29/20/3. Preliminary single-run signal only; no independent replication, no project experiments, no API/GPU/held-out access. Simple acceptance-rate scheduling overlaps established AOS/LAOS/LLM4EO; exact module-level mechanism gap unresolved.",
+    "phase1a18_harness_expansion_retention_audit": "Primary-source audit of EvoHarnessBench arXiv:2609.04280v3, CPE arXiv:2605.09315v1, Are Self-Evolving Agents Continual Learners? arXiv:2610.25858v1, and EMNLP 2026 papers AEL, HarnessForge, Harness Updating Is Not Harness Benefit, and Evo-Harness. Specific reported signal: delegation drift on forgotten tasks rises 13% to 25% without adaptation; previously required specialists are often no longer invoked. CPE explicitly leaves dynamic environments, multi-agent interaction, and expanding capability spaces as future work, but already covers general capability-preservation objectives. Lead remains unresolved, not a novelty claim.",
+    "aes_dynamic_harness_fit": "Read-only code audit: tool_world.py has a fixed ALL_TOOLS set; generators.py has key_crate/dial_set/relay_route (relay_route held-out only); genome schema has four genes for planning, memory, verification, and tool-selection. No staged external capability pool or specialist-delegation trace contract exists yet. No code changed and no experiment run."
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
@@ -86,10 +88,11 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Audit exact overlap of blame-to-intervention utility with LAOS, LLM4EO, classical AOS/credit assignment, and causal/counterfactual credit-assignment work; obtain primary text and official code where possible.",
-    "If the only remaining idea is acceptance-rate scheduling, close the lead as already known/minor variant and retain the pause.",
-    "Only if a precise mechanism-level gap survives may a development-only protocol be drafted and a separate budget request submitted; no experiment before approval.",
-    "No live LLM API, MetaBox/AES scientific run, GPU job, or held-out/test access without explicit authorization."
+    "Conduct a source-level mechanism comparison of CPE, EVOTOOL, AEL, HarnessForge, Harness Updating Is Not Harness Benefit, Evo-Harness, and adjacent evolutionary/continual policy-search work.",
+    "For each method, record target object, representation/genotype, update/variation rule, selection rule, retention signal, action-space assumptions, evaluation budget, and task split.",
+    "Determine whether a specific EC mechanism can address delegation-coverage drift under external capability expansion beyond standard retention objectives, Pareto archives, AOS, GP, and existing targeted mutation.",
+    "If no precise mechanism gap survives, close this lead as NO-GO and keep Phase-1A-18 paused.",
+    "No live LLM API, MetaBox/AES scientific run, GPU job, or held-out/test access without a separate explicit approval."
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -136,7 +139,10 @@
     "phase1a8_decision": "docs/PHASE1A8_DECISION.md",
     "phase1a18_evotool_audit": "docs/PHASE1A18_EVOTOOL_BLAME_ACTIONABILITY_AUDIT.md",
     "phase1a18_evotool_handoff": "planner/phase1a18_evotool_audit_handoff.md",
-    "phase0_historical_plan": "planner/phase0_p0_r3_historical_plan.md"
+    "phase0_historical_plan": "planner/phase0_p0_r3_historical_plan.md",
+    "phase1a18_harness_expansion_audit": "docs/PHASE1A18_HARNESS_EXPANSION_RETENTION_AUDIT.md",
+    "phase1a18_harness_retention_handoff": "planner/phase1a18_harness_retention_handoff.md",
+    "phase1a18_evotool_plan_archive": "planner/phase1a18_evotool_audit_plan.md"
   },
   "corrective_pass_commit": "1776e0f9f4cc606ae66eaeca20c833d72e3b7ab0",
   "current_reviewed_source_commit": "3e48bf5305ba667490358c140dad556f1ebf84e2",
@@ -147,5 +153,6 @@
   "integration_source_candidate": "3e48bf5305ba667490358c140dad556f1ebf84e2",
   "integration_commit_sha": "9e59401dd78f4be830c45634767bd3f65fb4b4ed",
   "reviewed_phase1a_p0_commit": "f571b52ba73f6cfcf51901a2af72f4b980699bc7",
-  "followup_base_commit": "e01e3447dc57d99a28d62d7eb9537894d2cdc0e3"
+  "followup_base_commit": "e01e3447dc57d99a28d62d7eb9537894d2cdc0e3",
+  "followup_baseline_commit": "0ef286f0ed0cc8803d6cabc7eb8eec0ff7e27859"
 }
