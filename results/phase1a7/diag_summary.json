@@ -1,0 +1,1358 @@
+{
+  "1": [
+    {
+      "seed": 11,
+      "best_raw": 700.0000827911595,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.47928026905022375,
+        "diversity_mean": 0.1511609729611629,
+        "stall_max": 4,
+        "improvement_mean": 556.4508144562711,
+        "archive_mean": 80.6,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.4727122647304536,
+        "diversity_mean": 0.00019871379351593102,
+        "stall_max": 2,
+        "improvement_mean": 0.0030648987897279765,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.5591666666666667,
+        "diversity_mean": 1.7704577205328758e-06,
+        "stall_max": 2,
+        "improvement_mean": 2.7931500994782256e-06,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 1,
+      "total_successes": 2200,
+      "total_attempts": 4900,
+      "n_memory_updates": 164,
+      "F_mean_early": 0.5994592858580521,
+      "F_mean_late": 0.684928273143609,
+      "CR_mean_early": 0.5264847345262591,
+      "CR_mean_late": 0.8491107596329504
+    },
+    {
+      "seed": 22,
+      "best_raw": 700.0000124182407,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.5095113692673847,
+        "diversity_mean": 0.14515744819408563,
+        "stall_max": 3,
+        "improvement_mean": 1136.704590578691,
+        "archive_mean": 80.95,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.4533151813356923,
+        "diversity_mean": 0.0004154241162441178,
+        "stall_max": 3,
+        "improvement_mean": 0.007393703366932414,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.5666666666666667,
+        "diversity_mean": 4.4752198046624903e-07,
+        "stall_max": 2,
+        "improvement_mean": 7.713730383329676e-08,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 1,
+      "total_successes": 2183,
+      "total_attempts": 4900,
+      "n_memory_updates": 165,
+      "F_mean_early": 0.5826897549508717,
+      "F_mean_late": 0.6572510790477517,
+      "CR_mean_early": 0.5196398521642134,
+      "CR_mean_late": 0.8376874099644852
+    },
+    {
+      "seed": 33,
+      "best_raw": 700.0000228855562,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.491122071191236,
+        "diversity_mean": 0.1541897969796441,
+        "stall_max": 1,
+        "improvement_mean": 703.074762252091,
+        "archive_mean": 80.85,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.5043829856504005,
+        "diversity_mean": 0.0002415090011924982,
+        "stall_max": 2,
+        "improvement_mean": 0.0057121885298954565,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.6799999999999999,
+        "diversity_mean": 4.967607449033857e-07,
+        "stall_max": 1,
+        "improvement_mean": 3.106162012045388e-07,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 1,
+      "total_successes": 2216,
+      "total_attempts": 4900,
+      "n_memory_updates": 166,
+      "F_mean_early": 0.6041485141568868,
+      "F_mean_late": 0.6774137200347343,
+      "CR_mean_early": 0.5379776637628145,
+      "CR_mean_late": 0.7190798204173233
+    }
+  ],
+  "2": [
+    {
+      "seed": 11,
+      "best_raw": 33591.78963572457,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.2742167496967101,
+        "diversity_mean": 0.22467361230555977,
+        "stall_max": 6,
+        "improvement_mean": 4346999.766702382,
+        "archive_mean": 80.35,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.32845231952430093,
+        "diversity_mean": 0.01746434611555973,
+        "stall_max": 2,
+        "improvement_mean": 2609.818485161336,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.3591666666666667,
+        "diversity_mean": 0.0013366370458407517,
+        "stall_max": 4,
+        "improvement_mean": 28.50833614521762,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 4,
+      "total_successes": 1403,
+      "total_attempts": 4900,
+      "n_memory_updates": 160,
+      "F_mean_early": 0.5714577459890878,
+      "F_mean_late": 0.7370457200221755,
+      "CR_mean_early": 0.576849084900447,
+      "CR_mean_late": 0.9693273354768249
+    },
+    {
+      "seed": 22,
+      "best_raw": 20687.717572782505,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.2682183138804941,
+        "diversity_mean": 0.23761261492561575,
+        "stall_max": 5,
+        "improvement_mean": 20432412.991492413,
+        "archive_mean": 80.3,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.29939081773060106,
+        "diversity_mean": 0.00584872902702189,
+        "stall_max": 6,
+        "improvement_mean": 256.4847838762022,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.45166666666666655,
+        "diversity_mean": 0.0002687516068483484,
+        "stall_max": 2,
+        "improvement_mean": 6.438846866029962,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 0,
+      "total_successes": 1311,
+      "total_attempts": 4900,
+      "n_memory_updates": 165,
+      "F_mean_early": 0.5918251434665294,
+      "F_mean_late": 0.4097184552146233,
+      "CR_mean_early": 0.5192417473483755,
+      "CR_mean_late": 0.9633642421511812
+    },
+    {
+      "seed": 33,
+      "best_raw": 70472.39771214222,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.2615129835279569,
+        "diversity_mean": 0.24072064067619356,
+        "stall_max": 10,
+        "improvement_mean": 6381319.316318899,
+        "archive_mean": 79.9,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.36069969654528483,
+        "diversity_mean": 0.00787066146117056,
+        "stall_max": 2,
+        "improvement_mean": 1431.5756638780695,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.2558333333333333,
+        "diversity_mean": 0.0003015927872567658,
+        "stall_max": 7,
+        "improvement_mean": 10.890075235749828,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 5,
+      "total_successes": 1351,
+      "total_attempts": 4900,
+      "n_memory_updates": 158,
+      "F_mean_early": 0.5854471287707735,
+      "F_mean_late": 0.5655450158122446,
+      "CR_mean_early": 0.5143770967152419,
+      "CR_mean_late": 0.9463343731793673
+    }
+  ],
+  "4": [
+    {
+      "seed": 11,
+      "best_raw": 1054.5289842923105,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.3948173109484575,
+        "diversity_mean": 0.17561408626125816,
+        "stall_max": 4,
+        "improvement_mean": 7807.118379392555,
+        "archive_mean": 80.65,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.0865107929136567,
+        "diversity_mean": 0.0037000441645313005,
+        "stall_max": 8,
+        "improvement_mean": 0.9134735577844253,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.14833333333333337,
+        "diversity_mean": 0.0017028371649235236,
+        "stall_max": 7,
+        "improvement_mean": 0.18852512527996623,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 3,
+      "total_successes": 1468,
+      "total_attempts": 4900,
+      "n_memory_updates": 135,
+      "F_mean_early": 0.5751522557525571,
+      "F_mean_late": 0.08541069276554024,
+      "CR_mean_early": 0.5235840122256132,
+      "CR_mean_late": 0.1262203504987895
+    },
+    {
+      "seed": 22,
+      "best_raw": 1039.9497839360963,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.37769369951808174,
+        "diversity_mean": 0.1827951830614648,
+        "stall_max": 5,
+        "improvement_mean": 12491.590820120678,
+        "archive_mean": 80.75,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.10415723745638608,
+        "diversity_mean": 0.0032727398763705102,
+        "stall_max": 22,
+        "improvement_mean": 1.0847978629276782,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.09666666666666665,
+        "diversity_mean": 0.0015149141332122542,
+        "stall_max": 7,
+        "improvement_mean": 0.5490387557724035,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 7,
+      "total_successes": 1428,
+      "total_attempts": 4900,
+      "n_memory_updates": 129,
+      "F_mean_early": 0.640329964138126,
+      "F_mean_late": 0.057637216426151286,
+      "CR_mean_early": 0.5281933800135615,
+      "CR_mean_late": 0.5912564859864894
+    },
+    {
+      "seed": 33,
+      "best_raw": 1036.2966248417667,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.38550170972529674,
+        "diversity_mean": 0.19625791804178655,
+        "stall_max": 2,
+        "improvement_mean": 8730.433334426158,
+        "archive_mean": 80.15,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.0955125558995528,
+        "diversity_mean": 0.002568076948898718,
+        "stall_max": 22,
+        "improvement_mean": 0.0,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.1975,
+        "diversity_mean": 0.0011524340107892561,
+        "stall_max": 6,
+        "improvement_mean": 0.16996075956883488,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 6,
+      "total_successes": 1454,
+      "total_attempts": 4900,
+      "n_memory_updates": 142,
+      "F_mean_early": 0.6242683178853725,
+      "F_mean_late": 0.1322807542906343,
+      "CR_mean_early": 0.5245239374443458,
+      "CR_mean_late": 0.1412434014696664
+    }
+  ],
+  "6": [
+    {
+      "seed": 11,
+      "best_raw": 403.3420028008973,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.40056932656665456,
+        "diversity_mean": 0.17940591547371715,
+        "stall_max": 3,
+        "improvement_mean": 176264.1717907704,
+        "archive_mean": 80.65,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.4048417612659099,
+        "diversity_mean": 0.003592511149247068,
+        "stall_max": 2,
+        "improvement_mean": 3.91503130426089,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.49749999999999994,
+        "diversity_mean": 0.00010378449905408885,
+        "stall_max": 3,
+        "improvement_mean": 0.0412873008101343,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 1,
+      "total_successes": 1896,
+      "total_attempts": 4900,
+      "n_memory_updates": 165,
+      "F_mean_early": 0.5542579589129295,
+      "F_mean_late": 0.5697320348876943,
+      "CR_mean_early": 0.5501386622335466,
+      "CR_mean_late": 0.8662342373914348
+    },
+    {
+      "seed": 22,
+      "best_raw": 433.09813055466697,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.3691262422048441,
+        "diversity_mean": 0.19310899347719485,
+        "stall_max": 4,
+        "improvement_mean": 537833.2508592557,
+        "archive_mean": 80.15,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.3958280812324931,
+        "diversity_mean": 0.00879222499921704,
+        "stall_max": 4,
+        "improvement_mean": 13.085399237548376,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.22333333333333333,
+        "diversity_mean": 0.0009400158596465288,
+        "stall_max": 8,
+        "improvement_mean": 0.5306964768897842,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 6,
+      "total_successes": 1641,
+      "total_attempts": 4900,
+      "n_memory_updates": 159,
+      "F_mean_early": 0.6148987323164601,
+      "F_mean_late": 0.7408575374321412,
+      "CR_mean_early": 0.5098590011403843,
+      "CR_mean_late": 0.8492173411198762
+    },
+    {
+      "seed": 33,
+      "best_raw": 402.3788270306606,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.3796168969564601,
+        "diversity_mean": 0.18873174577835078,
+        "stall_max": 3,
+        "improvement_mean": 55920.89562744108,
+        "archive_mean": 80.65,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.41481516290726816,
+        "diversity_mean": 0.005196272320703307,
+        "stall_max": 1,
+        "improvement_mean": 8.45615908914559,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.37,
+        "diversity_mean": 0.0001701988008866165,
+        "stall_max": 3,
+        "improvement_mean": 0.025940421603530696,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 0,
+      "total_successes": 1751,
+      "total_attempts": 4900,
+      "n_memory_updates": 159,
+      "F_mean_early": 0.5882088513193413,
+      "F_mean_late": 0.6692789894519139,
+      "CR_mean_early": 0.5249865151716341,
+      "CR_mean_late": 0.9515605361335892
+    }
+  ],
+  "7": [
+    {
+      "seed": 11,
+      "best_raw": 300.80211677828544,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.29371545737792154,
+        "diversity_mean": 0.2020979493525518,
+        "stall_max": 5,
+        "improvement_mean": 2482.4003977971056,
+        "archive_mean": 79.85,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.23217885399773946,
+        "diversity_mean": 0.000988675054471566,
+        "stall_max": 2,
+        "improvement_mean": 0.05290376481867156,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.6375,
+        "diversity_mean": 3.8517354953205206e-05,
+        "stall_max": 30,
+        "improvement_mean": 0.0,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 30,
+      "total_successes": 1544,
+      "total_attempts": 4900,
+      "n_memory_updates": 157,
+      "F_mean_early": 0.5034573330001634,
+      "F_mean_late": 0.5199753464445034,
+      "CR_mean_early": 0.5883656807223147,
+      "CR_mean_late": 0.9565739006144129
+    },
+    {
+      "seed": 22,
+      "best_raw": 311.0413629505979,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.27269148124971093,
+        "diversity_mean": 0.22620935238648215,
+        "stall_max": 13,
+        "improvement_mean": 2633.298211003946,
+        "archive_mean": 80.1,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.20425401739643229,
+        "diversity_mean": 0.0027656447523350747,
+        "stall_max": 8,
+        "improvement_mean": 0.4613892813371706,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.8241666666666667,
+        "diversity_mean": 4.594078749491635e-05,
+        "stall_max": 53,
+        "improvement_mean": 0.0,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 53,
+      "total_successes": 1461,
+      "total_attempts": 4900,
+      "n_memory_updates": 164,
+      "F_mean_early": 0.5570797837173175,
+      "F_mean_late": 0.7169207928729282,
+      "CR_mean_early": 0.5251526160326669,
+      "CR_mean_late": 0.900066582886636
+    },
+    {
+      "seed": 33,
+      "best_raw": 303.67939558132196,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.2575408425929533,
+        "diversity_mean": 0.2226973762318516,
+        "stall_max": 6,
+        "improvement_mean": 874.4581418228269,
+        "archive_mean": 80.1,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.2849122192736744,
+        "diversity_mean": 0.002617096048375103,
+        "stall_max": 5,
+        "improvement_mean": 0.3610743293542299,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.8833333333333334,
+        "diversity_mean": 0.00015557624718155736,
+        "stall_max": 45,
+        "improvement_mean": 0.0,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 45,
+      "total_successes": 1426,
+      "total_attempts": 4900,
+      "n_memory_updates": 162,
+      "F_mean_early": 0.5822359459627893,
+      "F_mean_late": 0.3663205663816181,
+      "CR_mean_early": 0.5100739171477068,
+      "CR_mean_late": 0.8720546705723095
+    }
+  ],
+  "10": [
+    {
+      "seed": 11,
+      "best_raw": 174144.48698299943,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.24072418782154545,
+        "diversity_mean": 0.2499716204931796,
+        "stall_max": 8,
+        "improvement_mean": 12833311.999296617,
+        "archive_mean": 80.0,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.38281371320458013,
+        "diversity_mean": 0.06395064145766442,
+        "stall_max": 4,
+        "improvement_mean": 65238.900430298374,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.6166666666666667,
+        "diversity_mean": 0.00012263926639747877,
+        "stall_max": 3,
+        "improvement_mean": 147.67728408705588,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 0,
+      "total_successes": 1022,
+      "total_attempts": 4900,
+      "n_memory_updates": 164,
+      "F_mean_early": 0.5737827175989451,
+      "F_mean_late": 0.5642837486284644,
+      "CR_mean_early": 0.49502733156807205,
+      "CR_mean_late": 0.8975646821634947
+    },
+    {
+      "seed": 22,
+      "best_raw": 23570.506635984206,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.224255948912935,
+        "diversity_mean": 0.2643083785759393,
+        "stall_max": 7,
+        "improvement_mean": 12957439.3620723,
+        "archive_mean": 80.35,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.2551855128016119,
+        "diversity_mean": 0.030217167471788577,
+        "stall_max": 2,
+        "improvement_mean": 2096.29499539605,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.21083333333333334,
+        "diversity_mean": 0.0005622613961023747,
+        "stall_max": 5,
+        "improvement_mean": 81.87783522346271,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 1,
+      "total_successes": 1128,
+      "total_attempts": 4900,
+      "n_memory_updates": 153,
+      "F_mean_early": 0.6171998135196329,
+      "F_mean_late": 0.8144319007382275,
+      "CR_mean_early": 0.5165545212407927,
+      "CR_mean_late": 0.900730301986868
+    },
+    {
+      "seed": 33,
+      "best_raw": 25316.50977441048,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.2550717957943064,
+        "diversity_mean": 0.23666407613889345,
+        "stall_max": 8,
+        "improvement_mean": 13085455.289854975,
+        "archive_mean": 80.2,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.32833744901469364,
+        "diversity_mean": 0.009273531811438727,
+        "stall_max": 5,
+        "improvement_mean": 893.0453462264395,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.31833333333333336,
+        "diversity_mean": 0.0002901540019744738,
+        "stall_max": 5,
+        "improvement_mean": 12.407879522820076,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 0,
+      "total_successes": 1184,
+      "total_attempts": 4900,
+      "n_memory_updates": 162,
+      "F_mean_early": 0.6015700026455093,
+      "F_mean_late": 0.6126473822187165,
+      "CR_mean_early": 0.5269550247122262,
+      "CR_mean_late": 0.9822563316871513
+    }
+  ],
+  "11": [
+    {
+      "seed": 11,
+      "best_raw": 16310.305852854688,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.15716526856662322,
+        "diversity_mean": 0.26674669677340324,
+        "stall_max": 12,
+        "improvement_mean": 1803.9803317508145,
+        "archive_mean": 80.2,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.033261800334168756,
+        "diversity_mean": 0.2048541270498307,
+        "stall_max": 19,
+        "improvement_mean": 79.94796772366917,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.04083333333333333,
+        "diversity_mean": 0.1747818288289908,
+        "stall_max": 37,
+        "improvement_mean": 0.24028816105037548,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 6,
+      "total_successes": 431,
+      "total_attempts": 4900,
+      "n_memory_updates": 91,
+      "F_mean_early": 0.5300013506603614,
+      "F_mean_late": 0.08028890941701203,
+      "CR_mean_early": 0.5133626157789424,
+      "CR_mean_late": 0.10810812166044256
+    },
+    {
+      "seed": 22,
+      "best_raw": 981.2406849973025,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.16452091431568683,
+        "diversity_mean": 0.2775640914956654,
+        "stall_max": 8,
+        "improvement_mean": 129786.1347438602,
+        "archive_mean": 79.6,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.280639896309401,
+        "diversity_mean": 0.008595485049263692,
+        "stall_max": 3,
+        "improvement_mean": 2.8374543772766345,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.4666666666666666,
+        "diversity_mean": 0.00010459540440290013,
+        "stall_max": 3,
+        "improvement_mean": 0.09850371995715364,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 3,
+      "total_successes": 1039,
+      "total_attempts": 4900,
+      "n_memory_updates": 164,
+      "F_mean_early": 0.5677589714716104,
+      "F_mean_late": 0.782364417782021,
+      "CR_mean_early": 0.549226799387205,
+      "CR_mean_late": 0.970566579339157
+    },
+    {
+      "seed": 33,
+      "best_raw": 914.6981078182323,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.15864184506195533,
+        "diversity_mean": 0.2729719968463786,
+        "stall_max": 10,
+        "improvement_mean": 14751.266489250946,
+        "archive_mean": 79.2,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.37897193965305415,
+        "diversity_mean": 0.002462570044397371,
+        "stall_max": 2,
+        "improvement_mean": 0.9205492753584338,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.27749999999999997,
+        "diversity_mean": 1.544792241992261e-05,
+        "stall_max": 4,
+        "improvement_mean": 0.00047706616254004073,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 2,
+      "total_successes": 1308,
+      "total_attempts": 4900,
+      "n_memory_updates": 157,
+      "F_mean_early": 0.5999755098824706,
+      "F_mean_late": 0.9006415493087121,
+      "CR_mean_early": 0.5472322222940292,
+      "CR_mean_late": 0.9535757395344003
+    }
+  ],
+  "12": [
+    {
+      "seed": 11,
+      "best_raw": 3475.221931438304,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.4612561878129065,
+        "diversity_mean": 0.17332766479841213,
+        "stall_max": 4,
+        "improvement_mean": 4774651783.867414,
+        "archive_mean": 80.55,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.3753206545776205,
+        "diversity_mean": 0.002946070485189305,
+        "stall_max": 2,
+        "improvement_mean": 60861.71970401539,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.36,
+        "diversity_mean": 2.0179309988449655e-05,
+        "stall_max": 4,
+        "improvement_mean": 21.8805759953181,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 3,
+      "total_successes": 1801,
+      "total_attempts": 4900,
+      "n_memory_updates": 164,
+      "F_mean_early": 0.4959096800646677,
+      "F_mean_late": 0.43391956274370547,
+      "CR_mean_early": 0.5007527433131548,
+      "CR_mean_late": 0.7077348025133878
+    },
+    {
+      "seed": 22,
+      "best_raw": 3933.8760145457054,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.4275726864429128,
+        "diversity_mean": 0.1660317158091116,
+        "stall_max": 3,
+        "improvement_mean": 1843733369.4863205,
+        "archive_mean": 80.4,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.3120634920634921,
+        "diversity_mean": 0.001825030450449567,
+        "stall_max": 3,
+        "improvement_mean": 12247.794942267761,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.4841666666666667,
+        "diversity_mean": 4.798517076580857e-05,
+        "stall_max": 4,
+        "improvement_mean": 21.207818160730813,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 1,
+      "total_successes": 1759,
+      "total_attempts": 4900,
+      "n_memory_updates": 158,
+      "F_mean_early": 0.4788599515273868,
+      "F_mean_late": 0.6157588346891449,
+      "CR_mean_early": 0.5572903606971759,
+      "CR_mean_late": 0.9627283243934633
+    },
+    {
+      "seed": 33,
+      "best_raw": 5698.1760193777045,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.36425153033415264,
+        "diversity_mean": 0.16940952349454366,
+        "stall_max": 7,
+        "improvement_mean": 2802002396.2400093,
+        "archive_mean": 80.65,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.3160329131652661,
+        "diversity_mean": 0.001244235114702189,
+        "stall_max": 5,
+        "improvement_mean": 10364.386962631386,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.5308333333333334,
+        "diversity_mean": 1.1660210612406948e-05,
+        "stall_max": 4,
+        "improvement_mean": 91.72900444567286,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 4,
+      "total_successes": 1753,
+      "total_attempts": 4900,
+      "n_memory_updates": 163,
+      "F_mean_early": 0.5211968908110043,
+      "F_mean_late": 0.7798515654734228,
+      "CR_mean_early": 0.571877162698923,
+      "CR_mean_late": 0.952221977868658
+    }
+  ],
+  "15": [
+    {
+      "seed": 11,
+      "best_raw": 1759.4912407998038,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.3661229609366826,
+        "diversity_mean": 0.207999493316693,
+        "stall_max": 2,
+        "improvement_mean": 83644.60358384727,
+        "archive_mean": 80.4,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.13041801808442682,
+        "diversity_mean": 0.005925684127764253,
+        "stall_max": 20,
+        "improvement_mean": 0.7688088373830737,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.020833333333333332,
+        "diversity_mean": 0.002434541633348214,
+        "stall_max": 36,
+        "improvement_mean": 0.20176859646253434,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 3,
+      "total_successes": 1358,
+      "total_attempts": 4900,
+      "n_memory_updates": 116,
+      "F_mean_early": 0.5887538106938156,
+      "F_mean_late": 0.3187911899265546,
+      "CR_mean_early": 0.4418837176300034,
+      "CR_mean_late": 0.47897904406826497
+    },
+    {
+      "seed": 22,
+      "best_raw": 1751.2910449205142,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.3399522137913872,
+        "diversity_mean": 0.18519336856353336,
+        "stall_max": 3,
+        "improvement_mean": 8289.876441530494,
+        "archive_mean": 80.6,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.03850401125362425,
+        "diversity_mean": 0.0034785688139292717,
+        "stall_max": 23,
+        "improvement_mean": 0.0,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.06583333333333333,
+        "diversity_mean": 0.0024390916372123914,
+        "stall_max": 87,
+        "improvement_mean": 0.011702540134399442,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 1,
+      "total_successes": 1275,
+      "total_attempts": 4900,
+      "n_memory_updates": 100,
+      "F_mean_early": 0.5899147723681473,
+      "F_mean_late": 0.14998153075795498,
+      "CR_mean_early": 0.5657163998369426,
+      "CR_mean_late": 0.9646945417425771
+    },
+    {
+      "seed": 33,
+      "best_raw": 1736.5144913935146,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.3788303898346552,
+        "diversity_mean": 0.20288888201459782,
+        "stall_max": 3,
+        "improvement_mean": 40392.92029207361,
+        "archive_mean": 80.9,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.05342664258685931,
+        "diversity_mean": 0.003668650511026234,
+        "stall_max": 11,
+        "improvement_mean": 0.2135070956532104,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.08333333333333333,
+        "diversity_mean": 0.002316094392111958,
+        "stall_max": 10,
+        "improvement_mean": 0.2874277416995142,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 10,
+      "total_successes": 1478,
+      "total_attempts": 4900,
+      "n_memory_updates": 124,
+      "F_mean_early": 0.595403129073169,
+      "F_mean_late": 0.24611670068640742,
+      "CR_mean_early": 0.49551994518920406,
+      "CR_mean_late": 0.7366334623063591
+    }
+  ],
+  "18": [
+    {
+      "seed": 11,
+      "best_raw": 768.1000675721332,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.3230376252895043,
+        "diversity_mean": 0.18742811282666766,
+        "stall_max": 3,
+        "improvement_mean": 54.72563912021898,
+        "archive_mean": 80.6,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.1526078369944469,
+        "diversity_mean": 0.03250861631027438,
+        "stall_max": 17,
+        "improvement_mean": 1.2584330133638844,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.01,
+        "diversity_mean": 0.020624028777135973,
+        "stall_max": 21,
+        "improvement_mean": 0.0011144639368012577,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 16,
+      "total_successes": 852,
+      "total_attempts": 4900,
+      "n_memory_updates": 106,
+      "F_mean_early": 0.5290798137120645,
+      "F_mean_late": 0.4235438930219485,
+      "CR_mean_early": 0.5366542599921257,
+      "CR_mean_late": 0.8808126739040005
+    },
+    {
+      "seed": 22,
+      "best_raw": 703.5972351311112,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.29677266460447094,
+        "diversity_mean": 0.19423137099285395,
+        "stall_max": 6,
+        "improvement_mean": 158.96949286550938,
+        "archive_mean": 79.9,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.255046531770603,
+        "diversity_mean": 0.010661845234348991,
+        "stall_max": 4,
+        "improvement_mean": 1.2010929647717092,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.13583333333333333,
+        "diversity_mean": 0.00012256792338716422,
+        "stall_max": 17,
+        "improvement_mean": 0.0045203730815671864,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 17,
+      "total_successes": 1059,
+      "total_attempts": 4900,
+      "n_memory_updates": 147,
+      "F_mean_early": 0.5384641506736327,
+      "F_mean_late": 0.6236151609378779,
+      "CR_mean_early": 0.5712308407823878,
+      "CR_mean_late": 0.9500034282960881
+    },
+    {
+      "seed": 33,
+      "best_raw": 745.0853635476197,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.3159945086942339,
+        "diversity_mean": 0.19578717030687226,
+        "stall_max": 5,
+        "improvement_mean": 44.330845970880944,
+        "archive_mean": 80.4,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.10674440390191164,
+        "diversity_mean": 0.022617244227294574,
+        "stall_max": 13,
+        "improvement_mean": 0.5110818307940519,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.09416666666666666,
+        "diversity_mean": 0.00759644595947587,
+        "stall_max": 24,
+        "improvement_mean": 0.0,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 24,
+      "total_successes": 930,
+      "total_attempts": 4900,
+      "n_memory_updates": 121,
+      "F_mean_early": 0.5723081476291217,
+      "F_mean_late": 0.1256790938616495,
+      "CR_mean_early": 0.48226673838790346,
+      "CR_mean_late": 0.6959828500965065
+    }
+  ],
+  "20": [
+    {
+      "seed": 11,
+      "best_raw": 2042.813903191195,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.4026339314579294,
+        "diversity_mean": 0.16473776145095623,
+        "stall_max": 4,
+        "improvement_mean": 94943.93707202526,
+        "archive_mean": 80.25,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.08483804486706963,
+        "diversity_mean": 0.07607374672942961,
+        "stall_max": 14,
+        "improvement_mean": 0.21699813576101407,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.08666666666666667,
+        "diversity_mean": 0.07553659874606458,
+        "stall_max": 9,
+        "improvement_mean": 0.288737009570491,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 0,
+      "total_successes": 984,
+      "total_attempts": 4900,
+      "n_memory_updates": 116,
+      "F_mean_early": 0.5432388039319577,
+      "F_mean_late": 0.42940299405125365,
+      "CR_mean_early": 0.5168400409248385,
+      "CR_mean_late": 0.03869153148323735
+    },
+    {
+      "seed": 22,
+      "best_raw": 2046.6133329154977,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.368483287002267,
+        "diversity_mean": 0.16202073015055934,
+        "stall_max": 5,
+        "improvement_mean": 117980.02044881617,
+        "archive_mean": 79.75,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.06663361835962456,
+        "diversity_mean": 0.07290885853520489,
+        "stall_max": 11,
+        "improvement_mean": 0.013859708578081609,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.11666666666666667,
+        "diversity_mean": 0.07108784217753064,
+        "stall_max": 27,
+        "improvement_mean": 0.03678664977462631,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 2,
+      "total_successes": 957,
+      "total_attempts": 4900,
+      "n_memory_updates": 119,
+      "F_mean_early": 0.5508047704537764,
+      "F_mean_late": 0.13245338177231114,
+      "CR_mean_early": 0.5231279394893172,
+      "CR_mean_late": 0.017921116681861665
+    },
+    {
+      "seed": 33,
+      "best_raw": 2044.9737651994078,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 0.38559663184109816,
+        "diversity_mean": 0.16623717373267574,
+        "stall_max": 4,
+        "improvement_mean": 163118.45499539963,
+        "archive_mean": 80.2,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 0.07462756155093615,
+        "diversity_mean": 0.07574079004422742,
+        "stall_max": 16,
+        "improvement_mean": 0.007625134806789902,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 0.08249999999999999,
+        "diversity_mean": 0.07803938081930825,
+        "stall_max": 17,
+        "improvement_mean": 0.005397691214693623,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 9,
+      "total_successes": 974,
+      "total_attempts": 4900,
+      "n_memory_updates": 123,
+      "F_mean_early": 0.550573441517712,
+      "F_mean_late": 0.22245441305153887,
+      "CR_mean_early": 0.5399188925157893,
+      "CR_mean_late": 0.05128586711919179
+    }
+  ],
+  "21": [
+    {
+      "seed": 11,
+      "best_raw": 786.5654011387869,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 1.0,
+        "diversity_mean": 0.320205533649519,
+        "stall_max": 20,
+        "improvement_mean": 0.0,
+        "archive_mean": 82.1,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 1.0,
+        "diversity_mean": 0.20343479624052674,
+        "stall_max": 100,
+        "improvement_mean": 0.0,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 1.0,
+        "diversity_mean": 0.0825959084911982,
+        "stall_max": 166,
+        "improvement_mean": 0.0,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 166,
+      "total_successes": 4900,
+      "total_attempts": 4900,
+      "n_memory_updates": 166,
+      "F_mean_early": 0.7157947804561305,
+      "F_mean_late": 0.8589859091505094,
+      "CR_mean_early": 0.495458670313025,
+      "CR_mean_late": 0.3846678914151439
+    },
+    {
+      "seed": 22,
+      "best_raw": 786.5654011387869,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 1.0,
+        "diversity_mean": 0.3213396486066464,
+        "stall_max": 20,
+        "improvement_mean": 0.0,
+        "archive_mean": 82.1,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 1.0,
+        "diversity_mean": 0.2472138365712629,
+        "stall_max": 100,
+        "improvement_mean": 0.0,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 1.0,
+        "diversity_mean": 0.03534101500544292,
+        "stall_max": 166,
+        "improvement_mean": 0.0,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 166,
+      "total_successes": 4900,
+      "total_attempts": 4900,
+      "n_memory_updates": 166,
+      "F_mean_early": 0.690546202195124,
+      "F_mean_late": 0.835942697316407,
+      "CR_mean_early": 0.4911317694963953,
+      "CR_mean_late": 0.3481034369736505
+    },
+    {
+      "seed": 33,
+      "best_raw": 786.5654011387869,
+      "n_gens": 166,
+      "early": {
+        "succ_rate_mean": 1.0,
+        "diversity_mean": 0.3098512867459463,
+        "stall_max": 20,
+        "improvement_mean": 0.0,
+        "archive_mean": 82.1,
+        "N_mean": 82.1
+      },
+      "mid": {
+        "succ_rate_mean": 1.0,
+        "diversity_mean": 0.2133261540112689,
+        "stall_max": 100,
+        "improvement_mean": 0.0,
+        "archive_mean": 17.4,
+        "N_mean": 17.4
+      },
+      "late": {
+        "succ_rate_mean": 1.0,
+        "diversity_mean": 0.09628046781624487,
+        "stall_max": 166,
+        "improvement_mean": 0.0,
+        "archive_mean": 4.8,
+        "N_mean": 4.8
+      },
+      "final_stall": 166,
+      "total_successes": 4900,
+      "total_attempts": 4900,
+      "n_memory_updates": 166,
+      "F_mean_early": 0.7020775538926987,
+      "F_mean_late": 0.8367485976500227,
+      "CR_mean_early": 0.5040788829880702,
+      "CR_mean_late": 0.2844989988520455
+    }
+  ]
+}
