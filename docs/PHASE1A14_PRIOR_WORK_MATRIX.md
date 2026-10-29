@@ -137,3 +137,24 @@ No candidate is approved for implementation. The next phase should not start exp
 21. Pan, W., Liu, S., Lin, C.-Y., Zeng, J., Tang, X., Zhou, X., Lu, Y., & Jia, X. (2026). *Retrospective Harness Optimization: Improving LLM Agents via Self-Preference over Trajectory Rollouts*. arXiv preprint. https://www.microsoft.com/en-us/research/publication/retrospective-harness-optimization-improving-llm-agents-via-self-preference-over-trajectory-rollouts/.
 22. Lin, M., Wu, J., Wang, Z., Shi, Z., Sang, Y., et al. (2026). *Harness Updating Is Not Harness Benefit: Disentangling Evolution Capabilities in Self-Evolving LLM Agents*. Findings of EMNLP 2026. https://github.com/A-EVO-Lab/a-evolve/tree/release/harness-evolution. **Publisher/author publication page inspected.**
 23. *Hierarchical Self-Improvement: A Framework for Task-Specific Evolvable Agent Harnesses*. (2026). arXiv:2608.08466. https://arxiv.org/abs/2608.08466. **Secondary page/abstract inspected; exact author metadata still requires primary-page confirmation.**
+
+
+## 10. Additional runtime-policy and feedback-learning overlaps
+
+| Work | Mechanism and evidence | Implication |
+|---|---|---|
+| **Life-Harness: Adapting the Interface, Not the Model** (Xu, Wen & Li, arXiv:2605.22166, 2026) | Converts recurring failures into reusable interventions across environment contracts, procedural skills, action realization and trajectory regulation; transfers across multiple backbones. Primary abstract/page inspected. | Runtime interface adaptation and transfer across models are already covered; “evolve the runtime harness rather than weights” is not a novelty claim. |
+| **EvoHarness-RL** (Ning et al., arXiv:2608.05446, 2026) | Learns harness policies for forming/using Belief, Progress and Experience state, using supervised harness fine-tuning and cost-aware GRPO. Primary abstract inspected. | Learning a dynamic runtime harness-use policy is covered by adjacent RL work; EC would need a specific mechanism beyond replacing GRPO with EA. |
+| **Autopoiesis** (Jiang et al., arXiv:2604.07144, 2026) | Continuously evolves LLM-serving policies in response to runtime workload/system dynamics. Primary abstract inspected. | Online policy evolution under runtime drift is covered in the adjacent serving-systems domain; it is not the same target application, but warns against generic online-evolution claims. |
+| **Q-Evolve** (Zhang et al., ICML 2026) | Learns an in-distribution critic from expert and agent trajectories, derives process-level rewards and updates the Agent policy via behavior-proximal RL. Primary PMLR page inspected. | Step-level credit assignment under sparse outcomes is actively studied; simply making feedback denser is not an EC innovation. |
+| **DemoEvolve** (Che et al., 2026) | Demonstration-bootstrapped harness evolution for long-horizon stochastic games with sparse feedback. | “Use demonstrations to make failure diagnosis more localizable” is covered. |
+| **OpenSkill / UCoE / RHO** | Self-built verification anchors, co-evolved executable verifiers, and self-preference over replayed trajectories. | Verifier-free/weak-feedback self-improvement is also crowded; a new method would need a precise estimator and strong controls. |
+| **Harness Updating Is Not Harness Benefit** | Distinguishes whether an optimizer writes a useful update from whether the executor activates and follows it. | Evaluation must separately measure candidate quality and actual behavioral adoption; the distinction alone is not a new algorithm. |
+
+The additional sources reinforce the same finding: design-time harness search, runtime harness adaptation, recursive optimizer improvement, self-built verification and policy learning all have recent direct precedents. The matrix is not claiming these methods are identical; it records why generic claims are insufficient.
+
+## 11. References added in the runtime-policy supplement
+
+24. Xu, T., Wen, H., & Li, M. (2026). *Adapting the Interface, Not the Model: Runtime Harness Adaptation for Deterministic LLM Agents*. arXiv:2605.22166. https://arxiv.org/abs/2605.22166. **Preprint; primary abstract inspected.**
+25. Ning, X., Fu, D., Wei, T., Zeng, H., Bei, Y., Li, B., Li, Z., Wang, Q., Shen, X., Wu, Y., et al. (2026). *EvoHarness-RL: Learning Self-Evolving Runtime Harness for Long-Horizon LLM Agents*. arXiv:2608.05446. https://arxiv.org/abs/2608.05446. **Preprint; primary abstract inspected.**
+26. Jiang, Y., Yan, R., Peng, Y., Li, W., Wang, T., Fu, F., & Yuan, B. (2026). *Autopoiesis: A Self-Evolving System Paradigm for LLM Serving Under Runtime Dynamics*. arXiv:2604.07144. https://arxiv.org/abs/2604.07144. **Preprint; primary abstract inspected.**
