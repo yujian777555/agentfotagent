@@ -4,8 +4,8 @@
   "default_branch": "main",
   "last_updated": "2026-10-29",
   "baseline_commit": "ab7d90f2c8f70c212c6408b39699f037f1454e93",
-  "current_phase": "Phase-1A-18 complete: PAUSE_CURRENT_AGENT_EC_METHOD_DISCOVERY_ROUTE",
-  "phase_status": "PHASE1A18_COMPLETE; PAUSE_CURRENT_AGENT_EC_METHOD_DISCOVERY_ROUTE; NO_ADMISSIBLE_METHOD_CANDIDATE; NO_API_OR_SCIENTIFIC_EXPERIMENT_AUTHORIZED",
+  "current_phase": "Post-Phase-1A-18 evidence audit: harness-expansion retention failure (no method admitted)",
+  "phase_status": "RESEARCH_AUDIT_IN_PROGRESS; RESEARCH_SIGNAL_FOUND; METHOD_NOT_ADMITTED; NO_API_OR_SCIENTIFIC_EXPERIMENT_AUTHORIZED",
   "research_direction": "Fixed long-term objective remains applying a genuinely useful LLM-empowered EC method to improve Agent task performance. Phase-1A-18 reviewed recent primary sources: EVOTOOL (ACL 2026) directly covers modular tool-use policy evolution with trajectory blame, targeted mutation and diversity-aware selection; HarnessLens covers behavior-aware selective verification; HarnessDev and Evo-Bench cover harness creation/evolution; Rethinking Harness Evolution emphasizes matched-budget test-time-scaling controls and held-out generalization; Code Evolution for Control covers LLM-driven evolutionary policy-code synthesis. No defensible algorithmic gap currently survives Phase-1A-14 through Phase-1A-17 plus this review. Decision: pause the current Agent-EC method-discovery route; no Phase-1A-19 candidate-generation handoff. Reopen only with source-grounded evidence of a precise uncovered failure mode and EC-specific benefit over strong equal-budget baselines. No implementation, live API, MetaBox/AES scientific runs, GPU, or held-out access authorized.",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
@@ -141,5 +141,29 @@
   "integration_branch": "phase0-r4-integration",
   "integration_source_candidate": "3e48bf5305ba667490358c140dad556f1ebf84e2",
   "integration_commit_sha": "9e59401dd78f4be830c45634767bd3f65fb4b4ed",
-  "reviewed_phase1a_p0_commit": "f571b52ba73f6cfcf51901a2af72f4b980699bc7"
+  "reviewed_phase1a_p0_commit": "f571b52ba73f6cfcf51901a2af72f4b980699bc7",
+  "research_followup": {
+    "branch": "research/evoharness-retention-mechanism-audit",
+    "baseline_branch": "phase1a-phase11-unified-agent-ec-roadmap",
+    "baseline_phase": "Phase-1A-18 complete; pause current method-discovery route remains in force",
+    "audit_document": "docs/POST_PHASE1A18_EVOHARNESS_RETENTION_MECHANISM_AUDIT.md",
+    "evidence_added": [
+      "Primary-source mechanism reconstruction of EVOTOOL (ACL 2026)",
+      "EVOHARNESSBENCH delegation-drift observation: forgotten tasks more often stop invoking previously successful required specialists",
+      "HarnessLens public source-code inspection confirms behavior-aware paired verification, attribution/regression review, and prior accepted incumbent evidence"
+    ],
+    "current_decision": "The generic ideas of blame-guided mutation, instance-wise specialist preservation, behavior-aware verification, and regression gates are not new contributions. A specific EC population-update/variation gap under stage-wise external specialist-pool expansion remains UNRESOLVED; no method is admitted.",
+    "next_steps": [
+      "Read-only audit of evolutionary population methods and continual adaptation under changing specialist-agent sets",
+      "Compare exact mechanisms against EVOTOOL, HarnessLens, multiobjective/QD, and continual-learning baselines",
+      "Prepare a claim-by-claim nearest-neighbor matrix with evidence grades before any method proposal"
+    ],
+    "prohibitions": [
+      "No live LLM/API calls",
+      "No MetaBox/AES scientific runs",
+      "No GPU use",
+      "No held-out/test access",
+      "No Phase-1A-19 candidate-generation handoff"
+    ]
+  }
 }
