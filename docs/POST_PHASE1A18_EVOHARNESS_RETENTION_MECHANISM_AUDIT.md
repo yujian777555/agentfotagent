@@ -173,3 +173,34 @@ Continue research in yujian777555/agentfotagent, branch research/evoharness-rete
 RESEARCH_SIGNAL_FOUND; METHOD_NOT_ADMITTED; NO_EXPERIMENT_AUTHORIZED.
 
 This audit deliberately does not overturn Phase-1A-18's pause. It identifies a concrete empirical failure to investigate further while preserving the requirement that any future method must improve an existing approach for a demonstrable reason.
+
+
+## 9. Implementation-level check: HarnessLens
+
+The public repository was inspected read-only at https://github.com/jhxu5214/HarnessLens (default branch main). Relevant files include README.md, harnesslens/evolution/controller.py, analyzer.py, discovery.py, incumbent.py, main_agent.py, and evaluation/blind_test_eval.py.
+
+What the code confirms:
+- The repository separates the TRAIN evolution loop from blind TEST evaluation entrypoints.
+- The evolution pipeline explores task categories and editable harness surfaces, diagnoses experiences, creates candidate changes, materializes isolated harness versions, and evaluates paired rollouts.
+- The main decision prompt explicitly distinguishes recovered tasks, preserved tasks, attributable regression tasks, and unresolved findings.
+- The controller records accepted TRAIN evidence and can load a prior TRAIN-accepted incumbent with its changed-channel provenance and previously attributed recovered/preserved/regression task IDs.
+- The implementation uses paired rollout/confirmation budget calculations and a separate blind-test evaluator. This supports the conclusion that generic paired behavior verification, incumbent preservation, and regression-aware acceptance are already implemented engineering mechanisms in HarnessLens.
+
+What this does NOT prove:
+- It does not establish that HarnessLens solves the EVOHARNESSBENCH expanding-specialist-pool setting. Its public README describes OpenCode, Codex CLI, and Pi harness evolution across Retail/Banking, Terminal-Bench, and BIRD Mini-Dev; it does not claim an evolving external specialist-agent roster benchmark.
+- It does not establish that HarnessLens has an EC-specific population update/selection mechanism that solves the reported old-specialist delegation drift.
+- The presence of fields such as preserved_task_ids or attributable_regression_task_ids is not proof that the attribution judge is always correct. The paper's evaluation and the code's implementation still need independent scrutiny; this project has not reproduced its performance claims.
+
+Source links:
+- README: https://github.com/jhxu5214/HarnessLens/blob/main/README.md
+- Controller: https://github.com/jhxu5214/HarnessLens/blob/main/harnesslens/evolution/controller.py
+- Main decision logic: https://github.com/jhxu5214/HarnessLens/blob/main/harnesslens/evolution/main_agent.py
+- Incumbent evidence: https://github.com/jhxu5214/HarnessLens/blob/main/harnesslens/evolution/incumbent.py
+
+## 10. Revised interim decision after code inspection
+
+The broad idea “use behavior-aware evaluation and reject regressions” is now **explicitly NO-GO as a standalone novelty claim**, because HarnessLens already implements a behavior-aware candidate verification and regression-attribution workflow.
+
+The remaining question is narrower: whether a distinct EC population-update or variation mechanism can address the specific loss of previously required specialist invocations under stage-wise external agent-pool expansion, beyond the existing HarnessLens acceptance gate, EVOTOOL's instance-wise winner-frequency selection, and standard multiobjective/quality-diversity/continual-learning baselines.
+
+No answer is claimed yet. The next action remains a read-only prior-art audit of evolutionary population methods and continual adaptation under changing specialist-agent sets. If the only viable proposal is an archive, regression gate, Pareto objective, or task-conditioned routing rule already covered by prior art, stop this route. No method, experiment, API call, or held-out access is authorized by this note.
