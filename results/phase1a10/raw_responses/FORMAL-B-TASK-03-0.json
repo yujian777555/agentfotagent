@@ -1,0 +1,28 @@
+{
+  "id": "3307e420-e921-48a1-b846-85dba8d42e7e",
+  "object": "chat.completion",
+  "created": 1793257874,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"F-memory-viability-gated-update\",\"target_component\":\"F memory update (M_F Lehmer mean) in L-SHADE\",\"observed_evidence\":{\"task_id\":\"TASK-03\",\"trace_path\":\"none_provided\",\"function\":\"F4,F11,F15\",\"seed\":0,\"metric\":\"F_mean trajectory\",\"observed_value\":0.08},\"causal_hypothesis\":\"Successful trials with tiny F produce small delta_f, so Lehmer mean overweights them and drives M_F toward 0; once F is near zero, differential vectors vanish and progress stalls, but selection still accepts marginal improvements that reinforce low F.\",\"algorithmic_change\":\"Gate each successful trial's contribution to the F-memory Lehmer mean by a viability weight that decays when the trial's realized F is below a viability threshold, so low-F successes cannot dominate the memory update.\",\"mathematical_rule\":\"w_i = |delta_f_i| * g(F_i), where g(F) = 1 if F >= F_viab else (F / F_viab)^2; F_viab = 0.2. M_F = sum(w_i * F_i^2) / sum(w_i * F_i) (weighted Lehmer).\",\"expected_effect\":\"Prevents M_F collapse below ~0.2 while still allowing occasional low-F exploration; keeps differential vectors non-vanishing and sustains convergence on F4/F11/F15.\",\"failure_prediction\":\"On unimodal/separable functions where low F is genuinely optimal, gating may slow late-stage fine-tuning and slightly increase final error; if F_viab too high, exploration is over-forced and convergence rate drops.\",\"ablation_plan\":\"Compare (a) baseline Lehmer, (b) viability-gated Lehmer with F_viab in {0.1,0.2,0.3}, (c) hard F floor 0.2, across F4/F11/F15 and 5 seeds; measure F_mean trajectory, final error, and success rate.\",\"nearest_known_methods\":\"Weighted Lehmer mean memory (SHADE/L-SHADE), F-floor clamping, success-history adaptation, jSO-style F bounds.\",\"implementation_requirements\":\"Track per-success realized F_i and delta_f_i; add g(F) weighting in the M_F Lehmer update; expose F_viab as a parameter; no change to mutation or selection.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 573,
+    "completion_tokens": 515,
+    "total_tokens": 1088,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 189
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

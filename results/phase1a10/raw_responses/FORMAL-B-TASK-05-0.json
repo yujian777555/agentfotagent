@@ -1,0 +1,28 @@
+{
+  "id": "0778490d-0de1-450e-b72e-2de79350634c",
+  "object": "chat.completion",
+  "created": 1793257840,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"seed_conditioned_memory_perturbation\",\"target_component\":\"F/CR memory adaptation (M_F, M_CR)\",\"observed_evidence\":{\"task_id\":\"TASK-05\",\"trace_path\":\"none_provided\",\"function\":\"F11\",\"seed\":11,\"metric\":\"diversity\",\"observed_value\":0.175},\"causal_hypothesis\":\"Seeds 22/33 collapse because early F/CR memory updates lock onto low-diversity settings, while seed 11's memory retains higher F, sustaining diversity; seed sensitivity stems from memory initialization and early Lehmer-mean lock-in.\",\"algorithmic_change\":\"At each generation, if population diversity (mean pairwise distance normalized by domain) falls below a threshold, inject a seed-derived deterministic perturbation into M_F and M_CR by resampling from their prior distributions, scaled by a decay factor, so collapsed runs re-explore without random restarts.\",\"mathematical_rule\":\"div_t = mean(||pop_i - pop_j||) / (ub - lb); if div_t < tau: M_F[k] = M_F[k] + alpha * (Cauchy(M_F0, 0.1) - M_F[k]); M_CR[k] = M_CR[k] + alpha * (Normal(M_CR0, 0.1) - M_CR[k]); alpha = 0.5 * exp(-t / T)\",\"expected_effect\":\"Collapsed seeds (22/33) recover diversity above tau, reducing cross-seed variance in success_rate and final fitness on F11 while leaving seed 11 behavior largely unchanged.\",\"failure_prediction\":\"If tau is too high, perturbation fires every generation, degrading convergence on easy functions; if alpha too small, collapsed seeds never escape.\",\"ablation_plan\":\"Compare (a) full mechanism, (b) perturbation without decay (alpha constant), (c) tau=0 (disabled), across seeds 11/22/33 on F11, measuring diversity, success_rate, and final fitness variance.\",\"nearest_known_methods\":\"Restart strategies, F/CR memory reset heuristics, diversity-triggered parameter resampling in jDE/SHADE variants.\",\"implementation_requirements\":\"Track normalized pairwise diversity each generation; store prior means M_F0=0.5, M_CR0=0.5; add tau and alpha decay parameters; apply perturbation before mutation sampling.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 563,
+    "completion_tokens": 509,
+    "total_tokens": 1072,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 179
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

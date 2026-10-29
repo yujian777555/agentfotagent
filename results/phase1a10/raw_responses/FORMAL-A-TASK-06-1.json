@@ -1,0 +1,28 @@
+{
+  "id": "f930aaa5-88de-4f74-95e5-0cdfa9829b34",
+  "object": "chat.completion",
+  "created": 1793257893,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"success-magnitude-gated-memory\",\"target_component\":\"SHADE memory update (M_F, M_CR) and archive insertion\",\"observed_evidence\":{\"task_id\":\"TASK-06\",\"trace_path\":\"diagnostic_trace_F10_s11_s55\",\"function\":\"F10\",\"seed\":11,\"metric\":\"late_success_rate_vs_best_raw\",\"observed_value\":0.617},\"causal_hypothesis\":\"On ill-conditioned F10, tiny fitness deltas are counted as successes, so memory and archive fill with low-information parents, diluting F/CR learning and stalling best_raw.\",\"algorithmic_change\":\"Weight memory updates and archive insertions by a normalized improvement magnitude g = (parent_fit - trial_fit)/(|parent_fit|+eps), not by raw |delta_f| or binary success.\",\"mathematical_rule\":\"g_i = max(0, (f_parent - f_trial) / (|f_parent| + 1e-12)); w_i = g_i / (sum_j g_j + 1e-12); M_F = sum(w_i * F_i^2) / sum(w_i * F_i); M_CR = sum(w_i * CR_i); archive insert only if g_i > tau (tau = 1e-6).\",\"expected_effect\":\"Memory reflects genuinely improving steps, reducing spurious high-success noise and lowering best_raw on F10 while preserving exploration.\",\"failure_prediction\":\"If tau too high, archive starves and r2 diversity collapses; if too low, no change from baseline.\",\"ablation_plan\":\"Compare baseline SHADE vs gated-memory with tau in {0, 1e-6, 1e-4} on F10 seeds 11-55; report best_raw and success_rate.\",\"nearest_known_methods\":\"Weighted Lehmer memory (SHADE), success-history adaptation, quality-residual credit (excluded).\",\"implementation_requirements\":\"Track parent_fit and trial_fit at selection; compute g; modify M_F/M_CR update and archive push condition; add tau parameter.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 642,
+    "completion_tokens": 451,
+    "total_tokens": 1093,
+    "prompt_tokens_details": {
+      "cached_tokens": 508
+    },
+    "prompt_cache_hit_tokens": 508,
+    "prompt_cache_miss_tokens": 134
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

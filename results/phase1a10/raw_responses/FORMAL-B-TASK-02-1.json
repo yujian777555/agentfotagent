@@ -1,0 +1,28 @@
+{
+  "id": "0c6e473c-ebf3-4858-9d48-39b53b0608fb",
+  "object": "chat.completion",
+  "created": 1793257823,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"cr_memory_rank_median\",\"target_component\":\"M_CR memory update in L-SHADE\",\"observed_evidence\":{\"task_id\":\"TASK-02\",\"trace_path\":\"none\",\"function\":\"F1,F6,F10,F20\",\"seed\":0,\"metric\":\"CR_mean drift\",\"observed_value\":0.98},\"causal_hypothesis\":\"Weighted arithmetic mean lets a few high-|delta_f| successful trials with extreme CR dominate M_CR, creating a positive feedback loop that pulls sampling toward that extreme.\",\"algorithmic_change\":\"Replace the weighted arithmetic mean for M_CR with a weighted median over the successful CR values, using |delta_f| as weights, so extreme CR outliers cannot shift the memory location.\",\"mathematical_rule\":\"Sort successful CR_j ascending with weights w_j = |delta_f_j|. M_CR[k] = CR_m where m is smallest index with cumulative sum_{j<=m} w_j >= 0.5 * sum_j w_j.\",\"expected_effect\":\"M_CR stays near the median of successful CR values, preventing drift to 0.02 or 0.98 and keeping CR_mean in a moderate band across F1-F20.\",\"failure_prediction\":\"On unimodal separable functions where high CR is genuinely optimal, median may lag and slow convergence slightly versus arithmetic mean.\",\"ablation_plan\":\"Compare canonical weighted arithmetic mean vs weighted median on F1,F6,F10,F20 with 25 seeds; report CR_mean trajectory and final error.\",\"nearest_known_methods\":\"Weighted median memory in jSO variants; trimmed-mean SHADE memory; rank-based memory updates.\",\"implementation_requirements\":\"Store successful CR and |delta_f| per generation; compute weighted median before memory index update; no extra evaluations needed.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 579,
+    "completion_tokens": 379,
+    "total_tokens": 958,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 451
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

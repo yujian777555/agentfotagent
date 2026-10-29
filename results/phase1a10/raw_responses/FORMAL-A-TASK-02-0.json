@@ -1,0 +1,28 @@
+{
+  "id": "6be44c10-a4de-401e-9767-32bb9f2f6b92",
+  "object": "chat.completion",
+  "created": 1793257836,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"cr_memory_rank_reweighted_median\",\"target_component\":\"M_CR memory update (weighted arithmetic mean)\",\"observed_evidence\":{\"task_id\":\"TASK-02\",\"trace_path\":\"diagnostic_trace_summary\",\"function\":\"F10\",\"seed\":0,\"metric\":\"CR_mean_late\",\"observed_value\":0.98},\"causal_hypothesis\":\"Weighting by |delta_f| lets a few large-improvement trials with extreme CR dominate the mean, so M_CR ratchets toward whichever extreme yields occasional big gains, creating positive feedback.\",\"algorithmic_change\":\"Replace the weighted arithmetic mean of successful CRs with a weighted median over the successful-CR buffer, using |delta_f| as weights; ties broken by lower CR.\",\"mathematical_rule\":\"Given successful CRs c_1..c_k with weights w_i=|delta_f_i|, sort by c; M_CR = c_j where j = smallest index with sum_{i<=j} w_i >= 0.5 * sum_i w_i.\",\"expected_effect\":\"M_CR stays near the bulk of successful CRs rather than chasing outliers, preventing monotone drift to 0.02 or 0.98 on F1/F6/F10/F20.\",\"failure_prediction\":\"On unimodal separable functions where high CR genuinely dominates, median may lag and slow convergence slightly; on tiny buffers (k<3) median is noisy.\",\"ablation_plan\":\"Compare weighted-median vs weighted-mean vs unweighted-median M_CR on 12 functions x 10 seeds; report CR_mean trajectory and final error.\",\"nearest_known_methods\":[\"L-SHADE weighted arithmetic mean M_CR\",\"weighted median memory in jSO variants\",\"trimmed-mean parameter adaptation\"],\"implementation_requirements\":\"Store successful CR list and |delta_f| per generation; compute weighted median at memory update; fallback to weighted mean if k<3; no extra RNG.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 673,
+    "completion_tokens": 420,
+    "total_tokens": 1093,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 161
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

@@ -1,0 +1,452 @@
+[
+  {
+    "blind_id": "BLIND-000",
+    "original_group": "A",
+    "c1_legality": "FAIL",
+    "c1_reason": "Parse error: ['JSON parse error: Unterminated string starting at: line 18 column 28 (char 3188)']",
+    "c2_novelty": "N/A",
+    "c3_implementability": "N/A",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-001",
+    "original_group": "B",
+    "c1_legality": "FAIL",
+    "c1_reason": "Parse error: ['JSON parse error: Unterminated string starting at: line 16 column 25 (char 2715)']",
+    "c2_novelty": "N/A",
+    "c3_implementability": "N/A",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-002",
+    "original_group": "A",
+    "c1_legality": "FAIL",
+    "c1_reason": "Parse error: ['JSON parse error: Unterminated string starting at: line 17 column 20 (char 2727)']",
+    "c2_novelty": "N/A",
+    "c3_implementability": "N/A",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-003",
+    "original_group": "B",
+    "task_id": "TASK-04",
+    "mechanism_id": "repair-aware-mutation-reflect",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-004",
+    "original_group": "A",
+    "task_id": "TASK-05",
+    "mechanism_id": "per-dimension-F-floor-with-memory-reset",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-005",
+    "original_group": "A",
+    "task_id": "TASK-04",
+    "mechanism_id": "repair-aware-mutation-resample",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-006",
+    "original_group": "B",
+    "task_id": "TASK-05",
+    "mechanism_id": "seed_conditioned_memory_perturbation",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "ALREADY_COVERED",
+    "c2_notes": [
+      "known matches: ['SHADE/L-SHADE M_F Lehmer mean (Tanabe 2014)', 'SHADE F sampling (Tanabe 2013)']"
+    ],
+    "c3_implementability": "FAIL",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-007",
+    "original_group": "B",
+    "task_id": "TASK-04",
+    "mechanism_id": "repair_aware_reflection",
+    "c1_legality": "FAIL",
+    "c1_reasons": [
+      "evidence not traceable"
+    ],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-008",
+    "original_group": "B",
+    "task_id": "TASK-02",
+    "mechanism_id": "cr_memory_rank_median",
+    "c1_legality": "FAIL",
+    "c1_reasons": [
+      "evidence not traceable"
+    ],
+    "c2_novelty": "ALREADY_COVERED",
+    "c2_notes": [
+      "known matches: ['SHADE M_CR update (Tanabe 2014)']"
+    ],
+    "c3_implementability": "FAIL",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-009",
+    "original_group": "A",
+    "task_id": "TASK-04",
+    "mechanism_id": "repair_aware_resampling",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-010",
+    "original_group": "A",
+    "task_id": "TASK-05",
+    "mechanism_id": "seed_conditioned_memory_reset",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "ALREADY_COVERED",
+    "c2_notes": [
+      "known matches: ['SHADE/L-SHADE M_F Lehmer mean (Tanabe 2014)', 'SHADE F sampling (Tanabe 2013)']"
+    ],
+    "c3_implementability": "PASS",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-011",
+    "original_group": "A",
+    "task_id": "TASK-02",
+    "mechanism_id": "cr_memory_rank_reweighted_median",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "ALREADY_COVERED",
+    "c2_notes": [
+      "known matches: ['SHADE M_CR update (Tanabe 2014)']"
+    ],
+    "c3_implementability": "FAIL",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-012",
+    "original_group": "B",
+    "task_id": "TASK-05",
+    "mechanism_id": "seed_conditioned_memory_perturbation",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "ALREADY_COVERED",
+    "c2_notes": [
+      "known matches: ['SHADE F sampling (Tanabe 2013)']"
+    ],
+    "c3_implementability": "FAIL",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-013",
+    "original_group": "B",
+    "task_id": "TASK-01",
+    "mechanism_id": "delta-f-floor-memory-decay",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "ALREADY_COVERED",
+    "c2_notes": [
+      "known matches: ['SHADE/L-SHADE M_F Lehmer mean (Tanabe 2014)']"
+    ],
+    "c3_implementability": "FAIL",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-014",
+    "original_group": "A",
+    "task_id": "TASK-02",
+    "mechanism_id": "cr-memory-antithetic-reweighting",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "ALREADY_COVERED",
+    "c2_notes": [
+      "known matches: ['SHADE M_CR update (Tanabe 2014)']"
+    ],
+    "c3_implementability": "FAIL",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-015",
+    "original_group": "B",
+    "task_id": "TASK-01",
+    "mechanism_id": "delta_f_soft_weighted_memory",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "FAIL",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-016",
+    "original_group": "B",
+    "task_id": "TASK-03",
+    "mechanism_id": "f-memory-recovery-via-stagnation-triggered-cauchy-resampling",
+    "c1_legality": "FAIL",
+    "c1_reasons": [
+      "evidence not traceable"
+    ],
+    "c2_novelty": "ALREADY_COVERED",
+    "c2_notes": [
+      "known matches: ['SHADE/L-SHADE M_F Lehmer mean (Tanabe 2014)', 'SHADE F sampling (Tanabe 2013)']"
+    ],
+    "c3_implementability": "PASS",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-017",
+    "original_group": "A",
+    "task_id": "TASK-03",
+    "mechanism_id": "F_memory_rank_floor",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "ALREADY_COVERED",
+    "c2_notes": [
+      "known matches: ['SHADE/L-SHADE M_F Lehmer mean (Tanabe 2014)']"
+    ],
+    "c3_implementability": "PASS",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-018",
+    "original_group": "B",
+    "c1_legality": "FAIL",
+    "c1_reason": "Parse error: ['missing field: algorithmic_change']",
+    "c2_novelty": "N/A",
+    "c3_implementability": "N/A",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-019",
+    "original_group": "B",
+    "task_id": "TASK-03",
+    "mechanism_id": "F-memory-viability-gated-update",
+    "c1_legality": "FAIL",
+    "c1_reasons": [
+      "evidence not traceable"
+    ],
+    "c2_novelty": "ALREADY_COVERED",
+    "c2_notes": [
+      "known matches: ['SHADE/L-SHADE M_F Lehmer mean (Tanabe 2014)']"
+    ],
+    "c3_implementability": "FAIL",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-020",
+    "original_group": "A",
+    "task_id": "TASK-01",
+    "mechanism_id": "zero-delta-credit-decay",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "ALREADY_COVERED",
+    "c2_notes": [
+      "known matches: ['SHADE/L-SHADE M_F Lehmer mean (Tanabe 2014)']"
+    ],
+    "c3_implementability": "PASS",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-021",
+    "original_group": "B",
+    "task_id": "TASK-06",
+    "mechanism_id": "relative-gain-threshold-selection",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "FAIL",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-022",
+    "original_group": "A",
+    "task_id": "TASK-06",
+    "mechanism_id": "success-magnitude-gated-memory",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "FAIL",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-023",
+    "original_group": "A",
+    "task_id": "TASK-06",
+    "mechanism_id": "success-magnitude-gated-memory",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "FAIL",
+    "final_verdict": "REJECT"
+  },
+  {
+    "blind_id": "BLIND-024",
+    "original_group": "C",
+    "task_id": "TASK-01",
+    "mechanism_id": "RAND-1000",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-025",
+    "original_group": "C",
+    "task_id": "TASK-02",
+    "mechanism_id": "RAND-1001",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-026",
+    "original_group": "C",
+    "task_id": "TASK-03",
+    "mechanism_id": "RAND-1002",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-027",
+    "original_group": "C",
+    "task_id": "TASK-04",
+    "mechanism_id": "RAND-1003",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-028",
+    "original_group": "C",
+    "task_id": "TASK-05",
+    "mechanism_id": "RAND-1004",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-029",
+    "original_group": "C",
+    "task_id": "TASK-06",
+    "mechanism_id": "RAND-1005",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-030",
+    "original_group": "C",
+    "task_id": "TASK-01",
+    "mechanism_id": "RAND-1006",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-031",
+    "original_group": "C",
+    "task_id": "TASK-02",
+    "mechanism_id": "RAND-1007",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-032",
+    "original_group": "C",
+    "task_id": "TASK-03",
+    "mechanism_id": "RAND-1008",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-033",
+    "original_group": "C",
+    "task_id": "TASK-04",
+    "mechanism_id": "RAND-1009",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-034",
+    "original_group": "C",
+    "task_id": "TASK-05",
+    "mechanism_id": "RAND-1010",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  },
+  {
+    "blind_id": "BLIND-035",
+    "original_group": "C",
+    "task_id": "TASK-06",
+    "mechanism_id": "RAND-1011",
+    "c1_legality": "PASS",
+    "c1_reasons": [],
+    "c2_novelty": "NOVELTY_UNRESOLVED",
+    "c2_notes": [],
+    "c3_implementability": "PASS",
+    "final_verdict": "NEEDS_REVIEW"
+  }
+]

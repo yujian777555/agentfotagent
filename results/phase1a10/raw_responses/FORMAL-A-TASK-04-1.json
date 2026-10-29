@@ -1,0 +1,28 @@
+{
+  "id": "90245ca1-e7ee-46f9-96db-7f3399838ae7",
+  "object": "chat.completion",
+  "created": 1793257826,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"repair_aware_resampling\",\"target_component\":\"boundary_constraint_handling\",\"observed_evidence\":{\"task_id\":\"TASK-04\",\"trace_path\":\"diagnostic_trace_summary\",\"function\":\"F7\",\"seed\":0,\"metric\":\"repair_success_gap\",\"observed_value\":0.24},\"causal_hypothesis\":\"np.clip collapses out-of-bounds coordinates onto the boundary face, producing a mutant whose displacement opposes the search direction (cosine -0.4 to -0.65), so repaired trials are systematically worse than their parents and fail selection.\",\"algorithmic_change\":\"Before clipping, detect out-of-bounds coordinates; if any exist, resample the offending component(s) uniformly within [lb,ub] instead of clipping, up to K=3 attempts, then fall back to clip. This preserves directional information rather than projecting onto the face.\",\"mathematical_rule\":\"For each j: if mutant[j] < lb or mutant[j] > ub, then mutant[j] = lb + rand() * (ub - lb); repeat up to K=3 times; if still OOB, mutant[j] = clip(mutant[j], lb, ub).\",\"expected_effect\":\"Reduces the repair success gap by replacing face-projection with interior resampling, raising repaired-trial success from ~0.12-0.30 toward the 0.33-0.48 no-repair baseline on F1/F7/F10.\",\"failure_prediction\":\"On high-dimensional or narrow-bound problems (F20), repeated resampling may rarely succeed within K attempts, adding overhead without improving success; fallback clip then dominates.\",\"ablation_plan\":\"Compare K=1 (clip only), K=2, K=3, and K=5 on F1/F7/F10/F20 across 10 seeds; measure repaired vs non-repaired success rate and OOB rate.\",\"nearest_known_methods\":[\"resampling boundary handling (Brest et al.)\",\"midpoint/reflection repair\",\"uniform random reinitialization of OOB components\"],\"implementation_requirements\":\"Modify boundary repair in run_lshade_canonical: add per-component OOB mask, uniform resample loop with K cap, fallback to np.clip; log repair events and success for ablation.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 680,
+    "completion_tokens": 486,
+    "total_tokens": 1166,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 168
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

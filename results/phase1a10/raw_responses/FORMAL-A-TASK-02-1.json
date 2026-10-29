@@ -1,0 +1,28 @@
+{
+  "id": "65f6b259-7dd8-4cad-a238-39b3bf0d0179",
+  "object": "chat.completion",
+  "created": 1793257850,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"cr-memory-antithetic-reweighting\",\"target_component\":\"M_CR weighted arithmetic mean update in L-SHADE memory\",\"observed_evidence\":{\"task_id\":\"TASK-02\",\"trace_path\":\"diagnostic_trace_summary\",\"function\":\"F10\",\"seed\":0,\"metric\":\"CR_mean_drift\",\"observed_value\":0.98},\"causal_hypothesis\":\"Successful trials with CR near current M_CR get large |delta_f| weights, so the weighted mean reinforces its own center, creating positive feedback that drives M_CR to extremes.\",\"algorithmic_change\":\"Replace the single weighted arithmetic mean with an antithetic reweighting: split successful trials into those above and below current M_CR, compute each subgroup's weighted mean, and set M_CR to their average weighted by subgroup success mass, pulling the estimate toward the population's CR centroid.\",\"mathematical_rule\":\"Let S = successful trials, w_j = |delta_f_j|. Split S_hi = {j: CR_j >= M_CR}, S_lo = {j: CR_j < M_CR}. m_hi = sum(w_j*CR_j, j in S_hi)/sum(w_j, j in S_hi), m_lo similarly. M_CR_new = (W_hi*m_hi + W_lo*m_lo)/(W_hi + W_lo) where W_hi = sum(w_j, j in S_hi), W_lo = sum(w_j, j in S_lo). If one side empty, keep standard update.\",\"expected_effect\":\"Dampens runaway drift by forcing M_CR to reflect both sides of its current value, keeping F1/F6/F10 CR_mean in 0.4-0.7 and preventing F20 collapse to 0.02.\",\"failure_prediction\":\"On unimodal separable functions where high CR is genuinely optimal, antithetic averaging may slow convergence by keeping M_CR near 0.5 too long.\",\"ablation_plan\":\"Compare canonical weighted mean vs antithetic reweighting on 12 functions x 5 seeds; also test antithetic with W_hi,W_lo replaced by equal weights to isolate the mass-weighting contribution.\",\"nearest_known_methods\":\"Adaptive CR memory in L-SHADE, weighted Lehmer/arithmetic memory updates, antithetic sampling in evolution strategies.\",\"implementation_requirements\":\"Track per-success CR_j and delta_f_j within each generation; compute subgroup sums before memory update; handle empty subgroups by falling back to standard weighted mean; no extra memory beyond two accumulators.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 673,
+    "completion_tokens": 549,
+    "total_tokens": 1222,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 161
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "a88655db-e679-4ead-87a2-ddf2c88d1ec6",
+  "object": "chat.completion",
+  "created": 1793257860,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"f-memory-recovery-via-stagnation-triggered-cauchy-resampling\",\"target_component\":\"F memory update (M_F Lehmer mean) in L-SHADE\",\"observed_evidence\":{\"task_id\":\"TASK-03\",\"trace_path\":\"none_provided\",\"function\":\"F4,F11,F15\",\"seed\":0,\"metric\":\"F_mean trajectory\",\"observed_value\":0.06},\"causal_hypothesis\":\"Lehmer mean overweights small successful F values, so once F drifts low, low-F trials still succeed on easy subproblems and reinforce collapse; a floor alone cannot restore lost diversity because M_F never re-explores high F.\",\"algorithmic_change\":\"Detect per-memory-slot stagnation (no successful update to M_F[k] for G_stag generations) and, on trigger, resample that slot's M_F from Cauchy(0.5,0.2) truncated to [0.1,1.0] instead of Lehmer-averaging, preserving other slots.\",\"mathematical_rule\":\"if G - last_update[k] > G_stag: M_F[k] = clip(Cauchy(0.5,0.2), 0.1, 1.0); last_update[k] = G; else: M_F[k] = Lehmer(S_F[k])\",\"expected_effect\":\"Restores M_F to effective range on F4/F11/F15, keeping differential vectors non-vanishing while leaving productive slots untouched.\",\"failure_prediction\":\"On unimodal functions where low F is genuinely optimal, forced resampling may slow convergence and increase variance in final fitness.\",\"ablation_plan\":\"Compare (a) baseline, (b) simple F floor, (c) proposed stagnation-triggered resampling, (d) resampling with G_stag=5 vs 20, across F4/F11/F15 and unimodal controls, 25 seeds.\",\"nearest_known_methods\":\"SHADE memory update, jSO F reset, L-SHADE restart strategies, adaptive F floor heuristics.\",\"implementation_requirements\":\"Track last_update[k] per memory slot; add G_stag hyperparameter (default 15); modify M_F update branch in lshade_canonical.py; log M_F trajectories.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 573,
+    "completion_tokens": 486,
+    "total_tokens": 1059,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 445
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

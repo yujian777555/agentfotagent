@@ -1,0 +1,28 @@
+{
+  "id": "21e88f5b-9708-4785-891a-cb04bf49a2cc",
+  "object": "chat.completion",
+  "created": 1793257888,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"success-magnitude-gated-memory\",\"target_component\":\"SHADE memory update (M_F, M_CR) and archive insertion\",\"observed_evidence\":{\"task_id\":\"TASK-06\",\"trace_path\":\"diagnostic_trace_summary\",\"function\":\"F10\",\"seed\":11,\"metric\":\"late_success_rate_vs_best_raw\",\"observed_value\":0.617},\"causal_hypothesis\":\"On high-conditioning F10, many accepted trials yield tiny relative fitness gains; these trivial successes still feed |delta_f| weights into Lehmer/arithmetic memory updates and archive, biasing F/CR toward exploitative values that stagnate best_raw.\",\"algorithmic_change\":\"Weight memory updates and archive insertion by a normalized improvement magnitude g = (parent_fit - trial_fit)/(|parent_fit| + eps), and only count a success toward memory when g exceeds a running median threshold tau; trivial successes update nothing.\",\"mathematical_rule\":\"g_i = (f_parent - f_trial) / (|f_parent| + 1e-12); tau = median(g over last W=50 accepted trials); if g_i > tau: w_i = g_i else w_i = 0; M_F = sum(w_i * F_i^2) / sum(w_i * F_i); M_CR = sum(w_i * CR_i) / sum(w_i); archive insert only if g_i > tau.\",\"expected_effect\":\"Memory and archive reflect only meaningful improvements, reducing late trivial-success inflation and lowering best_raw on F10 while preserving genuine progress.\",\"failure_prediction\":\"If tau drifts too high early (few accepted trials), memory starves and F/CR freeze; on unimodal easy functions the gate may discard useful small steps and slow convergence.\",\"ablation_plan\":\"Compare (a) full gate, (b) gate on memory only, (c) gate on archive only, (d) no gate, across F10 seeds 11-55; report best_raw and late success rate.\",\"nearest_known_methods\":\"SHADE weighted memory by |delta_f|; success-history adaptation; threshold-based archive filtering.\",\"implementation_requirements\":\"Track rolling window of last 50 accepted g values; compute median each acceptance; modify memory update and archive insert conditionally; eps guard for zero parent fitness.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 642,
+    "completion_tokens": 493,
+    "total_tokens": 1135,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 258
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

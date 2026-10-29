@@ -1,0 +1,28 @@
+{
+  "id": "0432b8a3-e5e1-4538-bffe-cac2300f57a4",
+  "object": "chat.completion",
+  "created": 1793257615,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"mechanism_id\": \"CR_MEMORY_RANK_BASED_UPDATE\",\n  \"target_component\": \"CR memory update rule (M_CR)\",\n  \"observed_evidence\": {\n    \"task_id\": \"TASK-02\",\n    \"trace_path\": \"not_provided\",\n    \"function\": \"F1, F6, F10, F20\",\n    \"seed\": \"not_provided\",\n    \"metric\": \"CR_mean trajectory\",\n    \"observed_value\": \"F1: 0.52->0.85, F6: 0.51->0.95, F10: 0.50->0.98, F20: 0.52->0.02\"\n  },\n  \"causal_hypothesis\": \"The weighted arithmetic mean update for M_CR uses weights proportional to |delta_f|. Successful trials with extreme CR values (near 0 or 1) often yield large fitness improvements, especially in early stages, giving them disproportionately high weight. This creates a positive feedback loop: extreme CR values become more probable, and when they succeed, they further push M_CR toward the extreme. The lack of a mechanism to maintain diversity in CR values causes the memory to drift and lose adaptivity.\",\n  \"algorithmic_change\": \"Replace the weighted arithmetic mean update for M_CR with a rank-based weighted mean. For each successful trial in the current generation, compute its rank based on |delta_f| (higher improvement = higher rank). Use weights that are a decreasing function of rank (e.g., linear or exponential), but crucially, cap the maximum weight any single trial can contribute. Additionally, apply a damping factor that limits the change in M_CR per generation, preventing rapid drift. This breaks the feedback loop by reducing the influence of outlier successful trials with extreme CR values.\",\n  \"mathematical_rule\": \"Let S be the set of successful trials in the current generation. For each i in S, let delta_f_i = |f(parent_i) - f(trial_i)|. Sort S by delta_f_i in descending order, assign rank r_i = 1 for largest delta_f, r_i = 2 for second largest, etc. Let |S| = m. Define weight w_i = (m - r_i + 1) / m (linear rank weight). Normalize weights: w_i = w_i / sum_{j in S} w_j. Then update M_CR as: M_CR_new = (1 - alpha) * M_CR_old + alpha * sum_{i in S} w_i * CR_i, where alpha is a damping factor (e.g., alpha = 0.5). This is a smoothed rank-weighted mean. To further prevent extremes, clip M_CR to [0.05, 0.95] after update.\",\n  \"expected_effect\": \"The rank-based weighting reduces the impact of a few trials with extreme CR and large improvements, preventing M_CR from being pulled to extremes. The damping factor slows down memory updates, allowing M_CR to remain near moderate values (0.3-0.7) for longer, maintaining exploration-exploitation balance. This should prevent the observed drift to 0.85-0.98 or 0.02, and improve performance on multimodal and hybrid functions (F1, F6, F10, F20) by avoiding premature convergence or excessive exploration.\",\n  \"failure_prediction\": \"If the rank-based weighting is too aggressive, M_CR may become too stable and fail to adapt to changing landscape requirements, leading to slower convergence on unimodal functions (F1) or stagnation on functions requiring extreme CR (e.g., separable functions where CR=1 is beneficial). The damping factor might also delay adaptation when a shift in optimal CR occurs. Additionally, if the population is small ("
+      },
+      "logprobs": null,
+      "finish_reason": "length"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 800,
+    "total_tokens": 1350,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 550
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "3fd03d7e-747f-4b88-ac9c-cfebf8162646",
+  "object": "chat.completion",
+  "created": 1793257845,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"delta-f-floor-memory-decay\",\"target_component\":\"M_F/M_CR success-memory update (Lehmer/weighted-mean aggregation)\",\"observed_evidence\":{\"task_id\":\"TASK-01\",\"trace_path\":\"none\",\"function\":\"F21\",\"seed\":0,\"metric\":\"success_rate\",\"observed_value\":1.0},\"causal_hypothesis\":\"Zero-improvement successes (delta_f=0) enter the memory with weight 0 in the weighted mean but still shift Lehmer mean of F because Lehmer uses raw F values regardless of weight, so equal-fitness trials inflate M_F and bias future sampling without contributing fitness signal.\",\"algorithmic_change\":\"Replace the single memory update with a two-tier scheme: samples with delta_f>0 update M_F/M_CR normally; samples with delta_f=0 update a separate shadow memory M_F0/M_CR0 that is blended into the active memory with a decay factor rho<1, so zero-improvement samples only weakly influence sampling.\",\"mathematical_rule\":\"if delta_f > 0: M_F = Lehmer(S_F); M_CR = weighted_mean(S_CR, w=|delta_f|); else: M_F0 = (1-rho)*M_F0 + rho*F_trial; M_CR0 = (1-rho)*M_CR0 + rho*CR_trial; M_F = (1-alpha)*M_F + alpha*M_F0; M_CR = (1-alpha)*M_CR + alpha*M_CR0 with alpha=0.1, rho=0.2\",\"expected_effect\":\"Reduces M_F inflation on F21 and F7 late runs, lowering stall_gen and preventing memory drift toward high F/CR from neutral trials.\",\"failure_prediction\":\"On unimodal or easy functions where delta_f=0 is rare, alpha blending adds noise and may slightly slow convergence; if rho too high, shadow memory dominates and reintroduces the original bias.\",\"ablation_plan\":\"Compare (a) baseline L-SHADE, (b) delta_f>0 gate only, (c) proposed shadow-memory blend, (d) proposed with alpha=0 (shadow ignored). Measure stall_gen, success_rate, and M_F trajectory on F7/F21 seeds 22/33.\",\"nearest_known_methods\":\"Weighted Lehmer memory in L-SHADE; success-history adaptation in SHADE; elite memory in jSO; exponential smoothing of control parameters.\",\"implementation_requirements\":\"Add M_F0, M_CR0 arrays and alpha, rho constants; branch memory update on delta_f sign; log both memories per generation; no change to selection or mutation.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 614,
+    "completion_tokens": 575,
+    "total_tokens": 1189,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 486
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "5681d3dc-4304-4bbf-911c-078dda67398c",
+  "object": "chat.completion",
+  "created": 1793257608,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"mechanism_id\": \"MECH-01-adaptive-deltaf-threshold\",\n  \"target_component\": \"success memory update (M_F, M_CR) and selection acceptance\",\n  \"observed_evidence\": {\n    \"task_id\": \"TASK-01\",\n    \"trace_path\": \"lshade_canonical.py\",\n    \"function\": \"F7\",\n    \"seed\": 22,\n    \"metric\": \"late_success_rate\",\n    \"observed_value\": 0.824\n  },\n  \"causal_hypothesis\": \"Zero-improvement successes (Δf=0) are accepted due to 'trial <= parent' and pollute M_F/M_CR with samples that have no fitness gradient. This dilutes the memory with uninformative F/CR values, reducing the algorithm's ability to escape stagnation. On F7 seeds 22/33, late success rate is high (0.82-0.88) but stall_gen is large (45-53) and diversity near zero, indicating that many accepted trials are neutral and do not drive progress. On F21, all trials are neutral (success_rate=1.000, best unchanged), so memory is entirely polluted by zero-improvement samples. By filtering out zero-improvement samples from memory updates, the memory will reflect only successful mutations that actually improve fitness, leading to better parameter adaptation and reduced stagnation.\",\n  \"algorithmic_change\": \"Introduce an adaptive threshold τ that scales with the population's fitness diversity. Only trials with Δf > τ are considered 'successful' for memory updates. τ is computed as a small fraction of the standard deviation of current population fitness, with a floor to avoid zero. This ensures that in flat landscapes (low diversity), only meaningful improvements update memory, while in diverse landscapes, small improvements still count. The selection rule remains 'trial <= parent' to maintain population diversity, but memory updates are gated by Δf > τ.\",\n  \"mathematical_rule\": \"Let Δf_i = f(parent_i) - f(trial_i). Compute τ = max(ε, β * σ_f), where σ_f is the standard deviation of current population fitness, β is a scaling factor (e.g., 0.01), and ε is a small constant (e.g., 1e-12). Update success memory only if Δf_i > τ. The memory update uses weights w_i = Δf_i for successful trials (Δf_i > τ).\",\n  \"expected_effect\": \"Reduce the influence of zero-improvement samples on M_F/M_CR, leading to more informative parameter adaptation. On F7 seeds 22/33, stall_gen should decrease and diversity may be maintained longer. On F21, memory will not be updated by neutral trials, preventing degradation of search parameters and potentially allowing escape from the flat region.\",\n  \"failure_prediction\": \"If β is too large, many small but useful improvements may be ignored, slowing convergence on functions where progress is gradual. If β is too small, the mechanism reduces to the simple Δf>0 gate, which is already covered. On highly multimodal functions with deceptive flat regions, the adaptive threshold might still allow some neutral samples if σ_f is large due to outliers.\",\n  \"ablation_plan\": \"Compare against: (1) baseline L-SHADE with 'trial <= parent' and standard memory update; (2) simple Δf>0 gate; (3) fixed threshold τ=1e-8; (4) adaptive threshold with β=0.001, 0.01, 0.1. Measure success_rate, stall_gen, diversity, and best fitness on F7 (seeds 22,33) and F21 (all seeds).\",\n  \"nearest_known_methods\": \"Success-history adaptation with weighted memory (SHADE,"
+      },
+      "logprobs": null,
+      "finish_reason": "length"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 662,
+    "completion_tokens": 800,
+    "total_tokens": 1462,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 662
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

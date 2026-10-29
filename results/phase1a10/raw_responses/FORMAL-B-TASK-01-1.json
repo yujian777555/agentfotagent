@@ -1,0 +1,28 @@
+{
+  "id": "b6d35806-7e25-42e8-a1ef-dc74f8dbbfd6",
+  "object": "chat.completion",
+  "created": 1793257855,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"delta_f_soft_weighted_memory\",\"target_component\":\"M_F/M_CR success-memory update\",\"observed_evidence\":{\"task_id\":\"TASK-01\",\"trace_path\":\"none\",\"function\":\"F7\",\"seed\":22,\"metric\":\"late_success_rate\",\"observed_value\":0.85},\"causal_hypothesis\":\"Equal-fitness acceptances contribute |delta_f|=0 to the Lehmer/weighted means, so they dilute M_F and M_CR toward stale values and inflate apparent success without informative signal.\",\"algorithmic_change\":\"Replace the binary success flag with a continuous credit w = (delta_f + eps)/(delta_f + eps + tau*scale), where scale is the current population fitness IQR; zero-improvement trials get small but nonzero weight, and memory updates use w instead of |delta_f|.\",\"mathematical_rule\":\"delta_f = parent_fit - trial_fit; scale = IQR(fit); w = (delta_f + eps) / (delta_f + eps + tau * scale); M_F = sum(w*F^2)/sum(w*F); M_CR = sum(w*CR)/sum(w); tau = 0.1\",\"expected_effect\":\"Zero-improvement successes contribute ~eps/(eps+tau*scale) weight, sharply reducing their pull on M_F/M_CR while preserving genuine improvements; stall_gen should drop on F7 seeds 22/33 without harming F21 convergence.\",\"failure_prediction\":\"If scale collapses near convergence, tau*scale becomes tiny and zero-improvement weights rise again, re-polluting memory; also eps choice may over-weight tiny positive deltas on flat plateaus.\",\"ablation_plan\":\"Compare (a) baseline |delta_f| weights, (b) binary success gate, (c) proposed soft weight, (d) soft weight with tau in {0.01,0.1,1.0}; report stall_gen, late success rate, and M_F/M_CR drift on F7 seeds 22/33 and F21.\",\"nearest_known_methods\":\"Weighted Lehmer mean in L-SHADE, JADE success-memory weighting, fitness-diversity weighting, soft credit assignment in DE.\",\"implementation_requirements\":\"Track parent_fit and trial_fit at selection; compute population IQR each generation; add eps=1e-12 and tau hyperparameter; modify memory update loop to use w instead of |delta_f|; log weights for ablation.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 614,
+    "completion_tokens": 524,
+    "total_tokens": 1138,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 230
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "811ea335-8fe9-4497-82ed-fbf8d6e98e47",
+  "object": "chat.completion",
+  "created": 1793257830,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"seed_conditioned_memory_reset\",\"target_component\":\"F/CR memory (M_F, M_CR) initialization and update\",\"observed_evidence\":{\"task_id\":\"TASK-05\",\"trace_path\":\"diagnostic_trace_summary\",\"function\":\"F11\",\"seed\":11,\"metric\":\"diversity\",\"observed_value\":0.175},\"causal_hypothesis\":\"Early Cauchy draws of F can be tiny for some seeds, collapsing M_F toward 0.08 and freezing mutation step size; seed 11 escaped this because its early F draws stayed larger, so seed sensitivity originates in the memory update path rather than the population.\",\"algorithmic_change\":\"Add a per-memory-cell stagnation counter: if the Lehmer update of M_F[k] changes it by less than a threshold for G_stall consecutive generations, reinitialize that cell from Cauchy(0.5,0.2) and reset its counter.\",\"mathematical_rule\":\"delta_k = |M_F_new[k] - M_F_old[k]|; if delta_k < eps (eps=0.01) then stall_k = stall_k + 1 else stall_k = 0; if stall_k >= G_stall (G_stall=15) then M_F[k] = Cauchy(0.5, 0.2), stall_k = 0.\",\"expected_effect\":\"Prevents M_F from being trapped at small values on unlucky seeds, restoring mutation scale and raising diversity on seeds 22/33 toward seed 11's 0.175 while preserving fast convergence when memory is actively learning.\",\"failure_prediction\":\"On unimodal or easy functions where small F is genuinely optimal, forced resets may inject disruptive mutations and slow convergence; may also trigger repeatedly if eps is too small relative to natural Lehmer noise.\",\"ablation_plan\":\"Compare baseline vs. mechanism on F11 seeds 11/22/33 and F1-F13; ablate G_stall in {5,15,30} and eps in {0.001,0.01,0.05}; report per-seed diversity, success_rate, and final fitness variance across 25 seeds.\",\"nearest_known_methods\":\"SHADE/L-SHADE memory adaptation, jSO memory weighting, restart strategies with memory reinitialization, adaptive F scaling.\",\"implementation_requirements\":\"Add stall_k array of length H alongside M_F; modify memory update in lshade_canonical.py after Lehmer mean; expose eps and G_stall as parameters; no change to population or archive logic.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 627,
+    "completion_tokens": 538,
+    "total_tokens": 1165,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 243
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

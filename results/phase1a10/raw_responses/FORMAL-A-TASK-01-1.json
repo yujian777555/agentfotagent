@@ -1,0 +1,28 @@
+{
+  "id": "cecb52db-1972-42fb-83f9-cb16156e31ef",
+  "object": "chat.completion",
+  "created": 1793257878,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"zero-delta-credit-decay\",\"target_component\":\"success-memory update (M_F/M_CR)\",\"observed_evidence\":{\"task_id\":\"TASK-01\",\"trace_path\":\"lshade_canonical.py:run_lshade_canonical\",\"function\":\"F7\",\"seed\":22,\"metric\":\"late_success_rate\",\"observed_value\":0.824},\"causal_hypothesis\":\"Equal-fitness acceptances (delta_f=0) contribute zero weight to Lehmer/weighted means yet still count as successes, biasing M_F/M_CR toward values that produced no progress and inflating apparent success rate.\",\"algorithmic_change\":\"Replace binary success counting with a continuous credit c=delta_f/(delta_f+eps_scale) where eps_scale is a running median of positive delta_f; zero-delta trials get c=0 and are excluded from memory update but still logged as 'neutral'. Additionally, when c=0, apply a multiplicative decay to the memory slot's effective sample count so stale zero-credit entries lose influence over time.\",\"mathematical_rule\":\"c_i = delta_f_i / (delta_f_i + eps_scale); if c_i = 0: skip M_F/M_CR update and set n_k = n_k * 0.95; else update Lehmer mean with weight w_i = c_i * |delta_f_i|. eps_scale = median of positive delta_f over last 50 gens.\",\"expected_effect\":\"M_F/M_CR reflect only progress-producing trials, reducing stall_gen on F7 (target <30) and preventing F21's flat 786.565 plateau from being masked by success_rate=1.0.\",\"failure_prediction\":\"If positive delta_f are rare (late F21), eps_scale collapses and c_i saturates to 1, reverting to standard behavior; decay may over-forget useful memory on multimodal F7.\",\"ablation_plan\":\"Compare (a) full mechanism, (b) credit-only without decay, (c) decay-only with binary success, (d) canonical, across F7/F21 seeds 22/33/44, measuring stall_gen and best fitness.\",\"nearest_known_methods\":\"L-SHADE weighted memory update; SHADE with success-history; fitness-delta weighted recombination (jDE variants).\",\"implementation_requirements\":\"Track per-slot effective sample count n_k; maintain rolling median of positive delta_f; modify memory update loop to skip c=0 and apply decay; ~20 lines in lshade_canonical.py.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 686,
+    "completion_tokens": 542,
+    "total_tokens": 1228,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 174
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

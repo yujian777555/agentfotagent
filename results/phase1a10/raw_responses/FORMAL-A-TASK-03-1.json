@@ -1,0 +1,28 @@
+{
+  "id": "8a9bfee1-b115-4a7b-a66c-0518bd4a772f",
+  "object": "chat.completion",
+  "created": 1793257864,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"F_memory_rank_floor\",\"target_component\":\"F memory update (Lehmer mean) in L-SHADE\",\"observed_evidence\":{\"task_id\":\"TASK-03\",\"trace_path\":\"diagnostic_trace_summary\",\"function\":\"F11\",\"seed\":11,\"metric\":\"F_mean\",\"observed_value\":0.08},\"causal_hypothesis\":\"Lehmer mean is dominated by small successful F values because weights=|delta_f| are similar across scales; repeated small-F successes drive M_F toward zero even when population diversity is healthy (0.175), so differential vectors shrink.\",\"algorithmic_change\":\"Replace the plain Lehmer mean for M_F with a rank-weighted Lehmer mean that down-weights the smallest F samples, plus a per-generation F floor tied to current population spread (not a fixed constant).\",\"mathematical_rule\":\"w_k = |delta_f_k| * (rank_k / N_succ); M_F = sum(w_k * F_k^2) / sum(w_k * F_k); F_floor = 0.1 * (std(pop)/mean_range); F_used = max(F_sampled, F_floor)\",\"expected_effect\":\"Keeps M_F in 0.3-0.6 range on F4/F11/F15 while preserving adaptive response; prevents differential vector vanishing without hard-coding a constant floor.\",\"failure_prediction\":\"On unimodal functions where small F is genuinely optimal, the rank weighting may slow late-stage convergence, raising final error slightly.\",\"ablation_plan\":\"Compare (a) baseline Lehmer, (b) rank-weighted Lehmer only, (c) spread-scaled floor only, (d) both, across F4/F11/F15 seeds 1-15; report F_mean trajectory and final error.\",\"nearest_known_methods\":\"Lehmer mean F adaptation (SHADE/L-SHADE), weighted memory updates, dynamic F lower bounds in jSO-style variants.\",\"implementation_requirements\":\"Track rank of each successful F by magnitude; compute population std each generation; modify M_F update line and F sampling clamp in lshade_canonical.py; no extra memory beyond one scalar.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 651,
+    "completion_tokens": 463,
+    "total_tokens": 1114,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 139
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

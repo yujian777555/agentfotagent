@@ -1,0 +1,28 @@
+{
+  "id": "2e82ec2d-3f73-4a93-8a47-401c6d470f0f",
+  "object": "chat.completion",
+  "created": 1793257808,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"repair-aware-mutation-resample\",\"target_component\":\"mutation/boundary-handling\",\"observed_evidence\":{\"task_id\":\"TASK-04\",\"trace_path\":\"diagnostic_trace_summary\",\"function\":\"F7\",\"seed\":0,\"metric\":\"repair_success_rate_gap\",\"observed_value\":0.24},\"causal_hypothesis\":\"np.clip collapses out-of-bounds mutant components onto the boundary, producing a displacement vector anti-parallel to the search direction (cosine -0.4 to -0.65), so repaired trials inherit a corrupted direction and fail more often than non-repaired trials.\",\"algorithmic_change\":\"Before clipping, detect out-of-bounds components of the mutant; if any exceed a threshold fraction, resample the offending donor/base indices (up to K retries) to produce an in-bounds mutant; only clip as last resort, and record repair events to bias future F/CR draws toward smaller step sizes.\",\"mathematical_rule\":\"oob_frac = count(mutant<lb or mutant>ub)/dim; if oob_frac > tau: for k in 1..K: mutant_k = pop[i] + F*(pop[p_k]-pop[i]) + F*(pop[r1_k]-vec_r2_k); if in-bounds accept; else mutant = clip(mutant,lb,ub); on repair event: F_i = F_i * 0.5 (shrink step).\",\"expected_effect\":\"Reduces the repair success gap (F7 0.12 toward 0.30+) by preserving search direction on most OOB trials, and shrinks F after repair to lower recurrence of boundary hits, improving convergence on Q1-concentrated functions.\",\"failure_prediction\":\"On high-dimensional or heavily constrained functions (F20) resampling may rarely find in-bounds mutants, wasting evaluations and yielding negligible gain; aggressive F shrink could stall exploration and cause premature convergence.\",\"ablation_plan\":\"Compare (a) baseline clip, (b) resample-only (no F shrink), (c) resample+F-shrink, (d) F-shrink-only, across F1/F7/F10/F20 with 25 seeds; report repair success rate, OOB rate, and final error.\",\"nearest_known_methods\":\"Boundary mutation strategies (resampling/reflection/midpoint), repair-aware DE variants, and L-SHADE with boundary constraint handling schemes.\",\"implementation_requirements\":\"Modify mutation loop in lshade_canonical.py to add OOB pre-check and K-retry resampling with index redraw; add per-individual F shrink on repair; log repair events; keep K small (e.g., 3) to bound cost.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 680,
+    "completion_tokens": 579,
+    "total_tokens": 1259,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 168
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

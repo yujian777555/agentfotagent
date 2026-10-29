@@ -1,0 +1,28 @@
+{
+  "id": "bbd5ff69-f69d-4093-8ae7-1792960342a5",
+  "object": "chat.completion",
+  "created": 1793257622,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"mechanism_id\": \"F_scale_restoration_via_success_history\",\n  \"target_component\": \"F memory update (Lehmer mean) and mutation scaling\",\n  \"observed_evidence\": {\n    \"task_id\": \"TASK-03\",\n    \"trace_path\": \"diagnostic_trace_summary\",\n    \"function\": \"F4, F11, F15\",\n    \"seed\": \"F11 s=11\",\n    \"metric\": \"F_mean\",\n    \"observed_value\": \"F4: 0.58-0.64 early -> 0.06-0.13 late; F11 s=11: 0.53 -> 0.08; F15: 0.59 -> 0.15-0.32\"\n  },\n  \"causal_hypothesis\": \"The Lehmer mean update for M_F is dominated by small F values because successful trials with small F produce small |delta_f|, which are down-weighted, but over time the memory drifts downward as small-F successes accumulate. This collapse is not due to diversity loss (F11 s=11 diversity=0.175), but due to the self-reinforcing nature of the Lehmer mean: once M_F becomes small, generated F values are small, and the few large F successes are insufficient to restore the mean. The vanishing differential vectors reduce exploration and cause premature convergence.\",\n  \"algorithmic_change\": \"Introduce a scale-restoration term in the F memory update that periodically re-injects larger F values based on the historical success distribution. Specifically, maintain a secondary memory M_F_hist that stores the median of successful F values over a sliding window. If the current M_F falls below a threshold relative to M_F_hist (e.g., M_F < 0.5 * M_F_hist), then set M_F = M_F_hist for the next generation. This prevents collapse without imposing a hard floor.\",\n  \"mathematical_rule\": \"Let S_F be the set of successful F values in the current generation. Update M_F_hist as the median of the last W successful F values (W=50). After the standard Lehmer mean update of M_F, if M_F < alpha * M_F_hist (alpha=0.5), then M_F = M_F_hist. The Lehmer mean update remains: M_F = sum(w_i * F_i^2) / sum(w_i * F_i), where w_i = |delta_f_i|. The historical median is updated only when a trial is successful (trial_fit <= parent_fit).\",\n  \"expected_effect\": \"Maintain F_mean in a range that preserves differential vector magnitude (e.g., >0.2) throughout the run, preventing the collapse observed in F4, F11, and F15. This should improve exploration and avoid premature convergence, particularly on multimodal functions where diversity is maintained but F is too small to exploit it.\",\n  \"failure_prediction\": \"On unimodal functions where small F is beneficial for fine-tuning, the restoration may cause slight slowdown in convergence. If the historical median is biased high due to early large-F successes, it may over-inflate F later. The window size W and alpha may need tuning; too small W makes M_F_hist noisy, too large W may not adapt to changing landscapes.\",\n  \"ablation_plan\": \"Compare against: (1) baseline L-SHADE, (2) L-SHADE with fixed F floor (e.g., F_min=0.1), (3) proposed mechanism with varying alpha (0.3, 0.5, 0.7) and W (20, 50, 100). Measure F_mean trajectory, diversity, and final fitness on F4, F11, F15 and other CEC functions"
+      },
+      "logprobs": null,
+      "finish_reason": "length"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 627,
+    "completion_tokens": 800,
+    "total_tokens": 1427,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 627
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

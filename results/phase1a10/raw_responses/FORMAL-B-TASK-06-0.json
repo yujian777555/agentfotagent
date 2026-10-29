@@ -1,0 +1,28 @@
+{
+  "id": "a97324bb-8bb5-438f-a8e2-5698a0cd3e04",
+  "object": "chat.completion",
+  "created": 1793257884,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"relative-gain-threshold-selection\",\"target_component\":\"selection\",\"observed_evidence\":{\"task_id\":\"TASK-06\",\"trace_path\":\"none\",\"function\":\"F10\",\"seed\":0,\"metric\":\"late_success_rate_vs_best_raw\",\"observed_value\":0.62},\"causal_hypothesis\":\"On high-conditioning F10, tiny fitness deltas from near-flat directions are accepted as successes, inflating success counts without moving best_raw; requiring a relative gain filters these trivial acceptances.\",\"algorithmic_change\":\"Replace accept-if trial_fit<=parent_fit with accept-if trial_fit <= parent_fit - tau*max(|parent_fit|,eps), where tau is a small fixed relative threshold; equal-or-better trials failing this test are rejected and not archived.\",\"mathematical_rule\":\"accept iff trial_fit <= parent_fit - tau * max(|parent_fit|, eps); tau = 1e-3; eps = 1e-12; rejected trials do not enter archive and do not update M_F, M_CR.\",\"expected_effect\":\"Late success rate drops toward early levels while best_raw decreases faster, since only conditioning-relevant improvements survive; memory updates reflect meaningful deltas.\",\"failure_prediction\":\"If tau too large, progress stalls on rugged regions and population collapses prematurely; if too small, no filtering occurs and behavior matches baseline.\",\"ablation_plan\":\"Compare tau in {0, 1e-4, 1e-3, 1e-2} on F10 across seeds; report late success rate, best_raw, and archive diversity to isolate threshold effect from memory dynamics.\",\"nearest_known_methods\":\"Relative-improvement acceptance criteria in DE variants; epsilon-dominance selection; threshold acceptance in simulated annealing.\",\"implementation_requirements\":\"Add tau and eps constants in selection loop; guard archive and Lehmer/weighted memory updates behind acceptance flag; log accepted-vs-rejected counts per generation.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 566,
+    "completion_tokens": 419,
+    "total_tokens": 985,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 182
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

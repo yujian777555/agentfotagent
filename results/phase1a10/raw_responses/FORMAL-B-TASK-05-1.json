@@ -1,0 +1,28 @@
+{
+  "id": "9ae12255-e117-4ab1-ad84-04618bdae288",
+  "object": "chat.completion",
+  "created": 1793257813,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"seed_conditioned_memory_perturbation\",\"target_component\":\"F/CR memory adaptation (M_F, M_CR)\",\"observed_evidence\":{\"task_id\":\"TASK-05\",\"trace_path\":\"none_provided\",\"function\":\"F11\",\"seed\":11,\"metric\":\"diversity\",\"observed_value\":0.175},\"causal_hypothesis\":\"Early Lehmer-mean updates on M_F/M_CR lock in a low-F, high-CR regime that collapses diversity on seeds 22/33, while seed 11's stochastic draws avoid this lock-in; the memory update lacks any seed-agnostic safeguard against premature convergence.\",\"algorithmic_change\":\"Add a per-generation memory perturbation: when population diversity (mean pairwise normalized distance) falls below a threshold, resample M_F and M_CR from their prior distributions with probability p_pert, injecting fresh F/CR regimes independent of seed-specific early draws.\",\"mathematical_rule\":\"div = mean(||pop_i - pop_j||) / (ub - lb); if div < tau_div then with prob p_pert: M_F = Cauchy(M_F_init, 0.1), M_CR = Normal(M_CR_init, 0.1); else keep Lehmer/weighted updates.\",\"expected_effect\":\"Prevents seed-specific memory lock-in, raising diversity on seeds 22/33 toward seed 11's 0.175 and reducing success-rate variance across seeds.\",\"failure_prediction\":\"If tau_div is too high, frequent perturbation destroys learned F/CR adaptation and degrades convergence on well-behaved seeds; if too low, no effect on collapsed seeds.\",\"ablation_plan\":\"Compare (a) baseline, (b) perturbation with tau_div in {0.05,0.10,0.15} and p_pert in {0.05,0.1,0.2}, (c) perturbation disabled but same diversity computation, across seeds 11/22/33 on F11; report diversity, success_rate, stall.\",\"nearest_known_methods\":\"Restart strategies (IPOP, N+i), diversity-triggered parameter resampling, jDE self-adaptive F/CR, memory reset in SHADE variants.\",\"implementation_requirements\":\"Compute mean pairwise distance each generation (O(N^2*dim), N<=100 acceptable); store M_F_init/M_CR_init constants; add tau_div and p_pert hyperparameters; RNG call for perturbation.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 563,
+    "completion_tokens": 524,
+    "total_tokens": 1087,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 179
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

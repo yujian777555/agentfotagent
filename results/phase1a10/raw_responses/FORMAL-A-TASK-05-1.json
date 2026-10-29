@@ -1,0 +1,28 @@
+{
+  "id": "ade31f85-ca22-4ce9-a9e2-2b0544afa2a2",
+  "object": "chat.completion",
+  "created": 1793257802,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"per-dimension-F-floor-with-memory-reset\",\"target_component\":\"mutation scale factor F and memory M_F\",\"observed_evidence\":{\"task_id\":\"TASK-05\",\"trace_path\":\"diagnostic_trace_summary\",\"function\":\"F11\",\"seed\":11,\"metric\":\"F_mean_late\",\"observed_value\":0.08},\"causal_hypothesis\":\"Lehmer-mean memory collapses M_F toward tiny values when early successful deltas are small, so seeds 22/33 lose mutation step size and diversity hits 0; seed 11 escapes because its early F draws stay larger.\",\"algorithmic_change\":\"Add a per-dimension lower bound on sampled F tied to current population spread, and reset M_F to 0.5 when measured diversity falls below a threshold for a window of generations.\",\"mathematical_rule\":\"F_i = max(F_sample_i, F_min + (F_max - F_min) * (diversity / diversity_0)); if diversity < tau for W gens then M_F[k] = 0.5 for all k; diversity = mean pairwise distance / (ub - lb).\",\"expected_effect\":\"Prevents F collapse on seeds 22/33, keeping nonzero diversity longer and reducing final-fitness variance across seeds 11/22/33 on F11.\",\"failure_prediction\":\"On unimodal or easy functions the F floor slows convergence and may worsen mean fitness; if tau is too high, resets fire constantly and disable memory adaptation.\",\"ablation_plan\":\"Compare (a) full mechanism, (b) F floor only, (c) memory reset only, (d) baseline, over seeds 11/22/33 on F11 and F1/F5; report diversity, stall, and final fitness variance.\",\"nearest_known_methods\":\"JADE/SHADE memory adaptation, F lower-bound clamping, diversity-triggered restart (excluded), success-history adaptation.\",\"implementation_requirements\":\"Track population diversity each generation; store diversity_0 from generation 0; add tau and W parameters; modify F sampling and M_F update in lshade_canonical.py.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 627,
+    "completion_tokens": 450,
+    "total_tokens": 1077,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 499
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

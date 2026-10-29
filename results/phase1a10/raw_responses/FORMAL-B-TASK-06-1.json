@@ -1,0 +1,28 @@
+{
+  "id": "3d211fa4-3db5-41d1-bac1-c896075a6336",
+  "object": "chat.completion",
+  "created": 1793257869,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"mechanism_id\":\"relative-gain-gated-selection\",\"target_component\":\"selection\",\"observed_evidence\":{\"task_id\":\"TASK-06\",\"trace_path\":\"none\",\"function\":\"F10\",\"seed\":0,\"metric\":\"late_success_rate_vs_best_raw\",\"observed_value\":0.62},\"causal_hypothesis\":\"On high-conditioning F10, tiny fitness decreases are accepted as successes but carry negligible progress; gating acceptance on relative gain filters these trivial improvements and preserves search budget for meaningful moves.\",\"algorithmical_change\":\"Replace unconditional trial_fit <= parent_fit acceptance with a relative-gain threshold: accept only if (parent_fit - trial_fit) / (|parent_fit| + eps) >= tau, where tau decays over generations from tau0 to tau_min.\",\"mathematical_rule\":\"gain = (fit_parent - fit_trial) / (abs(fit_parent) + 1e-12); accept if gain >= tau(g); tau(g) = tau_min + (tau0 - tau_min) * (1 - g / G); tau0 = 0.01, tau_min = 1e-4\",\"expected_effect\":\"Suppresses trivial late-stage acceptances, reducing wasted evaluations and lowering best_raw on F10 while keeping genuine improvements.\",\"failure_prediction\":\"If tau0 is too large early, population stagnates before reaching the basin; if tau_min too small late, trivial acceptances return.\",\"ablation_plan\":\"Compare tau0 in {0, 0.001, 0.01, 0.05} and tau_min in {0, 1e-4, 1e-3} on F10 across 5 seeds; also test constant tau vs decaying tau.\",\"nearest_known_methods\":[\"threshold acceptance\",\"late acceptance hill climbing\",\"gain-based selection\"],\"implementation_requirements\":\"Add generation counter g and G to run loop; compute relative gain in selection; store tau0, tau_min as params; no extra memory.\"}"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 566,
+    "completion_tokens": 422,
+    "total_tokens": 988,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 438
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}
