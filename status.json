@@ -3,9 +3,9 @@
   "repository": "https://github.com/yujian777555/agentfotagent",
   "default_branch": "main",
   "last_updated": "2026-10-28",
-  "baseline_commit": "354b7f9069dc9b244ce987f252702c8fb1f4bad7",
-  "current_phase": "Phase-1A-9 cross-family pivot audit",
-  "phase_status": "PHASE1A9_STARTED; PHASE1A8_NO_GO_INTERACTION; BRANCH phase1a-phase9-cross-family-pivot-audit",
+  "baseline_commit": "ab7d90f2c8f70c212c6408b39699f037f1454e93",
+  "current_phase": "Phase-1A-10 agent design benchmark",
+  "phase_status": "PHASE1A10_STAGE_A; BRANCH phase1a-phase10-agent-design-benchmark",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
@@ -69,11 +69,9 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Phase-1A-9: cross-family pivot (CMA-ES, GA, non-DE) with 0 LLM",
-    "Stage A: literature audit per family",
-    "Stage B: baseline feasibility in MetaBox",
-    "Stage C: 4-gate candidate admission",
-    "Stage D: 9-run baseline reproduction if gates pass"
+    "Stage A: task cards + evaluator + offline validation (no LLM)",
+    "Submit budget request, STOP for approval",
+    "Stage B-D only after explicit budget approval"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -121,7 +119,7 @@
   },
   "corrective_pass_commit": "1776e0f9f4cc606ae66eaeca20c833d72e3b7ab0",
   "current_reviewed_source_commit": "3e48bf5305ba667490358c140dad556f1ebf84e2",
-  "work_branch": "phase1a-phase9-cross-family-pivot-audit",
+  "work_branch": "phase1a-phase10-agent-design-benchmark",
   "reviewed_r3_source": "cd07249a1b4675354b01f9d5ac09ab2ffe4d2033",
   "reviewed_r4_source": "3e48bf5305ba667490358c140dad556f1ebf84e2",
   "integration_branch": "phase0-r4-integration",
