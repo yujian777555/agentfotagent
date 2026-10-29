@@ -28,7 +28,7 @@ Keep PAUSE_CURRENT_AGENT_EC_METHOD_DISCOVERY_ROUTE. Do not create a Phase-1A-19 
 
 ## Next task
 
-Use planner/phase1a18_evotool_audit_handoff.md. Obtain LAOS full text and official code if possible; compare the exact credit signal, target object, update equation, and evaluation protocol. If the only remaining idea is acceptance-rate scheduling, close it as already known/minor variant. If an uncovered mechanism survives, submit a separate protocol and budget request before any experiment.
+Use planner/phase1a18_evotool_audit_handoff.md. Initial retrieval of LAOS full text/code failed (ACM 403; no obvious official GitHub repository; accessible GECCO abstract only). Try an author/institutional copy; if unavailable, mark the equation-level comparison unresolved. Then compare the exact credit signal, target object, update equation, and evaluation protocol without guessing. If the only remaining idea is acceptance-rate scheduling, close it as already known/minor variant. If an uncovered mechanism survives, submit a separate protocol and budget request before any experiment.
 
 ## Hard limits
 
