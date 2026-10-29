@@ -43,3 +43,7 @@ Current train/dev families are key_crate and dial_set; held-out is relay_route w
 - train/dev edits cannot mutate held-out artifacts.
 
 Do not make tasks artificially hostile or tune difficulty against held-out results. Every task factor must test a declared policy capability.
+
+## Prior-art boundary (2026-10-29)
+
+ToolMaze (Zhu et al., 2026, [arXiv:2606.05806](https://arxiv.org/abs/2606.05806)) already studies dynamic replanning and tool anomaly recovery using DAG-based task complexity and explicit/implicit × transient/permanent tool perturbations. Therefore, the factors in this document—dependency depth, distractors, action failures and recovery—are **evaluation-readiness design**, not a novelty claim. The AES task suite can still be useful as a controlled engineering target, but it must not be presented as a novel benchmark unless a separate benchmark contribution is justified and audited.
