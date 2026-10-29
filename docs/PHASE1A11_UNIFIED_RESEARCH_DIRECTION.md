@@ -133,3 +133,7 @@ Mock backend 仅用于工程验证，不能支持 Agent 能力或真实任务收
 6. 运行可运行的离线测试（若只读审计未改代码，不应为追求测试数字而改动源码），检查 diff、commit 和远端同步。
 
 本计划分支不代表候选已通过，也不授权任何真实 API 或性能实验。
+
+## Phase-1A-11 clarification (2026-10-29): transfer is optional
+
+The non-negotiable target is applying LLM-empowered evolutionary computation to improve Agent task performance. MetaBox-to-AES transfer is one possible experimental route, not the project objective itself and not a mandatory architecture. After Phase-1A-10/11 failed to validate a source-domain controller, the next design phase must compare the transfer route against direct LLM-assisted EC on AES Agent policies, with prior-art and negative-control audits for both. Neither route is presumed novel or effective. See `docs/PHASE1A11_DECISION.md` and `planner/phase1a12_executor_handoff.md`.
