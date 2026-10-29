@@ -1,0 +1,25 @@
+{
+  "perspective": "selection",
+  "candidates": [
+    {
+      "name": "Strict-Improvement-Gated Success Memory (SIG-SM)",
+      "observable_defect": "The selection rule 'trial <= parent' accepts equal-fitness offspring, which then write zero-information (Δf≈0) samples into the SHADE success-history memory for F and CR. On F21 all seeds show success_rate=1.000 with best unchanged at 786.565 and stall_gen=166, i.e. every generation 'succeeds' while nothing improves. On F7 s=22 late success_rate=0.824 with diversity=0.0000 and stall_gen=53, and F7 s=33 late success_rate=0.883 with diversity=0.0002 — high success counts coexisting with total stagnation. This pollutes the Lehmer mean of F and CR with flat-region samples, feeding Patterns 2 and 4.",
+      "evidence": "F21 all seeds: success_rate=1.000, stall_gen=166, best unchanged at 786.565. F7 s=22: late success_rate=0.824, stall_gen=53, diversity=0.0000. F7 s=33: late success_rate=0.883, stall_gen=45, diversity=0.0002.",
+      "mathematical_definition": "Keep the survival rule trial<=parent unchanged (so equal-fitness offspring still replace parents and preserve drift), but decouple memory update from survival. Define an improvement gate g = 1[f(x_trial) < f(x_parent) - tau], with tau = eps_rel * max(|f(x_parent)|, 1e-12) and eps_rel = 1e-12 (machine-scale, not a tuned threshold). Only when g=1 is (F_i, CR_i) appended to S_F, S_CR and the memory index advanced. When g=0 the trial is still accepted into the population but the memory is frozen for that generation. Success-rate diagnostic is redefined as mean(g) over the window.",
+      "modification_location": "lshade_canonical.py: the block after the trial/parent comparison where S_F.append(F_i), S_CR.append(CR_i) and mem_idx update occur; guard them with the improvement gate. Leave the population replacement branch untouched.",
+      "pseudocode": "improved = f_trial < f_parent - 1e-12*max(abs(f_parent),1e-12)\nif f_trial <= f_parent:\n    x_parent = x_trial; f_parent = f_trial   # survival unchanged\nif improved:\n    S_F.append(F_i); S_CR.append(CR_i)\n    if len(S_F) > H: pop oldest\n    mem_idx = (mem_idx + 1) % H\n# success_rate diagnostic = mean(improved)",
+      "nearest_neighbor": "SHADE success-history memory (Tanabe & Fukunaga 2014) and its L-SHADE/jSO descendants, all of which update memory on the 'trial<=parent' event.",
+      "evidence_level": "FULL",
+      "mechanism_difference": "Nearest neighbor treats survival and memory-update as the same event. SIG-SM splits them: survival keeps '<=' (preserving neutral drift and the archive's ability to accept ties), while memory learning requires strict improvement. This removes the zero-information samples that drive CR to 0.72-0.98 (F1/F6/F10) and F to 0.06-0.13 (F4/F11s11) without touching thresholds or adding smoothing.",
+      "expected_conditions": "Flat or deceptive basins where many ties occur (F21, F7) and where memory drift to extremes is driven by equal-fitness acceptances (F1, F6, F10, F4).",
+      "failure_conditions": "Rugged landscapes where genuine progress is only visible after several neutral steps (neutral networks); strict gating could starve memory and freeze F/CR at initial values. Also if eps_rel is too large it degenerates to the original rule.",
+      "minimal_ablation": "Run with gate g always 1 (original) vs g as defined, same seeds; measure late CR_mean and F_mean trajectories and final best on F1,F6,F10,F21,F7.",
+      "hand_designed_control": "Replace the gate with a fixed probability p=0.5 of updating memory regardless of improvement (random memory sampling), same code footprint.",
+      "random_change_control": "Shuffle which (F_i,CR_i) pairs enter memory among accepted trials (random permutation of memory writes) to isolate whether the improvement signal, not just reduced write frequency, causes any gain.",
+      "falsification_gate": "If on F21 and F7 the late CR_mean still drifts beyond [0.4,0.6] by gen 400, or final best on F1/F6/F10 does not improve by >=5% median over 36 runs vs original, the mechanism is falsified."
+    }
+  ],
+  "no_candidate_reason": null,
+  "source": "repaired_from_truncated_response",
+  "note": "Extracted 1 complete candidates from raw_text (max_tokens truncated response)"
+}

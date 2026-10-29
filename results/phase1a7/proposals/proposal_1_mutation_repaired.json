@@ -1,0 +1,42 @@
+{
+  "perspective": "mutation",
+  "candidates": [
+    {
+      "name": "Diversity-Gated Differential Direction (DGDD)",
+      "observable_defect": "When population diversity collapses, the difference vector x_r1 - x_r2 becomes near-zero, so current-to-pbest/1/bin degenerates to a scaled copy of x_pbest - x_i, which itself shrinks as x_i approaches x_pbest. This causes premature stagnation despite high success rates.",
+      "evidence": "F7 s=22: late success_rate=0.824, diversity=0.0000, stall_gen=53; F7 s=33: success_rate=0.883, diversity=0.0002, stall_gen=45; F1, F6, F10, F12: early diversity 0.15-0.27 → late 0.000-0.003.",
+      "mathematical_definition": "Let D = normalized population diversity (e.g., mean pairwise distance / search range). Define a gating factor g = max(0, 1 - D/D0) where D0 is a small threshold (e.g., 0.01). Modify mutation: v_i = x_i + F * (x_pbest - x_i) + F * g * (x_r1 - x_r2) + F * (1-g) * (x_rand - x_i), where x_rand is a uniformly random individual from the population. This ensures that when diversity is low, the differential direction is augmented with a random-based direction to escape stagnation.",
+      "modification_location": "In lshade_canonical.py, inside the mutation function (e.g., mutation_current_to_pbest_1) after computing the difference vectors, before recombination.",
+      "pseudocode": "D = compute_diversity(pop)\ng = max(0, 1 - D/D0)\nfor each target i:\n    x_pbest = select_pbest(pop, p)\n    r1, r2 = select_random_distinct(i)\n    x_rand = pop[random_index]\n    diff1 = x_pbest - x_i\n    diff2 = x_r1 - x_r2\n    diff3 = x_rand - x_i\n    v_i = x_i + F * diff1 + F * g * diff2 + F * (1-g) * diff3\n    v_i = clip(v_i, bounds)",
+      "nearest_neighbor": "current-to-pbest/1/bin (Zhang & Sanderson 2009) and its variants like current-to-pbest-w/1 (jSO). Also related to diversity-based mutation in some DE variants (e.g., self-adaptive DE with diversity control).",
+      "evidence_level": "FULL",
+      "mechanism_difference": "Unlike standard current-to-pbest/1, which always uses x_r1 - x_r2, this mechanism dynamically replaces the differential vector with a random-based direction when diversity is low, preventing the vanishing of the difference vector. It does not merely change F; it changes the direction of the mutation step based on population state.",
+      "expected_conditions": "Functions where diversity collapses prematurely (F1, F6, F7, F10, F12) and success rate remains high but progress stalls.",
+      "failure_conditions": "Functions where diversity is naturally low but the search is still progressing (e.g., unimodal functions with fast convergence), or where random directions harm exploitation (e.g., F21 with high success but large regret).",
+      "minimal_ablation": "Compare DGDD with g fixed to 0 (standard current-to-pbest/1) and g fixed to 1 (always random direction). Also test with D0 varied.",
+      "hand_designed_control": "Manually set g=0.5 always, or use a fixed probability to switch to random direction.",
+      "random_change_control": "Replace g with a random value in [0,1] each generation, or randomly choose between diff2 and diff3 with probability 0.5.",
+      "falsification_gate": "If DGDD does not improve median best fitness on F7 and F1 by at least 5% compared to baseline, or if it increases variance significantly, the mechanism is falsified."
+    },
+    {
+      "name": "F-Memory Floor with Directional Compensation (FMF-DC)",
+      "observable_defect": "F memory collapses to near-zero, causing the differential vectors to vanish and search to degrade to tiny perturbations around the parent. This is not due to lack of diversity but due to F adaptation driving F to zero.",
+      "evidence": "F4: F_mean early 0.58-0.64 → late 0.06-0.13; F11 s=11: F_mean 0.53 → 0.08; F11 s=11: diversity=0.175 (not collapsed), success_rate=0.041, stall=6.",
+      "mathematical_definition": "Maintain a floor F_min (e.g., 0.1). When updating F memory, if the new F would be below F_min, set it to F_min. Additionally, when F is at the floor, compensate by increasing the magnitude of the differential vector using a scaling factor: v_i = x_i + F * (x_pbest - x_i) + F * (x_r1 - x_r2) + (F_min - F) * (x_r1 - x_r2) * alpha, where alpha is a small constant (e.g., 1.0). This ensures that even if F is small, the differential direction is not completely lost.",
+      "modification_location": "In lshade_canonical.py, in the F memory update (after computing new F) and in the mutation function.",
+      "pseudocode": "after computing new_F:\n    new_F = max(new_F, F_min)\n    update F_memory\nin mutation:\n    F_eff = max(F, F_min)\n    v_i = x_i + F_eff * (x_pbest - x_i) + F_eff * (x_r1 - x_r2) + (F_min - F) * (x_r1 - x_r2) * alpha",
+      "nearest_neighbor": "F adaptation in SHADE/L-SHADE (Tanabe & Fukunaga 2014) and jSO (Brest et al. 2017). Also related to F floor in some DE variants (e.g., F=0.5 fixed).",
+      "evidence_level": "FULL",
+      "mechanism_difference": "Instead of allowing F to collapse to zero, this enforces a floor and adds a compensation term that preserves the differential direction when F is small. It does not just clamp F; it modifies the mutation vector to maintain a minimum step size in the direction of the difference vector.",
+      "expected_conditions": "Functions where F memory collapses (F4, F11) and diversity is not collapsed, indicating that the issue is F scaling rather than population convergence.",
+      "failure_conditions": "Functions where small F is beneficial for fine-tuning (e.g., F21 with high success but large regret), or where the compensation term causes overshooting.",
+      "minimal_ablation": "Compare with F_min=0 (no floor) and with compensation term disabled (only floor). Also test different alpha values.",
+      "hand_designed_control": "Set F_min=0.1 and no compensation, or set F_min=0.1 and alpha=0.5.",
+      "random_change_control": "Replace the compensation term with a random vector of the same magnitude, or randomly set F to F_min with probability 0.5.",
+      "falsification_gate": "If FMF-DC does not improve median best fitness on F4 and F11 by at least 5% compared to baseline, or if it increases the number of function evaluations to reach a target, the mechanism is falsified."
+    }
+  ],
+  "no_candidate_reason": null,
+  "source": "repaired_from_truncated_response",
+  "note": "Extracted 2 complete candidates from raw_text (max_tokens truncated response)"
+}

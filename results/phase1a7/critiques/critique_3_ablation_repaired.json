@@ -1,0 +1,101 @@
+{
+  "reviews": [
+    {
+      "candidate_name": "Diversity-Gated Differential Direction (DGDD)",
+      "verdict": "FAIL",
+      "novelty_rating": "MINOR_VARIANT",
+      "evidence_quality": "MODERATE",
+      "ablation_controllability": "PARTIALLY_CONTROLLABLE",
+      "literature_evidence_level": "FULL",
+      "key_concerns": [
+        "The mechanism is essentially a diversity-triggered switch between current-to-pbest/1 and a random-based direction. This is a known idea in DE literature (e.g., diversity-based mutation switching), so novelty is low.",
+        "The ablation proposed (g=0 vs g=1 vs D0 varied) does not isolate the effect of the gating function from the effect of simply adding a random direction. A control that always adds a random direction with fixed weight (e.g., F*(x_rand - x_i)) is missing.",
+        "The hand-designed control (g=0.5 always) is not a proper control because it changes the balance between exploitation and exploration in a way that is not equivalent to the diversity-gated mechanism. A better control would be to use a fixed probability of switching to random direction, independent of diversity.",
+        "The random-change control (random g each generation) is inadequate because it does not control for the frequency of random direction usage. A control that uses the same average g but randomly assigned across generations would be better.",
+        "The falsification gate is weak: a 5% improvement on F7 and F1 is not a high bar, and the mechanism might show improvement simply due to increased exploration, not due to the diversity gating.",
+        "The mathematical definition uses a threshold D0=0.01, which is arbitrary and not justified. The sensitivity to D0 is not explored in the ablation.",
+        "The mechanism could be seen as just changing the mutation strategy to a hybrid of current-to-pbest/1 and rand/1, which is a parameter change (the mixing weight g) rather than a fundamentally new mechanism."
+      ],
+      "specific_fixes": [
+        "Add a control where the random direction is always added with a fixed weight (e.g., F*0.5*(x_rand - x_i)) to isolate the effect of diversity gating.",
+        "Use a control that switches to random direction with a fixed probability equal to the average g observed in the diversity-gated version, to control for the amount of exploration.",
+        "Perform a sensitivity analysis on D0 and show that the mechanism is robust to its choice.",
+        "Compare against a simple hybrid strategy that randomly chooses between current-to-pbest/1 and rand/1 with probability 0.5, to show that the diversity signal is necessary.",
+        "Strengthen the falsification gate to require improvement on more functions and with a larger margin (e.g., 10% on at least 3 functions)."
+      ],
+      "overall_assessment": "DGDD addresses a real issue (diversity collapse) but the proposed mechanism is a minor variant of existing diversity-based mutation switching. The ablation and controls are insufficient to isolate the effect of the diversity gating from the effect of added exploration. The falsification gate is too lenient. The mechanism is partially controllable but lacks the necessary controls to rule out simple explanations."
+    },
+    {
+      "candidate_name": "F-Memory Floor with Directional Compensation (FMF-DC)",
+      "verdict": "FAIL",
+      "novelty_rating": "MINOR_VARIANT",
+      "evidence_quality": "MODERATE",
+      "ablation_controllability": "PARTIALLY_CONTROLLABLE",
+      "literature_evidence_level": "FULL",
+      "key_concerns": [
+        "The mechanism is essentially a floor on F plus a compensation term that adds a scaled difference vector. This is very close to simply clamping F to a minimum, which is a known technique (e.g., F_min=0.1 in many DE variants). The compensation term is an ad-hoc addition that may not be necessary.",
+        "The ablation proposed (F_min=0 vs F_min=0.1 without compensation vs with compensation) is good, but the hand-designed control (F_min=0.1 and alpha=0.5) is not a proper control because it still includes the compensation term. A control with only the floor and no compensation is needed.",
+        "The random-change control (replace compensation with random vector) is inadequate because it does not control for the magnitude of the compensation. A better control would be to add a random vector with the same expected magnitude as the compensation term.",
+        "The mathematical definition of the compensation term is confusing: v_i = x_i + F*(x_pbest - x_i) + F*(x_r1 - x_r2) + (F_min - F)*(x_r1 - x_r2)*alpha. If F is already floored to F_min, then (F_min - F) is zero, so the compensation term vanishes. The pseudocode uses F_eff = max(F, F_min) and then adds (F_min - F)*... which would be negative if F < F_min, but F_eff is used for the first two terms. This is inconsistent and likely a bug.",
+        "The mechanism could be seen as just changing the lower bound of F, which is a parameter change, not a new mechanism. The compensation term is an attempt to make it more than a parameter change, but it is not well-motivated.",
+        "The falsification gate is weak: 5% improvement on F4 and F11 is not a high bar, and the mechanism might show improvement simply due to larger F values, not due to the compensation."
+      ],
+      "specific_fixes": [
+        "Clarify the mathematical definition: if F is floored to F_min, then the compensation term should be based on the original F before flooring, or the floor should be applied only to the mutation step, not to the memory update. The current definition is inconsistent.",
+        "Add a control that uses a fixed F=F_min (no adaptation) to isolate the effect of the floor from the effect of adaptation.",
+        "Add a control that uses the floor but no compensation term, and compare with the full mechanism to show the compensation is necessary.",
+        "Use a random-change control that adds a random vector with the same magnitude as the compensation term, but with random direction, to control for the effect of added perturbation.",
+        "Strengthen the falsification gate to require improvement on more functions and with a larger margin."
+      ],
+      "overall_assessment": "FMF-DC addresses a real issue (F collapse) but the mechanism is a minor variant of F flooring with an ad-hoc compensation term. The mathematical definition is inconsistent, and the controls are insufficient to isolate the effect of the compensation from the effect of the floor. The mechanism is partially controllable but lacks clarity and proper controls."
+    },
+    {
+      "candidate_name": "Zero-Δf Success Veto with Memory Freeze",
+      "verdict": "FAIL",
+      "novelty_rating": "MINOR_VARIANT",
+      "evidence_quality": "MODERATE",
+      "ablation_controllability": "CONTROLLABLE",
+      "literature_evidence_level": "FULL",
+      "key_concerns": [
+        "The mechanism is essentially a threshold on Δf for memory updates. This is a very simple change and is likely already known or trivially derivable. The novelty is low.",
+        "The hand-designed control (ε=1e-12) is actually the same as the proposed mechanism if the proposed mechanism uses a threshold. The candidate says 'manually set a threshold ε=1e-12 and only update if Δf > ε', which is exactly what the proposed mechanism does with tau=eps_rel*max(|f_parent|,1e-12). So the hand-designed control is not a control; it's the same mechanism.",
+        "The random-change control (randomly skip memory updates with probability p) is good for controlling the effect of fewer updates, but it does not control for the effect of the improvement signal. A better control would be to update memory only when Δf > 0 but with a random subset of trials, or to shuffle the Δf values.",
+        "The mechanism is very similar to SIG-SM (candidate 5), which also gates memory updates on strict improvement. The two candidates are essentially the same idea with different thresholds. This redundancy suggests a lack of novelty.",
+        "The falsification gate is weak: 5% improvement on F7 and F21 is not a high bar, and the mechanism might show improvement simply due to fewer memory updates, not due to the veto of zero-Δf trials."
+      ],
+      "specific_fixes": [
+        "Differentiate from SIG-SM: either merge the two candidates or clearly articulate the difference. Currently, both propose gating memory updates on strict improvement.",
+        "Add a control that updates memory only when Δf > 0 but with the same number of updates as the proposed mechanism (e.g., by randomly selecting a subset of successful trials to update memory). This controls for the frequency of updates.",
+        "Add a control that updates memory with a random weight for zero-Δf trials, to show that the issue is not just the weight but the inclusion of zero-information samples.",
+        "Strengthen the falsification gate to require improvement on more functions and with a larger margin."
+      ],
+      "overall_assessment": "The mechanism is a simple threshold on Δf for memory updates, which is a minor variant of existing practice and is essentially the same as SIG-SM. The controls are partially adequate but the hand-designed control is not a control. The novelty is low, and the falsification gate is weak."
+    },
+    {
+      "candidate_name": "CR Memory Drift Dampening via Success-Weighted Exponential Smoothing",
+      "verdict": "FAIL",
+      "novelty_rating": "MINOR_VARIANT",
+      "evidence_quality": "MODERATE",
+      "ablation_controllability": "PARTIALLY_CONTROLLABLE",
+      "literature_evidence_level": "FULL",
+      "key_concerns": [
+        "The mechanism is a dampened update for M_CR, which is a form of exponential smoothing with a deviation penalty. This is a known technique in adaptive control and has been used in DE variants (e.g., adaptive CR with smoothing). The novelty is low.",
+        "The mathematical definition is ambiguous: it proposes two alternatives (exponential smoothing with alpha, or weighted mean with w' = w*exp(-beta*|CR_success - M_CR_old|)). The candidate does not specify which one is the actual mechanism, making it hard to evaluate.",
+        "The hand-designed control (clip M_CR to [0.1,0.9]) is a simple heuristic that might be as effective as the proposed mechanism. The candidate does not compare against this control in the ablation.",
+        "The random-change control (randomly perturb M_CR by adding noise with same variance) is inadequate because it does not control for the effect of reduced drift. A better control would be to use a fixed M_CR (e.g., 0.5) or to use a random M_CR each generation.",
+        "The falsification gate is weak: reducing variance of M_CR by 20% or improving median best fitness by 3% on two functions is not a high bar. The mechanism might show improvement simply due to reduced variance, not due to the dampening of drift.",
+        "The mechanism could be seen as just changing the update rule for M_CR, which is a parameter change (the smoothing factor) rather than a new mechanism."
+      ],
+      "specific_fixes": [
+        "Specify a single, clear mathematical definition of the mechanism. Choose either exponential smoothing or weighted mean with deviation penalty, and justify the choice.",
+        "Add a control that uses a fixed M_CR (e.g., 0.5) to isolate the effect of adaptation from the effect of dampening.",
+        "Add a control that uses the standard weighted mean but with a smaller learning rate (e.g., alpha=0.1) to control for the effect of slower adaptation.",
+        "Use a random-change control that randomly selects M_CR from a distribution with the same mean and variance as the dampened M_CR, to control for the effect of reduced drift.",
+        "Strengthen the falsification gate to require improvement on more functions and with a larger margin."
+      ],
+      "overall_assessment": "The mechanism is a dampened update for M_CR, which is a minor variant of existing smoothing techniques. The mathematical definition is ambiguous, and the controls are insufficient to isolate the effect of dampening from the effect of reduced variance. The novelty is low, and the falsification gate is weak."
+    }
+  ],
+  "summary": "",
+  "source": "repaired"
+}

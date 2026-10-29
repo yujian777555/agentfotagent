@@ -1,0 +1,95 @@
+{
+  "reviews": [
+    {
+      "candidate_name": "Diversity-Gated Differential Direction (DGDD)",
+      "verdict": "NEEDS_MORE_EVIDENCE",
+      "novelty_rating": "MINOR_VARIANT",
+      "evidence_quality": "MODERATE",
+      "ablation_controllability": "PARTIALLY_CONTROLLABLE",
+      "literature_evidence_level": "FULL",
+      "key_concerns": [
+        "The cited evidence shows correlation between low diversity and stagnation, but does not establish that the difference vector x_r1 - x_r2 is near-zero or that this causes stagnation. The candidate asserts 'difference vector becomes near-zero' without measuring its magnitude.",
+        "Alternative explanation: stagnation could be due to selection pressure or F/CR adaptation, not vanishing difference vectors. The evidence does not rule out that diversity collapse is a symptom, not a cause.",
+        "The gating factor g = max(0, 1 - D/D0) with D0=0.01 is a hard threshold; the evidence does not justify this specific value or show that D0=0.01 is the critical diversity level.",
+        "The mechanism adds a random-based direction when diversity is low, but this is essentially a restart-like perturbation. It may harm exploitation on unimodal functions, and the failure_conditions acknowledge this but do not provide a mitigation.",
+        "The falsification_gate requires 5% improvement on F7 and F1, but the evidence shows F7 has high success rate and low diversity; it is unclear whether 5% is achievable or meaningful given the stagnation. The gate is measurable but may be too stringent or too lenient without baseline variance data.",
+        "The minimal_ablation includes g fixed to 0 and 1, but does not control for the effect of simply increasing F or adding random noise. The random_change_control replaces g with random values, but this does not isolate the diversity-gating effect from the added random direction."
+      ],
+      "specific_fixes": [
+        "Measure the actual magnitude of x_r1 - x_r2 and x_pbest - x_i during stagnation to confirm the vanishing difference vector claim.",
+        "Provide a control experiment where a random direction is added with fixed probability independent of diversity, to show that diversity-gating is necessary.",
+        "Justify D0=0.01 with a sensitivity analysis or theoretical argument.",
+        "Clarify how the mechanism avoids harming exploitation on unimodal functions; consider a smooth transition or adaptive D0."
+      ],
+      "overall_assessment": "The candidate identifies a plausible defect (diversity collapse) but the evidence is only correlational. The proposed mechanism is a minor variant of existing diversity-based DE mutations. The falsification gate is measurable but the expected improvement is not well-justified. The ablation controls are partially controllable but do not fully isolate the gating effect. Needs more direct evidence of vanishing difference vectors and a stronger control for the random direction."
+    },
+    {
+      "candidate_name": "F-Memory Floor with Directional Compensation (FMF-DC)",
+      "verdict": "NEEDS_MORE_EVIDENCE",
+      "novelty_rating": "MINOR_VARIANT",
+      "evidence_quality": "MODERATE",
+      "ablation_controllability": "PARTIALLY_CONTROLLABLE",
+      "literature_evidence_level": "FULL",
+      "key_concerns": [
+        "The evidence shows F_mean collapses on F4 and F11, but does not establish that this collapse causes degradation. It could be an adaptation to a need for fine-tuning, as the failure_conditions acknowledge.",
+        "The compensation term (F_min - F) * (x_r1 - x_r2) * alpha is ad hoc and may cause overshooting. The candidate does not provide a theoretical basis for alpha=1.0 or analyze its effect on step size.",
+        "The mechanism is essentially a floor on F plus a correction term. Floors on F are already common in DE variants (e.g., jSO uses F=0.5 initially and adapts, but some variants clamp F). The novelty is limited.",
+        "The falsification_gate requires 5% improvement on F4 and F11, but the evidence for F11 s=11 shows diversity=0.175 (not collapsed) and success_rate=0.041, which suggests the issue may not be F collapse alone. The gate may be unachievable if the defect is misdiagnosed.",
+        "The minimal_ablation compares F_min=0 and compensation disabled, but does not control for the effect of simply increasing F globally. The random_change_control replaces compensation with a random vector, but this does not isolate the directional compensation from added noise."
+      ],
+      "specific_fixes": [
+        "Provide evidence that F collapse is detrimental, e.g., by showing that forcing F to a higher value improves performance on F4 and F11.",
+        "Analyze the step size distribution with and without compensation to show that it prevents vanishing steps without overshooting.",
+        "Compare with a simple F floor (no compensation) to demonstrate the added value of the compensation term.",
+        "Consider adaptive alpha or a smooth compensation to avoid overshooting."
+      ],
+      "overall_assessment": "The candidate addresses a real phenomenon (F collapse) but the causal link to stagnation is not established. The compensation term is ad hoc and may introduce instability. The mechanism is a minor variant of existing F adaptation with floors. The falsification gate is measurable but may be based on a misdiagnosis. Needs more evidence that F collapse is the root cause and that the compensation term is beneficial."
+    },
+    {
+      "candidate_name": "Zero-Δf Success Veto with Memory Freeze",
+      "verdict": "FAIL",
+      "novelty_rating": "ALREADY_KNOWN",
+      "evidence_quality": "WEAK",
+      "ablation_controllability": "PARTIALLY_CONTROLLABLE",
+      "literature_evidence_level": "FULL",
+      "key_concerns": [
+        "The evidence shows high success rates with stagnation, but does not demonstrate that zero-Δf trials are actually occurring or that they pollute memory. The success_rate metric in the evidence likely counts any trial with f_trial <= f_parent, including equal fitness, but the candidate does not provide the frequency of Δf=0 trials.",
+        "The mechanism is essentially a threshold on Δf for memory update. This is a known technique; many DE variants use a small epsilon to avoid updating on negligible improvements. The candidate's own hand_designed_control mentions ε=1e-12, which is a simpler threshold-based approach, indicating the mechanism is not novel.",
+        "The mathematical definition uses Δf == 0 exactly, but in floating-point, exact equality is rare unless the landscape is flat. The candidate should use a tolerance, but then it becomes the hand-designed control.",
+        "The falsification_gate requires 5% improvement on F7 and F21, but F21 shows success_rate=1.000 and best unchanged at 786.565, which suggests that all trials are equal-fitness (or worse) and the population is not moving. Freezing memory may not help if the search is completely stuck; the mechanism does not address the lack of progress.",
+        "The random_change_control randomly skips memory updates with probability p equal to observed frequency of Δf=0, but this does not control for the effect of fewer updates; it only controls for the frequency."
+      ],
+      "specific_fixes": [
+        "Measure the frequency of Δf=0 trials on F7 and F21 to confirm the premise.",
+        "Compare with a simple epsilon threshold (e.g., 1e-12) to show that the proposed mechanism is not just a threshold.",
+        "Consider that on F21, the search may be stuck due to other reasons (e.g., deceptive landscape), and freezing memory may not help. Provide a mechanism to escape stagnation, not just prevent memory pollution.",
+        "Clarify how the mechanism differs from existing practices of ignoring negligible improvements."
+      ],
+      "overall_assessment": "The candidate's premise is plausible but the evidence is weak because it does not quantify zero-Δf trials. The mechanism is essentially a threshold on Δf, which is already known. The falsification gate is measurable but may be unachievable if the stagnation is not caused by memory pollution. The ablation controls are partially controllable but do not isolate the effect of the veto from the effect of fewer updates. Overall, the candidate fails due to lack of novelty and weak evidence."
+    },
+    {
+      "candidate_name": "CR Memory Drift Dampening via Success-Weighted Exponential Smoothing",
+      "verdict": "NEEDS_MORE_EVIDENCE",
+      "novelty_rating": "MINOR_VARIANT",
+      "evidence_quality": "MODERATE",
+      "ablation_controllability": "PARTIALLY_CONTROLLABLE",
+      "literature_evidence_level": "FULL",
+      "key_concerns": [
+        "The evidence shows CR_mean drifts to extremes, but does not establish that this drift is detrimental. The failure_conditions acknowledge that drift may be beneficial (e.g., F20 where CR drifts to low values and performance is good). The candidate does not provide evidence that dampening improves performance.",
+        "The mechanism uses exponential smoothing with a dampening factor based on deviation. This is a form of regularization, but the parameters (W=0.1, β=1.0) are arbitrary and not justified.",
+        "The falsification_gate requires reducing variance of M_CR by 20% or improving median best fitness by 3% on at least two functions. The variance reduction is a proxy, not a direct performance measure. The gate is measurable but may not correlate with performance.",
+        "The minimal_ablation compares standard update vs dampened update, but does not control for the effect of simply clipping M_CR to [0.1,0.9] (the hand_designed_control). The random_change_control adds noise, which does not isolate the dampening effect.",
+        "The mechanism is a minor variant of the standard weighted mean; it changes the weighting scheme but does not introduce a fundamentally new mechanism."
+      ],
+      "specific_fixes": [
+        "Provide evidence that CR drift to extremes is detrimental, e.g., by showing that clipping CR improves performance on F1, F6, F10.",
+        "Justify the choice of W and β with sensitivity analysis or theoretical argument.",
+        "Compare with simple clipping to show that dampening is not just a form of clipping.",
+        "Consider that drift may be adaptive; the mechanism should be able to allow drift when beneficial."
+      ],
+      "overall_assessment": "The candidate identifies a real pattern (CR drift) but the evidence does not show it is harmful. The mechanism is a minor variant of the standard update with added dampening. The falsification gate is measurable but the expected improvement is small and may not be meaningful. The ablation controls are partially controllable but do not isolate the dampening effect from clipping. Needs more evidence that drift is detrimental and that dampening is beneficial."
+    }
+  ],
+  "summary": "",
+  "source": "repaired"
+}

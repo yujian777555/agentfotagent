@@ -1,0 +1,94 @@
+{
+  "reviews": [
+    {
+      "candidate_name": "Diversity-Gated Differential Direction (DGDD)",
+      "verdict": "FAIL",
+      "novelty_rating": "MINOR_VARIANT",
+      "evidence_quality": "MODERATE",
+      "ablation_controllability": "CONTROLLABLE",
+      "literature_evidence_level": "FULL",
+      "key_concerns": [
+        "The mechanism is a convex combination of current-to-pbest/1 and a random-based direction, gated by diversity. This is essentially a diversity-triggered switch between two known mutation strategies (current-to-pbest/1 and rand/1). Similar diversity-based strategy switching exists in the literature (e.g., self-adaptive DE with diversity control, as cited). The novelty is incremental.",
+        "The mathematical definition is a parameter re-write: it introduces a gating factor g that linearly interpolates between two existing difference vectors. The formula v_i = x_i + F*(x_pbest - x_i) + F*g*(x_r1 - x_r2) + F*(1-g)*(x_rand - x_i) is equivalent to a weighted sum of two mutation strategies, which is a known technique (e.g., mixed mutation).",
+        "The nearest_neighbor field correctly identifies current-to-pbest/1 and diversity-based mutation, but does not cite specific papers that already use diversity to switch mutation directions. The claim of novelty is weak without a thorough literature comparison.",
+        "The evidence is based on observed diversity collapse and high success rates, but the causal link between diversity collapse and stagnation is not rigorously established. High success rate with low diversity could be due to other factors (e.g., selection pressure).",
+        "The falsification gate is based on a 5% improvement on F7 and F1, which is a reasonable threshold, but the mechanism's effect might be confounded by the random direction component, which is essentially a restart-like perturbation."
+      ],
+      "specific_fixes": [
+        "Conduct a thorough literature review to identify existing diversity-based mutation switching methods and compare the proposed formula to them. For example, check 'Diversity-based adaptive DE' or 'DE with multiple mutation strategies'.",
+        "Provide a mathematical proof or empirical demonstration that the gating factor g is necessary and that a simple random restart or a fixed probability of using rand/1 would not achieve the same effect.",
+        "Clarify how D0 is set and whether it is problem-dependent. The current definition uses a fixed threshold (e.g., 0.01), which may not generalize.",
+        "Include a control experiment where the random direction is replaced by a fixed vector or a different known direction to isolate the effect of randomness."
+      ],
+      "overall_assessment": "DGDD is a minor variant that combines two known mutation strategies via a diversity-based gate. While the observable defect is plausible, the mechanism lacks sufficient novelty and the evidence does not rule out simpler alternatives. The nearest-neighbor identification is accurate but incomplete. The candidate fails the novelty gate."
+    },
+    {
+      "candidate_name": "F-Memory Floor with Directional Compensation (FMF-DC)",
+      "verdict": "FAIL",
+      "novelty_rating": "ALREADY_KNOWN",
+      "evidence_quality": "MODERATE",
+      "ablation_controllability": "CONTROLLABLE",
+      "literature_evidence_level": "FULL",
+      "key_concerns": [
+        "The core idea of enforcing a floor on F is already known in the DE literature. Many DE variants clamp F to a minimum value (e.g., F_min=0.1 or 0.2) to prevent stagnation. The additional compensation term is a linear extrapolation that effectively increases the step size when F is at the floor, which is equivalent to using a larger F. This is a parameter re-write.",
+        "The mathematical definition: v_i = x_i + F_eff*(x_pbest - x_i) + F_eff*(x_r1 - x_r2) + (F_min - F)*(x_r1 - x_r2)*alpha. When F < F_min, F_eff = F_min, so the term becomes (F_min - F)*alpha*(x_r1 - x_r2). This is just adding an extra scaled difference vector, which is equivalent to increasing the effective F for the second difference vector. This is not a novel mechanism; it's a modification of the scaling factor.",
+        "The nearest_neighbor field mentions F adaptation in SHADE/L-SHADE and jSO, but does not cite specific papers that use F floors. However, F floors are common knowledge in DE (e.g., in many DE variants, F is bounded below by 0.1 or 0.2). The candidate's claim of novelty is overstated.",
+        "The evidence shows F memory collapse, but the proposed compensation term may cause overshooting, as acknowledged in failure_conditions. The mechanism does not address the root cause of why F collapses (e.g., selection pressure), but rather masks it.",
+        "The falsification gate is based on 5% improvement on F4 and F11, but the mechanism might simply act as a larger F, which could be tested by comparing to a fixed F_min without compensation."
+      ],
+      "specific_fixes": [
+        "Acknowledge that F floors are already used in DE and cite examples. Then, clearly differentiate the compensation term from simply using a larger F_min. Show that the compensation term provides a benefit beyond a simple floor.",
+        "Provide a theoretical justification for why the compensation term is necessary. For example, show that it maintains a minimum step size in the direction of the difference vector, which might be beneficial when F is small.",
+        "Include an ablation where F is simply set to F_min (no compensation) and compare to the proposed method. If the compensation term does not provide significant improvement, the mechanism is redundant.",
+        "Consider whether the compensation term is equivalent to using a different F for the second difference vector. If so, the mechanism is just a parameter re-write."
+      ],
+      "overall_assessment": "FMF-DC is essentially a known technique (F floor) with an additional compensation term that is mathematically equivalent to increasing the effective F for one of the difference vectors. The novelty is minimal and the mechanism is likely already known in various forms. The candidate fails the novelty gate."
+    },
+    {
+      "candidate_name": "Zero-Δf Success Veto with Memory Freeze",
+      "verdict": "FAIL",
+      "novelty_rating": "ALREADY_KNOWN",
+      "evidence_quality": "MODERATE",
+      "ablation_controllability": "CONTROLLABLE",
+      "literature_evidence_level": "FULL",
+      "key_concerns": [
+        "The mechanism is a threshold change: it simply changes the condition for memory update from Δf >= 0 to Δf > 0. This is a trivial modification and is likely already implemented in some DE variants as a safeguard against zero-improvement updates. The nearest_neighbor field correctly identifies standard SHADE, but does not cite any work that already uses strict improvement for memory updates.",
+        "The mathematical definition is a simple if-else condition. It does not introduce any new mathematical structure. The claim that standard SHADE updates memory for equal-fitness trials is true, but the proposed veto is a straightforward fix that many practitioners might have already adopted.",
+        "The evidence shows high success rates with stagnation, but the mechanism only addresses the memory pollution aspect. It does not address the underlying cause of stagnation (e.g., lack of diversity). The effect might be marginal.",
+        "The falsification gate is based on 5% improvement on F7 and F21, but the mechanism might not have a significant effect if equal-fitness trials are rare. The candidate acknowledges this in failure_conditions.",
+        "The hand_designed_control suggests using a threshold ε=1e-12, which is essentially the same as the proposed mechanism. This indicates that the mechanism is a simple threshold-based approach, not a novel concept."
+      ],
+      "specific_fixes": [
+        "Conduct a literature search to see if strict improvement for memory updates has been proposed before. If so, cite and differentiate. If not, the novelty is still low because it's a trivial modification.",
+        "Provide a more rigorous analysis of why zero-Δf trials are harmful. For example, show that they bias the Lehmer mean of F and CR in a specific direction. Then, demonstrate that the veto corrects this bias.",
+        "Consider combining this with other mechanisms to create a more substantial contribution. Alone, it is too incremental.",
+        "The random_change_control is good, but the hand_designed_control is essentially the same as the proposed mechanism, which suggests that the mechanism is not distinct from a simple threshold."
+      ],
+      "overall_assessment": "This candidate proposes a trivial threshold change to the memory update rule. It is likely already known or easily discovered. The novelty is insufficient for a research contribution. The candidate fails the novelty gate."
+    },
+    {
+      "candidate_name": "CR Memory Drift Dampening via Success-Weighted Exponential Smoothing",
+      "verdict": "FAIL",
+      "novelty_rating": "MINOR_VARIANT",
+      "evidence_quality": "MODERATE",
+      "ablation_controllability": "CONTROLLABLE",
+      "literature_evidence_level": "FULL",
+      "key_concerns": [
+        "The mechanism replaces the weighted arithmetic mean with an exponential smoothing update, which is a known technique in time series analysis and has been used in DE for parameter adaptation (e.g., in some adaptive DE variants). The addition of a dampening factor based on the deviation is a minor variant.",
+        "The mathematical definition offers two alternatives: exponential smoothing with a weight based on w/(W+w), or a weighted mean with weights penalized by exp(-β*|CR_success - M_CR_old|). Both are variations of existing smoothing techniques. The first is essentially an exponential moving average, which is common. The second is a form of robust weighting.",
+        "The nearest_neighbor field correctly identifies standard SHADE weighted mean, but does not cite specific papers that use exponential smoothing for CR adaptation. However, exponential smoothing is a standard tool, and its application to DE memory is not novel.",
+        "The evidence shows CR drift to extremes, but the proposed dampening might slow adaptation, as acknowledged. The mechanism does not address why CR drifts (e.g., due to selection pressure), but rather smooths it out.",
+        "The falsification gate is based on reducing variance by 20% or improving median best fitness by 3% on at least two functions. This is a relatively weak threshold and might be met by chance."
+      ],
+      "specific_fixes": [
+        "Cite existing work that uses exponential smoothing for parameter adaptation in DE or other evolutionary algorithms. If none, argue why it is novel in this context.",
+        "Provide a theoretical analysis of why dampening the CR update reduces drift. For example, show that the positive feedback loop is broken.",
+        "Compare the proposed method to a simple clipping of M_CR to [0.1, 0.9], which is a hand-designed control. If clipping achieves similar results, the proposed method is not necessary.",
+        "Consider whether the dampening factor β is problem-dependent and how to set it. The current suggestion β=1.0 is arbitrary."
+      ],
+      "overall_assessment": "The candidate proposes a minor variant of existing smoothing techniques applied to CR memory. While the observable defect is real, the mechanism lacks sufficient novelty. The nearest-neighbor identification is accurate but the literature evidence level is only FULL in the sense that standard SHADE is known, but the proposed variant is not compared to existing smoothing methods. The candidate fails the novelty gate."
+    }
+  ],
+  "summary": "",
+  "source": "repaired"
+}
