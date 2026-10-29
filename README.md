@@ -26,4 +26,4 @@
 - [当前计划](planner/latest_plan.md)
 - [机器可读状态](status.json)
 
-当前研究状态（2026-10-29）：Phase-1A-18 已决定暂停当前 Agent×EC 方法发现路线。跟进的 EVOTOOL 源码与公开 replay 审计发现一个初步 blame-to-intervention mismatch 信号，但仅来自单次 Qwen3-4B BFCL demo run，尚不足以重启方法开发。下一步仅审计 LAOS/AOS/LLM4EO 等相关机制是否已覆盖该问题；不创建 Phase-1A-19 候选生成任务，不进行真实 API、MetaBox/AES 科学实验、GPU 或 held-out 测试。详见 [EVOTOOL 机制审计](docs/PHASE1A18_EVOTOOL_BLAME_ACTIONABILITY_AUDIT.md)、[当前计划](planner/latest_plan.md) 与 [机器可读状态](status.json)。
+当前研究状态（2026-10-29）：Phase-1A-18 的暂停决定仍然有效。根据补充的历史会话，下一步优先审计“外部工具/技能/专家 Agent 集合扩张后，旧任务为何停止调用原本必需的能力”这一具体问题。EvoHarnessBench 提供了可测量的 delegation-drift 证据，但 CPE、EVOTOOL、AEL、HarnessForge 等已有工作构成重要重叠，尚无新 EC 机制成立。EVOTOOL blame-to-intervention mismatch 保留为次要线索。当前只做机制级文献/源码审计；不创建 Phase-1A-19，不启动 API、MetaBox/AES 科学实验、GPU 或 held-out 测试。详见 [Harness 扩张与能力保持审计](docs/PHASE1A18_HARNESS_EXPANSION_RETENTION_AUDIT.md)、[EVOTOOL 次要线索](docs/PHASE1A18_EVOTOOL_BLAME_ACTIONABILITY_AUDIT.md)、[当前计划](planner/latest_plan.md) 与 [机器可读状态](status.json)。
