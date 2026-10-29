@@ -204,3 +204,43 @@ The broad idea “use behavior-aware evaluation and reject regressions” is now
 The remaining question is narrower: whether a distinct EC population-update or variation mechanism can address the specific loss of previously required specialist invocations under stage-wise external agent-pool expansion, beyond the existing HarnessLens acceptance gate, EVOTOOL's instance-wise winner-frequency selection, and standard multiobjective/quality-diversity/continual-learning baselines.
 
 No answer is claimed yet. The next action remains a read-only prior-art audit of evolutionary population methods and continual adaptation under changing specialist-agent sets. If the only viable proposal is an archive, regression gate, Pareto objective, or task-conditioned routing rule already covered by prior art, stop this route. No method, experiment, API call, or held-out access is authorized by this note.
+
+
+## 11. Expanded nearest-neighbor audit: retention, plasticity, and multi-objective evolution
+
+A targeted search after the HarnessLens code inspection found additional close prior work. This further narrows what can plausibly be claimed as novel.
+
+| Work | Evidence grade | Mechanism directly relevant here | Consequence |
+|---|---|---|---|
+| Pareto Continual Learning (AAAI 2025) | FULL publisher abstract; full mechanism not yet audited here | Formulates stability versus plasticity as multi-objective optimization and learns Pareto trade-offs | “Use Pareto optimization to balance retention and adaptation” is already covered in continual learning. https://doi.org/10.1609/aaai.v39i17.33981 |
+| Continual Evolution Strategies in Control Tasks (GECCO 2026 Companion; arXiv:2608.13600) | FULL paper text inspected | Sequential ES with replay evaluations on prior tasks; measures backward transfer, forward transfer, and interference; replay improves retention but large replay harms plasticity | Replay old tasks during EC search and report the retention/adaptation trade-off are not new mechanisms. The domain is continuous control, not Agent harnesses. https://arxiv.org/abs/2608.13600 |
+| Neuro-evolutionary Continual Reinforcement Learning (ICML 2026) | FULL publisher abstract; code link reported | Maintains task-specific mask populations, stores best masks, freezes activated neurons, reuses neurons by task similarity, and uses importance-guided crossover | Evolutionary preservation of old skills while adapting to new tasks is already studied in continual RL. The representation and domain differ from LLM Agent delegation. https://proceedings.mlr.press/v306/li26gb.html |
+| Multi-Objective Agent Evolution with Pareto-Preserving Search (MOAE; arXiv:2609.05992) | PARTIAL: abstract-level evidence from a surfaced paper record; full text not independently inspected | Evolves complete Agent rollouts while preserving non-dominated candidates over task performance, trajectory quality, and safety; uses objective-specific diagnostics and deployment-time constrained selection | “Use a Pareto archive for multi-objective Agent evolution” is already a direct neighboring claim. Full paper/code review is required before stronger comparison. https://arxiv.org/abs/2609.05992 |
+| HarnessLens (arXiv:2608.27311 + public code inspected) | PARTIAL-to-FULL for implementation structure; no independent reproduction | Behavior-relevant paired verification, attributable improvement/regression evidence, TRAIN-accepted incumbent provenance, and separate blind TEST path | “Add regression-aware verification and preserve an incumbent” is not new. |
+| EVOTOOL (ACL 2026) | FULL paper text inspected; no public implementation confirmed | Module-level blame, single-module targeted mutation, instance-wise winner-frequency population selection | “Keep diverse old-task specialists using instance-level winners” is not new. |
+
+### Updated ruling
+
+The following broad formulations are now explicitly rejected as standalone novelty:
+- retention + adaptation as two objectives;
+- replay of old tasks during evolutionary search;
+- a Pareto archive of Agent policies;
+- an archive of candidates that win on old task instances;
+- a regression gate or behavior-specific verification;
+- freezing old capabilities/genes/modules without a new mechanism;
+- task-similarity-based reuse of old policies as a generic idea.
+
+The empirical observation in EVOHARNESSBENCH remains a useful *problem setting*, but the obvious remedies are already occupied by continual learning, evolutionary continual learning, multi-objective Agent evolution, and HarnessLens. The current research signal therefore does not yet imply a viable EC contribution.
+
+## 12. What could still justify a genuine improvement?
+
+Only a narrower result can reopen the route: identify a concrete failure of a close existing method in the expanding-specialist setting, then demonstrate why a specific EC operator or survivor/parent-selection mechanism fixes that failure better than the close method itself.
+
+Potential diagnostic questions for the read-only audit—not algorithm proposals:
+1. Does EVOTOOL's single-module blame assignment misidentify a failure when the correct old specialist is no longer selected after a new specialist is added?
+2. Does its instance-wise winner-frequency selection retain a candidate that wins an isolated task but has fragile required-specialist coverage across later harness stages?
+3. Does HarnessLens's behavior-relevant paired verification explicitly model stage transitions and old/new specialist cohorts, or does it evaluate candidate edits within a fixed harness context?
+4. Do existing evolutionary continual-learning methods preserve a task-specific solution, but fail to preserve the *delegation structure* that made a multi-agent execution successful?
+5. Are any such failures actually caused by EC selection/variation, rather than the base LLM's routing behavior or the harness API?
+
+These are falsifiable questions to investigate in papers/code, not assertions that the methods fail. If source/code inspection does not reveal a concrete gap, close this route. Do not infer a novelty gap merely because two papers use different benchmarks or representations.
