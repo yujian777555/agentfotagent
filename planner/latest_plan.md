@@ -1,45 +1,45 @@
-# Latest Plan — Phase-1A-18 Follow-up Evidence Audit
+# Latest Plan — Phase-1A-18 Follow-up: Harness-Expansion Retention/Adaptation Audit
 
 - Date: 2026-10-29
 - Repository: yujian777555/agentfotagent
 - Branch: research/phase1a18-evotool-actionability-audit
-- Base commit: e01e3447dc57d99a28d62d7eb9537894d2cdc0e3
-- Status: PRELIMINARY_SOURCE_GROUNDED_LEAD; NOT_REOPENED; CURRENT_METHOD-DISCOVERY_ROUTE_PAUSED
+- Baseline before this follow-up: 0ef286f0ed0cc8803d6cabc7eb8eec0ff7e27859
+- Status: PRIMARY_SOURCE_GROUNDED_RESEARCH_LEAD; NOT_ADMITTED; PHASE1A18_PAUSE_REMAINS
 
 ## Fixed objective
 
-The long-term objective remains to find a genuinely useful LLM-empowered evolutionary-computation method and apply it to improve Agent task performance. EC must be methodologically central. MetaBox is infrastructure, not a contribution; the Agent Evolution Sandbox (AES) is the required project-owned target environment, but its existing mock pilot is not scientific evidence.
+Use LLM assistance to improve evolutionary computation, then apply a genuinely useful EC method to improve Agent task performance. EC must be methodologically central; MetaBox is infrastructure, not a contribution. The project-owned AES is a controlled target environment, not automatic scientific evidence.
 
-## Current evidence update
+## Priority update from the supplied historical session
 
-Phase-1A-18 paused speculative candidate generation after direct Agent-evolution, harness-evolution, typed-GP, and MetaBox-to-AES transfer candidates failed their novelty/evidence gates.
+The primary follow-up question is now **capability retention under externally expanding tool/skill/specialist-agent pools**. The secondary EVOTOOL lead remains the mismatch between blamed-module frequency and accepted mutation utility in one reference replay.
 
-A read-only follow-up audit of EVOTOOL's ACL 2026 paper, official implementation, and released replay data found a preliminary mismatch between blamed module frequency and mutation utility in one demo run:
+The source-level audit is in docs/PHASE1A18_HARNESS_EXPANSION_RETENTION_AUDIT.md. It records:
+- EvoHarnessBench's specific delegation-drift evidence;
+- direct overlap from Capability-Preserving Evolution (CPE), continual self-evolving agents, EVOTOOL, AEL, HarnessForge, and other current work;
+- a read-only audit showing the current AES does not yet implement staged external capability expansion or specialist-delegation traces;
+- the exact gate required before this can be considered an EC method contribution.
 
-- Caller: 53 proposals, 5 accepted (9.4%), no best-selection-score increase.
-- Planner: 29 proposals, 20 accepted (69.0%), all three best-selection-score increases.
-- Run: Qwen3-4B, BFCL demo subset, 90 train / 30 selection / 30 test instances, seed 42, 90 generations.
+## Current decision
 
-This is not independent replication, not proof that blame attribution is wrong, and not a novelty claim. Historical acceptance-rate scheduling overlaps established AOS/credit assignment, LAOS, and LLM4EO. See docs/PHASE1A18_EVOTOOL_BLAME_ACTIONABILITY_AUDIT.md.
-
-## Decision
-
-Keep PAUSE_CURRENT_AGENT_EC_METHOD_DISCOVERY_ROUTE. Do not create a Phase-1A-19 candidate-generation handoff. The only authorized follow-up is a narrow primary-source audit of LAOS/AOS/LLM4EO and causal/counterfactual credit assignment to decide whether the observed distinction is already known.
+LEAD_UNRESOLVED_MORE_PRIMARY_SOURCE_NEEDED. The problem is measurable and worth auditing, but no novel EC mechanism has been established. Do not reopen Phase-1A-19 and do not implement a new algorithm.
 
 ## Next task
 
-Use planner/phase1a18_evotool_audit_handoff.md. Initial retrieval of LAOS full text/code failed (ACM 403; no obvious official GitHub repository; accessible GECCO abstract only). Try an author/institutional copy; if unavailable, mark the equation-level comparison unresolved. Then compare the exact credit signal, target object, update equation, and evaluation protocol without guessing. If the only remaining idea is acceptance-rate scheduling, close it as already known/minor variant. If an uncovered mechanism survives, submit a separate protocol and budget request before any experiment.
+Use planner/phase1a18_harness_retention_handoff.md. Compare the exact mechanism and implementation of CPE, EVOTOOL, AEL, HarnessForge, and adjacent evolutionary/continual policy-search work. Record representation, update/variation, selection, retention signal, action-space assumptions, budget, and splits. Decide whether a precise mechanism gap survives.
+
+If only a standard retention objective, Pareto archive, or operator scheduler remains, close the lead as NO-GO. Only a specific uncovered mechanism may justify a development-only protocol; a separate budget/scope approval is required before any experiment.
 
 ## Hard limits
 
 - No live LLM API calls.
-- No MetaBox performance experiment.
-- No AES scientific run.
+- No MetaBox performance experiments.
+- No AES scientific runs.
 - No GPU job.
 - No held-out/test access.
-- No new algorithm implementation.
+- No new algorithm implementation or Phase-1A-19 handoff.
 - Do not modify other repositories.
 
-## Historical plan
+## Preserved prior plan
 
-The previous P0-R3 implementation plan is preserved at planner/phase0_p0_r3_historical_plan.md; the detailed Phase-0/Phase-1A audit trail remains in the linked decision and phase documents.
+The immediately preceding EVOTOOL-only plan is preserved at planner/phase1a18_evotool_audit_plan.md. The EVOTOOL replay audit and its original handoff remain available as a secondary lead.
