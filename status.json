@@ -3,9 +3,9 @@
   "repository": "https://github.com/yujian777555/agentfotagent",
   "default_branch": "main",
   "last_updated": "2026-10-28",
-  "baseline_commit": "5d945dcff84119cd02d31d794a5bad3993820069",
-  "current_phase": "Phase-1A-8 archive x boundary repair interaction",
-  "phase_status": "PHASE1A8_STARTED; PHASE1A7_NO_GO_NEW_MECHANISM; BRANCH phase1a-phase8-archive-boundary-interaction",
+  "baseline_commit": "354b7f9069dc9b244ce987f252702c8fb1f4bad7",
+  "current_phase": "Phase-1A-9 cross-family pivot audit",
+  "phase_status": "PHASE1A9_STARTED; PHASE1A8_NO_GO_INTERACTION; BRANCH phase1a-phase9-cross-family-pivot-audit",
   "research_direction": "Evolutionary computation remains the method core: validate Agent-assisted EC on MetaBox-v2, then apply the validated control mechanism to this repository own Agent Evolution Sandbox; cross-domain transfer and bidirectional feedback remain hypotheses",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
@@ -51,7 +51,8 @@
     "phase1a6_results": "36/36 runs FE exact; F20 benchmark_cost negative captured with regret=null; results/phase1a6/",
     "phase1a6_decision": "CONDITIONAL_GO infrastructure repaired; no new algorithm claim",
     "phase1a6_historical_review": "docs/PHASE1A6_HISTORICAL_EVIDENCE_REVIEW.md; 4R3/4R2/4R/5 classified as lshade_reimpl historical data only",
-    "phase1a7_decision": "NO_GO_NEW_MECHANISM; 5 candidates all MINOR_VARIANT/ALREADY_KNOWN; 6 diag patterns preserved"
+    "phase1a7_decision": "NO_GO_NEW_MECHANISM; 5 candidates all MINOR_VARIANT/ALREADY_KNOWN; 6 diag patterns preserved",
+    "phase1a8_decision": "NO_GO_INTERACTION; 100 runs; archive x boundary repair not consistent"
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
@@ -68,9 +69,11 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Phase-1A-8: archive x boundary repair interaction study (no LLM)",
-    "Stage A: 20 baseline runs with boundary-event logging + bitwise gate",
-    "Stage B: 2x2 factorial (archive on/off x clip/parent-midpoint) if signal sufficient"
+    "Phase-1A-9: cross-family pivot (CMA-ES, GA, non-DE) with 0 LLM",
+    "Stage A: literature audit per family",
+    "Stage B: baseline feasibility in MetaBox",
+    "Stage C: 4-gate candidate admission",
+    "Stage D: 9-run baseline reproduction if gates pass"
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
@@ -113,11 +116,12 @@
     "phase1a6_results": "docs/PHASE1A6_RESULTS.md",
     "phase1a6_decision": "docs/PHASE1A6_DECISION.md",
     "phase1a7_decision": "docs/PHASE1A7_DECISION.md",
-    "phase1a7_trace_audit": "docs/PHASE1A7_TRACE_AUDIT.md"
+    "phase1a7_trace_audit": "docs/PHASE1A7_TRACE_AUDIT.md",
+    "phase1a8_decision": "docs/PHASE1A8_DECISION.md"
   },
   "corrective_pass_commit": "1776e0f9f4cc606ae66eaeca20c833d72e3b7ab0",
   "current_reviewed_source_commit": "3e48bf5305ba667490358c140dad556f1ebf84e2",
-  "work_branch": "phase1a-phase8-archive-boundary-interaction",
+  "work_branch": "phase1a-phase9-cross-family-pivot-audit",
   "reviewed_r3_source": "cd07249a1b4675354b01f9d5ac09ab2ffe4d2033",
   "reviewed_r4_source": "3e48bf5305ba667490358c140dad556f1ebf84e2",
   "integration_branch": "phase0-r4-integration",
