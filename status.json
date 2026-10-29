@@ -152,14 +152,15 @@
       "EVOHARNESSBENCH delegation-drift observation: forgotten tasks more often stop invoking previously successful required specialists",
       "HarnessLens public source-code inspection confirms behavior-aware paired verification, attribution/regression review, and prior accepted incumbent evidence",
       "Read-only source-code inspection of HarnessLens: paired rollout/confirmation, attributable recovery/regression fields, TRAIN-accepted incumbent provenance, and separate blind-TEST entrypoints",
-      "Expanded prior-art search: Pareto Continual Learning (AAAI 2025), Continual Evolution Strategies in Control Tasks (2026), Nevo-CRL (ICML 2026), and MOAE (2026 preprint, abstract-level only)"
+      "Expanded prior-art search: Pareto Continual Learning (AAAI 2025), Continual Evolution Strategies in Control Tasks (2026), Nevo-CRL (ICML 2026), and MOAE (2026 preprint, abstract-level only)",
+      "Partial full-method comparison of MOAE from paper-readable mirror: per-query multi-objective policy evolution, objective-specific parents/diagnostics, non-dominated archive, 0.02 task-utility retention guard, deployment-time constrained selection; no public code confirmed"
     ],
-    "current_decision": "The generic retention/adaptation objective, replay, Pareto archive, old-instance winner archive, and regression-gating formulations are already covered by adjacent literature. A narrower EC-specific failure of existing methods under stage-wise specialist-agent-pool expansion remains UNRESOLVED; no method is admitted.",
+    "current_decision": "Generic multi-objective Agent evolution with Pareto archive is directly covered by MOAE; generic retention/replay/regression gates are covered by adjacent literature. Only a possible gap specific to stage-wise external specialist-pool transitions remains unresolved, and no method is admitted.",
     "next_steps": [
-      "Read-only inspect EVOTOOL selection/blame details against the specific old-specialist-omission failure",
-      "Read-only inspect HarnessLens task cohort selection and regression gate for any stage-transition limitation",
-      "Audit MOAE full text and related EC continual-learning papers before concluding",
-      "Return a source-grounded nearest-neighbor matrix and GO/NO-GO decision; no candidate-generation handoff"
+      "Audit whether EVOTOOL or MOAE has been evaluated under the exact stage-wise external specialist-pool expansion setting; distinguish missing evaluation from missing method",
+      "Inspect primary literature and code for methods that preserve delegation coverage under changing specialist rosters",
+      "If the closest methods already solve the failure, close this route; otherwise specify a concrete mechanism-level failure before proposing any repair",
+      "No candidate-generation handoff, implementation, API calls, scientific runs, GPU use, or held-out access"
     ],
     "prohibitions": [
       "No live LLM/API calls",
