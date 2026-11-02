@@ -2,11 +2,11 @@
   "project": "agentfotagent",
   "repository": "https://github.com/yujian777555/agentfotagent",
   "default_branch": "main",
-  "last_updated": "2026-10-29",
+  "last_updated": "2026-11-02",
   "baseline_commit": "e01e3447dc57d99a28d62d7eb9537894d2cdc0e3",
-  "current_phase": "Phase-1A-18 follow-up: harness-expansion retention/adaptation prior-art audit",
-  "phase_status": "PRIMARY_SOURCE_GROUNDED_RESEARCH_LEAD; NOT_ADMITTED; PHASE1A18_PAUSE_REMAINS; NO_API_OR_SCIENTIFIC_EXPERIMENT_AUTHORIZED",
-  "research_direction": "The supplied historical session prioritizes the measurable failure of previously successful Agent tasks after external tool/skill/specialist-agent pools expand. EvoHarnessBench reports delegation drift and missing previously required specialists; CPE and recent self-evolving-agent work create major overlap warnings. The exact EC-specific mechanism gap remains unproven. EVOTOOL blame-to-intervention mismatch remains a secondary single-run lead. Do not create Phase-1A-19 or start experiments.",
+  "current_phase": "Phase-1A-18 follow-up: continual multi-agent delegation prior-art audit",
+  "phase_status": "LEAD_NARROWED; EC_METHOD_GAP_UNRESOLVED; PHASE1A18_PAUSE_REMAINS; NO_API_OR_SCIENTIFIC_EXPERIMENT_AUTHORIZED",
+  "research_direction": "The primary target-domain problem is narrowed to continual, set-valued, graph-structured delegation under an externally expanding specialist-agent pool. EvoHarnessBench shows old successful tasks can lose required specialist invocations; EvoMAS covers graph evolution and cross-stage stability; CARvE covers continual single-expert routing over an expanding label space; MAS-Orchestra covers holistic RL orchestration; CPE, HarnessForge, MASQD, EVOTOOL, and AEL create additional overlap controls. No distinct EC mechanism has been established. The original H1/H2 source-to-target transfer objective remains unproven. Keep Phase-1A-18 paused.",
   "evidence_status": {
     "implementation": "R3/R4 AES source and tests merged to main via PR #2; merge commit 9e59401dd78f4be830c45634767bd3f65fb4b4ed; source candidate 3e48bf5305ba667490358c140dad556f1ebf84e2",
     "live_llm_api_experiments": "NOT_RUN",
@@ -71,7 +71,10 @@
     "phase1a18": "Completed docs/PHASE1A18_STRATEGIC_FEASIBILITY.md and docs/PHASE1A18_DECISION.md. Decision PAUSE_CURRENT_AGENT_EC_METHOD_DISCOVERY_ROUTE. No candidate survives. Reviewed ACL 2026 EVOTOOL and current preprints HarnessLens (arXiv:2608.27311), HarnessDev (arXiv:2609.01437), Evo-Bench (arXiv:2608.09096), Rethinking Harness Evolution (arXiv:2607.12227), and Code Evolution for Control (arXiv:2601.06845). No code/API/MetaBox/AES experiment/GPU/held-out access. No phase1a19 handoff created.",
     "phase1a18_evotool_audit": "Read-only audit of EVOTOOL ACL 2026 paper and official repo main@6a82719ea6e22cf23f963078e2527094e50b47f6. replay_data.js blob 977344677c2f9b3d9d99f14c20942bf5f91348ce; 90-generation Qwen3-4B BFCL demo subset (90/30/30, seed 42): Caller 53 proposals/5 accepted/0 best-selection-score increases; Planner 29/20/3. Preliminary single-run signal only; no independent replication, no project experiments, no API/GPU/held-out access. Simple acceptance-rate scheduling overlaps established AOS/LAOS/LLM4EO; exact module-level mechanism gap unresolved.",
     "phase1a18_harness_expansion_retention_audit": "Primary-source audit of EvoHarnessBench arXiv:2609.04280v3, CPE arXiv:2605.09315v1, Are Self-Evolving Agents Continual Learners? arXiv:2610.25858v1, and EMNLP 2026 papers AEL, HarnessForge, Harness Updating Is Not Harness Benefit, and Evo-Harness. Specific reported signal: delegation drift on forgotten tasks rises 13% to 25% without adaptation; previously required specialists are often no longer invoked. CPE explicitly leaves dynamic environments, multi-agent interaction, and expanding capability spaces as future work, but already covers general capability-preservation objectives. Lead remains unresolved, not a novelty claim.",
-    "aes_dynamic_harness_fit": "Read-only code audit: tool_world.py has a fixed ALL_TOOLS set; generators.py has key_crate/dial_set/relay_route (relay_route held-out only); genome schema has four genes for planning, memory, verification, and tool-selection. No staged external capability pool or specialist-delegation trace contract exists yet. No code changed and no experiment run."
+    "aes_dynamic_harness_fit": "Read-only code audit: tool_world.py has a fixed ALL_TOOLS set; generators.py has key_crate/dial_set/relay_route (relay_route held-out only); genome schema has four genes for planning, memory, verification, and tool-selection. No staged external capability pool or specialist-delegation trace contract exists yet. No code changed and no experiment run.",
+    "phase1a18_harness_expansion_retention_audit_round2": "Primary-source and official-code audit updated 2026-11-02. New direct competitors: EvoMAS (ICML 2026 graph workflow evolution, role specialization, dynamic strategy portfolio, cross-stage stability); MAS-Orchestra (ICML 2026 holistic RL orchestration of complete multi-agent graphs); CARvE/CMR (ICML 2026 class-incremental single-model routing over 2,000+ expanding model IDs with asymmetric old-ID anchoring, structured negatives and coreset replay); MASQD (multi-agent QD archive); Harness Updating Is Not Harness Benefit (activation/adherence distinction); HarnessForge (joint harness-policy evolution). Specific problem boundary is continual set-valued graph-structured delegation under external agent-pool expansion. The EC-specific method gap remains unresolved; pause remains.",
+    "evoharnessbench_metric_clarification": "13% to 25% delegation drift compares retained vs forgotten previously solved tasks in the no-adaptation condition; it is not a general before/after increase. Forgotten tasks more often stop invoking previously required specialists. Agent-axis deployment BWT reaches -34.7% on ALE. On EOG, required-agent recall rises 79% to 89% with adaptation while precision stays near 90%. Meta-Harness adaptation with cumulative pool 18.5%, task-specific exposure 19.4%, and final pool exposed from the beginning 20.3%, indicating pool-change trajectory matters.",
+    "original_transfer_objective": "H1/H2 remain unproven: no valid high-level EC control object has been shown to transfer from MetaBox numerical optimization to the new AES multi-agent delegation target. A target-only graph-evolution method cannot silently be claimed as validation of the original two-way Agent-for-Agent hypothesis."
   },
   "hypotheses": {
     "H1": "GENERIC_NOVELTY_CLAIM_REJECTED; RETAIN_ONLY_AS_SOURCE_DOMAIN_VALIDATION_GATE",
@@ -88,11 +91,11 @@
     "do_not_modify_predecessor_repositories": true
   },
   "next_actions": [
-    "Conduct a source-level mechanism comparison of CPE, EVOTOOL, AEL, HarnessForge, Harness Updating Is Not Harness Benefit, Evo-Harness, and adjacent evolutionary/continual policy-search work.",
-    "For each method, record target object, representation/genotype, update/variation rule, selection rule, retention signal, action-space assumptions, evaluation budget, and task split.",
-    "Determine whether a specific EC mechanism can address delegation-coverage drift under external capability expansion beyond standard retention objectives, Pareto archives, AOS, GP, and existing targeted mutation.",
-    "If no precise mechanism gap survives, close this lead as NO-GO and keep Phase-1A-18 paused.",
-    "No live LLM API, MetaBox/AES scientific run, GPU job, or held-out/test access without a separate explicit approval."
+    "Complete a mechanism-level matrix for EvoMAS, CARvE, MAS-Orchestra, MASQD, CPE, HarnessForge, EVOTOOL, AEL, and Meta-Harness: representation, update/variation, selection, retention signal, external-pool assumptions, metrics, and evaluation protocol.",
+    "Audit classical graph GP/EA, NSGA-II/III, MAP-Elites/QD, multi-task evolutionary optimization, and continual routing to determine whether change-aware per-cohort delegation coverage is already a standard combination.",
+    "Specify the only potentially defensible mechanism gap, if one survives: continual set-valued graph-structured delegation under externally expanding specialist pools, with explicit old-cohort coverage and new-cohort adaptation.",
+    "Check whether any such target-domain method can preserve the original H1/H2 requirement for an Agent-assisted EC control mechanism discovered on MetaBox and transferred to AES. If no valid transfer object exists, record the scope mismatch instead of silently changing the project.",
+    "Keep Phase-1A-18 paused. No Phase-1A-19, AES environment extension, live LLM API, MetaBox/AES experiment, GPU job, or held-out/test access without a separate explicit approval."
   ],
   "canonical_documents": {
     "project_charter": "docs/PROJECT_CHARTER.md",
