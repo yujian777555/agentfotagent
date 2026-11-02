@@ -53,3 +53,24 @@ Also verify project-objective compatibility: any target-domain result must still
 CARvE covers continual single-label expert routing, while multi-label class-incremental learning covers expanding multi-label sets and label-dependency graphs. Therefore, do not claim novelty from adding more specialist labels or predicting a multi-agent set. The remaining research question is whether the executable delegation graph (invocation, order, dependencies, information handoff, adherence) can be evolved continually as the external specialist pool changes.
 
 Required metrics: set prediction, actual invocation, graph execution, adherence, end-task success/cost, and per-cohort backward transfer. Selection baselines include CARvE and multi-label class-incremental learning; orchestration baselines include MAS-Orchestra and EvoMAS.
+
+
+## Round-4 evidence: recent RSI and compositional-search competitors
+
+Added direct controls:
+- MESH-Harness (arXiv:2610.05300): fixed-slot modular harness composition, full-covariance LinUCB, mixed-start coordinate ascent, trace-driven module edits, fixed-capacity role pools. Eviction uses mean observed reward across configurations containing a module.
+- EvoRouter (arXiv:2610.35690): joint model/skill/subtask/collaboration/agent-count/round configuration via insight distillation, OPD and cost-aware RL; official evaluation code pins five worker IDs.
+- RSI-Router (arXiv:2609.34712): subtask mining, model assignment evolution, model-specific skill evolution, Pareto router archive; reported model pair fixed.
+- SkillOrchestra (NeurIPS 2026): skill handbook and skill-conditioned sequential agent routing; pool configuration is editable but reported evaluations use fixed pools per setting.
+- CollabFlow (arXiv:2609.38662): collaboration graph, evidence-conditioned communication and reward-proportional team distribution.
+- Procedural Graphs, RRSI, and Mixture of Self-Improving Branches cover execution-graph evolution, regularized harness evolution, and branch-diverse search.
+
+## Narrow falsifiable hypothesis (not a method claim)
+
+Under external specialist-pool expansion, global-average module retention and aggregate cross-stage fitness may suppress modules/subgraphs that are essential to a minority of old task cohorts. A cohort-conditioned, execution-aware evolutionary retention/variation rule may preserve these old delegation subgraphs while adding new specialist branches.
+
+This hypothesis is not admitted as an innovation. It may collapse to MESH-Harness plus a standard QD/GP archive, CPE-style anchors, or per-cohort constrained selection. Before any code, identify a counterexample task family where global-average eviction actually causes old-cohort delegation loss. If MESH-Harness or standard QD/GP does not fail, close the hypothesis.
+
+## Original H1/H2 gate remains
+
+No target-only harness method proves Agent-assisted EC discovery on MetaBox or transfer of that high-level controller to AES. Keep the source-to-target transfer requirement explicit.
