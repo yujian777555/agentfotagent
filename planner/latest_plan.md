@@ -46,3 +46,10 @@ Also verify project-objective compatibility: any target-domain result must still
 - No held-out/test access.
 - No new algorithm implementation or Phase-1A-19 handoff.
 - Do not modify other repositories.
+
+
+## Round-3 correction: selection is not the remaining gap
+
+CARvE covers continual single-label expert routing, while multi-label class-incremental learning covers expanding multi-label sets and label-dependency graphs. Therefore, do not claim novelty from adding more specialist labels or predicting a multi-agent set. The remaining research question is whether the executable delegation graph (invocation, order, dependencies, information handoff, adherence) can be evolved continually as the external specialist pool changes.
+
+Required metrics: set prediction, actual invocation, graph execution, adherence, end-task success/cost, and per-cohort backward transfer. Selection baselines include CARvE and multi-label class-incremental learning; orchestration baselines include MAS-Orchestra and EvoMAS.
