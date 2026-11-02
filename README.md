@@ -26,4 +26,4 @@
 - [当前计划](planner/latest_plan.md)
 - [机器可读状态](status.json)
 
-当前研究状态（2026-11-02）：Phase-1A-18 暂停决定继续有效。研究问题已进一步收窄为“外部专家 Agent 集合扩张下的持续、多标签、图结构委派保持”。EvoHarnessBench 给出旧任务委派漂移证据；但 EvoMAS、MAS-Orchestra、CARvE、MASQD、CPE、HarnessForge、EVOTOOL、AEL 等工作已覆盖大量相邻机制。当前尚未确认独特的 EC 更新/变异/选择机制，原始 H1/H2（MetaBox 源域到 AES 目标域的 Agent 辅助 EC 控制迁移）也尚未成立。继续做机制级文献/源码审计，不创建 Phase-1A-19，不扩展 AES，不启动 API、MetaBox/AES 科学实验、GPU 或 held-out 测试。详见 [持续多 Agent 委派审计](docs/PHASE1A18_HARNESS_EXPANSION_RETENTION_AUDIT.md)、[EVOTOOL 次要线索](docs/PHASE1A18_EVOTOOL_BLAME_ACTIONABILITY_AUDIT.md)、[当前计划](planner/latest_plan.md) 与 [机器可读状态](status.json)。
+当前研究状态（2026-11-02）：Phase-1A-18 暂停决定继续有效。研究问题已进一步收窄为“外部专家 Agent 集合扩张下的持续委派执行图的适应、调用与遵循”。EvoHarnessBench 给出旧任务委派漂移证据；但 EvoMAS、MAS-Orchestra、CARvE、多标签持续学习、MASQD、CPE、HarnessForge、EVOTOOL、AEL 等工作已覆盖大量相邻机制。当前尚未确认独特的 EC 更新/变异/选择机制，原始 H1/H2（MetaBox 源域到 AES 目标域的 Agent 辅助 EC 控制迁移）也尚未成立。继续做机制级文献/源码审计，不创建 Phase-1A-19，不扩展 AES，不启动 API、MetaBox/AES 科学实验、GPU 或 held-out 测试。详见 [持续多 Agent 委派审计](docs/PHASE1A18_HARNESS_EXPANSION_RETENTION_AUDIT.md)、[EVOTOOL 次要线索](docs/PHASE1A18_EVOTOOL_BLAME_ACTIONABILITY_AUDIT.md)、[当前计划](planner/latest_plan.md) 与 [机器可读状态](status.json)。
