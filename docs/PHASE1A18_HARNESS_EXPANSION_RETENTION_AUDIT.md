@@ -281,3 +281,63 @@ Next action: complete the mechanism matrix against these exact methods and class
 - No held-out/test access.
 - No new algorithm implementation or Phase-1A-19 candidate-generation handoff.
 - Do not modify openissue, EvoPareto-Agent, or any other repository.
+
+
+---
+
+# Audit Round 3 — Multi-Label Continual Learning Closes the Selection-Only Gap
+
+- Date: 2026-11-02
+- Status: **SELECTION_SUBPROBLEM_ALREADY_COVERED; EXECUTION_GRAPH_GAP_STILL_UNRESOLVED**
+- Scope: source-level adjacent-literature audit only. No implementation or experiment.
+
+## 14. Multi-label continual learning is a direct control for specialist-set selection
+
+The target task may require a set of specialists, not one model ID. Therefore, CARvE's single-label query-to-model routing is not the only relevant baseline. The broader multi-label class-incremental learning literature must also be considered.
+
+### 14.1 Negative-weighted knowledge distillation regularized GCN for multi-label class-incremental learning
+
+Du, K., Xie, J., Lyu, F., Zhou, Y., Ye, Z., Li, W., Li, Y., & Liu, G. (2026). *Negative-weighted knowledge distillation regularized graph convolutional network for multi-label class-incremental learning*. Pattern Recognition, DOI: 10.1016/j.patcog.2026.113657.
+
+The indexed publisher record describes a multi-label class-incremental setting, asymmetric label absence, a dynamically built graph of cross-task label relationships, and negative-weighted knowledge distillation to reduce false positives and forgetting. The publisher page returned access denial in this audit, so the detailed method has not been independently inspected. Treat this as a verified adjacent publication/abstract, not as a code-level mechanism audit.
+
+This work means that the following claims are not novel by themselves:
+- a growing set of specialist labels;
+- multi-label prediction under incremental label arrival;
+- graph-based modeling of label dependencies;
+- distillation/regularization to retain old label knowledge.
+
+### 14.2 Online Continual Learning on Hierarchical Label Expansion
+
+Lee, B. H., Jung, O., Choi, J., & Chun, S. Y. (2023). *Online Continual Learning on Hierarchical Label Expansion*. ICCV 2023, pp. 11761–11770. https://openaccess.thecvf.com/content/ICCV2023/html/Lee_Online_Continual_Learning_on_Hierarchical_Label_Expansion_ICCV_2023_paper.html
+
+This work studies labels that become progressively more fine-grained across stages and uses hierarchy-aware pseudo-labeling and rehearsal-based memory management. It is not a specialist-agent orchestration method, but it is a relevant control for hierarchical capability taxonomies and incremental label expansion.
+
+### 14.3 Consequence for the research boundary
+
+The selection-only part of the proposed setting is now covered by continual single-label routing (CARvE) and multi-label class-incremental learning. A claim about a new multi-label selector, expanding label vocabulary, or label-correlation graph would be weak without a distinct mechanism beyond those methods.
+
+The remaining question is narrower:
+
+> After a task-conditioned set of required specialists has been identified, can the system preserve and adapt the executable delegation graph—invocation order, dependencies, information handoff, retries/verification and aggregation—when the externally available specialist pool changes over time?
+
+This is an execution/orchestration problem, not merely a multi-label classification problem.
+
+## 15. Updated admission gate
+
+A future EC proposal must distinguish and separately measure:
+
+1. **Set prediction:** precision/recall/exact coverage of the required specialist set.
+2. **Invocation:** whether every required specialist is actually called.
+3. **Graph execution:** whether dependencies, order, parallelism and information handoff are correct.
+4. **Adherence:** whether the invoked specialists follow the assigned goals and use their tools as intended.
+5. **End-task outcome:** verified success, cost and latency.
+6. **Continual retention:** per-cohort backward transfer after each external pool change, not just final aggregate score.
+
+The selection component must be compared with CARvE and multi-label class-incremental learning baselines. The orchestration component must be compared with MAS-Orchestra and EvoMAS. The full system must be compared with HarnessForge, CPE, EVOTOOL, graph GP/EA and MAP-Elites/QD.
+
+A generic combination of a multi-label selector and a graph orchestrator is not an EC contribution. The EC mechanism must improve the continual evolution of executable delegation graphs beyond these components under matched evaluation feedback and budget.
+
+## 16. Round-3 decision
+
+**Decision: SELECTION_SUBPROBLEM_ALREADY_COVERED; EXECUTION_GRAPH_GAP_STILL_UNRESOLVED; KEEP_PAUSE. The problem is now narrower: not specialist-set prediction, but continual execution-graph adaptation and invocation/adherence under external specialist-pool changes. Even this is not yet a method novelty claim because EvoMAS, MAS-Orchestra, HarnessForge, CPE and classical graph/QD search remain close controls. No implementation, AES extension, Phase-1A-19 or experiment is authorized.
