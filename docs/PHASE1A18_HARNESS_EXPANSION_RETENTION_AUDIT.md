@@ -341,3 +341,87 @@ A generic combination of a multi-label selector and a graph orchestrator is not 
 ## 16. Round-3 decision
 
 **Decision: SELECTION_SUBPROBLEM_ALREADY_COVERED; EXECUTION_GRAPH_GAP_STILL_UNRESOLVED; KEEP_PAUSE. The problem is now narrower: not specialist-set prediction, but continual execution-graph adaptation and invocation/adherence under external specialist-pool changes. Even this is not yet a method novelty claim because EvoMAS, MAS-Orchestra, HarnessForge, CPE and classical graph/QD search remain close controls. No implementation, AES extension, Phase-1A-19 or experiment is authorized.
+
+
+---
+
+# Audit Round 4 — New RSI, Harness-Composition, and Collaboration Methods
+
+- Date: 2026-11-02
+- Status: **METHOD_OVERLAP_INCREASED; NARROW_HYPOTHESIS_ONLY; KEEP_PAUSE**
+- Scope: primary paper text and official-code inspection where available. No agentfotagent implementation or experiment.
+
+## 17. MESH-Harness — a direct compositional-search baseline and a precise retention weakness to test
+
+Shang, Z., Huo, Y., Gong, M., Yan, A., Qu, Z., Dong, J., Low, B. K. H., Wu, C., & Dai, Z. (2026). *MESH-Harness: Self-Improving Agent Harnesses via Bandit-Guided Compositional Evolution*. arXiv:2610.05300v1, https://arxiv.org/abs/2610.05300.
+
+The paper assumes a fixed execution model and tool set. It divides a harness into functional slots with fixed interfaces, maintains a candidate pool for each slot, uses full-covariance LinUCB to score complete module combinations, and applies mixed-start coordinate ascent. Execution traces periodically guide local edits; new module implementations enter fixed-capacity role-specific pools.
+
+A critical detail is its eviction rule: among eligible candidates, it removes the module with the lowest retention value, defined as the mean observed reward of configurations containing that module. The incumbent implementation and newly inserted child are protected during the update; historical implementations and lineage records are archived. The acquisition also includes an underused-module bonus and a recent-lineage penalty.
+
+This is a strong algorithmic baseline, but its published objective/eviction description does not establish per-task-cohort preservation of a rare module that is essential to one old cohort but has low global mean reward. That is a falsifiable weakness to test, not an established failure. It also does not model an externally expanding specialist-agent pool in the reported setting.
+
+No official source-code repository was located in this pass; the full arXiv HTML was inspected. The paper is a preprint under ICLR 2027 review, not a published conference result.
+
+## 18. EvoRouter — joint MAS configuration is already optimized end-to-end
+
+Xiao, Y., Zhang, X., Cheng, Y., Guo, S., Sun, Y., Zhu, Z., Xie, S., Tong, G., & Luo, H. (2026). *EvoRouter: Cost-Efficient Multi-Agent Routing via Insight-Guided On-Policy Distillation*. arXiv:2610.35690v1, 2026-10-26. https://arxiv.org/abs/2610.35690
+
+EvoRouter jointly configures model backbones, collaboration modes, agent counts, interaction rounds, skills, and subtask assignments. An LLM insight expert distills conditional performance/cost rules from trajectories; the router is trained through SFT, privileged on-policy distillation, and cost-aware group-relative RL. It is a strong non-EC baseline for joint multi-agent configuration.
+
+Read-only inspection of the official repository (https://github.com/CenYangtze/EvoRouter) confirms that the released evaluation profile pins five worker model IDs and rejects a model pool that differs from the released profile. Therefore the paper covers broad joint configuration over a fixed worker pool, not continual external worker-pool expansion with old-cohort retention. Repository HEAD at inspection: 4d78c03a18a220c9f4a9b8a1d03e96b9a4c2f6e1; relevant runtime file: evorouter/coordinator.py, blob SHA 8c578f0e2049c179546314c178a0cfb1446a8539.
+
+## 19. RSI-Router — subtask-level model/skill evolution and Pareto experience archive
+
+Li, H., Zhang, H., Cui, Z., Mu, C., Zhang, Y., Zhang, B., Jia, D., & Hu, S. (2026). *RSI-Router: Evolving Subtask-Level LLM Routing and Skills for Cost-Efficient Agents*. arXiv:2609.34712v1, 2026-09-28. https://arxiv.org/abs/2609.34712
+
+The paper describes a four-stage recursive loop: subtask mining, routing-strategy evolution, model-specific skill evolution, and Pareto-optimal router selection. Dominated routers are retained as experience for subsequent evolution. Its reported main configuration routes between DeepSeek-V4.1-Flash and Qwen3.5-9B, so the demonstrated setting uses a fixed pair of model backbones rather than an expanding external specialist pool. No official GitHub source repository was found in this pass; method details here are based on the paper abstract and the independent PREreview summary, not code inspection.
+
+This work blocks generic claims about evolving subtask-level model assignments, model-specific skills, and a Pareto router archive.
+
+## 20. SkillOrchestra — skill-aware sequential agent routing and transferable handbooks
+
+Wang, J., Ming, Y., Ke, Z., Joty, S., Albarghouthi, A., & Sala, F. (2026). *SkillOrchestra: Learning to Route Agents via Skill Transfer*. NeurIPS 2026. https://arxiv.org/abs/2602.19672; official code: https://github.com/jiayuww/SkillOrchestra.
+
+The method learns a versioned skill handbook, skill-specific agent profiles, competence/cost estimates, and mode transitions. At each step it selects a skill/mode and routes that step to one agent. The paper claims transferability across updated model pools; the official code exposes pool configuration that can add or remove models.
+
+However, the inspected appendix says the model pool is fixed within each evaluation setting. The experiments do not establish a staged external-pool expansion protocol with per-cohort backward transfer. The execution pattern is sequential mode/agent selection, not an arbitrary multi-agent communication graph with simultaneous specialist-set execution. SkillOrchestra is a strong baseline for skill-conditioned invocation and sequential routing, not proof that continual graph orchestration under external pool changes is solved.
+
+## 21. CollabFlow — collaboration graphs, communication protocols, and team diversity
+
+Huang, X., Zhang, M., Zhang, J., Huang, Q., Zhang, H., Dai, Y., Wang, Z., & Tang, X. (2026). *CollabFlow: Recursive Self-Improvement of Agent Collaboration*. arXiv:2609.38662, 2026-09-29. https://arxiv.org/abs/2609.38662.
+
+CollabFlow trains a Collab-Director to construct teams of complete Agents. Collaboration-graph edges carry Evidence-Conditioned Communication protocols, and Collaborative Trajectory Balance (CTB) targets a reward-proportional distribution over teams while crediting each team across construction orders. It directly covers collaboration topology, communication protocol learning, and maintaining several good teams across rounds. It is therefore a strong non-EC baseline and overlap control for graph/team diversity.
+
+The abstract does not establish evaluation under externally expanding specialist-agent pools or per-cohort retention after such pool changes. Code is linked through an anonymous 4open.science repository and was not independently inspected.
+
+## 22. Additional graph and regularization controls
+
+- Lu, Y., Chen, Y., Wu, S., & Arık, S. Ö. (2026). *Procedural Graphs: Self-Evolving Execution Structures for LLM Agents*. arXiv:2609.09153. https://arxiv.org/abs/2609.09153. A single-agent procedural graph encodes what to do, in what order and under what conditions; an LLM refiner edits graph topology/attributes from successful and failed trajectories, with validation-gated commits. It blocks generic claims about evolving execution graphs, but does not study multi-agent pool expansion.
+- Xia, P., Han, R., Wang, Z., et al. (2026). *RRSI: Regularized Recursive Self-Improvement of Agent Harnesses*. arXiv:2609.24972. https://arxiv.org/abs/2609.24972; official code https://github.com/google-research/rrsi. It uses annealed edit budgets, history-conditioned exploration, a critic and a pruner to reduce benchmark overfitting and preserve reusable harness mechanisms. It blocks generic regularized-harness-evolution claims, but does not establish external specialist-pool retention.
+- Dong, H., Zhou, Y., Lin, Z., et al. (2026). *Mixture of Self-Improving Branches For Agent Harness Optimization*. arXiv:2609.37834. https://arxiv.org/abs/2609.37834. It evolves branch-specific development subsets and proposal policies, then routes inputs to development-selected branch heads. It blocks generic multi-branch/diverse-search claims; its reported setting is harness specialization rather than continual external agent-pool expansion. No official source repository was located in this pass.
+
+## 23. Updated candidate mechanism hypothesis
+
+The most specific remaining hypothesis is now:
+
+> Under external specialist-pool expansion, global-average module retention and aggregate cross-stage fitness may discard or suppress a module/subgraph that is essential to a minority of previously solved task cohorts. A cohort-conditioned, execution-aware evolutionary retention/variation rule may preserve required delegation subgraphs while adding new specialist branches.
+
+This is only a hypothesis. It must be tested against:
+- MESH-Harness global module-retention value, coverage bonus, lineage penalty and fixed-capacity pools;
+- EvoMAS cumulative cross-stage fitness and role-level graph evolution;
+- CollabFlow's team distribution and communication-graph learning;
+- SkillOrchestra's skill-conditioned agent profiles and mode routing;
+- EvoRouter and MAS-Orchestra joint MAS configuration/orchestration;
+- CARvE and multi-label class-incremental learning for selection;
+- CPE, HarnessForge, EVOTOOL, RRSI, and standard graph GP/EA plus MAP-Elites/QD.
+
+The decisive diagnostic is not aggregate score alone. For each old task cohort, record whether its required specialist set is still invoked and whether the executable graph completes the required dependencies and handoffs. A method that improves average performance while dropping a previously solved cohort is not accepted as a retention improvement.
+
+A possible mechanism sketch is a cohort-conditioned protected subgraph archive with change-aware graph variation and eviction. But this is not a novelty claim: QD, constrained GP, CPE-style anchors, and multiobjective selection may already reproduce the effect. The next audit must decide whether the mechanism is more than a standard combination.
+
+## 24. Decision after Round 4
+
+**Decision: KEEP_PAUSE; CANDIDATE_HYPOTHESIS_ONLY; METHOD_GAP_UNRESOLVED. The direct competition is now substantial. MESH-Harness covers compositional module evolution; EvoRouter and RSI-Router cover joint/subtask routing and skills; SkillOrchestra covers skill-conditioned sequential agent routing and updated-pool configuration; CollabFlow covers collaboration graphs and team diversity; Procedural Graphs covers self-evolving execution graphs; RRSI covers regularized harness evolution. The possible cohort-conditioned retention weakness in global-average module eviction is testable but not yet demonstrated and may be covered by QD/continual-learning methods.
+
+No Phase-1A-19, AES extension, algorithm implementation, API call, MetaBox/AES experiment, GPU job, or held-out access is authorized.
