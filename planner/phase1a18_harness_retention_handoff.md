@@ -68,3 +68,10 @@ The original project is not merely “apply an EA to an Agent.” H1 requires Ag
 - No held-out/test access.
 - No new algorithm implementation or Phase-1A-19 handoff.
 - Do not modify other repositories.
+
+
+## Round-3 clarification
+
+Multi-label continual learning already covers expanding specialist-label sets and label-dependency graphs (including Du et al., Pattern Recognition 2026, DOI 10.1016/j.patcog.2026.113657; publisher full text not accessible in the audit) and hierarchical label expansion (Lee et al., ICCV 2023). Do not claim novelty from multi-label selection alone.
+
+The remaining possible gap is continual execution-graph adaptation under external agent-pool changes: actual invocation, dependency order, information handoff, adherence and end-task outcome. These must be distinguished from the predicted specialist set. Compare against CARvE/MLCIL on selection and EvoMAS/MAS-Orchestra on orchestration. No method claim or experiment is authorized.
