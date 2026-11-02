@@ -137,3 +137,147 @@ Next action: conduct a source-level mechanism comparison, including official cod
 - No held-out/test access.
 - No new algorithm implementation or Phase-1A-19 candidate-generation handoff.
 - Do not modify openissue, EvoPareto-Agent, or any other repository.
+
+---
+
+# Audit Round 2 — Direct Prior Art for Continual Multi-Agent Delegation
+
+- Date: 2026-11-02
+- Status: **LEAD_NARROWED; METHOD_GAP_UNRESOLVED; PHASE1A18_PAUSE_REMAINS**
+- Scope: publisher/preprint paper inspection plus read-only inspection of official source repositories where available. No code in agentfotagent was changed; no experiment, live API, MetaBox/AES run, GPU job, or held-out access occurred.
+
+## 8. Correction and precise reading of the benchmark evidence
+
+The 13% to 25% delegation-drift comparison in EvoHarnessBench is **not** a general before/after increase caused by adaptation. It compares previously solved tasks that remain retained with those that become forgotten, under the no-adaptation condition: forgotten tasks show more delegation drift (25%) than retained tasks (13%). The paper further says that the drift is mainly explained by previously required specialists no longer being invoked, not simply by newly added irrelevant agents being invoked.
+
+Additional agent-axis evidence from the same paper:
+
+- Under cumulative agent-pool deployment, Codex moves from 6.5% to 8.8% pass rate on EOG, but from 5.3% to 4.2% on ALE. Pool expansion is environment-dependent.
+- On ALE, deployment backward transfer reaches -34.7%, the largest harness-induced forgetting reported across the tool, skill, and agent axes.
+- On EOG, required-agent precision remains around 90%, while required-agent recall improves from 79% without adaptation to as high as 89%. This points to delegation completeness rather than simply choosing more relevant agents.
+- For Meta-Harness on EOG, cumulative adaptation scores 18.5%; task-specific agent exposure scores 19.4%; exposing the final pool from the beginning, with no staged pool change during adaptation, scores 20.3%. The paper interprets the sequence of pool changes—not just pool size—as a source of difficulty.
+- The paper explicitly proposes bi-level adaptation as future work: inner updates adapt persistent state, while an outer objective evaluates whether updates remain effective across harness stages.
+
+Source: Ke et al. (2026), EvoHarnessBench, Sections 4.3–5, Table 6–8 and Figure 6–8, arXiv:2609.04280v3, https://arxiv.org/abs/2609.04280.
+
+## 9. New direct and adjacent competitors
+
+### 9.1 EvoMAS — graph evolution, role specialization, and cross-stage stability
+
+Wei, Y., Huang, Z., Xu, R., Wang, H., & Xing, W. W. (2026). *EvoMAS: Heuristics in the Loop—Evolving Smarter Agentic Workflows*. Proceedings of the 43rd International Conference on Machine Learning, PMLR 306, 133736–133763. https://proceedings.mlr.press/v306/wei26m.html
+
+The published ICML abstract confirms three highly overlapping components: a seven-strategy evolutionary repertoire (six exploration/exploitation strategies plus a custom strategy), role-level evolution of agent specialization and collaboration, and curriculum-guided evolution with cross-stage stability.
+
+The accessible full-text submission version formalizes a workflow as a directed graph and describes diversity expansion, conceptual recombination, cross-domain hybridization, fine optimization, best-practice synthesis, and role specialization. It also describes a Cyber Creator that revises rules and strategy distributions from evolutionary history. Its cross-stage stability constraint uses cumulative average performance over all difficulty stages. This is a direct overlap warning:
+
+- Generic graph-based evolution of multi-agent workflows is already covered.
+- Generic role specialization and dynamic operator selection are already covered.
+- Generic curriculum-based retention across earlier task stages is already covered.
+- A new proposal cannot claim these mechanisms as its contribution merely by applying them to another Agent benchmark.
+
+Important boundary: the published abstract and the accessible full-text submission version are not the same artifact. Detailed formula-level claims in this audit are attributed to the accessible submission text; they must be checked against the final PMLR PDF before being quoted as final-version details. A stable official source-code repository was not independently verified in this pass.
+
+### 9.2 MAS-Orchestra — holistic multi-agent graph orchestration through RL
+
+Ke, Z., Ming, Y., Xu, A., Chin, R., Nguyen, X.-P., Jwalapuram, P., Wang, J., Yavuz, S., Xiong, C., & Joty, S. (2026). *MAS-Orchestra: Understanding and Improving Multi-Agent Reasoning Through Holistic Orchestration and Controlled Benchmarks*. ICML 2026, PMLR 306, 56527–56570. https://proceedings.mlr.press/v306/ke26c.html
+
+The method casts orchestration as function-calling RL. The orchestrator creates a complete multi-agent orchestration in one decision, using callable goal-oriented subagents and a task-level reward. The paper uses GRPO and introduces MASBENCH with Depth, Horizon, Breadth, Parallel, and Robustness axes. Official code: https://github.com/SalesforceAIResearch/MAS-Orchestra (repository HEAD inspected: 0527c70a508eb49ed42d5dd49a91ea857551e242).
+
+This is a strong non-EC baseline for selecting multiple specialists and constructing their communication/dependency topology. Its reported benchmark is not a continual external-pool expansion protocol and does not establish retention of previously successful delegation sets across successive agent-pool versions.
+
+### 9.3 CARvE / Continual Model Routing — direct overlap on an expanding expert label space
+
+Bell, J., Carfi’, G., Gramaglia, G., & Lomonaco, V. (2026). *Continual Model Routing in Evolving Model Hubs*. ICML 2026, PMLR 306, 7412–7453. https://proceedings.mlr.press/v306/bell26a.html
+
+CARvE is the strongest newly identified adjacent method for the pool-expansion aspect. It treats routing as class-incremental learning over a growing set of model IDs and introduces CMRBench with four sequential experiences and over 2,000 candidate models. Its method uses:
+
+- a prompt encoder and learned model-ID embedding registry;
+- fixed-size candidate-set contrastive training;
+- hard, semantic, and far negative sampling;
+- domain–model coreset replay;
+- checkpoint anchoring of previously seen model-ID embeddings and the projection, while newly added IDs remain unanchored.
+
+With 10% replay, the paper reports 80.7% domain accuracy and 5.9% forgetting versus 75.9% and 13.1% for standard replay. Official code: https://github.com/atlas-luiss/CMR (HEAD 712e77b31d254918d38b5c126ba7d793b841d20b). Static code inspection confirmed the router embedding registry, candidate sampling, hard-negative mining, and old-ID/projection anchor implementation; relevant blobs include router.py (8cc15bf...), router_regularizers.py (79dc750...), and hard_mining.py (caf7be8...).
+
+Boundary: CARvE predicts one model ID for a query. It does not construct a set of multiple required specialists, an ordered delegation plan, or an inter-agent graph, and it does not measure end-to-end success after the selected experts interact. It is nevertheless a mandatory continual-routing baseline; an evolutionary method must outperform or complement this mechanism in the genuinely multi-agent setting, not ignore it.
+
+### 9.4 MASQD — multi-agent quality-diversity as a required EC baseline
+
+Iyer, S., Aydeniz, A. A., et al. (2026). *Multiagent Quality-Diversity for Effective Adaptation*. ECAI 2025 proceedings, first published online 2026-08-25. https://doi.org/10.3233/FAIA251201
+
+MASQD builds an archive of diverse, high-performing multi-agent teams using CEM-RL, a team-level policy representation, archive-anchored exploration, and a descriptor-conditioned critic. It evaluates multi-agent MuJoCo teams under environmental perturbations. This is not an LLM specialist-pool benchmark and does not address temporal agent-pool growth, but it blocks any superficial claim that an archive of diverse multi-agent solutions is itself new. Its behavior-descriptor design and QD metrics should be considered in future baseline design.
+
+### 9.5 Harness Updating Is Not Harness Benefit — activation and adherence are separate from update quality
+
+Lin, M., Wu, J., Wang, Z., et al. (2026). *Harness Updating Is Not Harness Benefit: Disentangling Evolution Capabilities in Self-Evolving LLM Agents*. EMNLP 2026, pp. 52829–52852. https://aclanthology.org/2026.emnlp-main.2326/
+
+This paper separates the ability to write useful harness updates from the ability of the task-solving model to benefit from them. It identifies harness-activation failure (relevant artifacts are not invoked) and harness-adherence failure (artifacts are loaded but not followed). Its protocol keeps the model backbone, tool interfaces, and execution policies fixed; evolvable components are skills, prompts, and memories depending on the benchmark. It therefore does not solve external specialist-pool expansion, but it reinforces a necessary evaluation rule: score actual invocation and use, not only the quality of the proposed update or the router's nominal selection.
+
+### 9.6 HarnessForge — confirmed joint harness-policy evolution
+
+Chen et al. (2026). *HarnessForge: Joint Harness and Policy Evolution for Adaptive Agent Systems*. EMNLP 2026. Paper: https://aclanthology.org/2026.emnlp-main.1893/; official code: https://github.com/mingju-c/HarnessForge (HEAD 8bef9488c35a21ef510a6f069476305025ba5519).
+
+Read-only inspection of the official README confirms a three-stage harness-tailoring pipeline: module localization from trajectories, archive-guided improvement-direction generation, and candidate harness generation, followed by validation and Pareto-style survivor filtering. A separate policy-alignment loop turns successful rollouts into SFT data. This blocks generic claims about jointly evolving harness structure and task-solving policy. The inspected protocol does not establish per-cohort retention of required specialist sets under a temporally changing external agent pool.
+
+### 9.7 AEL — adaptive policy arms do not equal an evolving specialist pool
+
+Xu et al. (2026). *AEL: Evolving Agent Harness in Open-Ended Environments*. Findings of EMNLP 2026. https://aclanthology.org/2026.findings-emnlp.1316/
+
+The paper's default setting keeps the planner, 12-tool set, and tool implementations fixed, while using Thompson Sampling over memory-retrieval policies and slower LLM reflection to add policy arms. Optional planner LinUCB and per-tool Thompson Sampling are disabled in the default configuration because they degrade results in the short-horizon setting. Thus AEL is a relevant policy-adaptation baseline, not direct evidence that continual multi-agent delegation under an expanding specialist pool is solved.
+
+### 9.8 CPE and EVOTOOL remain major overlap controls
+
+CPE already addresses old/new capability retention in workflow, skill/tool, model, and memory evolution. Its skill/tool experiment uses a bounded 30-skill bank, top-5 retrieval, and sequential domains; its limitations explicitly identify dynamic environments, multi-agent interaction, and continuously expanding capability spaces as future work. It blocks a generic retention-regularizer claim.
+
+EVOTOOL already provides modular tool-use policy evolution with trajectory-grounded blame, targeted mutation, and diversity-aware selection. It blocks generic blame-aware or module-targeted mutation claims. Its existing single-run blame-to-intervention anomaly remains secondary and does not replace the present primary problem.
+
+## 10. Narrowed problem boundary
+
+The defensible problem boundary is now more precise than general capability retention:
+
+> **Continual, set-valued, graph-structured delegation under an externally expanding specialist-agent pool:** as the available specialist set changes across stages, preserve the required-agent coverage of previously solved task cohorts while adapting to new tasks and specialists, without increasing unnecessary delegation or end-to-end execution cost.
+
+This boundary has three necessary properties:
+
+1. **Set-valued:** a task may require several specialists; choosing one model ID (CARvE) is not enough.
+2. **Graph-structured:** invocation order, dependencies, parallelism, and aggregation matter; selection precision alone does not ensure success (MAS-Orchestra and EvoHarnessBench).
+3. **Continual under external pool changes:** the set of available specialists and the order in which it changes are part of the environment; task-difficulty curriculum alone (EvoMAS) is not equivalent.
+
+The primary metrics must be separated: old-cohort backward transfer, new-cohort forward transfer, required-agent recall, required-agent precision, exact required-set coverage, invocation/adherence, end-to-end verified success, and delegation cost/latency. Aggregate pass rate alone is insufficient.
+
+## 11. What remains unproven: the EC mechanism gap
+
+A candidate mechanism worth investigating—not yet an innovation claim—is **change-aware evolutionary search over task-conditioned delegation graphs with explicit per-cohort coverage preservation**. It would have to differ from simply adding an old-task score to EvoMAS, applying CARvE-style anchoring to IDs, or using a standard QD archive.
+
+Before any implementation, the following comparisons are mandatory:
+
+- EvoMAS-style graph evolution and its cross-stage stability control;
+- MAS-Orchestra-style holistic RL orchestration;
+- CARvE-style continual single-expert routing adapted as a multi-label baseline;
+- CPE-style preservation;
+- HarnessForge-style harness-policy evolution;
+- EVOTOOL-style blame-targeted module mutation;
+- AEL-style bandit policy selection;
+- standard graph GP/EA, NSGA-II/III, MAP-Elites/QD, and a simple local-search baseline.
+
+The mechanism must specify what is uniquely evolved, what is protected, how new specialist IDs enter the genotype, how old cohorts are evaluated, and why the operator/selection rule should beat the above controls at matched evaluation and inference budgets. If a standard graph EA with per-cohort constraints or a QD archive achieves the same result, the proposed EC novelty is not established.
+
+## 12. Project-objective compatibility gate
+
+This target-domain problem does **not** by itself satisfy the repository's original H1/H2/H3 objective. The project charter requires: (H1) Agent-assisted discovery of an EC control mechanism on a source-domain optimizer; (H2) transfer of that high-level control mechanism from MetaBox to an independent Agent-evolution target; and (H3) only conditionally, additional bidirectional feedback. No valid source-to-target transfer object has yet been established. A target-domain graph-evolution paper alone would therefore require an explicit project-scope decision and must not be silently presented as proof of the original two-way-empowerment hypothesis.
+
+## 13. Decision after Round 2
+
+**Decision: KEEP_PAUSE; LEAD_NARROWED; EC_METHOD_GAP_UNRESOLVED.** The audit has found a narrower and better-supported target-domain problem, but the method gap is not yet admitted. New work increases the overlap burden: EvoMAS covers graph evolution, role specialization, dynamic operators, and curriculum retention; CARvE covers continual routing over an expanding expert label space; MAS-Orchestra covers holistic multi-agent graph orchestration; MASQD covers QD archives of multi-agent teams; CPE covers capability preservation; HarnessForge covers joint harness-policy evolution.
+
+Next action: complete the mechanism matrix against these exact methods and classical graph GP/QD/continual routing. Decide whether a distinct EC mechanism remains. No Phase-1A-19, no AES extension, and no experiment before a separate explicit scope/budget authorization.
+
+### Hard limits remain
+
+- 0 live LLM API requests.
+- 0 MetaBox performance experiments.
+- 0 AES scientific performance runs.
+- 0 GPU hours.
+- No held-out/test access.
+- No new algorithm implementation or Phase-1A-19 candidate-generation handoff.
+- Do not modify openissue, EvoPareto-Agent, or any other repository.
