@@ -50,3 +50,8 @@ A follow-up audit has narrowed the target-domain problem to continual, set-value
 ## Addendum — 2026-11-02 Round 3
 
 Multi-label continual learning already covers the selection-side problem of expanding label sets and label dependencies. The remaining possible target-domain gap is execution-graph adaptation, actual invocation, information handoff and adherence under changing external specialist pools. This is not yet an EC method contribution; the Phase-1A-18 pause remains.
+
+
+## Addendum — 2026-11-02 Round 4
+
+Recent work MESH-Harness, EvoRouter, RSI-Router, SkillOrchestra, CollabFlow, Procedural Graphs, RRSI and branch-mixture harness search substantially increases the overlap burden. The only remaining candidate hypothesis is that global-average module retention/aggregate cross-stage fitness can suppress subgraphs essential to a minority of old task cohorts during external specialist-pool expansion. This is not a novelty claim and may be reproduced by standard QD/GP or constrained selection. Phase-1A-18 remains paused.
