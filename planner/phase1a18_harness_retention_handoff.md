@@ -75,3 +75,16 @@ The original project is not merely “apply an EA to an Agent.” H1 requires Ag
 Multi-label continual learning already covers expanding specialist-label sets and label-dependency graphs (including Du et al., Pattern Recognition 2026, DOI 10.1016/j.patcog.2026.113657; publisher full text not accessible in the audit) and hierarchical label expansion (Lee et al., ICCV 2023). Do not claim novelty from multi-label selection alone.
 
 The remaining possible gap is continual execution-graph adaptation under external agent-pool changes: actual invocation, dependency order, information handoff, adherence and end-task outcome. These must be distinguished from the predicted specialist set. Compare against CARvE/MLCIL on selection and EvoMAS/MAS-Orchestra on orchestration. No method claim or experiment is authorized.
+
+
+## Round-4 additions
+
+Mandatory new controls:
+- MESH-Harness: global mean reward retention/eviction for fixed-slot module pools; fixed execution model/tool set.
+- EvoRouter: joint MAS configuration via insight distillation, OPD and RL; released evaluation code pins five worker IDs.
+- RSI-Router: subtask-level model assignment and model-specific skills with Pareto router archive; reported fixed model pair.
+- SkillOrchestra: skill handbook, skill-specific agent profiles and sequential mode/agent routing; supports pool config but paper evaluations use fixed pools per setting.
+- CollabFlow: learned collaboration graph, evidence-conditioned communication and reward-proportional team distribution.
+- Procedural Graphs, RRSI, and Mixture of Self-Improving Branches.
+
+Candidate hypothesis only: global-average module retention may suppress rare cohort-essential delegation subgraphs during external pool expansion. This must be tested against MESH-Harness, EvoMAS, CPE, CollabFlow, standard constrained graph GP/EA, and MAP-Elites/QD. Do not call it novel or implement before the mechanism comparison is complete.
