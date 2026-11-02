@@ -40,3 +40,18 @@ This is a pause of the current route, not a claim that the broader scientific ob
 - Evo-Bench, arXiv:2608.09096: https://arxiv.org/abs/2608.09096
 - Rethinking the Evaluation of Harness Evolution for Agents, arXiv:2607.12227: https://arxiv.org/abs/2607.12227
 - Code Evolution for Control, arXiv:2601.06845: https://arxiv.org/abs/2601.06845
+
+
+## Addendum — 2026-11-02: new source-grounded lead does not reopen the route
+
+A follow-up audit has narrowed the target-domain problem to continual, set-valued, graph-structured delegation under an externally expanding specialist-agent pool. New direct competitors include EvoMAS, MAS-Orchestra, and CARvE, alongside MASQD, CPE, HarnessForge, EVOTOOL and AEL. This is a more precise problem boundary, but not yet a distinct EC mechanism. The original H1/H2 transfer requirement from MetaBox to AES also remains unproven. Therefore the Phase-1A-18 pause remains in force; no Phase-1A-19, environment extension, or experiment is authorized.
+
+
+## Addendum — 2026-11-02 Round 3
+
+Multi-label continual learning already covers the selection-side problem of expanding label sets and label dependencies. The remaining possible target-domain gap is execution-graph adaptation, actual invocation, information handoff and adherence under changing external specialist pools. This is not yet an EC method contribution; the Phase-1A-18 pause remains.
+
+
+## Addendum — 2026-11-02 Round 4
+
+Recent work MESH-Harness, EvoRouter, RSI-Router, SkillOrchestra, CollabFlow, Procedural Graphs, RRSI and branch-mixture harness search substantially increases the overlap burden. The only remaining candidate hypothesis is that global-average module retention/aggregate cross-stage fitness can suppress subgraphs essential to a minority of old task cohorts during external specialist-pool expansion. This is not a novelty claim and may be reproduced by standard QD/GP or constrained selection. Phase-1A-18 remains paused.

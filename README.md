@@ -13,7 +13,7 @@
 - agentfotagent 必须拥有自己的 Agent Evolution Sandbox（AES）目标域环境、基因型/表型运行时、评价器、任务划分、实验协议和结果记录。
 - MetaBox-v2 只作为数值优化源域的标准化基础设施，不是论文贡献。
 - NeuroEvoScientist、EvoPareto-Agent 是独立项目，仅可只读参考，不作为本项目的实验环境、代码依赖或结果来源。
-- 当前先搭建环境骨架并通过工程门禁；mock 测试不算 Agent 能力实验，未授权前不调用真实 API。
+- AES 工程骨架已通过 Phase-0 R4 engineering gate，但尚无 Agent 能力或科学有效性结论；历史 mock pilot 已饱和，不能作为科学证据。当前方法发现路线处于暂停状态，只有在出现可复现的具体失败模式且通过机制级新颖性审查后，才考虑重新开放实验。
 
 ## 维护入口
 - [项目章程](docs/PROJECT_CHARTER.md)
@@ -26,4 +26,4 @@
 - [当前计划](planner/latest_plan.md)
 - [机器可读状态](status.json)
 
-当前阶段为 P0-R3：建立本仓库自有的 Agent Evolution Sandbox（AES）实验环境。LAOS 的官方摘要已核验但正文/代码仍未取得；LMCOEA 的论文方法片段与链接代码已静态审查但未复现。迁移对象仍未定义；当前先实现可审计的环境骨架，不启动科学实验。当前仓库尚无研究算法实现；外部项目报告不等同于本仓库独立复现。
+当前研究状态（2026-11-02）：Phase-1A-18 暂停决定继续有效。研究问题已进一步收窄为“外部专家 Agent 集合扩张下的持续委派执行图的适应、调用与遵循”。EvoHarnessBench 给出旧任务委派漂移证据；但 EvoMAS、MAS-Orchestra、CARvE、MESH-Harness、EvoRouter、RSI-Router、SkillOrchestra、CollabFlow、多标签持续学习、MASQD、CPE、HarnessForge、EVOTOOL、AEL、RRSI 等工作已覆盖大量相邻机制。当前仅有“少数旧任务群体必需的委派子图可能被全局平均收益淘汰”的待证伪假设，尚未确认独特的 EC 更新/变异/选择机制，原始 H1/H2（MetaBox 源域到 AES 目标域的 Agent 辅助 EC 控制迁移）也尚未成立。继续做机制级文献/源码审计，不创建 Phase-1A-19，不扩展 AES，不启动 API、MetaBox/AES 科学实验、GPU 或 held-out 测试。详见 [持续多 Agent 委派审计](docs/PHASE1A18_HARNESS_EXPANSION_RETENTION_AUDIT.md)、[EVOTOOL 次要线索](docs/PHASE1A18_EVOTOOL_BLAME_ACTIONABILITY_AUDIT.md)、[当前计划](planner/latest_plan.md) 与 [机器可读状态](status.json)。
